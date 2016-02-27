@@ -1,0 +1,134 @@
+<?xml version="1.0" ?>
+<map name="USA" image="">
+  <cities>
+    <city name="Seattle" region="Region 1" />
+    <city name="Billings" region="Region 1" />
+    <city name="Portland" region="Region 1" />
+    <city name="Boise" region="Region 1" />
+    <city name="Cheyenne" region="Region 1" />
+    <city name="Denver" region="Region 1" />
+    <city name="Omaha" region="Region 1" />
+    <city name="San Francisco" region="Region 2" />
+    <city name="Salt Lake City" region="Region 2" />
+    <city name="Las Vegas" region="Region 2" />
+    <city name="Los Angeles" region="Region 2" />
+    <city name="San Diego" region="Region 2" />
+    <city name="Phoenix" region="Region 2" />
+    <city name="Santa Fe" region="Region 2" />
+    <city name="Fargo" region="Region 3" />
+    <city name="Duluth" region="Region 3" />
+    <city name="Minneapolis" region="Region 3" />
+    <city name="Chicago" region="Region 3" />
+    <city name="St. Louis" region="Region 3" />
+    <city name="Cincinnati" region="Region 3" />
+    <city name="Knoxville" region="Region 3" />
+    <city name="Kansas City" region="Region 4" />
+    <city name="Oklahoma City" region="Region 4" />
+    <city name="Dallas" region="Region 4" />
+    <city name="Houston" region="Region 4" />
+    <city name="New Orleans" region="Region 4" />
+    <city name="Memphis" region="Region 4" />
+    <city name="Birmingham" region="Region 4" />
+    <city name="Norfolk" region="Region 5" />
+    <city name="Raleigh" region="Region 5" />
+    <city name="Savannah" region="Region 5" />
+    <city name="Atlanta" region="Region 5" />
+    <city name="Jacksonville" region="Region 5" />
+    <city name="Tampa" region="Region 5" />
+    <city name="Miami" region="Region 5" />
+    <city name="Detroit" region="Region 6" />
+    <city name="Buffalo" region="Region 6" />
+    <city name="Boston" region="Region 6" />
+    <city name="New York" region="Region 6" />
+    <city name="Pittsbugh" region="Region 6" />
+    <city name="Philadelphia" region="Region 6" />
+    <city name="Washington D.C." region="Region 6" />
+  </cities>
+  <connections>
+    <connection first="Seattle" second="Billings" cost="9" />
+    <connection first="Seattle" second="Portland" cost="3" />
+    <connection first="Seattle" second="Boise" cost="12" />
+    <connection first="Billings" second="Boise" cost="12" />
+    <connection first="Billings" second="Cheyenne" cost="9" />
+    <connection first="Billings" second="Fargo" cost="17" />
+    <connection first="Billings" second="Minneapolis" cost="18" />
+    <connection first="Portland" second="Boise" cost="13" />
+    <connection first="Portland" second="San Francisco" cost="24" />
+    <connection first="Boise" second="Cheyenne" cost="24" />
+    <connection first="Boise" second="San Francisco" cost="23" />
+    <connection first="Boise" second="Salt Lake City" cost="8" />
+    <connection first="Cheyenne" second="Denver" cost="0" />
+    <connection first="Cheyenne" second="Omaha" cost="14" />
+    <connection first="Cheyenne" second="Minneapolis" cost="18" />
+    <connection first="Denver" second="Salt Lake City" cost="21" />
+    <connection first="Denver" second="Kansas City" cost="16" />
+    <connection first="Denver" second="Santa Fe" cost="13" />
+    <connection first="Omaha" second="Minneapolis" cost="8" />
+    <connection first="Omaha" second="Chicago" cost="13" />
+    <connection first="Omaha" second="Kansas City" cost="5" />
+    <connection first="San Francisco" second="Salt Lake City" cost="27" />
+    <connection first="San Francisco" second="Las Vegas" cost="14" />
+    <connection first="San Francisco" second="Los Angeles" cost="9" />
+    <connection first="Salt Lake City" second="Las Vegas" cost="18" />
+    <connection first="Salt Lake City" second="Santa Fe" cost="28" />
+    <connection first="Las Vegas" second="Los Angeles" cost="9" />
+    <connection first="Las Vegas" second="San Diego" cost="9" />
+    <connection first="Las Vegas" second="Phoenix" cost="15" />
+    <connection first="Las Vegas" second="Santa Fe" cost="27" />
+    <connection first="Los Angeles" second="San Diego" cost="3" />
+    <connection first="San Diego" second="Phoenix" cost="14" />
+    <connection first="Phoenix" second="Santa Fe" cost="18" />
+    <connection first="Santa Fe" second="Kansas City" cost="16" />
+    <connection first="Santa Fe" second="Oklahoma City" cost="15" />
+    <connection first="Santa Fe" second="Dallas" cost="16" />
+    <connection first="Santa Fe" second="Houston" cost="21" />
+    <connection first="Fargo" second="Duluth" cost="6" />
+    <connection first="Fargo" second="Minneapolis" cost="6" />
+    <connection first="Duluth" second="Minneapolis" cost="5" />
+    <connection first="Duluth" second="Chicago" cost="12" />
+    <connection first="Duluth" second="Detroit" cost="15" />
+    <connection first="Minneapolis" second="Chicago" cost="8" />
+    <connection first="Chicago" second="Detroit" cost="7" />
+    <connection first="Chicago" second="Cincinnati" cost="7" />
+    <connection first="Chicago" second="St. Louis" cost="10" />
+    <connection first="St. Louis" second="Kansas City" cost="6" />
+    <connection first="St. Louis" second="Memphis" cost="7" />
+    <connection first="St. Louis" second="Atlanta" cost="12" />
+    <connection first="St. Louis" second="Cincinnati" cost="12" />
+    <connection first="Cincinnati" second="Detroit" cost="4" />
+    <connection first="Cincinnati" second="Pittsbugh" cost="7" />
+    <connection first="Cincinnati" second="Raleigh" cost="15" />
+    <connection first="Cincinnati" second="Knoxville" cost="6" />
+    <connection first="Knoxville" second="Atlanta" cost="5" />
+    <connection first="Kansas City" second="Oklahoma City" cost="8" />
+    <connection first="Kansas City" second="Memphis" cost="12" />
+    <connection first="Oklahoma City" second="Dallas" cost="3" />
+    <connection first="Oklahoma City" second="Memphis" cost="14" />
+    <connection first="Memphis" second="Dallas" cost="12" />
+    <connection first="Memphis" second="New Orleans" cost="7" />
+    <connection first="Memphis" second="Birmingham" cost="6" />
+    <connection first="Dallas" second="Houston" cost="5" />
+    <connection first="Dallas" second="New Orleans" cost="12" />
+    <connection first="Houston" second="New Orleans" cost="8" />
+    <connection first="New Orleans" second="Birmingham" cost="11" />
+    <connection first="New Orleans" second="Jacksonville" cost="16" />
+    <connection first="Birmingham" second="Atlanta" cost="3" />
+    <connection first="Birmingham" second="Jacksonville" cost="9" />
+    <connection first="Atlanta" second="Savannah" cost="7" />
+    <connection first="Atlanta" second="Raleigh" cost="7" />
+    <connection first="Savannah" second="Raleigh" cost="7" />
+    <connection first="Savannah" second="Jacksonville" cost="0" />
+    <connection first="Jacksonville" second="Tampa" cost="4" />
+    <connection first="Raleigh" second="Pittsbugh" cost="7" />
+    <connection first="Raleigh" second="Norfolk" cost="3" />
+    <connection first="Norfolk" second="Washington D.C." cost="5" />
+    <connection first="Detroit" second="Buffalo" cost="7" />
+    <connection first="Detroit" second="Pittsbugh" cost="6" />
+    <connection first="Buffalo" second="Pittsbugh" cost="7" />
+    <connection first="Buffalo" second="New York" cost="8" />
+    <connection first="Pittsbugh" second="Washington D.C." cost="6" />
+    <connection first="Washington D.C." second="Philadelphia" cost="3" />
+    <connection first="Washington D.C." second="New York" cost="0" />
+    <connection first="New York" second="Boston" cost="3" />
+  </connections>
+</map>
