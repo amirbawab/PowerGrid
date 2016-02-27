@@ -1,7 +1,7 @@
-PowerGrid Game Implementation
-=============================
+# PowerGrid Game Implementation
 
 To use the project:
+
 1. Install Visual Studio 2015
 2. Download Qt (32 bit - latest version) --- [This is the link to the RC version](http://download.qt.io/development_releases/qt/5.6/5.6.0-rc/qt-opensource-windows-x86-msvc2015-5.6.0-rc.exe)
 3. Install Qt into the default location
