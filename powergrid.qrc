@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/PowerGrid">
+        <file>Resources/bg.jpg</file>
+        <file>Resources/logo.png</file>
+        <file>Resources/menuBg.png</file>
+        <file>Resources/stylesheet.qss</file>
+        <file>Resources/buttons/genericBg.jpg</file>
+        <file>Resources/fonts/Hemmet.ttf</file>
+        <file>Resources/map/usa_map_prev.jpg</file>
+        <file>Resources/buttons/left_arrow.png</file>
+        <file>Resources/buttons/right_arrow.png</file>
+    </qresource>
+</RCC>

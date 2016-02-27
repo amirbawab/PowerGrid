@@ -1,0 +1,134 @@
+/*******************
+ *
+ *		GLOBAL
+ *
+ *******************/
+
+QLabel#global_h2 {
+	color: #fff;
+	font-family: 'Hemmet Personal Use Only';
+	font-size: 60px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#global_h2_button {
+	color: #fff;
+	font-family: 'Hemmet Personal Use Only';
+	font-size: 60px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#global_h2_button:pressed {
+	color: #000;
+}
+
+/*******************
+ *
+ *		TEMPLATE
+ *
+ *******************/
+
+/**
+ * Template logo widget
+ **/
+QWidget#templateLogoWidget {
+	border-image: url(:/PowerGrid/Resources/bg.jpg) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+}
+
+/**
+ * Logo for the template
+ **/
+QLabel#templateLogo {
+	qproperty-alignment: 'AlignTop | AlignCenter';
+}
+
+/************************
+ *
+ *		WELCOME PAGE
+ *
+ ************************/
+
+QWidget#welcomeMenuWidget {
+	background: url(:/PowerGrid/Resources/menuBg.png) no-repeat center center;
+	min-width: 547px;
+	min-height: 405px;
+}
+
+/****************************
+ *
+ *		WELCOME PAGE BUTTONS
+ *
+ ****************************/
+
+QPushButton#templateLogoGenericButton {
+	color: #fff;
+	font-family: 'Hemmet Personal Use Only';
+	font-size: 60px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#templateLogoGenericButton:pressed {
+	color: #000;
+}
+
+/****************************
+ *
+ *		TEMPLATE BUTTONS
+ *
+ ****************************/
+QPushButton#templateGenericButton {
+	background: url(:/PowerGrid/Resources/buttons/genericBg.jpg) no-repeat;
+	min-width: 127px;
+	min-height: 93px;
+	color: #fff;
+	font-family: 'Hemmet Personal Use Only';
+	font-size: 40px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#templateGenericButton:pressed {
+	color: #000;
+}
+
+/****************************
+ *
+ *		ARROWS
+ *
+ ****************************/
+
+QPushButton#right_arrow {
+	background: url(:/PowerGrid/Resources/buttons/right_arrow.png) no-repeat;
+	min-width: 32px;
+	min-height: 63px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#left_arrow {
+	background: url(:/PowerGrid/Resources/buttons/left_arrow.png) no-repeat;
+	min-width: 32px;
+	min-height: 63px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+/*******************
+ *
+ *		LABELS
+ *
+ *******************/
+ QLabel#num_label_h4_bg {
+	background: url(:/PowerGrid/Resources/buttons/genericBg.jpg) no-repeat;
+	min-width: 127px;
+	min-height: 93px;
+	color: #fff;
+	font-size: 40px;
+	border-style: outset;
+	border-width: 0px;
+	qproperty-alignment: 'AlignCenter';
+ }
