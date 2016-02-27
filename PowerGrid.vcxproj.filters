@@ -229,6 +229,7 @@
     <None Include="Resources\stylesheet.qss">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\fonts\Hemmet.ttf">
