@@ -3,7 +3,7 @@
 
 # User-specific files
 *.suo
-*.user
+#*.user
 *.userosscache
 *.sln.docstates
 
@@ -21,6 +21,9 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+
+# Qt generated files
+GeneratedFiles
 
 # Visual Studio 2015 cache/options directory
 .vs/
