@@ -6,7 +6,7 @@
 class House
 {
 private:
-    int price;
+    int price = 0;
     std::shared_ptr<City> city;
 
 public:
