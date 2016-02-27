@@ -28,11 +28,6 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{c1c622c0-a2a4-4f20-8471-7541592dc49a}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
     <Filter Include="Source Files\include">
       <UniqueIdentifier>{c753441c-ec08-4fe8-aa2f-2b18fece6830}</UniqueIdentifier>
     </Filter>
@@ -86,29 +81,11 @@
     <ClCompile Include="MainFrame.cpp">
       <Filter>Source Files\application</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_WelcomeMenuWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_WelcomeMenuWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="MapWidget.cpp">
       <Filter>Source Files\pages\map</Filter>
     </ClCompile>
     <ClCompile Include="TemplateNextBackWidget.cpp">
       <Filter>Source Files\include\templates\nextBackTemplate</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MainFrame.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MainFrame.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MapWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MapWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="PlayerConfigWidget.cpp">
       <Filter>Source Files\pages\playerConfig</Filter>
@@ -139,6 +116,15 @@
     </ClCompile>
     <ClCompile Include="Overview.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_WelcomeMenuWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MapWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainFrame.cpp">
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
