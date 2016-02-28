@@ -32,7 +32,8 @@ public:
     int GetPrice() const { return price; }
     int GetNumberOfResources() const { return numberOfResources; }
     int GetPower() const { return power; }
-    std::vector<Resource> GetResources() const { return resources; }
+    void AddResource(Resource resource) { resources.push_back(resource); }
+    std::vector<Resource> const& GetResources() const { return resources; }
 };
 
 class StepCard : public Card

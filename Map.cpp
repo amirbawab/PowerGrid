@@ -13,7 +13,7 @@ using std::unique_ptr;
 using std::make_shared;
 using std::make_unique;
 
-bool Map::LoadFile(string fileName)
+bool Map::LoadFile()
 {
     pugi::xml_document mapXml;
     auto result = mapXml.load_file(fileName.c_str());

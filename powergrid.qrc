@@ -10,4 +10,7 @@
         <file>Resources/buttons/left_arrow.png</file>
         <file>Resources/buttons/right_arrow.png</file>
     </qresource>
+    <qresource prefix="/test">
+        <file>Resources/config/Config.xml</file>
+    </qresource>
 </RCC>

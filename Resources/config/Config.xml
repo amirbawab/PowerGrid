@@ -12,10 +12,10 @@
   </maps>
 
   <market description="Resrouce market">
-    <resource name="coal" total="24" place="24"/>
-    <resource name="oil" total ="24" place="18"/>
-    <resource name="garbage" total="24" place="6"/>
-    <resource name="uranium" total="12" place="2"/>
+    <resource name="coal" total="24" initial="24"/>
+    <resource name="oil" total ="24" initial="18"/>
+    <resource name="garbage" total="24" initial="6"/>
+    <resource name="uranium" total="12" initial="2"/>
   </market>
 
   <cards description="Deck of cards including standard and step cards">

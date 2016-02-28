@@ -18,6 +18,7 @@ public:
         int GetStep() const { return step; }
         std::string GetTitle() const { return title; }
         void AddInfo(std::string infoString) { info.push_back(infoString); }
+        std::vector<std::string> const& GetInfo() const { return info; }
     };
 
     Overview();
