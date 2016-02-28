@@ -4,25 +4,27 @@
 #include <string>
 #include <vector>
 
-class OverviewStep;
-
 class Overview
 {
-private:
-
-    std::vector<std::shared_ptr<OverviewStep>> steps;
-
 public:
     class OverviewStep
     {
-    public:
+    private:
         int step;
         std::string title;
         std::vector<std::string> info;
-        OverviewStep(int step, std::string title) : step { step}, title {title} {}
+    public:
+        OverviewStep(int step, std::string title) : step{ step }, title{ title } {}
+        int GetStep() const { return step; }
+        std::string GetTitle() const { return title; }
         void AddInfo(std::string infoString) { info.push_back(infoString); }
     };
 
     Overview();
     ~Overview();
+
+    std::vector<std::shared_ptr<OverviewStep>> const& GetSteps() const { return steps; }
+
+private:
+    std::vector<std::shared_ptr<OverviewStep>> steps;
 };

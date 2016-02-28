@@ -17,8 +17,7 @@ enum Resource
 class Config
 {
 private:
-    Config* instance;
-    Config();
+    Config() {}
 
     std::vector<std::shared_ptr<Map>> maps;
     std::map<Resource, int> totalResource;
@@ -26,15 +25,14 @@ private:
     std::vector<std::shared_ptr<Card>> cards;
 
 public:
-    Config* GetInstance()
+    static Config& GetInstance()
     {
-        if (!instance)
-            instance = new Config();
+        static Config instance;
         return instance;
     }
-    ~Config()
-    {
-        delete instance;
-    }
+    Config(const Config&) = delete;
+    void operator=(const Config&) = delete;
+
+    ~Config() { }
 };
 
