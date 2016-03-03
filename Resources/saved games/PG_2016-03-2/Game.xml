@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<game>
+ 
+	<map file="FULL_PATH/USAMap.xml" description="USA map"/>
+
+	<LTR_order>
+		<player name=""/>
+		<player name=""/>
+	</LTR_order>
+
+	<market description="Resrouce market">
+	  	<resource name="coal" amount="3"/>
+	  	<resource name="oil" amount="4"/>
+	  	<resource name="garbage" amount="6"/>
+	  	<resource name="uranium" amount="2"/>
+	</market>
+
+	<ordered_cards description="Deck of card, order is important">
+		<standardCard price="3" image="" resources="3" power="4">
+			<resource name="coal"/>
+			<resource name="oil"/>
+		</standardCard>
+		<standardCard price="13" image="" resources="0" power="1"></standardCard>
+		<stepCard step="2" image=""/>
+		<stepCard step="3" image=""/>
+	</ordered_cards>
+
+	<overview description="Instruction card">
+	    <step number="1" title="Determine Turn Order"></step>
+	    <step number="2" title="Buy Power Plant">
+	      <info text="The first player begins"/>
+	      <info text="Per round, each may buy only one power plant"/>
+	    </step>
+	    <step number="3" title="Buy Raw Materials">
+	      <info text="The last player begins"/>
+	      <info text="Maximum double input per power plant"/>
+	    </step>
+	    <step number="4" title="Building">
+	      <info text="The last player begins"/>
+	    </step>
+	    <step number="5" title="Bureaucracy">
+	      <info text="Get money"/>
+	      <info text="In phase 1 and 2: Place highest power plant under the stack"/>
+	      <info text="In phase 3: Remove lowest power plant from the game"/>
+	      <info text="Restock raw materials"/>
+	    </step>
+	</overview>
+
+	<colors description="House colors">
+	    <color name="black" image="FULL_PATH"/>
+	    <color name="purple" image="FULL_PATH"/>
+	    <color name="green" image="FULL_PATH"/>
+	    <color name="blue" image="FULL_PATH"/>
+	    <color name="yellow" image="FULL_PATH"/>
+	    <color name="red" image="FULL_PATH"/>
+	</colors>
+</game>
