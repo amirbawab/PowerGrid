@@ -159,6 +159,9 @@
     <ClCompile Include="PowerPlant.cpp">
       <Filter>Source Files\powerplant</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceMarketLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -227,6 +230,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceMarket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMarketLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

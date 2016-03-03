@@ -72,6 +72,7 @@
     <ClCompile Include="PowerPlant.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="ResourceMarket.cpp" />
+    <ClCompile Include="ResourceMarketLevel.cpp" />
     <ClCompile Include="TemplateLogoWidget.cpp" />
     <ClCompile Include="TemplateNextBackWidget.cpp" />
     <ClCompile Include="WelcomeMenuWidget.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="PowerPlant.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="ResourceMarket.h" />
+    <ClInclude Include="ResourceMarketLevel.h" />
     <ClInclude Include="WelcomeWidget.h" />
     <CustomBuild Include="MainFrame.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing MainFrame.h...</Message>
