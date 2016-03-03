@@ -61,6 +61,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="House.cpp" />
+    <ClCompile Include="HouseColor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -82,6 +83,7 @@
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="House.h" />
+    <ClInclude Include="HouseColor.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Overview.h" />
     <ClInclude Include="Player.h" />

@@ -20,6 +20,7 @@ public:
 
     int GetHousePrice() const;
     bool AddHouse();
+	bool IsFull();
 
     bool operator==(const City& other) const { return this->name == other.name; }
     bool operator==(const std::string& cityName) const { return this->name == cityName; }
@@ -32,6 +33,7 @@ private:
     int secondHousePrice = 15;
     int thirdHousePrice = 20;
     int houses = 0;
+	static const int MAX_VALUE = 3;
     std::string name = "";
     std::shared_ptr<Region> region;
 };

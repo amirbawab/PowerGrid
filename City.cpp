@@ -33,9 +33,13 @@ int City::GetHousePrice() const
 
 bool City::AddHouse()
 {
-    if (houses == 3)
+    if (houses == MAX_VALUE)
         return false;
 
     houses++;
     return true;
+}
+
+bool City::IsFull() {
+	return houses == MAX_VALUE;
 }
