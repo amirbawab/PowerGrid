@@ -1,10 +1,11 @@
 #include "ResourceMarketLevel.h"
 
-ResourceMarketLevel::ResourceMarketLevel(int oilCapacity, int coalCapacity, int uraniumCapacity, int garbageCapacity) : capacity(MAX_VALUE), counter(MAX_VALUE) {
-	capacity[ResourceMarket::Resouce::OIL] = oilCapacity;
-	capacity[ResourceMarket::Resouce::COAL] = coalCapacity;
-	capacity[ResourceMarket::Resouce::GARBAGE] = garbageCapacity;
-	capacity[ResourceMarket::Resouce::URANIUM] = uraniumCapacity;
+ResourceMarketLevel::ResourceMarketLevel(int coalCapacity, int oilCapacity, int garbageCapacity, int uraniumCapacity, int cost) : capacity(4), counter(4) {
+	capacity[Resource::OIL] = oilCapacity;
+	capacity[Resource::COAL] = coalCapacity;
+	capacity[Resource::GARBAGE] = garbageCapacity;
+	capacity[Resource::URANIUM] = uraniumCapacity;
+	this->cost = cost;
 };
 
 ResourceMarketLevel::~ResourceMarketLevel() {
@@ -12,7 +13,7 @@ ResourceMarketLevel::~ResourceMarketLevel() {
 }
 
 /// Add 1 to a specific resource
-bool ResourceMarketLevel::addResource(ResourceMarket::Resouce resource) {
+bool ResourceMarketLevel::addResource(Resource resource) {
 	if (counter[resource] == capacity[resource]) return false;
 	++counter[resource];
 	return true;

@@ -92,6 +92,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PowerPlant.h" />
     <ClInclude Include="Region.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMarket.h" />
     <ClInclude Include="ResourceMarketLevel.h" />
     <ClInclude Include="WelcomeWidget.h" />

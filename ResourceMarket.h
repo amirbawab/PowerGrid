@@ -1,15 +1,16 @@
 #pragma once
+
+#include "ResourceMarketLevel.h"
+#include <vector>
+#include <memory>
+
 class ResourceMarket {
+private:
+	std::vector<std::shared_ptr<ResourceMarketLevel>> levels; 
 public:
-	enum Resouce {
-		COAL,
-		OIL,
-		URANIUM,
-		GARBAGE
-	};
 	ResourceMarket();
 	~ResourceMarket();
-private:
+	void addResource(Resource resource, int amount);
 
 };
 
