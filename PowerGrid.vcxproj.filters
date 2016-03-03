@@ -28,35 +28,59 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Source Files\include">
-      <UniqueIdentifier>{c753441c-ec08-4fe8-aa2f-2b18fece6830}</UniqueIdentifier>
+    <Filter Include="Source Files\gui">
+      <UniqueIdentifier>{5afa9186-3e98-4522-807d-cc2baf2a2958}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\include\templates">
-      <UniqueIdentifier>{7a9bfa2e-b656-4780-b9a5-dcfe73bf5abf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\include\templates\logoTemplate">
-      <UniqueIdentifier>{3472ddd7-9aa5-4fe9-91cf-c55d04b89dd3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\pages">
-      <UniqueIdentifier>{8e576d2e-2d58-4145-8c53-8d0258c0c506}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\pages\welcome">
-      <UniqueIdentifier>{9bfb0180-6db8-4bcc-ae0a-fa5ce6508199}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\pages\welcome\components">
-      <UniqueIdentifier>{f512e360-69d6-4e68-9b53-b3b1c7deb0e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\application">
+    <Filter Include="Source Files\gui\application">
       <UniqueIdentifier>{1defa899-a47e-406f-b01b-84eda4076b30}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\pages\map">
-      <UniqueIdentifier>{36d0c132-43cb-44d8-9ad1-8314e787ab50}</UniqueIdentifier>
+    <Filter Include="Source Files\gui\include">
+      <UniqueIdentifier>{c753441c-ec08-4fe8-aa2f-2b18fece6830}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\include\templates\nextBackTemplate">
+    <Filter Include="Source Files\gui\include\templates">
+      <UniqueIdentifier>{7a9bfa2e-b656-4780-b9a5-dcfe73bf5abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\include\templates\logoTemplate">
+      <UniqueIdentifier>{3472ddd7-9aa5-4fe9-91cf-c55d04b89dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\include\templates\nextBackTemplate">
       <UniqueIdentifier>{be05e39d-a208-4375-ba49-3b2179b116e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\pages\playerConfig">
+    <Filter Include="Source Files\gui\pages">
+      <UniqueIdentifier>{8e576d2e-2d58-4145-8c53-8d0258c0c506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\welcome">
+      <UniqueIdentifier>{9bfb0180-6db8-4bcc-ae0a-fa5ce6508199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\welcome\components">
+      <UniqueIdentifier>{f512e360-69d6-4e68-9b53-b3b1c7deb0e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\map">
+      <UniqueIdentifier>{36d0c132-43cb-44d8-9ad1-8314e787ab50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\playerConfig">
       <UniqueIdentifier>{669af1f1-1dd4-465f-a19a-c34fe34fc63c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\market">
+      <UniqueIdentifier>{33a5fa5a-1ec2-438c-9654-23cece01c46a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\card">
+      <UniqueIdentifier>{99d1d4eb-2407-44d2-a6ca-f4a0f48c4483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\map">
+      <UniqueIdentifier>{2ae5c052-4c9f-4b23-8c02-e05897152296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\player">
+      <UniqueIdentifier>{0c9df0c7-f692-4a54-a40d-ab9fd55a45d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\house">
+      <UniqueIdentifier>{11177be3-7764-4092-9180-c902840d09e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\config">
+      <UniqueIdentifier>{03841122-a9ec-46a9-abfe-dc5dcdc457d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\powerplant">
+      <UniqueIdentifier>{b4068cb0-69e2-4b6c-aa4f-512d5adb8aa0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,55 +91,28 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="TemplateLogoWidget.cpp">
-      <Filter>Source Files\include\templates\logoTemplate</Filter>
+      <Filter>Source Files\gui\include\templates\logoTemplate</Filter>
     </ClCompile>
     <ClCompile Include="WelcomeWidget.cpp">
-      <Filter>Source Files\pages\welcome</Filter>
+      <Filter>Source Files\gui\pages\welcome</Filter>
     </ClCompile>
     <ClCompile Include="WelcomeMenuWidget.cpp">
-      <Filter>Source Files\pages\welcome\components</Filter>
+      <Filter>Source Files\gui\pages\welcome\components</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
-      <Filter>Source Files\application</Filter>
+      <Filter>Source Files\gui\application</Filter>
     </ClCompile>
     <ClCompile Include="MainFrame.cpp">
-      <Filter>Source Files\application</Filter>
+      <Filter>Source Files\gui\application</Filter>
     </ClCompile>
     <ClCompile Include="MapWidget.cpp">
-      <Filter>Source Files\pages\map</Filter>
+      <Filter>Source Files\gui\pages\map</Filter>
     </ClCompile>
     <ClCompile Include="TemplateNextBackWidget.cpp">
-      <Filter>Source Files\include\templates\nextBackTemplate</Filter>
+      <Filter>Source Files\gui\include\templates\nextBackTemplate</Filter>
     </ClCompile>
     <ClCompile Include="PlayerConfigWidget.cpp">
-      <Filter>Source Files\pages\playerConfig</Filter>
-    </ClCompile>
-    <ClCompile Include="City.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Connection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="House.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Region.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Card.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Config.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Overview.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\gui\pages\playerConfig</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_WelcomeMenuWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -126,8 +123,41 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_MainFrame.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceMarket.cpp">
+      <Filter>Source Files\market</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Source Files\card</Filter>
+    </ClCompile>
+    <ClCompile Include="Overview.cpp">
+      <Filter>Source Files\card</Filter>
+    </ClCompile>
+    <ClCompile Include="City.cpp">
+      <Filter>Source Files\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Connection.cpp">
+      <Filter>Source Files\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Region.cpp">
+      <Filter>Source Files\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\player</Filter>
+    </ClCompile>
+    <ClCompile Include="House.cpp">
+      <Filter>Source Files\house</Filter>
+    </ClCompile>
     <ClCompile Include="HouseColor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\house</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files\config</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerPlant.cpp">
+      <Filter>Source Files\powerplant</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +221,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HouseColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerPlant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMarket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
