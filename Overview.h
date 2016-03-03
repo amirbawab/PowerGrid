@@ -25,6 +25,7 @@ public:
     ~Overview();
 
     std::vector<std::shared_ptr<OverviewStep>> const& GetSteps() const { return steps; }
+	std::shared_ptr<OverviewStep> AddStep(int step, std::string title);
 
 private:
     std::vector<std::shared_ptr<OverviewStep>> steps;
