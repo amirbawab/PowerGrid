@@ -12,7 +12,7 @@ Player::Player()
 }
 
 Player::Player(string name, HouseColor color, int elektro) :
-    color {color}, name {name}, elektro {elektro}
+    color {color}, name {name}, elektro {elektro}, resources(4)
 { }
 
 Player::~Player()
@@ -55,4 +55,16 @@ void Player::DisplayStatus() const
     output += "\tNumber of houses: " + to_string(houses.size()) + "\n";
     output += separator;
     cout << output;
+}
+
+bool Player::AddResource(Resource resource) {
+	// TODO Check if resource can be added (twice the amount)
+	++resources[resource];
+	return true;
+}
+
+bool Player::AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant) {
+	if (powerPlants.size() == 3) return false;
+	powerPlants.push_back(powerPlant);
+	return true;
 }
