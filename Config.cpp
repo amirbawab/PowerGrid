@@ -101,7 +101,7 @@ bool Config::LoadCards(pugi::xml_document& xml)
         //TODO: also add the image path to the card
         string imageAttribute = standardCardNode.node().attribute("image").value();
 
-        auto standardCard = make_shared<StandardCard>(priceAttribute,
+        auto standardCard = make_shared<PowerPlantCard>(priceAttribute,
                                                       resourcesAttribute, powerAttribute);
 
         for (auto resourceNode : standardCardNode.node().children("resource"))

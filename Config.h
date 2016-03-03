@@ -1,19 +1,13 @@
 #pragma once
 
 #include "Map.h"
+#include "Card.h"
+#include "PowerPlantCard.h"
+#include "StepCard.h"
+#include "Resource.h"
 #include <memory>
 #include <vector>
 #include <pugixml.hpp>
-
-class Card;
-
-enum Resource
-{
-    COAL,
-    OIL,
-    GARBAGE,
-    URANIUM
-};
 
 enum IO
 {

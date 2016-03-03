@@ -3,6 +3,6 @@
 enum Resource {
 	COAL,
 	OIL,
-	URANIUM,
-	GARBAGE
+	GARBAGE,
+	URANIUM
 };

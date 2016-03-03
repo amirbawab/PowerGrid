@@ -79,8 +79,11 @@
     <Filter Include="Source Files\config">
       <UniqueIdentifier>{03841122-a9ec-46a9-abfe-dc5dcdc457d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\powerplant">
-      <UniqueIdentifier>{b4068cb0-69e2-4b6c-aa4f-512d5adb8aa0}</UniqueIdentifier>
+    <Filter Include="Source Files\card\summary">
+      <UniqueIdentifier>{9aa75745-b59d-4621-a5e1-3923dad265a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\card\powerplant">
+      <UniqueIdentifier>{a9c70eef-97c3-43db-b227-98cac71b63f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -126,12 +129,6 @@
     <ClCompile Include="ResourceMarket.cpp">
       <Filter>Source Files\market</Filter>
     </ClCompile>
-    <ClCompile Include="Card.cpp">
-      <Filter>Source Files\card</Filter>
-    </ClCompile>
-    <ClCompile Include="Overview.cpp">
-      <Filter>Source Files\card</Filter>
-    </ClCompile>
     <ClCompile Include="City.cpp">
       <Filter>Source Files\map</Filter>
     </ClCompile>
@@ -156,11 +153,20 @@
     <ClCompile Include="Config.cpp">
       <Filter>Source Files\config</Filter>
     </ClCompile>
-    <ClCompile Include="PowerPlant.cpp">
-      <Filter>Source Files\powerplant</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceMarketLevel.cpp">
       <Filter>Source Files\market</Filter>
+    </ClCompile>
+    <ClCompile Include="Overview.cpp">
+      <Filter>Source Files\card\summary</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Source Files\card\powerplant</Filter>
+    </ClCompile>
+    <ClCompile Include="StepCard.cpp">
+      <Filter>Source Files\card\powerplant</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerPlantCard.cpp">
+      <Filter>Source Files\card\powerplant</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,13 +232,16 @@
     <ClInclude Include="HouseColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PowerPlant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceMarket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceMarketLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StepCard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerPlantCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
