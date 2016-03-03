@@ -11,7 +11,7 @@ Player::Player()
 {
 }
 
-Player::Player(string name, string color, int elektro) :
+Player::Player(string name, HouseColor color, int elektro) :
     color {color}, name {name}, elektro {elektro}
 { }
 
@@ -25,7 +25,7 @@ bool Player::BuyHouse(House& house)
 
     if (elektro < housePrice)
     {
-        Error("Player " + name + " with color '" + color + "' doesn't have" +
+        Error("Player " + name + " with color '" + color.getName() + "' doesn't have" +
               " enough elektra to buy the house with price: " +
               to_string(housePrice) + "\n");
         return false;
@@ -44,7 +44,7 @@ void Player::DisplayStatus() const
     string output;
     string separator;
     string message = "Displaying status for Player '" + name +
-        "' with color '" + color + "':\n";
+        "' with color '" + color.getName() + "':\n";
 
     for (int i = 0; i < message.length(); i++)
         separator += "-";

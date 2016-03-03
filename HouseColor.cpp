@@ -8,13 +8,3 @@ HouseColor::HouseColor(string name, string image) {
 HouseColor::~HouseColor() {
 	// Nothing
 }
-
-/// Get image
-string HouseColor::getImage() {
-	return this->image;
-}
-
-/// Get name
-string HouseColor::getName() {
-	return this->name;
-}

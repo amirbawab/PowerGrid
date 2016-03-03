@@ -9,10 +9,10 @@ private:
 	string name;
 	string image;
 public:
-	HouseColor();
+	HouseColor() {};
 	HouseColor(string, string);
-	string getName();
-	string getImage();
+	string getName() const { return name; };
+	string getImage() const { return image; };
 	~HouseColor();
 };
 
