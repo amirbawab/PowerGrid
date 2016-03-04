@@ -13,6 +13,8 @@ private:
 	std::set<Resource> activeResources;
 	std::map<Resource, int> placedResources;
 
+	int GetTotalPlacedResources();
+
 public:
 	PowerPlantCard() {}
 	PowerPlantCard(int price, int power, int capacity) : price(price), power(power), capacity(capacity) {}
@@ -20,8 +22,8 @@ public:
 	
 	void AddActiveResource(Resource resource) { activeResources.insert(resource); }
 	void AddActiveResource(string resourceName) { AddActiveResource(GetResourceByName(resourceName)); }
-	void PlaceResource(Resource resource, int amount) { placedResources[resource] += amount; }
-	void PlaceResource(string resourceName, int amount) { PlaceResource(GetResourceByName(resourceName), amount); }
+	bool PlaceResource(Resource resource, int amount);
+	bool PlaceResource(string resourceName, int amount) { return PlaceResource(GetResourceByName(resourceName), amount); }
 
 	std::set<Resource> const& GetResources() const { return activeResources; }
 	std::map<Resource, int> const& GetPlacedResources() const { return placedResources; }

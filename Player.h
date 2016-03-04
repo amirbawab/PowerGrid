@@ -35,7 +35,6 @@ public:
 	bool AddPowerPlant(PowerPlantCard* powerPlant);
     bool BuyHouse(House& house);
     void DisplayStatus() const;
-	bool AddResource(Resource resource, int amount, PowerPlantCard* card);
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Player& player)

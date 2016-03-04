@@ -57,10 +57,6 @@ void Player::DisplayStatus() const
     cout << output;
 }
 
-bool Player::AddResource(Resource resource, int amount, PowerPlantCard* card) {
-	return true;
-}
-
 bool Player::AddPowerPlant(PowerPlantCard* powerPlant) {
 	if (powerPlants.size() == 3) return false;
 	powerPlants.push_back(powerPlant);
