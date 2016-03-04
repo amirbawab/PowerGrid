@@ -15,36 +15,15 @@
 	  	<resource name="uranium" amount="2"/>
 	</market>
 
-	<ordered_cards description="Deck of card, order is important">
-		<standardCard price="3" image="" resources="3" power="4">
+	<cardDeck description="Deck of card, order is important">
+		<powerPlantCard price="3" image="" resources="3" power="4">
 			<resource name="coal"/>
 			<resource name="oil"/>
-		</standardCard>
-		<standardCard price="13" image="" resources="0" power="1"></standardCard>
+		</powerPlantCard>
+		<powerPlantCard price="13" image="" resources="0" power="1"></powerPlantCard>
 		<stepCard step="2" image=""/>
 		<stepCard step="3" image=""/>
-	</ordered_cards>
-
-	<overview description="Instruction card">
-	    <step number="1" title="Determine Turn Order"></step>
-	    <step number="2" title="Buy Power Plant">
-	      <info text="The first player begins"/>
-	      <info text="Per round, each may buy only one power plant"/>
-	    </step>
-	    <step number="3" title="Buy Raw Materials">
-	      <info text="The last player begins"/>
-	      <info text="Maximum double input per power plant"/>
-	    </step>
-	    <step number="4" title="Building">
-	      <info text="The last player begins"/>
-	    </step>
-	    <step number="5" title="Bureaucracy">
-	      <info text="Get money"/>
-	      <info text="In phase 1 and 2: Place highest power plant under the stack"/>
-	      <info text="In phase 3: Remove lowest power plant from the game"/>
-	      <info text="Restock raw materials"/>
-	    </step>
-	</overview>
+	</cardDeck>
 
 	<colors description="House colors">
 	    <color name="black" image="FULL_PATH"/>

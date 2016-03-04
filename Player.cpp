@@ -11,7 +11,7 @@ Player::Player()
 {
 }
 
-Player::Player(string name, HouseColor color, int elektro) :
+Player::Player(string name, HouseColor* color, int elektro) :
     color {color}, name {name}, elektro {elektro}, resources(res::total)
 { }
 
@@ -25,7 +25,7 @@ bool Player::BuyHouse(House& house)
 
     if (elektro < housePrice)
     {
-        Error("Player " + name + " with color '" + color.getName() + "' doesn't have" +
+        Error("Player " + name + " with color '" + color->getName() + "' doesn't have" +
               " enough elektra to buy the house with price: " +
               to_string(housePrice) + "\n");
         return false;
@@ -44,7 +44,7 @@ void Player::DisplayStatus() const
     string output;
     string separator;
     string message = "Displaying status for Player '" + name +
-        "' with color '" + color.getName() + "':\n";
+        "' with color '" + color->getName() + "':\n";
 
     for (int i = 0; i < message.length(); i++)
         separator += "-";
@@ -96,7 +96,7 @@ bool Player::AddResource(Resource resource, int amount) {
 }
 
 /// Calculate the permutation of the power plant (twice capacity)
-void Player::CalculatePermutation(std::vector<std::vector<int>> &permutation, std::shared_ptr<PowerPlantCard> powerPlant, std::vector<int> &tmpVector, int total, int index) {
+void Player::CalculatePermutation(std::vector<std::vector<int>> &permutation, PowerPlantCard* powerPlant, std::vector<int> &tmpVector, int total, int index) {
 
 	// If total generated
 	if (total == powerPlant->GetCapcity() * 2) {
@@ -161,7 +161,7 @@ bool Player::CanAddResource(std::vector<std::vector<std::vector<int>>> &permutat
 	return false;
 }
 
-bool Player::AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant) {
+bool Player::AddPowerPlant(PowerPlantCard* powerPlant) {
 	if (powerPlants.size() == 3) return false;
 	powerPlants.push_back(powerPlant);
 	return true;

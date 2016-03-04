@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <players>
-	<player name="" color="" money="">
+	<player name="player1" color="blue" elektro="10">
 		<houses>
 			<house city="" price=""/>
 			<house city="" price=""/>

@@ -225,6 +225,9 @@
     <ClCompile Include="PowerPlantCard.cpp">
       <Filter>Source Files\card\powerplant</Filter>
     </ClCompile>
+    <ClCompile Include="GameStatus.cpp">
+      <Filter>Source Files\config</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -303,6 +306,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files\player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStatus.h">
+      <Filter>Header Files\config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

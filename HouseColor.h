@@ -4,6 +4,7 @@
 
 using std::string;
 
+
 class HouseColor {
 private:
 	string name;

@@ -9,6 +9,6 @@ private:
 public:
     Card();
     Card(std::string imagePath) : imagePath{ imagePath } {}
-    ~Card();
+    virtual ~Card();
 	std::string GetImagePath() const { return imagePath; }
 };

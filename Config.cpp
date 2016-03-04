@@ -207,7 +207,7 @@ bool Config::ReadFile(string filePath)
 
     if (result.status != pugi::status_ok)
     {
-        Error("Could not open file: '" + filePath + "'");
+        Error("Could not read XML content for configuration");
         Error("Reason: " + string(result.description()) + "\n");
         return false;
     }

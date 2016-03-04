@@ -13,28 +13,28 @@ private:
     std::string name;
     int elektro = 50;
     std::vector<std::shared_ptr<House>> houses;
-	std::vector<std::shared_ptr<PowerPlantCard>> powerPlants;
+	std::vector<PowerPlantCard*> powerPlants;
 	std::vector<int> resources;
-	HouseColor color;
+	HouseColor* color;
 	bool CanAddResource(std::vector<std::vector<std::vector<int>>> &permutationLists, std::vector<int> &tmpPermutation, int powerPlantIndex);
-	void CalculatePermutation(std::vector<std::vector<int>> &permutation, std::shared_ptr<PowerPlantCard> powerPlant, std::vector<int> &tmpVector, int total, int index);
+	void CalculatePermutation(std::vector<std::vector<int>> &permutation, PowerPlantCard* powerPlant, std::vector<int> &tmpVector, int total, int index);
 
 public:
     Player();
-    Player(std::string name, HouseColor color, int elektro);
+    Player(std::string name, HouseColor* color, int elektro);
     ~Player();
 
     std::string GetName() const { return name; }
     void SetName(std::string name) { this->name = name; }
 
-    HouseColor GetColor() const { return color; }
-    void SetColor(HouseColor color) { this->color = color; }
+    HouseColor* GetColor() const { return color; }
+    void SetColor(HouseColor* color) { this->color = color; }
 
 	std::vector<std::shared_ptr<House>> const& GetHouses() const { return houses; }
-	std::vector<std::shared_ptr<PowerPlantCard>> const& GetPowerPlants() const { return powerPlants; }
+	std::vector<PowerPlantCard*> const& GetPowerPlants() const { return powerPlants; }
 	int GetResources(Resource resource) const { return resources[resource]; }
 	
-	bool AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant);
+	bool AddPowerPlant(PowerPlantCard* powerPlant);
     bool BuyHouse(House& house);
     void DisplayStatus() const;
 	bool AddResource(Resource resource, int amount);
@@ -42,5 +42,5 @@ public:
 
 inline std::ostream& operator<<(std::ostream& stream, const Player& player)
 {
-    return stream << player.GetName() << "[" << player.GetColor().getName() << "]";
+    return stream << player.GetName() << "[" << player.GetColor()->getName() << "]";
 }

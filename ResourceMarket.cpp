@@ -1,4 +1,5 @@
 #include "ResourceMarket.h"
+#include "Helpers.h"
 
 ResourceMarket::ResourceMarket() : levels(12) {
 
@@ -24,4 +25,9 @@ void ResourceMarket::addResource(Resource resource, int amount) {
 		else
 			left++;
 	}
+}
+
+void ResourceMarket::AddResource(string resourceName, int amount)
+{
+    addResource(GetResourceByName(resourceName), amount);
 }
