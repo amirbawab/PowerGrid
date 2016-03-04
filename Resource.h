@@ -6,3 +6,7 @@ enum Resource {
 	GARBAGE,
 	URANIUM
 };
+
+namespace res {
+	const int total = 4;
+}

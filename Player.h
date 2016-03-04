@@ -16,6 +16,8 @@ private:
 	std::vector<std::shared_ptr<PowerPlantCard>> powerPlants;
 	std::vector<int> resources;
 	HouseColor color;
+	bool CanAddResource(std::vector<std::vector<std::vector<int>>> &permutationLists, std::vector<int> &tmpPermutation, int powerPlantIndex);
+	void CalculatePermutation(std::vector<std::vector<int>> &permutation, std::shared_ptr<PowerPlantCard> powerPlant, std::vector<int> &tmpVector, int total, int index);
 
 public:
     Player();
@@ -35,7 +37,7 @@ public:
 	bool AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant);
     bool BuyHouse(House& house);
     void DisplayStatus() const;
-	bool AddResource(Resource resource);
+	bool AddResource(Resource resource, int amount);
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Player& player)
