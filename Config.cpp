@@ -111,13 +111,13 @@ bool Config::LoadCards(pugi::xml_document& xml)
             string nameAttribute = resourceNode.attribute("name").value();
 
             if (ToLower(nameAttribute) == "coal")
-                standardCard->AddResource(COAL);
+                standardCard->AddActiveResource(COAL);
             else if (ToLower(nameAttribute) == "oil")
-                standardCard->AddResource(OIL);
+                standardCard->AddActiveResource(OIL);
             else if (ToLower(nameAttribute) == "garbage")
-                standardCard->AddResource(GARBAGE);
+                standardCard->AddActiveResource(GARBAGE);
             else if (ToLower(nameAttribute) == "uranium")
-                standardCard->AddResource(URANIUM);
+                standardCard->AddActiveResource(URANIUM);
         }
 
         cards.push_back(standardCard);

@@ -72,7 +72,9 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         {
             string resourceNameAttribute = resourceNode.node().attribute("name").value();
             auto resourceAmountAttribute = stoi(resourceNode.node().attribute("amount").value());
-            player->AddResource(GetResourceByName(resourceNameAttribute), resourceAmountAttribute);
+            
+			// TODO Add resrouce to power plant not player
+			// player->PlaceResource(resourceNameAttribute, resourceAmountAttribute);
         }
 
         // Read power plants and add them
@@ -180,7 +182,7 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml)
             for (auto resourceNode : cardNode.children("resource"))
             {
                 string nameAttribute = resourceNode.attribute("name").value();
-                card->AddResource(nameAttribute);
+                card->AddActiveResource(nameAttribute);
             }
 
             cardDeck.push_back(card);
