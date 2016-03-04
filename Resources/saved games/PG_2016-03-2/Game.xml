@@ -4,6 +4,7 @@
 	<map file="FULL_PATH/USAMap.xml" description="USA map"/>
 
 	<orderedPlayers>
+		<!-- TODO Change name to color for uniqueness -->
 		<player name=""/>
 		<player name=""/>
 	</orderedPlayers>

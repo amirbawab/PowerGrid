@@ -10,7 +10,10 @@
 			<resource name="oil" amount="2"/>
 		</resources>
 		<powerplants>
-			<powerplant price="3"/>
+			<powerplant price="3">
+				<resource name="coal" amount="3"/>
+				<resource name="oil" amount="2"/>
+			</powerplant>
 			<powerplant price="4"/>
 			<powerplant price="5"/>
 		</powerplants>
