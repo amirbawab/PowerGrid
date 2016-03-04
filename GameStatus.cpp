@@ -91,16 +91,53 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
                 }
             }
 
+            // The specified card couldn't be found
+            if (!playerCard)
+            {
+                Error("Card with specified price: '" + std::to_string(priceAttribute) + "' is not valid!");
+                return false;
+            }
+
             if (playerCard)
                 player->AddPowerPlant(playerCard);
         }
 
         players.push_back(player);
     }
+
+    return true;
 }
 
 bool GameStatus::LoadOrderedPlayers(pugi::xml_document& xml)
 {
+    orderedPlayers = vector<Player*>();
+
+    if (!xml.child("game").child("orderedPlayers"))
+        return false;
+
+    for (auto playerNode : xml.select_nodes("//orderedPlayers/player"))
+    {
+        string nameAttribute = playerNode.node().attribute("name").value();
+
+        Player* player = nullptr;
+        for (auto p : players)
+            if (p->GetName() == nameAttribute)
+            {
+                player = p.get();
+                break;
+            }
+
+        // Specified player couldn't be found in the list of players
+        if (!player)
+        {
+            Error("Player with name '" + nameAttribute + "' couldn't be found" +
+                  "in the list of players\n");
+            return false;
+        }
+
+        orderedPlayers.push_back(player);
+    }
+
     return true;
 }
 

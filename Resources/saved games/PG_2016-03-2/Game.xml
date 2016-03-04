@@ -3,10 +3,10 @@
  
 	<map file="FULL_PATH/USAMap.xml" description="USA map"/>
 
-	<LTR_order>
+	<orderedPlayers>
 		<player name=""/>
 		<player name=""/>
-	</LTR_order>
+	</orderedPlayers>
 
 	<market description="Resrouce market">
 	  	<resource name="coal" amount="3"/>
