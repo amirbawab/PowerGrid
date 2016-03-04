@@ -10,7 +10,7 @@ private:
 	string image;
 public:
 	HouseColor() {};
-	HouseColor(string, string);
+	HouseColor(string name, string image);
 	string getName() const { return name; };
 	string getImage() const { return image; };
 	~HouseColor();

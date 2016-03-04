@@ -2,12 +2,11 @@
 
 #include "Map.h"
 #include "Card.h"
-#include "PowerPlantCard.h"
-#include "StepCard.h"
 #include "Resource.h"
 #include <memory>
 #include <vector>
-#include <pugixml.hpp>
+#include "HouseColor.h"
+#include "Overview.h"
 
 enum IO
 {
@@ -25,10 +24,11 @@ private:
     std::map<Resource, int> totalResource;
     std::map<Resource, int> initialResource;
     std::vector<std::shared_ptr<Card>> cards;
+    std::vector<std::shared_ptr<HouseColor>> colors;
+    std::shared_ptr<Overview> overview;
 
     std::map<IO, std::string> io;
     int elektro = 0;
-    //TODO: add a vector of colors
 
     bool LoadIoData(pugi::xml_document& xml);
     bool LoadMaps(pugi::xml_document& xml);
@@ -36,7 +36,7 @@ private:
     bool LoadCards(pugi::xml_document& xml);
     bool LoadOverviewCards(pugi::xml_document& xml);
     bool LoadElektro(pugi::xml_document& xml);
-    //TODO: load colors
+    bool LoadColors(pugi::xml_document& xml);
 
 public:
     static Config& GetInstance()
@@ -52,6 +52,8 @@ public:
     std::map<Resource, int> const& GetTotalResource() const { return totalResource; }
     std::map<Resource, int> const& GetInitialResource() const { return initialResource; }
     std::vector<std::shared_ptr<Card>> const& GetCards() const { return cards; }
+    std::vector<std::shared_ptr<HouseColor>> const& GetColors() const { return colors; }
+    std::shared_ptr<Overview> GetOverview() const { return overview; }
 
     bool ReadFile(std::string filePath);
 };

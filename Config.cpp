@@ -2,6 +2,8 @@
 #include <QtCore>
 #include "Helpers.h"
 #include "Card.h"
+#include "StepCard.h"
+#include "PowerPlantCard.h"
 
 using std::string;
 using std::map;
@@ -136,7 +138,25 @@ bool Config::LoadCards(pugi::xml_document& xml)
 
 bool Config::LoadOverviewCards(pugi::xml_document& xml)
 {
-    //TODO: read overview card data from the file
+    overview = make_shared<Overview>();
+
+    if (!xml.child("config").child("overview"))
+        return false;
+
+    for (auto stepNode : xml.select_nodes("//overview/step"))
+    {
+        int numberAttribute = stoi(stepNode.node().attribute("number").value());
+        string titleAttribute = stepNode.node().attribute("title").value();
+
+        auto overviewStep = overview->AddStep(numberAttribute, titleAttribute);
+
+        for (auto infoNode : stepNode.node().children("info"))
+        {
+            string textAttribute = infoNode.attribute("text").value();
+            overviewStep->AddInfo(textAttribute);
+        }
+    }
+
     return true;
 }
 
@@ -149,6 +169,24 @@ bool Config::LoadElektro(pugi::xml_document& xml)
 
     int amountAttribute = stoi(moneyNode.attribute("amount").value());
     elektro = amountAttribute;
+    return true;
+}
+
+bool Config::LoadColors(pugi::xml_document& xml)
+{
+    colors = vector<shared_ptr<HouseColor>>();
+
+    if (!xml.child("config").child("colors"))
+        return false;
+
+    for (auto houseColorElement : xml.select_nodes("//colors/color"))
+    {
+        string nameAttribute = houseColorElement.node().attribute("name").value();
+        string imageAttribute = houseColorElement.node().attribute("color").value();
+        shared_ptr<HouseColor> houseColor = make_shared<HouseColor>(nameAttribute, imageAttribute);
+        colors.push_back(houseColor);
+    }
+
     return true;
 }
 
@@ -207,6 +245,12 @@ bool Config::ReadFile(string filePath)
     if (!LoadElektro(configXml))
     {
         Error("Could not read money data from the config file\n");
+        return false;
+    }
+
+    if (!LoadColors(configXml))
+    {
+        Error("Could not read color data from the config file\n");
         return false;
     }
 
