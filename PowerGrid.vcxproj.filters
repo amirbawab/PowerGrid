@@ -85,6 +85,63 @@
     <Filter Include="Source Files\card\powerplant">
       <UniqueIdentifier>{a9c70eef-97c3-43db-b227-98cac71b63f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\card">
+      <UniqueIdentifier>{b31fe3c7-777a-4965-9da1-f351546204dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\card\powerplant">
+      <UniqueIdentifier>{8034f380-4de5-4ce6-b8bc-f664ab393b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\card\summary">
+      <UniqueIdentifier>{f7d2f50d-c3c5-4ab8-aacb-a5edfb256119}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\config">
+      <UniqueIdentifier>{884d2c1a-fc57-4878-98f0-cf117ec76fe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui">
+      <UniqueIdentifier>{a2284405-d8fa-4f03-8475-6d46fac9e59c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\house">
+      <UniqueIdentifier>{944f8cad-8e1d-4517-b12e-d770cff77ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\map">
+      <UniqueIdentifier>{6eafba63-08cc-4bac-819e-b1044cd30e47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\market">
+      <UniqueIdentifier>{f7cfa6a8-3762-40fa-bba4-76e0691e7ce3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\player">
+      <UniqueIdentifier>{f44e3874-96b7-4566-9bee-50e7c00d19da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\application">
+      <UniqueIdentifier>{e6d9fa75-903d-441e-9a19-7c1b50141c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\include">
+      <UniqueIdentifier>{dcedc329-ef3b-4085-8c8e-1a1ac72bc33e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages">
+      <UniqueIdentifier>{747fcea1-2eea-4eb9-9a12-610831085d75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\include\templates">
+      <UniqueIdentifier>{b783e9f7-45bc-452f-afe9-df78f3a156e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\include\templates\logoTemplate">
+      <UniqueIdentifier>{939e34d3-d506-4a17-8976-9757aa7651b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\include\templates\nextBackTemplate">
+      <UniqueIdentifier>{a933790c-18a8-4773-85fd-7ff63cbee372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\map">
+      <UniqueIdentifier>{89ee678e-cc9c-4c48-b625-cc8e5a3ca85b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\playerConfig">
+      <UniqueIdentifier>{80de13ab-27e9-405a-be1e-700a953a9648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\welcome">
+      <UniqueIdentifier>{44a532f3-2488-43ef-acd8-3f31f337ecbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\welcome\components">
+      <UniqueIdentifier>{9ab1be96-6930-46a4-a866-7504f9be14fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -173,79 +230,79 @@
     <CustomBuild Include="powergrid.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="WelcomeMenuWidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="MainFrame.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\gui\application</Filter>
     </CustomBuild>
     <CustomBuild Include="MapWidget.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\gui\pages\map</Filter>
+    </CustomBuild>
+    <CustomBuild Include="WelcomeMenuWidget.h">
+      <Filter>Header Files\gui\pages\welcome\components</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TemplateLogoWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TemplateNextBackWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerConfigWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WelcomeWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="City.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Connection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="House.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Region.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Card.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Overview.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HouseColor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceMarket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceMarketLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StepCard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerPlantCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>Header Files\card\powerplant</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerPlantCard.h">
+      <Filter>Header Files\card\powerplant</Filter>
+    </ClInclude>
+    <ClInclude Include="StepCard.h">
+      <Filter>Header Files\card\powerplant</Filter>
+    </ClInclude>
+    <ClInclude Include="Overview.h">
+      <Filter>Header Files\card\summary</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Header Files\gui\application</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files\config</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateLogoWidget.h">
+      <Filter>Header Files\gui\include\templates\logoTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateNextBackWidget.h">
+      <Filter>Header Files\gui\include\templates\nextBackTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="WelcomeWidget.h">
+      <Filter>Header Files\gui\pages\welcome</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerConfigWidget.h">
+      <Filter>Header Files\gui\pages\playerConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="House.h">
+      <Filter>Header Files\house</Filter>
+    </ClInclude>
+    <ClInclude Include="HouseColor.h">
+      <Filter>Header Files\house</Filter>
+    </ClInclude>
+    <ClInclude Include="City.h">
+      <Filter>Header Files\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Connection.h">
+      <Filter>Header Files\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Region.h">
+      <Filter>Header Files\map</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMarket.h">
+      <Filter>Header Files\market</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMarketLevel.h">
+      <Filter>Header Files\market</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
