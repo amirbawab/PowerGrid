@@ -252,10 +252,10 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         {
             auto priceAttribute = stoi(powerPlantNode.node().attribute("price").value());
 
-            PowerPlantCard* playerCard = nullptr;
+            std::shared_ptr<PowerPlantCard> playerCard = nullptr;
             for (auto card : Config::GetInstance().GetCards())
             {
-                auto powerPlantCard = dynamic_cast<PowerPlantCard*>(card.get());
+                std::shared_ptr<PowerPlantCard> powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(card);
                 if (powerPlantCard && powerPlantCard->GetPrice() == priceAttribute)
                 {
                     playerCard = powerPlantCard;

@@ -13,7 +13,7 @@ private:
     std::string name;
     int elektro = 50;
     std::vector<std::shared_ptr<House>> houses;
-	std::vector<PowerPlantCard*> powerPlants;
+	std::vector<std::shared_ptr<PowerPlantCard>> powerPlants;
 	std::vector<int> resources;
 	std::shared_ptr<HouseColor> color;
 
@@ -32,10 +32,11 @@ public:
     void SetColor(std::shared_ptr<HouseColor> color) { this->color = color; }
 
 	std::vector<std::shared_ptr<House>> const& GetHouses() const { return houses; }
-	std::vector<PowerPlantCard*> const& GetPowerPlants() const { return powerPlants; }
+	std::vector<std::shared_ptr<PowerPlantCard>> const& GetPowerPlants() const { return powerPlants; }
 	int GetResources(Resource resource) const { return resources[resource]; }
-	
-	bool AddPowerPlant(PowerPlantCard* powerPlant);
+	int GetHighestPowerPlant();
+
+	bool AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant);
     bool BuyHouse(House& house);
     void DisplayStatus() const;
 };

@@ -57,8 +57,19 @@ void Player::DisplayStatus() const
     cout << output;
 }
 
-bool Player::AddPowerPlant(PowerPlantCard* powerPlant) {
+/// Add power plant if possible
+bool Player::AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant) {
 	if (powerPlants.size() == 3) return false;
 	powerPlants.push_back(powerPlant);
 	return true;
+}
+
+/// Get the number corresponding to the highest power plant
+int Player::GetHighestPowerPlant() {
+	int max = 0;
+	for (std::shared_ptr<PowerPlantCard> plant : powerPlants) {
+		if (plant->GetPrice() > max)
+			max = plant->GetPrice();
+	}
+	return max;
 }
