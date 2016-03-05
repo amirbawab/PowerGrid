@@ -18,6 +18,7 @@ public:
 	~CardStack();
 
 	void SetCards(std::vector<std::shared_ptr<Card>> cards) { this->cards = cards; };
+    std::vector<std::shared_ptr<Card>>& GetCards() { return cards; }
 
 	std::shared_ptr<PowerPlantCard> const& GetPlant(int index) { return std::dynamic_pointer_cast<PowerPlantCard>(visiblePlants[index]); };
 	void RemovePlant(int index) { visiblePlants.erase(visiblePlants.begin() + index); };
