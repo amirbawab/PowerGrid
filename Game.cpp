@@ -31,7 +31,7 @@ void Game::Setup() {
 	}
 
 	// Initialize components
-	int numTurns = 0;
+	int numTurns = 1;
 	rMarket = std::make_shared<ResourceMarket>();
 
 	// Test players
@@ -74,8 +74,88 @@ void Game::UpdatePlayOrder(bool reverse) {
 
 // Plays out step 2, auctioning power plants
 void Game::AuctionPlants() {
+	// Add bidding-related info
+	std::map<Player*, bool> canBid;
+	std::map<Player*, bool> canBuy;
 
+	for (shared_ptr<Player> p : players) {
+		canBid.insert(std::make_pair(p.get(), true));
+		canBuy.insert(std::make_pair(p.get(), true));
+	}
+
+	bool stepTwoDone;
+	while (true) {
+		// Check if there are still players left who can buy
+		stepTwoDone = true;
+		for (shared_ptr<Player> p : players) {
+			if (canBid[p.get()]) {
+				stepTwoDone = false;
+				break;
+			}
+		}
+		if (stepTwoDone) {
+			cout << "Step 2 is over." << endl;
+			break;
+		}
+
+		// Reset bidding attribute to true for all playeres who can still buy
+		for (shared_ptr<Player> p : players) {
+			if (canBuy[p.get()])
+				canBid[p.get()] = true;
+			else
+				canBid[p.get()] = false;
+		}
+		// Also reset bids
+		currentBid = 0;
+		highestBidder = nullptr;
+
+		// Find who starts the bidding war (best begins)
+		for (shared_ptr<Player> p : playerOrder) {
+			if (canBuy[p.get()]) {
+				currentPlayer = p;
+				break;
+			}
+		}
+		cout << currentPlayer->GetName() << " starts this auctioning round and can pick a power plant." << endl;
+
+		// Place a bid or pass
+		cout << "Place a bid? (Type \"N\" if not, anything else for yes)" << endl;
+		string answer;
+		cin >> answer;
+
+		if (answer == "N") {
+			canBuy[currentPlayer.get()] = false;
+			continue;
+		}
+		else {
+			// Pick a power plant
+			int plantIndex;
+			bool enoughMoney;
+			do {
+				cout << currentPlayer->GetName() << ", pick a power plant: (Enter the index)" << endl;
+				cin >> plantIndex;
+				enoughMoney = currentPlayer->HasElektro(cardStack.GetPlant(plantIndex)->GetPrice());
+
+				if (!enoughMoney) {
+					cout << "Not enough money for that plant: You have " << currentPlayer->GetElektro()
+						<< " and the plant costs " << cardStack.GetPlant(plantIndex)->GetPrice() << endl;
+				}
+			} while (!enoughMoney);
+			
+			// Start bidding war
+			bool initialBid = true;
+			int bid;
+
+			while (true) {
+				// Check if the current player won the bidding round
+				if (!initialBid && currentPlayer.get() == highestBidder.get()) {
+					
+				}
+			}
+		}
+	}
 }
+	
 
 /// Plays out step 3, buying raw materials
 void Game::BuyRawMaterials() {
@@ -119,6 +199,7 @@ void Game::PlayGame() {
 		for (std::shared_ptr<Player> p : players) {
 			std::cout << p << std::endl;
 		}
+
 		std::cout << "-------" << std::endl << std::endl;
 
 		// Step 3

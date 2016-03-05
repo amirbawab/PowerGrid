@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <map>
 #include "Player.h"
 #include "ResourceMarket.h"
 #include "PowerPlantCard.h"
@@ -10,12 +11,16 @@
 #include "Map.h"
 #include "Config.h"
 
+using std::shared_ptr;
+using std::cout;
+using std::endl;
+using std::cin;
+
 class Game {
 private:
 
 	// General attributes
 	int numTurns;  // the number of turns since the beginning
-	int numPlayers;
 	std::vector<std::shared_ptr<Player>> players;
 	std::shared_ptr<ResourceMarket> rMarket;
 	CardStack cardStack;

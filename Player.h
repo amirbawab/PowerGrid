@@ -4,8 +4,11 @@
 #include "HouseColor.h"
 #include "PowerPlantCard.h"
 #include "Resource.h"
+#include "CardStack.h"
 #include <memory>
 #include <vector>
+
+using std::shared_ptr;
 
 class Player
 {
@@ -24,6 +27,7 @@ public:
 
     int GetElektro() const { return elektro; }
     void SetElektro(int elektro) { this->elektro = elektro; }
+	bool HasElektro(int elektro) { return (this->elektro >= elektro); }
 
     std::string GetName() const { return name; }
     void SetName(std::string name) { this->name = name; }
@@ -34,10 +38,14 @@ public:
 	std::vector<std::shared_ptr<House>> const& GetHouses() const { return houses; }
 	std::vector<std::shared_ptr<PowerPlantCard>> const& GetPowerPlants() const { return powerPlants; }
 	int GetResources(Resource resource) const { return resources[resource]; }
+	
 	int GetHighestPowerPlant();
-
 	bool AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant);
+	void ReplacePowerPlant(shared_ptr<PowerPlantCard>, int);
+	bool BuyPowerPlant(shared_ptr<CardStack>, int, int);
+
     bool BuyHouse(House& house);
+
     void DisplayStatus() const;
 };
 

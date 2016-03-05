@@ -64,6 +64,11 @@ bool Player::AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant) {
 	return true;
 }
 
+/// Replaces a power plant by another
+void Player::ReplacePowerPlant(shared_ptr<PowerPlantCard> plant, int index) {
+
+}
+
 /// Get the number corresponding to the highest power plant
 int Player::GetHighestPowerPlant() {
 	int max = 0;
