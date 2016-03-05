@@ -1,6 +1,7 @@
 #include "Map.h"
 #include <iostream>
 #include "Helpers.h"
+#include <QFile>
 
 using std::string;
 using std::cout;
@@ -13,17 +14,32 @@ using std::unique_ptr;
 using std::make_shared;
 using std::make_unique;
 
+Map::Map(string fileName) : fileName{ fileName } {
+	
+	// Load file
+	LoadFile();
+}
+
 bool Map::LoadFile()
 {
-    pugi::xml_document mapXml;
-    auto result = mapXml.load_file(fileName.c_str());
+	pugi::xml_document mapXml;
 
-    if (result.status != pugi::status_ok)
-    {
-        Error("Could not open file: '" + fileName + "'");
-        Error("Reason: " + string(result.description()) + "\n");
-        return false;
-    }
+	QFile mapXmlFile(fileName.c_str());
+
+	if (!mapXmlFile.open(QFile::ReadOnly)) {
+		Error("Could not open file: " + fileName);
+		return false;
+	}
+
+	QString mapXmlContent = mapXmlFile.readAll();
+
+	// Read map content from file
+	auto result = mapXml.load_string(mapXmlContent.toStdString().c_str());
+	if (result.status != pugi::status_ok) {
+		Error("Could not read XML content for map");
+		Error("Reason: " + string(result.description()) + "\n");
+		return false;
+	}
 
 	name = mapXml.child("map").attribute("name").value();
 

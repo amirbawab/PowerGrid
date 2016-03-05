@@ -22,6 +22,8 @@ void Game::Setup() {
 	int initElektro = Config::GetInstance().GetElektro();
 	cardStack.SetCards(Config::GetInstance().GetCards());
 
+	auto maps = Config::GetInstance().GetMaps();
+
 	// Select map
 	for (auto tmpMap : Config::GetInstance().GetMaps()) {
 		if (tmpMap->GetName() == cinMap) {
@@ -48,15 +50,19 @@ void Game::Setup() {
 
 /// Used for determining the turn order
 bool comparePlayerPriority(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) {
+	
+	// Priority: 1 - House
 	if (p1->GetHouses().size() > p2->GetHouses().size())
 		return true;
 
-	else if (p1->GetHouses().size() == p2->GetHouses().size()) {
-		if (p1->GetHighestPowerPlant() > p2->GetHighestPowerPlant())
-			return true;
-	}
-	else
+	if (p1->GetHouses().size() < p2->GetHouses().size())
 		return false;
+
+	// Priority: 2 - Highest power plant
+	if (p1->GetHighestPowerPlant() > p2->GetHighestPowerPlant())
+		return true;
+
+	return false;
 }
 
 /// Reverse comparison

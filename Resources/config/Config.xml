@@ -2,7 +2,7 @@
 <config>
   
   <io description="This path will be prepended to the 'image' attribute for the corresponding 'for' tag">
-    <path for="maps" value=":/resrouce/map/"/>
+    <path for="maps" value=":/PowerGrid/Resources/config/map/"/>
     <path for="cards" value=":/resrouce/map/"/>
     <path for="colors" value=":/resrouce/house/"/>
   </io>
