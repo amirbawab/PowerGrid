@@ -55,7 +55,7 @@ void GameStatus::PopulateMap(pugi::xml_node& game)
     auto mapNode = game.append_child("map");
     auto fileAttribute = mapNode.append_attribute("file");
     // TODO: do we need the 'description' attribute???
-    auto descriptionAttribute = mapNode.append_attribute("description");
+//    auto descriptionAttribute = mapNode.append_attribute("description");
     fileAttribute.set_value(map->GetFileName().c_str());
 }
 
@@ -100,8 +100,18 @@ void GameStatus::PopulateCardDeck(pugi::xml_node& game)
             // Set attribute values
             priceAttribute.set_value(powerPlantCard->GetPrice());
             imageAttribute.set_value(powerPlantCard->GetImagePath().c_str());
-            resourcesAttribute.set_value(powerPlantCard->GetResources().size());
+            resourcesAttribute.set_value(powerPlantCard->GetActiveResources().size());
             powerAttribute.set_value(powerPlantCard->GetPower());
+
+            for (auto resource : powerPlantCard->GetActiveResources())
+            {
+                // Append the node and the attributes
+                auto resourceNode = powerPlantCardNode.append_child("resource");
+                auto resourceNameAttribute = resourceNode.append_attribute("name");
+
+                // Set attribute values
+                resourceNameAttribute.set_value(GetResourceName(resource).c_str());
+            }
         }
 
         // If we have a step card
@@ -335,7 +345,7 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml)
 
     for (auto cardNode : cardDeckNode.children())
     {
-        if (cardNode.name() == "powerPlantCard")
+        if (ToLower(cardNode.name()) == "powerplantcard")
         {
             auto priceAttribute = stoi(cardNode.attribute("price").value());
             string imageAttribute = cardNode.attribute("image").value();
@@ -353,7 +363,7 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml)
 
             cardDeck.push_back(card);
         }
-        else if (cardNode.name() == "stepCard")
+        else if (ToLower(cardNode.name()) == "stepcard")
         {
             auto stepAttribute = stoi(cardNode.attribute("step").value());
             string imageAttribute = cardNode.attribute("image").value();
@@ -448,7 +458,17 @@ bool GameStatus::LoadFile(string gameFilePath, string playersFilePath)
 
 bool GameStatus::SaveFile(string gameFilePath, string playersFilePath)
 {
-    auto gameFileStatus = SaveGameFile(gameFilePath);
-    auto playersFileStatus = SavePlayersFile(playersFilePath);
-    return gameFileStatus && playersFileStatus;
+    if (!SaveGameFile(gameFilePath))
+    {
+        Error("Could not save game file to the path '" + gameFilePath + "'\n");
+        return false;
+    }
+
+    if (!SavePlayersFile(playersFilePath))
+    {
+        Error("Could not save players file to the path '" + playersFilePath + "'\n");
+        return false;
+    }
+
+    return true;
 }

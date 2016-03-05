@@ -25,7 +25,7 @@ public:
 	bool PlaceResource(Resource resource, int amount);
 	bool PlaceResource(string resourceName, int amount) { return PlaceResource(GetResourceByName(resourceName), amount); }
 
-	std::set<Resource> const& GetResources() const { return activeResources; }
+	std::set<Resource> const& GetActiveResources() const { return activeResources; }
 	std::map<Resource, int> const& GetPlacedResources() const { return placedResources; }
 	int GetPrice() const { return price; }
 	int GetPower() const { return power; }
