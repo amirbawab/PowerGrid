@@ -17,17 +17,17 @@ ResourceMarket::~ResourceMarket() {
 }
 
 /// Add resource at most 'amount' amount
-void ResourceMarket::addResource(Resource resource, int amount) {
-	int left = 0;
-	while (left < levels.size() && amount > 0) {
-		if (levels[left]->addResource(resource))
+void ResourceMarket::AddResource(Resource resource, int amount) {
+	int right = levels.size()-1;
+	while (right >= 0 && amount > 0) {
+		if (levels[right]->addResource(resource))
 			amount--;
 		else
-			left++;
+			right--;
 	}
 }
 
 void ResourceMarket::AddResource(string resourceName, int amount)
 {
-    addResource(GetResourceByName(resourceName), amount);
+    AddResource(GetResourceByName(resourceName), amount);
 }

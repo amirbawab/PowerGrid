@@ -10,7 +10,7 @@ private:
 public:
 	ResourceMarket();
 	~ResourceMarket();
-	void addResource(Resource resource, int amount);
+	void AddResource(Resource resource, int amount);
     void AddResource(string resourceName, int amount);
 };
 
