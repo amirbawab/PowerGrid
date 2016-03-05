@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <map>
 #include "Player.h"
 #include "Card.h"
 #include "ResourceMarket.h"
@@ -10,6 +11,11 @@
 #include "CardStack.h"
 #include "Map.h"
 #include "Config.h"
+
+using std::shared_ptr;
+using std::cout;
+using std::endl;
+using std::cin;
 
 class Game {
 private:
