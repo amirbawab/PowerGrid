@@ -23,6 +23,16 @@ class GameStatus
     bool LoadCardDeck(pugi::xml_document& xml);
     bool LoadColors(pugi::xml_document& xml);
 
+    bool SaveGameFile(string gameFilePath);
+    void PopulateMap(pugi::xml_node& game);
+    void PopulateOrderedPlayers(pugi::xml_node& game);
+    void PopulateResourceMarket(pugi::xml_node& game);
+    void PopulateCardDeck(pugi::xml_node& game);
+    void PopulateColors(pugi::xml_node& game);
+
+    bool SavePlayersFile(string playersFilePath);
+    void PopulatePlayers(pugi::xml_node& playersNode);
+
 public:
     static GameStatus& GetInstance()
     {
@@ -41,5 +51,6 @@ public:
     std::vector<std::shared_ptr<Card>> GetCardDesk() const { return cardDeck; }
 
     bool LoadFile(string gameFilePath, string playersFilePath);
+    bool SaveFile(string gameFilePath, string playersFilePath);
 };
 
