@@ -11,6 +11,7 @@
 #include "CardStack.h"
 #include "Map.h"
 #include "Config.h"
+#include "GameStatus.h"
 
 using std::shared_ptr;
 using std::cout;
