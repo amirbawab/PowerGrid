@@ -26,6 +26,131 @@
 		<stepCard step="3" image=""/>
 	</cardDeck>
 
+	<cards description="Deck of cards including standard and step cards">
+	    <standardCard price="5" image="" resources="2" power="1">
+	      <resource name="coal"/>
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="4" image="" resources="2" power="1">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="3" image="" resources="2" power="1">
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="6" image="" resources="1" power="1">
+	      <resource name="garbage"/>
+	    </standardCard>
+	    <standardCard price="7" image="" resources="3" power="2">
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="8" image="" resources="3" power="2">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="9" image="" resources="1" power="1">
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="10" image="" resources="2" power="2">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="11" image="" resources="1" power="2">
+	      <resource name="uranium"/>
+	    </standardCard>
+	    <standardCard price="12" image="" resources="2" power="2">
+	      <resource name="oil"/>
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="14" image="" resources="4" power="2">
+	      <resource name="garbage"/>
+	    </standardCard>
+	    <standardCard price="15" image="" resources="2" power="3">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="16" image="" resources="2" power="3">
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="17" image="" resources="1" power="2">
+	      <resource name="uranium"/>
+	    </standardCard>
+	    <standardCard price="38" image="" resources="3" power="7">
+	      <resource name="garbage"/>
+	    </standardCard>
+	    <standardCard price="39" image="" resources="1" power="6">
+	      <resource name="uranium"/>
+	    </standardCard>
+	    <standardCard price="40" image="" resources="2" power="6">
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="42" image="" resources="2" power="6">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="44" image="" resources="1" power="2">
+	      <resource name="uranium"/>
+	    </standardCard>
+	    <standardCard price="46" image="" resources="3" power="7">
+	      <resource name="oil"/>
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="19" image="" resources="2" power="3">
+	      <resource name="garbage"/>
+	    </standardCard>
+	    <standardCard price="20" image="" resources="3" power="5">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="21" image="" resources="2" power="4">
+	      <resource name="coal"/>
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="20" image="" resources="3" power="5">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="23" image="" resources="1" power="3">
+	      <resource name="uranium"/>
+	    </standardCard>
+	    <standardCard price="24" image="" resources="2" power="4">
+	      <resource name="garbage"/>
+	    </standardCard>
+	    <standardCard price="25" image="" resources="2" power="5">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="26" image="" resources="2" power="5">
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="28" image="" resources="1" power="4">
+	      <resource name="uranium"/>
+	    </standardCard>
+	    <standardCard price="29" image="" resources="1" power="4">
+	      <resource name="coal"/>
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="30" image="" resources="3" power="6">
+	      <resource name="garbage"/>
+	    </standardCard>
+	    <standardCard price="31" image="" resources="3" power="6">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="32" image="" resources="3" power="6">
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="34" image="" resources="1" power="5">
+	      <resource name="uranium"/>
+	    </standardCard>
+	    <standardCard price="35" image="" resources="1" power="5">
+	      <resource name="oil"/>
+	    </standardCard>
+	    <standardCard price="36" image="" resources="3" power="7">
+	      <resource name="coal"/>
+	    </standardCard>
+	    <standardCard price="22" image="" resources="0" power="2" />
+	    <standardCard price="33" image="" resources="0" power="4" />
+	    <standardCard price="37" image="" resources="0" power="4" />
+	    <standardCard price="44" image="" resources="0" power="5" />
+	    <standardCard price="27" image="" resources="0" power="3" />
+	    <standardCard price="50" image="" resources="0" power="6" />
+	    <standardCard price="18" image="" resources="0" power="2" />
+	    <standardCard price="13" image="" resources="0" power="1" />
+	    <stepCard step="3" image=""/>
+	</cards> 
+
 	<colors description="House colors">
 	    <color name="black" image="FULL_PATH"/>
 	    <color name="purple" image="FULL_PATH"/>
