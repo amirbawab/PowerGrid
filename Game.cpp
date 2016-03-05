@@ -22,8 +22,6 @@ void Game::Setup() {
 	int initElektro = Config::GetInstance().GetElektro();
 	cardStack.SetCards(Config::GetInstance().GetCards());
 
-	auto maps = Config::GetInstance().GetMaps();
-
 	// Select map
 	for (auto tmpMap : Config::GetInstance().GetMaps()) {
 		if (tmpMap->GetName() == cinMap) {
