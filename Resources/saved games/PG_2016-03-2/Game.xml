@@ -5,8 +5,8 @@
 
 	<orderedPlayers>
 		<!-- TODO Change name to color for uniqueness -->
-		<player name=""/>
-		<player name=""/>
+		<player name="player1"/>
+		<player name="player2"/>
 	</orderedPlayers>
 
 	<market description="Resrouce market">

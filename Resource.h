@@ -28,3 +28,20 @@ inline Resource GetResourceByName(std::string name)
 
     return resource;
 }
+
+inline string GetResourceName(Resource resource)
+{
+    switch (resource)
+    {
+        case COAL:
+            return "coal";
+        case OIL:
+            return "oil";
+        case GARBAGE:
+            return "garbage";
+        case URANIUM:
+            return "uranium";
+        default:
+            return "UNKNOWN";
+    }
+}

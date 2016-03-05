@@ -22,6 +22,9 @@ public:
     Player(std::string name, HouseColor* color, int elektro);
     ~Player();
 
+    int GetElektro() const { return elektro; }
+    void SetElektro(int elektro) { this->elektro = elektro; }
+
     std::string GetName() const { return name; }
     void SetName(std::string name) { this->name = name; }
 

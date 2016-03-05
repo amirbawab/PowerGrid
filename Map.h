@@ -11,10 +11,13 @@
 class Map
 {
 public:
-    Map(std::string fileName) : fileName{ fileName } {}
+    explicit Map(std::string fileName) : fileName{ fileName } {}
+
     std::vector<std::shared_ptr<Region>> GetRegions() const { return regions; }
     std::vector<std::shared_ptr<City>> GetCities() const { return cities; }
     std::vector<std::unique_ptr<Connection>> const& GetConnections() const { return connections; }
+    std::string GetFileName() const { return fileName; }
+
     bool LoadFile();
     bool SaveFile(std::string fileName);
     void DisplayMap() const;

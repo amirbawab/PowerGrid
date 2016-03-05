@@ -2,17 +2,27 @@
 <players>
 	<player name="player1" color="blue" elektro="10">
 		<houses>
-			<house city="" price=""/>
-			<house city="" price=""/>
+			<house city="city1" price="1"/>
+			<house city="city2" price="2"/>
 		</houses>
-		<resources>
-			<resource name="coal" amount="2"/>
-			<resource name="oil" amount="2"/>
-		</resources>
 		<powerplants>
 			<powerplant price="3">
+				<resource name="oil" amount="1"/>
 				<resource name="coal" amount="3"/>
-				<resource name="oil" amount="2"/>
+			</powerplant>
+			<powerplant price="4"/>
+			<powerplant price="5"/>
+		</powerplants>
+	</player>
+	<player name="player2" color="black" elektro="20">
+		<houses>
+			<house city="city3" price="3"/>
+			<house city="city4" price="4"/>
+		</houses>
+		<powerplants>
+			<powerplant price="3">
+				<resource name="oil" amount="1"/>
+				<resource name="coal" amount="3"/>
 			</powerplant>
 			<powerplant price="4"/>
 			<powerplant price="5"/>

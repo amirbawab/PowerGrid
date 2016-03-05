@@ -23,6 +23,12 @@
       <resource name="coal"/>
       <resource name="oil"/>
     </standardCard>
+    <standardCard price="4" image="" resources="2" power="3">
+      <resource name="uranium"/>
+    </standardCard>
+    <standardCard price="5" image="" resources="4" power="4">
+      <resource name="oil"/>
+    </standardCard>
     <standardCard price="13" image="" resources="0" power="1"></standardCard>
     <stepCard step="2" image=""/>
     <stepCard step="3" image=""/>
