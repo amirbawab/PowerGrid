@@ -1,6 +1,6 @@
 #include "ResourceMarketLevel.h"
 
-ResourceMarketLevel::ResourceMarketLevel(int coalCapacity, int oilCapacity, int garbageCapacity, int uraniumCapacity, int cost) : capacity(4), counter(4) {
+ResourceMarketLevel::ResourceMarketLevel(int coalCapacity, int oilCapacity, int garbageCapacity, int uraniumCapacity, int cost) : capacity(res::total), counter(res::total) {
 	capacity[Resource::OIL] = oilCapacity;
 	capacity[Resource::COAL] = coalCapacity;
 	capacity[Resource::GARBAGE] = garbageCapacity;
