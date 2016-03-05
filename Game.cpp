@@ -17,17 +17,22 @@ void Game::Setup() {
 
 	// Data from the user
 	std::string cinMap = "USA";
-	
-	// Load information from config
-	int initElektro = Config::GetInstance().GetElektro();
-	cardStack.SetCards(Config::GetInstance().GetCards());
+	bool cinNewGame = false;
 
-	// Select map
-	for (auto tmpMap : Config::GetInstance().GetMaps()) {
-		if (tmpMap->GetName() == cinMap) {
-			map = tmpMap;
-			break;
-		}
+	if (cinNewGame) {
+	
+		// Load configuration
+		// Do we still need this ?????
+		Config::GetInstance().LoadFile(":/test/Resources/config/Config.xml");
+
+		// Initialize game
+		GameStatus::GetInstance().Init(this, ???);
+
+	} else {
+		
+		// If loading saved game
+		GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",
+			"Resources/saved games/PG_2016-03-2/Players.xml");
 	}
 
 	// Initialize components
@@ -180,7 +185,7 @@ void Game::Bureaucracy() {
 void Game::PlayGame() {
 
 	while (!gameOver) {
-		std::cout << "Turn " << numTurns << std::endl;
+		std::cout << "Turn " << fullTurn << std::endl;
 
 		for (std::shared_ptr<Player> p : players) {
 			std::cout << p << std::endl;

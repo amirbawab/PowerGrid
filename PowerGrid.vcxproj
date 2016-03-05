@@ -72,6 +72,7 @@
     <ClCompile Include="Overview.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerConfigWidget.cpp" />
+    <ClCompile Include="PlayerTest.cpp" />
     <ClCompile Include="PowerPlantCard.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="ResourceMarket.cpp" />
@@ -91,6 +92,8 @@
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStatus.h" />
+    <ClInclude Include="GenericTest.h" />
+    <ClInclude Include="PlayerTest.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="House.h" />
