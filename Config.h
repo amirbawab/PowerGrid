@@ -54,7 +54,7 @@ public:
     std::vector<std::shared_ptr<Card>> const& GetCards() const { return cards; }
     std::vector<std::shared_ptr<HouseColor>> const& GetColors() const { return colors; }
     std::shared_ptr<Overview> GetOverview() const { return overview; }
-	int GetElektro() { return elektro; }
+	int GetElektro() const { return elektro; }
 
     bool LoadFile(std::string filePath);
 };

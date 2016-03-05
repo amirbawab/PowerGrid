@@ -228,7 +228,7 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         auto elektro = stoi(playerNode.node().attribute("elektro").value());
 
         // Read the color and try to find the corresponding color in the collection
-        std::shared_ptr<HouseColor> color = nullptr;
+        shared_ptr<HouseColor> color = nullptr;
 
         for (int i = 0; i < colors.size(); i++)
             if (colors[i]->getName() == playerColorAttribute)
@@ -252,10 +252,10 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         {
             auto priceAttribute = stoi(powerPlantNode.node().attribute("price").value());
 
-            std::shared_ptr<PowerPlantCard> playerCard = nullptr;
+            shared_ptr<PowerPlantCard> playerCard = nullptr;
             for (auto card : Config::GetInstance().GetCards())
             {
-                std::shared_ptr<PowerPlantCard> powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(card);
+                shared_ptr<PowerPlantCard> powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(card);
                 if (powerPlantCard && powerPlantCard->GetPrice() == priceAttribute)
                 {
                     playerCard = powerPlantCard;
@@ -377,7 +377,55 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml)
     return true;
 }
 
-bool GameStatus::LoadFile(string gameFilePath, string playersFilePath)
+bool GameStatus::LoadAllCards(pugi::xml_document& xml)
+{
+    cardDeck = vector<shared_ptr<Card>>();
+
+    auto cardsNode = xml.child("game").child("cards");
+    if (!cardsNode)
+        return false;
+
+    for (auto cardNode : cardsNode.children())
+    {
+        if (ToLower(cardNode.name()) == "powerplantcard")
+        {
+            auto priceAttribute = stoi(cardNode.attribute("price").value());
+            string imageAttribute = cardNode.attribute("image").value();
+            auto resourcesAttribute = stoi(cardNode.attribute("resources").value());
+            auto powerAttribute = stoi(cardNode.attribute("power").value());
+            // TODO: add image attribute to the card
+            auto card = make_shared<PowerPlantCard>(priceAttribute,
+                                                                powerAttribute, resourcesAttribute);
+
+            for (auto resourceNode : cardNode.children("resource"))
+            {
+                string nameAttribute = resourceNode.attribute("name").value();
+                card->AddActiveResource(nameAttribute);
+            }
+
+            allCards.push_back(card);
+        }
+        else if (ToLower(cardNode.name()) == "stepcard")
+        {
+            auto stepAttribute = stoi(cardNode.attribute("step").value());
+            string imageAttribute = cardNode.attribute("image").value();
+            // TODO: add image attribute to the card
+            auto card = make_shared<StepCard>(stepAttribute);
+            allCards.push_back(card);
+        }
+    }
+
+    return true;
+}
+
+bool GameStatus::Init(shared_ptr<Game> game, string configFilePath)
+{
+    Config::GetInstance().LoadFile(configFilePath);
+    return false;
+}
+
+bool GameStatus::LoadFile(shared_ptr<Game> game, string gameFilePath,
+                          string playersFilePath)
 {
     pugi::xml_document gameXml;
     pugi::xml_document playersXml;
@@ -454,10 +502,17 @@ bool GameStatus::LoadFile(string gameFilePath, string playersFilePath)
         return false;
     }
 
+    if (!LoadAllCards(gameXml))
+    {
+        Error("Could not read data for all cards from the game file\n");
+        return false;
+    }
+
     return true;
 }
 
-bool GameStatus::SaveFile(string gameFilePath, string playersFilePath)
+bool GameStatus::SaveFile(shared_ptr<Game> game, string gameFilePath,
+                          string playersFilePath)
 {
     if (!SaveGameFile(gameFilePath))
     {
