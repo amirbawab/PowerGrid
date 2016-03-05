@@ -190,7 +190,7 @@ bool Config::LoadColors(pugi::xml_document& xml)
     return true;
 }
 
-bool Config::ReadFile(string filePath)
+bool Config::LoadFile(string filePath)
 {
     pugi::xml_document configXml;
 

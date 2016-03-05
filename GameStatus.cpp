@@ -58,6 +58,7 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
                 break;
             }
 
+        // No corresponding color could be found
         if (!color)
         {
             Error("color '" + playerColorAttribute + "' specified for player '" + playerNameAttribute +
@@ -66,16 +67,6 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         }
 
         auto player = make_shared<Player>(playerNameAttribute, color, elektro);
-
-        // Read resource values and add them
-        for (auto resourceNode : playerNode.node().select_nodes("//resource"))
-        {
-            string resourceNameAttribute = resourceNode.node().attribute("name").value();
-            auto resourceAmountAttribute = stoi(resourceNode.node().attribute("amount").value());
-            
-			// TODO Add resrouce to power plant not player
-			// player->PlaceResource(resourceNameAttribute, resourceAmountAttribute);
-        }
 
         // Read power plants and add them
         for (auto powerPlantNode : playerNode.node().select_nodes("//powerplant"))
@@ -100,8 +91,15 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
                 return false;
             }
 
-            if (playerCard)
-                player->AddPowerPlant(playerCard);
+            player->AddPowerPlant(playerCard);
+
+            // Read resource values and put them in the card
+            for (auto resourceNode : powerPlantNode.node().select_nodes("//resource"))
+            {
+                string resourceNameAttribute = resourceNode.node().attribute("name").value();
+                auto amountAttribute = stoi(resourceNode.node().attribute("amount").value());
+                playerCard->PlaceResource(resourceNameAttribute, amountAttribute);
+            }
         }
 
         players.push_back(player);
@@ -200,7 +198,7 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml)
     return true;
 }
 
-bool GameStatus::ReadFile(string gameFilePath, string playersFilePath)
+bool GameStatus::LoadFile(string gameFilePath, string playersFilePath)
 {
     pugi::xml_document gameXml;
     pugi::xml_document playersXml;
@@ -208,13 +206,13 @@ bool GameStatus::ReadFile(string gameFilePath, string playersFilePath)
     QFile gameXmlFile(gameFilePath.c_str());
     QFile playersXmlFile(playersFilePath.c_str());
 
-    if (!gameXmlFile.open(QIODevice::ReadOnly))
+    if (!gameXmlFile.open(QFile::ReadOnly))
     {
         Error("Could not open file: " + gameFilePath);
         return false;
     }
 
-    if (!playersXmlFile.open(QIODevice::ReadOnly))
+    if (!playersXmlFile.open(QFile::ReadOnly))
     {
         Error("Could not open file: " + playersFilePath);
         return false;

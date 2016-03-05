@@ -55,6 +55,6 @@ public:
     std::vector<std::shared_ptr<HouseColor>> const& GetColors() const { return colors; }
     std::shared_ptr<Overview> GetOverview() const { return overview; }
 
-    bool ReadFile(std::string filePath);
+    bool LoadFile(std::string filePath);
 };
 

@@ -40,6 +40,6 @@ public:
     std::shared_ptr<ResourceMarket> GetResourceMarket() const { return resourceMarket; }
     std::vector<std::shared_ptr<Card>> GetCardDesk() const { return cardDeck; }
 
-    bool ReadFile(string gameFilePath, string playersFilePath);
+    bool LoadFile(string gameFilePath, string playersFilePath);
 };
 

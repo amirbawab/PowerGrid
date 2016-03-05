@@ -12,7 +12,5 @@
     </qresource>
     <qresource prefix="/test">
         <file>Resources/config/Config.xml</file>
-        <file>Resources/saved games/PG_2016-03-2/Game.xml</file>
-        <file>Resources/saved games/PG_2016-03-2/Players.xml</file>
     </qresource>
 </RCC>
