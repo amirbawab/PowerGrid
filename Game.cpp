@@ -17,7 +17,7 @@ void Game::Setup() {
 
 	// Data from the user
 	std::string cinMap = "USA";
-
+	
 	// Load information from config
 	int initElektro = Config::GetInstance().GetElektro();
 	cardStack.SetCards(Config::GetInstance().GetCards());
