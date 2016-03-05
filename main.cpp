@@ -10,9 +10,6 @@
 #include "Config.h"
 #include "Game.h"
 
-using std::make_shared;
-
-
 int main(int argc, char *argv[]) {
 
 	// Load configuration
