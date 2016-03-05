@@ -42,7 +42,7 @@ public:
 	int GetHighestPowerPlant();
 	bool AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant);
 	void ReplacePowerPlant(shared_ptr<PowerPlantCard>, int);
-	bool BuyPowerPlant(shared_ptr<CardStack>, int, int);
+	bool BuyPowerPlant(CardStack&, int, int);
 
     bool BuyHouse(House& house);
 

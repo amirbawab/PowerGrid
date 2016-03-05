@@ -4,6 +4,7 @@
 
 using std::cout;
 using std::endl;
+using std::cin;
 using std::to_string;
 using std::string;
 
@@ -66,7 +67,31 @@ bool Player::AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant) {
 
 /// Replaces a power plant by another
 void Player::ReplacePowerPlant(shared_ptr<PowerPlantCard> plant, int index) {
+	powerPlants[index] = plant;
+	// Transfer resources
+	// to do
+}
 
+/// Buys a power plant from the available plants
+bool Player::BuyPowerPlant(CardStack& cardStack, int index, int cost) {
+	// Note that only indices 0-3 are available to buy (4-7 are future plants)
+	if (index >= 0 && index <= 3 && HasElektro(cost)) {
+		SetElektro(GetElektro() - cost);
+		if (powerPlants.size() < 3)
+			AddPowerPlant(cardStack.GetPlant(index));
+		else {
+			int i;
+			do {
+				cout << "Enter index of power plant to replace: " << endl;
+				cin >> i;
+			} while (!(i >= 0 && i <= 2));
+			ReplacePowerPlant(cardStack.GetPlant(index), i);
+		}
+			
+		cardStack.RemovePlant(index);
+		cardStack.DrawPlant();
+		return true;
+	}
 }
 
 /// Get the number corresponding to the highest power plant

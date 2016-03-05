@@ -76,7 +76,14 @@ void Game::UpdatePlayOrder(bool reverse) {
 		std::sort(playerOrder.begin(), playerOrder.end(), comparePlayerPriorityReverse);
 }
 
-// Plays out step 2, auctioning power plants
+/// Finds the index of the player in the vector
+int GetPlayerIndex(shared_ptr<Player> player, vector<shared_ptr<Player>>& playerVec) {
+	int index = 0;
+	for (shared_ptr<Player> p : playerVec) {
+	}
+}
+
+/// Plays out step 2, auctioning power plants
 void Game::AuctionPlants() {
 	// Add bidding-related info
 	std::map<Player*, bool> canBid;
@@ -153,8 +160,35 @@ void Game::AuctionPlants() {
 			while (true) {
 				// Check if the current player won the bidding round
 				if (!initialBid && currentPlayer.get() == highestBidder.get()) {
-					
+					currentPlayer->BuyPowerPlant(cardStack, plantIndex, currentBid);
+					canBuy[currentPlayer.get()] = false;
+					cout << currentPlayer->GetName() << " won this auction for " << currentBid << endl;
+					break;
 				}
+				else {
+					// For subsequent bids, need to enter the amount
+					cout << currentPlayer->GetName() << ", enter your bid amount: (Enter 0 to pass)" << endl;
+					cin >> bid;
+				}
+
+				// Subsequent bids are not the initial one anymore
+				initialBid = false;
+
+				// Updates the current bid and highest bidder
+				if (bid > currentBid && currentPlayer->HasElektro(bid)) {
+					currentBid = bid;
+					highestBidder = currentPlayer;
+					cout << "The highest bid is now " << currentBid << endl;
+				}
+				else {
+					// Can't participate in current bidding round if you pass
+					canBid[currentPlayer.get()] = false;
+					cout << currentPlayer->GetName() << " passed." << endl;
+				}
+
+				// Get the next player to bid following a 'clockwise' fashion
+				bool found = false;
+
 			}
 		}
 	}

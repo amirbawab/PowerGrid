@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Config.h"
 
+using std::vector;
 using std::shared_ptr;
 using std::cout;
 using std::endl;
@@ -44,8 +45,6 @@ public:
 
 	void Setup();
 	void PlayGame();
-
-	
 
 	void UpdatePlayOrder(bool); // step 1
 	void AuctionPlants();  // step 2
