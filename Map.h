@@ -11,7 +11,7 @@
 class Map
 {
 public:
-	explicit Map(std::string fileName) : fileName{ fileName } {}
+	explicit Map(std::string fileName);
 
     std::vector<std::shared_ptr<Region>> GetRegions() const { return regions; }
     std::vector<std::shared_ptr<City>> GetCities() const { return cities; }
@@ -19,7 +19,6 @@ public:
     std::string GetFileName() const { return fileName; }
 	std::string GetName() const { return name; }
 
-    bool LoadFile();
     bool SaveFile(std::string fileName);
     void DisplayMap() const;
 
@@ -41,5 +40,6 @@ private:
     bool LoadConnections(pugi::xml_document& xml);
     void PopulateCities(pugi::xml_node& map);
     void PopulateConnections(pugi::xml_node& map);
+	bool LoadFile();
 };
 

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <map>
 #include "Player.h"
+#include "Card.h"
 #include "ResourceMarket.h"
 #include "PowerPlantCard.h"
 #include "CardStack.h"
@@ -24,6 +25,7 @@ private:
 	std::vector<std::shared_ptr<Player>> players;
 	std::shared_ptr<ResourceMarket> rMarket;
 	CardStack cardStack;
+	std::vector<std::shared_ptr<Card>> allCards;
 	std::shared_ptr<Map> map;
 
 	std::vector<std::shared_ptr<Player>> playerOrder;  // players placed in the correct turn order
@@ -42,6 +44,8 @@ public:
 
 	void Setup();
 	void PlayGame();
+
+	
 
 	void UpdatePlayOrder(bool); // step 1
 	void AuctionPlants();  // step 2
