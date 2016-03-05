@@ -142,6 +142,12 @@
     <Filter Include="Header Files\gui\pages\welcome\components">
       <UniqueIdentifier>{9ab1be96-6930-46a4-a866-7504f9be14fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{530363ba-2e5f-4da1-96f3-c72ede83b044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{eab26a51-4724-46cc-953c-8dbad08b052f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -228,6 +234,12 @@
     <ClCompile Include="GameStatus.cpp">
       <Filter>Source Files\config</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CardStack.cpp">
+      <Filter>Source Files\card</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -309,6 +321,12 @@
     </ClInclude>
     <ClInclude Include="GameStatus.h">
       <Filter>Header Files\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="CardStack.h">
+      <Filter>Header Files\card</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

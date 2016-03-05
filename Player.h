@@ -15,11 +15,11 @@ private:
     std::vector<std::shared_ptr<House>> houses;
 	std::vector<PowerPlantCard*> powerPlants;
 	std::vector<int> resources;
-	HouseColor* color;
+	std::shared_ptr<HouseColor> color;
 
 public:
     Player();
-    Player(std::string name, HouseColor* color, int elektro);
+    Player(std::string name, std::shared_ptr<HouseColor> color, int elektro);
     ~Player();
 
     int GetElektro() const { return elektro; }
@@ -28,8 +28,8 @@ public:
     std::string GetName() const { return name; }
     void SetName(std::string name) { this->name = name; }
 
-    HouseColor* GetColor() const { return color; }
-    void SetColor(HouseColor* color) { this->color = color; }
+    std::shared_ptr<HouseColor> const& GetColor() const { return color; }
+    void SetColor(std::shared_ptr<HouseColor> color) { this->color = color; }
 
 	std::vector<std::shared_ptr<House>> const& GetHouses() const { return houses; }
 	std::vector<PowerPlantCard*> const& GetPowerPlants() const { return powerPlants; }

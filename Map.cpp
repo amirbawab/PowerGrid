@@ -25,6 +25,8 @@ bool Map::LoadFile()
         return false;
     }
 
+	name = mapXml.child("map").attribute("name").value();
+
     if (!LoadCities(mapXml))
     {
         Error("Could not read city data from the file");

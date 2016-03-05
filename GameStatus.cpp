@@ -218,11 +218,12 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         auto elektro = stoi(playerNode.node().attribute("elektro").value());
 
         // Read the color and try to find the corresponding color in the collection
-        HouseColor* color = nullptr;
+        std::shared_ptr<HouseColor> color = nullptr;
+
         for (int i = 0; i < colors.size(); i++)
             if (colors[i]->getName() == playerColorAttribute)
             {
-                color = colors[i].get();
+                color = colors[i];
                 break;
             }
 

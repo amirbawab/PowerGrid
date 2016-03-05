@@ -8,15 +8,23 @@
 
 #include "GameStatus.h"
 #include "Config.h"
+#include "Game.h"
 
 using std::make_shared;
 
 
 int main(int argc, char *argv[]) {
-	Player p1("Hello", make_shared<HouseColor>().get(), 0);
-	
+
+	// Load configuration
     Config::GetInstance().LoadFile(":/test/Resources/config/Config.xml");
-    GameStatus::GetInstance().LoadFile("Resources/saved games/PG_2016-03-2/Game.xml",
+    
+	// If loading saved game
+	if(false)
+		GameStatus::GetInstance().LoadFile("Resources/saved games/PG_2016-03-2/Game.xml",
                                        "Resources/saved games/PG_2016-03-2/Players.xml");
+
+	// Create game
+	Game game;
+
 	return 0;
 }

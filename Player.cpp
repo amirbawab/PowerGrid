@@ -11,7 +11,7 @@ Player::Player()
 {
 }
 
-Player::Player(string name, HouseColor* color, int elektro) :
+Player::Player(string name, std::shared_ptr<HouseColor> color, int elektro) :
     color {color}, name {name}, elektro {elektro}, resources(res::total)
 { }
 
