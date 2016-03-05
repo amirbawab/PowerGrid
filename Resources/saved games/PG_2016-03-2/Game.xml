@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<game full_turn="1">
+<game full_turn="1" phase="2">
  
 	<map file="FULL_PATH/USAMap.xml" description="USA map"/>
 	<orderedPlayers>
