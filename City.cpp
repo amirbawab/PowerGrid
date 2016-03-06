@@ -43,3 +43,10 @@ bool City::AddHouse()
 bool City::IsFull() {
 	return houses == MAX_VALUE;
 }
+
+bool City::IsConnectedTo(std::string cityName) {
+	for (auto connection = connections.begin(); connection != connections.end(); ++connection)
+		if ((*connection)->GetFirst()->GetName() == cityName || (*connection)->GetSecond()->GetName() == cityName)
+			return true;
+	return false;
+}

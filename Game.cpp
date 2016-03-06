@@ -30,7 +30,7 @@ void Game::Setup() {
 	}
 
 	// Initialize components
-	int numTurns = 1;
+	fullTurn = 1;
 
 	// Test players
 	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
@@ -43,7 +43,7 @@ void Game::Setup() {
 	playerOrder.push_back(p2);
 
 	// Test dijkstra
-	int cost = map->GetShortestPath("Seattle","Portland");
+	std::cout <<  map->GetShortestPath("Seattle","Boston") << std::endl;
 }
 
 
