@@ -41,6 +41,9 @@ void Game::Setup() {
 	players.push_back(p2);
 	playerOrder.push_back(p1);
 	playerOrder.push_back(p2);
+
+	// Test dijkstra
+	int cost = map->GetShortestPath("Seattle","Portland");
 }
 
 

@@ -3,6 +3,7 @@
 #include "Helpers.h"
 #include <QFile>
 #include <limits>
+#include <queue>
 
 using std::string;
 using std::cout;
@@ -111,7 +112,7 @@ vector<Connection> Map::GetConnections(string city)
     auto connections = vector<Connection>();
     int cityIndex = GetCityIndex(city);
     
-    if (cityIndex == -1)
+    if (cityIndex == INVALID_VALUE)
         return connections;
 
     for (auto conn : connectionList[cityIndex])
@@ -293,9 +294,22 @@ void Map::PopulateConnections(pugi::xml_node& map)
     }
 }
 
+struct  CityCostComparable {
+	static const int UNVISITED = 0;
+	static const int VISITING = 1;
+	static const int VISITED = 2;
+	int cost = std::numeric_limits<int>::max();
+	int visited = UNVISITED;
+	std::shared_ptr<City> city;
+	CityCostComparable(std::shared_ptr<City> city) : city(city) {};
+	bool operator()(const std::shared_ptr<CityCostComparable> lhs, const std::shared_ptr<CityCostComparable> rhs) const {
+		return lhs->cost < rhs->cost;
+	}
+};
+
 /// Get the shortest path between two cities
 int Map::GetShortestPath(std::string fromCity, std::string toCity) {
-	
+
 	// Get cities indicies
 	int fromCityIndex = GetCityIndex(fromCity);
 	int toCityIndex = GetCityIndex(toCity);
@@ -305,24 +319,68 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 		return INVALID_VALUE;
 
 	// Prepare required information
-	std::vector<bool> visited(cities.size(), false);
-	std::vector<int> cost(cities.size(), std::numeric_limits<int>::max());
+	std::vector<std::shared_ptr<CityCostComparable>> citiesComparable(cities.size());
+
+	// Create comparable cities
+	for (int i = 0; i < cities.size(); i++) {
+		citiesComparable[i] = std::make_shared<CityCostComparable>(cities[i]);
+	}
+
+	// Create priority queue
+	std::priority_queue<std::shared_ptr<CityCostComparable>, std::vector<std::shared_ptr<CityCostComparable>>, std::less<vector<std::shared_ptr<CityCostComparable>>::value_type>> pQueue;
 
 	// Prepare first city
-	visited[fromCityIndex] = true;
-	cost[fromCityIndex] = 0;
+	citiesComparable[fromCityIndex]->cost = 0;
+	citiesComparable[fromCityIndex]->visited = CityCostComparable::VISITING;
+	pQueue.push(citiesComparable[fromCityIndex]);
+	
+	// Start
+	while (!pQueue.empty()) {
 
-	// Mark all nodes as unvisited and dijkstra value to max
+		// Get top
+		std::shared_ptr<CityCostComparable> topCityCostComparable = pQueue.top();
 
-	/*
-	// Loop on neightbor cities
-	for (auto conn : connectionList[fromCityIndex]) {
-		shared_ptr<City> first = cities[cityIndex];
-		shared_ptr<City> second = cities[conn.first];
-		int cost = conn.second;
-		connections.push_back(Connection(first, second, cost));
+		// Mark visited
+		topCityCostComparable->visited = CityCostComparable::VISITED;
+
+		// Remove top
+		pQueue.pop();
+
+		// Get neighbor connections
+		std::vector<Connection> connections = GetConnections(topCityCostComparable->city->GetName());
+		
+		// Loop on connections
+		for (auto connection : connections) {
+			
+			// Calculate path
+			int pathCost = connection.getCost() + topCityCostComparable->cost;
+
+			// Get opposite city
+			std::shared_ptr<City> oppositeCity = GetOppositeOf(connection, topCityCostComparable->city->GetName());
+
+			// Get opposite city index
+			int oppositeCityIndex = GetCityIndex(oppositeCity->GetName());
+
+			// Get city cost comparable
+			std::shared_ptr<CityCostComparable> oppositeCityCostComparable = citiesComparable[oppositeCityIndex];
+
+			// If not visited
+			if (oppositeCityCostComparable->visited != CityCostComparable::VISITED) {
+
+				// If new path is less then update
+				if (pathCost < oppositeCityCostComparable->cost)
+					oppositeCityCostComparable->cost = pathCost;
+
+				// If unvisited, add to queue
+				if (oppositeCityCostComparable->visited == CityCostComparable::UNVISITED)
+					pQueue.push(oppositeCityCostComparable);
+
+				// Mark visiting
+				oppositeCityCostComparable->visited = CityCostComparable::VISITING;
+			}
+		}
 	}
-	*/
 
-	return 1;
+	// Return minimum cost
+	return citiesComparable[toCityIndex]->cost;
 }
