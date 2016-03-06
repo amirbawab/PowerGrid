@@ -58,8 +58,8 @@ public:
 	std::vector<std::shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
 	std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
 	int GetPhase() const { return phase; }
-	Overview& GetOverviewyup() { return overview; }
-	int GetInitElektro() { return initElektro; }
+	Overview& GetOverview() { return overview; }
+	int GetInitElektro() const { return initElektro; }
 	
 	// Setters
 	void SetMap(std::shared_ptr<Map>& map) { this->map = map; }

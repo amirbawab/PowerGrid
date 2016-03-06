@@ -17,19 +17,13 @@ void Game::Setup() {
 
 	// Data from the user
 	std::string cinMap = "USA";
-	bool cinNewGame = false;
+	bool cinNewGame = true;
 
 	if (cinNewGame) {
-	
-		// Load configuration
-		// Do we still need this ?????
-		Config::GetInstance().LoadFile(":/test/Resources/config/Config.xml");
-
 		// Initialize game
-		GameStatus::GetInstance().Init(this, ???);
+		GameStatus::GetInstance().Init(this, cinMap, ":/test/Resources/config/Config.xml");
 
 	} else {
-		
 		// If loading saved game
 		GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",
 			"Resources/saved games/PG_2016-03-2/Players.xml");

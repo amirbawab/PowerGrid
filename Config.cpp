@@ -1,9 +1,9 @@
 #include "Config.h"
 #include <QtCore>
 #include "Helpers.h"
-#include "Card.h"
 #include "StepCard.h"
 #include "PowerPlantCard.h"
+#include "Game.h"
 
 using std::string;
 using std::map;
@@ -14,7 +14,7 @@ using std::stoi;
 
 bool Config::LoadIoData(pugi::xml_document& xml)
 {
-    io = map<IO, string>();
+    pathPrefix = map<IO, string>();
 
     if (!xml.child("config").child("io"))
         return false;
@@ -25,11 +25,11 @@ bool Config::LoadIoData(pugi::xml_document& xml)
         string valueAttribute = pathNode.node().attribute("value").value();
         
         if (ToLower(forAttribute) == "maps")
-            io[MAPS] = valueAttribute;
+            pathPrefix[MAPS] = valueAttribute;
         else if (ToLower(forAttribute) == "cards")
-            io[CARDS] = valueAttribute;
+            pathPrefix[CARDS] = valueAttribute;
         else if (ToLower(forAttribute) == "colors")
-            io[COLORS] = valueAttribute;
+            pathPrefix[COLORS] = valueAttribute;
     }
 
     return true;
@@ -45,7 +45,7 @@ bool Config::LoadMaps(pugi::xml_document& xml)
     for (auto mapNode : xml.select_nodes("//maps/map"))
     {
         string fileAttribute = mapNode.node().attribute("file").value();
-        shared_ptr<Map> map = make_shared<Map>(io[MAPS] + fileAttribute);
+        auto map = make_shared<Map>(pathPrefix[MAPS] + fileAttribute);
         maps.push_back(map);
     }
 
@@ -54,7 +54,6 @@ bool Config::LoadMaps(pugi::xml_document& xml)
 
 bool Config::LoadResourceMarket(pugi::xml_document& xml)
 {
-    totalResource = map<Resource, int>();
     initialResource = map<Resource, int>();
     
     if (!xml.child("config").child("market"))
@@ -63,83 +62,72 @@ bool Config::LoadResourceMarket(pugi::xml_document& xml)
     for (auto resourceNode : xml.select_nodes("//market/resource"))
     {
         string nameAttribute = resourceNode.node().attribute("name").value();
-        int totalAttribute = stoi(resourceNode.node().attribute("total").value());
-        int initialAttribute = stoi(resourceNode.node().attribute("initial").value());
+        auto initialAttribute = stoi(resourceNode.node().attribute("initial").value());
 
         if (ToLower(nameAttribute) == "coal")
-        {
-            totalResource[COAL] = totalAttribute;
             initialResource[COAL] = initialAttribute;
-        } else if (ToLower(nameAttribute) == "oil")
-        {
-            totalResource[OIL] = totalAttribute;
+        else if (ToLower(nameAttribute) == "oil")
             initialResource[OIL] = initialAttribute;
-        } else if (ToLower(nameAttribute) == "garbage")
-        {
-            totalResource[GARBAGE] = totalAttribute;
+        else if (ToLower(nameAttribute) == "garbage")
             initialResource[GARBAGE] = initialAttribute;
-        } else if (ToLower(nameAttribute) == "uranium")
-        {
-            totalResource[URANIUM] = totalAttribute;
+        else if (ToLower(nameAttribute) == "uranium")
             initialResource[URANIUM] = initialAttribute;
-        }
     }
+
+    for (auto resource : initialResource)
+        game->GetResourceMarket()->AddResource(resource.first, resource.second);
 
     return true;
 }
 
-bool Config::LoadCards(pugi::xml_document& xml)
+bool Config::LoadCards(pugi::xml_document& xml) const
 {
-    cards = vector<shared_ptr<Card>>();
-
     if (!xml.child("config").child("cards"))
         return false;
 
-    for (auto standardCardNode : xml.select_nodes("//cards/standardCard"))
+    for (auto standardCardNode : xml.select_nodes("//cards/powerPlantCard"))
     {
-        int priceAttribute = stoi(standardCardNode.node().attribute("price").value());
-        int resourcesAttribute = stoi(standardCardNode.node().attribute("resources").value());
-        int powerAttribute = stoi(standardCardNode.node().attribute("power").value());
-        //TODO: also add the image path to the card
+        auto priceAttribute = stoi(standardCardNode.node().attribute("price").value());
+        auto resourcesAttribute = stoi(standardCardNode.node().attribute("resources").value());
+        auto powerAttribute = stoi(standardCardNode.node().attribute("power").value());
+        //TODO: FARZAD also add the image path to the card
         string imageAttribute = standardCardNode.node().attribute("image").value();
 
-        auto standardCard = make_shared<PowerPlantCard>(priceAttribute,
-                                                      resourcesAttribute, powerAttribute);
+        auto powerPlantCard = make_shared<PowerPlantCard>(priceAttribute,
+                                                          resourcesAttribute, powerAttribute);
 
         for (auto resourceNode : standardCardNode.node().children("resource"))
         {
             string nameAttribute = resourceNode.attribute("name").value();
 
             if (ToLower(nameAttribute) == "coal")
-                standardCard->AddActiveResource(COAL);
+                powerPlantCard->AddActiveResource(COAL);
             else if (ToLower(nameAttribute) == "oil")
-                standardCard->AddActiveResource(OIL);
+                powerPlantCard->AddActiveResource(OIL);
             else if (ToLower(nameAttribute) == "garbage")
-                standardCard->AddActiveResource(GARBAGE);
+                powerPlantCard->AddActiveResource(GARBAGE);
             else if (ToLower(nameAttribute) == "uranium")
-                standardCard->AddActiveResource(URANIUM);
+                powerPlantCard->AddActiveResource(URANIUM);
         }
 
-        cards.push_back(standardCard);
+        game->GetAllCards().push_back(powerPlantCard);
     }
 
     for (auto stepCardNode : xml.select_nodes("//cards/stepCard"))
     {
-        int stepAttribute = stoi(stepCardNode.node().attribute("step").value());
-        //TODO: also add the image path to the card
+        auto stepAttribute = stoi(stepCardNode.node().attribute("step").value());
+        //TODO: FARZAD also add the image path to the card
         string imageAttribute = stepCardNode.node().attribute("image").value();
 
         auto stepCard = make_shared<StepCard>(stepAttribute);
-        cards.push_back(stepCard);
+        game->GetAllCards().push_back(stepCard);
     }
 
     return true;
 }
 
-bool Config::LoadOverviewCards(pugi::xml_document& xml)
+bool Config::LoadOverviewCard(pugi::xml_document& xml) const
 {
-    overview = make_shared<Overview>();
-
     if (!xml.child("config").child("overview"))
         return false;
 
@@ -148,7 +136,7 @@ bool Config::LoadOverviewCards(pugi::xml_document& xml)
         int numberAttribute = stoi(stepNode.node().attribute("number").value());
         string titleAttribute = stepNode.node().attribute("title").value();
 
-        auto overviewStep = overview->AddStep(numberAttribute, titleAttribute);
+        auto overviewStep = game->GetOverview().AddStep(numberAttribute, titleAttribute);
 
         for (auto infoNode : stepNode.node().children("info"))
         {
@@ -160,7 +148,7 @@ bool Config::LoadOverviewCards(pugi::xml_document& xml)
     return true;
 }
 
-bool Config::LoadElektro(pugi::xml_document& xml)
+bool Config::LoadElektro(pugi::xml_document& xml) const
 {
     auto moneyNode = xml.child("config").child("money");
 
@@ -168,14 +156,13 @@ bool Config::LoadElektro(pugi::xml_document& xml)
         return false;
 
     int amountAttribute = stoi(moneyNode.attribute("amount").value());
-    elektro = amountAttribute;
+    game->SetInitElektro(amountAttribute);
+
     return true;
 }
 
-bool Config::LoadColors(pugi::xml_document& xml)
+bool Config::LoadColors(pugi::xml_document& xml) const
 {
-    colors = vector<shared_ptr<HouseColor>>();
-
     if (!xml.child("config").child("colors"))
         return false;
 
@@ -184,14 +171,15 @@ bool Config::LoadColors(pugi::xml_document& xml)
         string nameAttribute = houseColorElement.node().attribute("name").value();
         string imageAttribute = houseColorElement.node().attribute("color").value();
         shared_ptr<HouseColor> houseColor = make_shared<HouseColor>(nameAttribute, imageAttribute);
-        colors.push_back(houseColor);
+        game->GetHouseColor().push_back(houseColor);
     }
 
     return true;
 }
 
-bool Config::LoadFile(string filePath)
+bool Config::LoadFile(Game* game, string filePath)
 {
+    this->game = game;
     pugi::xml_document configXml;
 
     QFile configXmlFile(filePath.c_str());
@@ -236,7 +224,7 @@ bool Config::LoadFile(string filePath)
         return false;
     }
 
-    if (!LoadOverviewCards(configXml))
+    if (!LoadOverviewCard(configXml))
     {
         Error("Could not read overview card data from the config file\n");
         return false;
