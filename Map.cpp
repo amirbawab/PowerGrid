@@ -372,3 +372,9 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 	// Invalid
 	return INVALID_VALUE;
 }
+
+/// Get city by name or nullptr
+std::shared_ptr<City> Map::GetCityByName(std::string cityName) {
+	if (cities.find(cityName) == cities.end()) return nullptr;
+	return cities[cityName];
+}

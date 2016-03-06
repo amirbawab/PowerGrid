@@ -28,6 +28,7 @@ public:
     static std::shared_ptr<City> GetOppositeOf(const Connection& connection,
                                         std::string city);
 	int GetShortestPath(std::string fromCity, std::string toCity);
+	std::shared_ptr<City> GetCityByName(std::string cityName);
 
 private:
     std::string fileName;
