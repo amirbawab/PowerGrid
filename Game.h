@@ -59,7 +59,7 @@ public:
 	std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
 	int GetPhase() const { return phase; }
 	Overview& GetOverview() { return overview; }
-	int GetInitElektro() { return initElektro; }
+	int GetInitElektro() const { return initElektro; }
 	
 	// Setters
 	void SetMap(std::shared_ptr<Map>& map) { this->map = map; }

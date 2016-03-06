@@ -23,10 +23,8 @@ bool GameStatus::LoadMap(pugi::xml_document& xml) const
     return true;
 }
 
-bool GameStatus::LoadColors(pugi::xml_document& xml)
+bool GameStatus::LoadColors(pugi::xml_document& xml) const
 {
-    colors = vector<shared_ptr<HouseColor>>();
-
     if (!xml.child("game").child("colors"))
         return false;
 
@@ -35,7 +33,7 @@ bool GameStatus::LoadColors(pugi::xml_document& xml)
         string nameAttribute = colorNode.node().attribute("name").value();
         string imageAttribute = colorNode.node().attribute("image").value();
         auto color = make_shared<HouseColor>(nameAttribute, imageAttribute);
-        colors.push_back(color);
+        game->GetHouseColor().push_back(color);
     }
 
     return true;
@@ -154,11 +152,11 @@ void GameStatus::PopulateCardDeck(pugi::xml_node& gameXml) const
     }
 }
 
-void GameStatus::PopulateColors(pugi::xml_node& gameXml)
+void GameStatus::PopulateColors(pugi::xml_node& gameXml) const
 {
     auto colorsNode = gameXml.append_child("colors");
     
-    for (auto color : colors)
+    for (auto color : game->GetHouseColor())
     {
         // Append the node and the attributes
         auto colorNode = colorsNode.append_child("color");
@@ -241,7 +239,7 @@ void GameStatus::PopulatePlayers(pugi::xml_node& playersNode) const
     }
 }
 
-bool GameStatus::LoadPlayers(pugi::xml_document& xml)
+bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
 {
     if (!xml.child("players").child("player"))
         return false;
@@ -255,10 +253,10 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         // Read the color and try to find the corresponding color in the collection
         shared_ptr<HouseColor> color = nullptr;
 
-        for (int i = 0; i < colors.size(); i++)
-            if (colors[i]->getName() == playerColorAttribute)
+        for (int i = 0; i < game->GetHouseColor().size(); i++)
+            if (game->GetHouseColor()[i]->getName() == playerColorAttribute)
             {
-                color = colors[i];
+                color = game->GetHouseColor()[i];
                 break;
             }
 
@@ -278,7 +276,7 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
             auto priceAttribute = stoi(powerPlantNode.node().attribute("price").value());
 
             shared_ptr<PowerPlantCard> playerCard = nullptr;
-            for (auto card : Config::GetInstance().GetCards())
+            for (auto card : game->GetAllCards())
             {
                 shared_ptr<PowerPlantCard> powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(card);
                 if (powerPlantCard && powerPlantCard->GetPrice() == priceAttribute)
@@ -319,11 +317,11 @@ bool GameStatus::LoadOrderedPlayers(pugi::xml_document& xml) const
 
     for (auto playerNode : xml.select_nodes("//orderedPlayers/player"))
     {
-        string nameAttribute = playerNode.node().attribute("name").value();
+        string colorAttribute = playerNode.node().attribute("color").value();
 
         shared_ptr<Player> player;
         for (auto p : game->GetPlayers())
-            if (p->GetName() == nameAttribute)
+            if (p->GetColor()->getName() == colorAttribute)
             {
                 player = p;
                 break;
@@ -332,7 +330,7 @@ bool GameStatus::LoadOrderedPlayers(pugi::xml_document& xml) const
         // Specified player couldn't be found in the list of players
         if (!player)
         {
-            Error("Player with name '" + nameAttribute + "' couldn't be found " +
+            Error("Player with color '" + colorAttribute + "' couldn't be found " +
                   "in the list of players\n");
             return false;
         }
@@ -436,11 +434,19 @@ bool GameStatus::LoadAllCards(pugi::xml_document& xml) const
     return true;
 }
 
-bool GameStatus::Init(Game* game, string configFilePath)
+bool GameStatus::Init(Game* game, string mapName, string configFilePath) const
 {
-    // TODO: FARZAD needs to be implemented
-    Config::GetInstance().LoadFile(configFilePath);
-    return false;
+    if (!Config::GetInstance().LoadFile(game, configFilePath))
+        return false;
+
+    for (auto map : Config::GetInstance().GetMaps())
+        if (map->GetName() == mapName)
+        {
+            game->SetMap(map);
+            break;
+        }
+
+    return true;
 }
 
 bool GameStatus::LoadFile(Game* game, string gameFilePath,
