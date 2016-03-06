@@ -21,11 +21,13 @@ class GameStatus
     bool LoadPhase(pugi::xml_document& xml) const;
 
     bool SaveGameFile(std::string gameFilePath);
-    void PopulateMap(pugi::xml_node& game) const;
-    void PopulateOrderedPlayers(pugi::xml_node& game) const;
-    void PopulateResourceMarket(pugi::xml_node& game);
-    void PopulateCardDeck(pugi::xml_node& game) const;
-    void PopulateColors(pugi::xml_node& game) const;
+    void PopulateMap(pugi::xml_node& gameXml) const;
+    void PopulateOrderedPlayers(pugi::xml_node& gameXml) const;
+    void PopulateResourceMarket(pugi::xml_node& gameXml);
+    void PopulateCardDeck(pugi::xml_node& gameXml) const;
+    void PopulateAllCards(pugi::xml_node& gameXml) const;
+    void PopulateOverview(pugi::xml_node& gameXml) const;
+    void PopulateColors(pugi::xml_node& gameXml) const;
 
     bool SavePlayersFile(std::string playersFilePath) const;
     void PopulatePlayers(pugi::xml_node& playersNode) const;

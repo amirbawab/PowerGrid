@@ -1,4 +1,6 @@
 #include <QFile>
+#include <memory>
+
 #include "GameStatus.h"
 #include "Helpers.h"
 #include "StepCard.h"
@@ -9,6 +11,7 @@ using std::shared_ptr;
 using std::make_shared;
 using std::vector;
 using std::stoi;
+using std::dynamic_pointer_cast;
 
 bool GameStatus::LoadMap(pugi::xml_document& xml) const
 {
@@ -148,6 +151,81 @@ void GameStatus::PopulateCardDeck(pugi::xml_node& gameXml) const
             // Set attribute values
             stepAttribute.set_value(stepCard->GetStep());
             imageAttribute.set_value(stepCard->GetImagePath().c_str());
+        }
+    }
+}
+
+void GameStatus::PopulateAllCards(pugi::xml_node& gameXml) const
+{
+    auto cardsNode = gameXml.append_child("cards");
+
+    for (auto card : game->GetAllCards())
+    {
+        auto powerPlantCard = dynamic_pointer_cast<PowerPlantCard>(card);
+        auto stepCard = dynamic_pointer_cast<StepCard>(card);
+
+        if (powerPlantCard)
+        {
+            // Append the node and the attributes
+            auto powerPlantCardNode = cardsNode.append_child("powerPlantCard");
+            auto priceAttribute = powerPlantCardNode.append_attribute("price");
+            auto imageAttribute = powerPlantCardNode.append_attribute("image");
+            auto resourcesAttribute = powerPlantCardNode.append_attribute("resources");
+            auto powerAttribute = powerPlantCardNode.append_attribute("power");
+
+            // Set the attribute values
+            priceAttribute.set_value(powerPlantCard->GetPrice());
+            imageAttribute.set_value(powerPlantCard->GetImagePath().c_str());
+            resourcesAttribute.set_value(powerPlantCard->GetCapcity());
+            powerAttribute.set_value(powerPlantCard->GetPower());
+
+            for (auto resource : powerPlantCard->GetActiveResources())
+            {
+                // Append the node and the attributes
+                auto resourceNode = powerPlantCardNode.append_child("resource");
+                auto resourceNameAttribute = resourceNode.append_attribute("name");
+
+                // Set the attribute values
+                resourceNameAttribute.set_value(GetResourceName(resource).c_str());
+            }
+        }
+        else if (stepCard)
+        {
+            // Append the node and the attributes
+            auto stepCardNode = cardsNode.append_child("stepCard");
+            auto stepAttribute = stepCardNode.append_attribute("step");
+            auto imageAttribute = stepCardNode.append_attribute("image");
+
+            // Set the attribute values
+            stepAttribute.set_value(stepCard->GetStep());
+            imageAttribute.set_value(stepCard->GetImagePath().c_str());
+        }
+    }
+}
+
+void GameStatus::PopulateOverview(pugi::xml_node& gameXml) const
+{
+    auto overviewNode = gameXml.append_child("overview");
+
+    for (auto step : game->GetOverview().GetSteps())
+    {
+        // Append the node and the attributes
+        auto stepNode = overviewNode.append_child("step");
+        auto numberAttribute = stepNode.append_attribute("number");
+        auto titleAttribute = stepNode.append_attribute("title");
+
+        // Set the attribute values
+        numberAttribute.set_value(step->GetStep());
+        titleAttribute.set_value(step->GetTitle().c_str());
+
+        for (auto info : step->GetInfo())
+        {
+            // Append the node and the attributes
+            auto infoNode = stepNode.append_child("info");
+            auto textAttribute = infoNode.append_attribute("text");
+
+            // Set the attribute values
+            textAttribute.set_value(info.c_str());
         }
     }
 }
