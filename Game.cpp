@@ -258,7 +258,23 @@ void Game::BuyCities() {
 	// Each player gets to buy cities
 	for (shared_ptr<Player> p : playerOrder) {
 		currentPlayer = p;
-		cout << currentPlayer->GetName() << ", it is your turn to buy cities." << endl;
+		cout << *currentPlayer << ", it is your turn to buy cities." << endl;
+
+		string temp;
+		while (true) {
+			cout << "Would you like to buy a city? (Enter \"N\" if not, anything else if yes)" << endl;
+			cin >> temp;
+			
+			if (temp == "N") {
+				break;
+			}
+			else {
+				cout << "Enter the name of the city: " << endl;
+				cin >> temp;
+				
+			}
+
+		}
 
 
 	}
@@ -273,40 +289,39 @@ void Game::Bureaucracy() {
 void Game::PlayGame() {
 
 	while (!gameOver) {
-		std::cout << "Turn " << fullTurn << std::endl;
+		cout << "Turn " << fullTurn << endl;
 
 		for (std::shared_ptr<Player> p : players) {
-			std::cout << p << std::endl;
+			cout << p << endl;
 		}
-		std::cout << "-------" << std::endl << std::endl;
+		cout << "-------" << endl << endl;
 
 		// Step 1
-		std::cout << std::endl << "Step 1. Determining turn order" << std::endl << std::endl;
+		cout << endl << "Step 1. Determining turn order\n" << endl;
 		UpdatePlayOrder(false);
-		std::cout << "The order is:" << std::endl;
+		cout << "The order is:" << endl;
 		for (std::shared_ptr<Player> p : playerOrder) {
-			std::cout << p->GetName() << " ";
+			cout << p->GetName() << " ";
 		}
-		std::cout << std::endl;
+		cout << endl;
 
 		// Step 2
-		std::cout << std::endl << "Step 2. Power plant auction" << std::endl << std::endl;
+		cout << endl << "Step 2. Power plant auction\n" << endl;
 		AuctionPlants();
 
 		for (std::shared_ptr<Player> p : players) {
-			std::cout << p << std::endl;
+			cout << p << endl;
 		}
 
-		std::cout << "-------" << std::endl << std::endl;
-
 		// Step 3
-		std::cout << std::endl << "Step 3. Buy raw materials\n\n";
+		cout << endl << "Step 3. Buy raw materials\n" << endl;
 		BuyRawMaterials();
 
 		// Step 4
-
+		cout << endl << "Step 4. Buy cities\n" << endl;
 
 		// Step 5
+		cout << endl << "Step 3. Bureaucracy\n" << endl;
 
 		break; // testing for now
 	};

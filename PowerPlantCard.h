@@ -34,5 +34,5 @@ public:
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const PowerPlantCard& card) {
-	return stream << "Price: " << card.GetPrice() << ", Power: " << card.GetPower() << ", Capacity: " << card.GetCapcity();
+	return stream << "Price: " << card.GetPrice() << ", Power: " << card.GetPower() << ", Capacity: " << card.GetCapacity();
 }
