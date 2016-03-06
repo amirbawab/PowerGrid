@@ -26,7 +26,8 @@ private:
 	std::vector<std::shared_ptr<Player>> players;
 	std::shared_ptr<ResourceMarket> rMarket;
 	CardStack cardStack;
-	std::vector<std::shared_ptr<Card>> allCards;
+	std::vector<std::shared_ptr<HouseColor>> houseColor;
+ 	std::vector<std::shared_ptr<Card>> allCards;
 	std::shared_ptr<Map> map;
 	std::vector<std::shared_ptr<Player>> playerOrder;  // players placed in the correct turn order
 	int playStep;  // current step of the turn
@@ -51,6 +52,7 @@ public:
 	std::vector<std::shared_ptr<Card>>& GetAllCards() { return allCards; }
 	std::shared_ptr<Map>& GetMap() { return map; }
 	std::vector<std::shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
+	std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
 	int GetPhase() const { return phase; }
 
 	// Setters
