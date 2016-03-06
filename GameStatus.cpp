@@ -176,7 +176,7 @@ void GameStatus::PopulateAllCards(pugi::xml_node& gameXml) const
             // Set the attribute values
             priceAttribute.set_value(powerPlantCard->GetPrice());
             imageAttribute.set_value(powerPlantCard->GetImagePath().c_str());
-            resourcesAttribute.set_value(powerPlantCard->GetCapcity());
+            resourcesAttribute.set_value(powerPlantCard->GetCapacity());
             powerAttribute.set_value(powerPlantCard->GetPower());
 
             for (auto resource : powerPlantCard->GetActiveResources())
