@@ -303,6 +303,11 @@ void Game::BuyCities() {
 /// Step 5, bureaucracy
 void Game::Bureaucracy() {
 
+
+
+	// Refresh the stack at the end
+	cardStack.PlaceHighestVisibleAtEndOfStack();
+	cardStack.DrawPlant();
 }
 
 /// Runs the main game loop
