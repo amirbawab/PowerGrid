@@ -8,6 +8,8 @@
 #include "HouseColor.h"
 #include "Overview.h"
 
+class Game;
+
 enum IO
 {
     MAPS,
@@ -17,26 +19,21 @@ enum IO
 
 class Config
 {
-private:
+    Game* game = nullptr;
+
     Config() {}
 
     std::vector<std::shared_ptr<Map>> maps;
-    std::map<Resource, int> totalResource;
     std::map<Resource, int> initialResource;
-    std::vector<std::shared_ptr<Card>> cards;
-    std::vector<std::shared_ptr<HouseColor>> colors;
-    std::shared_ptr<Overview> overview;
-
-    std::map<IO, std::string> io;
-    int elektro = 0;
+    std::map<IO, string> pathPrefix;
 
     bool LoadIoData(pugi::xml_document& xml);
     bool LoadMaps(pugi::xml_document& xml);
     bool LoadResourceMarket(pugi::xml_document& xml);
-    bool LoadCards(pugi::xml_document& xml);
-    bool LoadOverviewCards(pugi::xml_document& xml);
-    bool LoadElektro(pugi::xml_document& xml);
-    bool LoadColors(pugi::xml_document& xml);
+    bool LoadCards(pugi::xml_document& xml) const;
+    bool LoadOverviewCard(pugi::xml_document& xml) const;
+    bool LoadElektro(pugi::xml_document& xml) const;
+    bool LoadColors(pugi::xml_document& xml) const;
 
 public:
     static Config& GetInstance()
@@ -48,14 +45,9 @@ public:
     void operator=(const Config&) = delete;
     ~Config() { }
 
+    string GetPathPrefix(IO io) { return pathPrefix[io]; }
     std::vector<std::shared_ptr<Map>> const& GetMaps() const { return maps; }
-    std::map<Resource, int> const& GetTotalResource() const { return totalResource; }
-    std::map<Resource, int> const& GetInitialResource() const { return initialResource; }
-    std::vector<std::shared_ptr<Card>> const& GetCards() const { return cards; }
-    std::vector<std::shared_ptr<HouseColor>> const& GetColors() const { return colors; }
-    std::shared_ptr<Overview> GetOverview() const { return overview; }
-	int GetElektro() { return elektro; }
 
-    bool LoadFile(std::string filePath);
+    bool LoadFile(Game* game, string filePath);
 };
 

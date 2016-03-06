@@ -148,6 +148,18 @@
     <Filter Include="Header Files\game">
       <UniqueIdentifier>{eab26a51-4724-46cc-953c-8dbad08b052f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\test">
+      <UniqueIdentifier>{47bbde89-fc6f-458e-9a02-330aaca42227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\test\player">
+      <UniqueIdentifier>{ec7132e7-05b1-4897-8cb7-5e160089ec07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\test">
+      <UniqueIdentifier>{fe7d6603-d73e-46ea-b759-41c67dda382c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\test\player">
+      <UniqueIdentifier>{da9d8595-4c38-4b22-8777-af0202211bd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -234,11 +246,14 @@
     <ClCompile Include="GameStatus.cpp">
       <Filter>Source Files\config</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CardStack.cpp">
       <Filter>Source Files\card</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTest.cpp">
+      <Filter>Source Files\test\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +342,12 @@
     </ClInclude>
     <ClInclude Include="CardStack.h">
       <Filter>Header Files\card</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTest.h">
+      <Filter>Header Files\test\player</Filter>
+    </ClInclude>
+    <ClInclude Include="GenericTest.h">
+      <Filter>Header Files\test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

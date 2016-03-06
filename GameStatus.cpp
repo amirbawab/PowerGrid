@@ -1,29 +1,33 @@
 #include <QFile>
+#include <memory>
+
 #include "GameStatus.h"
 #include "Helpers.h"
 #include "StepCard.h"
 #include "Config.h"
+#include "Game.h"
 
 using std::shared_ptr;
 using std::make_shared;
 using std::vector;
 using std::stoi;
+using std::dynamic_pointer_cast;
 
-bool GameStatus::LoadMap(pugi::xml_document& xml)
+bool GameStatus::LoadMap(pugi::xml_document& xml) const
 {
     if (!xml.child("game").child("map"))
         return false;
 
     auto mapNode = xml.child("game").child("map");
     string fileAttribute = mapNode.attribute("file").value();
-    map = make_shared<Map>(fileAttribute);
+    shared_ptr<Map> map = make_shared<Map>(fileAttribute);
+    game->SetMap(map);
+
     return true;
 }
 
-bool GameStatus::LoadColors(pugi::xml_document& xml)
+bool GameStatus::LoadColors(pugi::xml_document& xml) const
 {
-    colors = vector<shared_ptr<HouseColor>>();
-
     if (!xml.child("game").child("colors"))
         return false;
 
@@ -32,8 +36,32 @@ bool GameStatus::LoadColors(pugi::xml_document& xml)
         string nameAttribute = colorNode.node().attribute("name").value();
         string imageAttribute = colorNode.node().attribute("image").value();
         auto color = make_shared<HouseColor>(nameAttribute, imageAttribute);
-        colors.push_back(color);
+        game->GetHouseColor().push_back(color);
     }
+
+    return true;
+}
+
+bool GameStatus::LoadFullTurn(pugi::xml_document& xml) const
+{
+    auto fullTurnAttribute = xml.child("game").attribute("full_turn");
+    if (!fullTurnAttribute)
+        return false;
+
+    auto fullTrun = stoi(fullTurnAttribute.value());
+    game->SetFullTurn(fullTrun);
+
+    return true;
+}
+
+bool GameStatus::LoadPhase(pugi::xml_document& xml) const
+{
+    auto phaseAttribute = xml.child("game").attribute("phase");
+    if (!phaseAttribute)
+        return false;
+
+    auto phase = stoi(phaseAttribute.value());
+    game->SetPhase(phase);
 
     return true;
 }
@@ -50,19 +78,17 @@ bool GameStatus::SaveGameFile(string gameFilePath)
     return document.save_file(gameFilePath.c_str());
 }
 
-void GameStatus::PopulateMap(pugi::xml_node& game)
+void GameStatus::PopulateMap(pugi::xml_node& gameXml) const
 {
-    auto mapNode = game.append_child("map");
+    auto mapNode = gameXml.append_child("map");
     auto fileAttribute = mapNode.append_attribute("file");
-    // TODO: do we need the 'description' attribute???
-//    auto descriptionAttribute = mapNode.append_attribute("description");
-    fileAttribute.set_value(map->GetFileName().c_str());
+    fileAttribute.set_value(game->GetMap()->GetFileName().c_str());
 }
 
-void GameStatus::PopulateOrderedPlayers(pugi::xml_node& game)
+void GameStatus::PopulateOrderedPlayers(pugi::xml_node& gameXml) const
 {
-    auto orderedPlayersNode = game.append_child("orderedPlayers");
-    for (auto player : orderedPlayers)
+    auto orderedPlayersNode = gameXml.append_child("orderedPlayers");
+    for (auto player : game->GetPlayerOrder())
     {
         auto playerNode = orderedPlayersNode.append_child("player");
         auto nameAttribute = playerNode.append_attribute("name");
@@ -70,19 +96,19 @@ void GameStatus::PopulateOrderedPlayers(pugi::xml_node& game)
     }
 }
 
-void GameStatus::PopulateResourceMarket(pugi::xml_node& game)
+void GameStatus::PopulateResourceMarket(pugi::xml_node& gameXml)
 {
-    auto marketNode = game.append_child("market");
-    // TODO: resource market should return its number of resources
+    auto marketNode = gameXml.append_child("market");
+    // TODO: FARZAD needs to be implemented
 }
 
-void GameStatus::PopulateCardDeck(pugi::xml_node& game)
+void GameStatus::PopulateCardDeck(pugi::xml_node& gameXml) const
 {
-    auto cardDeckNode = game.append_child("cardDeck");
+    auto cardDeckNode = gameXml.append_child("cardDeck");
 
     PowerPlantCard* powerPlantCard;
     StepCard* stepCard;
-    for (auto card : cardDeck)
+    for (auto card : game->GetCardStack().GetCards())
     {
         powerPlantCard = dynamic_cast<PowerPlantCard*>(card.get());
         stepCard = dynamic_cast<StepCard*>(card.get());
@@ -129,11 +155,86 @@ void GameStatus::PopulateCardDeck(pugi::xml_node& game)
     }
 }
 
-void GameStatus::PopulateColors(pugi::xml_node& game)
+void GameStatus::PopulateAllCards(pugi::xml_node& gameXml) const
 {
-    auto colorsNode = game.append_child("colors");
+    auto cardsNode = gameXml.append_child("cards");
+
+    for (auto card : game->GetAllCards())
+    {
+        auto powerPlantCard = dynamic_pointer_cast<PowerPlantCard>(card);
+        auto stepCard = dynamic_pointer_cast<StepCard>(card);
+
+        if (powerPlantCard)
+        {
+            // Append the node and the attributes
+            auto powerPlantCardNode = cardsNode.append_child("powerPlantCard");
+            auto priceAttribute = powerPlantCardNode.append_attribute("price");
+            auto imageAttribute = powerPlantCardNode.append_attribute("image");
+            auto resourcesAttribute = powerPlantCardNode.append_attribute("resources");
+            auto powerAttribute = powerPlantCardNode.append_attribute("power");
+
+            // Set the attribute values
+            priceAttribute.set_value(powerPlantCard->GetPrice());
+            imageAttribute.set_value(powerPlantCard->GetImagePath().c_str());
+            resourcesAttribute.set_value(powerPlantCard->GetCapcity());
+            powerAttribute.set_value(powerPlantCard->GetPower());
+
+            for (auto resource : powerPlantCard->GetActiveResources())
+            {
+                // Append the node and the attributes
+                auto resourceNode = powerPlantCardNode.append_child("resource");
+                auto resourceNameAttribute = resourceNode.append_attribute("name");
+
+                // Set the attribute values
+                resourceNameAttribute.set_value(GetResourceName(resource).c_str());
+            }
+        }
+        else if (stepCard)
+        {
+            // Append the node and the attributes
+            auto stepCardNode = cardsNode.append_child("stepCard");
+            auto stepAttribute = stepCardNode.append_attribute("step");
+            auto imageAttribute = stepCardNode.append_attribute("image");
+
+            // Set the attribute values
+            stepAttribute.set_value(stepCard->GetStep());
+            imageAttribute.set_value(stepCard->GetImagePath().c_str());
+        }
+    }
+}
+
+void GameStatus::PopulateOverview(pugi::xml_node& gameXml) const
+{
+    auto overviewNode = gameXml.append_child("overview");
+
+    for (auto step : game->GetOverview().GetSteps())
+    {
+        // Append the node and the attributes
+        auto stepNode = overviewNode.append_child("step");
+        auto numberAttribute = stepNode.append_attribute("number");
+        auto titleAttribute = stepNode.append_attribute("title");
+
+        // Set the attribute values
+        numberAttribute.set_value(step->GetStep());
+        titleAttribute.set_value(step->GetTitle().c_str());
+
+        for (auto info : step->GetInfo())
+        {
+            // Append the node and the attributes
+            auto infoNode = stepNode.append_child("info");
+            auto textAttribute = infoNode.append_attribute("text");
+
+            // Set the attribute values
+            textAttribute.set_value(info.c_str());
+        }
+    }
+}
+
+void GameStatus::PopulateColors(pugi::xml_node& gameXml) const
+{
+    auto colorsNode = gameXml.append_child("colors");
     
-    for (auto color : colors)
+    for (auto color : game->GetHouseColor())
     {
         // Append the node and the attributes
         auto colorNode = colorsNode.append_child("color");
@@ -146,7 +247,7 @@ void GameStatus::PopulateColors(pugi::xml_node& game)
     }
 }
 
-bool GameStatus::SavePlayersFile(string playersFilePath)
+bool GameStatus::SavePlayersFile(string playersFilePath) const
 {
     pugi::xml_document document;
     auto players = document.append_child("players");
@@ -154,9 +255,9 @@ bool GameStatus::SavePlayersFile(string playersFilePath)
     return document.save_file(playersFilePath.c_str());
 }
 
-void GameStatus::PopulatePlayers(pugi::xml_node& playersNode)
+void GameStatus::PopulatePlayers(pugi::xml_node& playersNode) const
 {
-    for (auto player : players)
+    for (auto player : game->GetPlayers())
     {
         // Append the node and the attributes
         auto playerNode = playersNode.append_child("player");
@@ -216,7 +317,7 @@ void GameStatus::PopulatePlayers(pugi::xml_node& playersNode)
     }
 }
 
-bool GameStatus::LoadPlayers(pugi::xml_document& xml)
+bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
 {
     if (!xml.child("players").child("player"))
         return false;
@@ -228,12 +329,12 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         auto elektro = stoi(playerNode.node().attribute("elektro").value());
 
         // Read the color and try to find the corresponding color in the collection
-        std::shared_ptr<HouseColor> color = nullptr;
+        shared_ptr<HouseColor> color = nullptr;
 
-        for (int i = 0; i < colors.size(); i++)
-            if (colors[i]->getName() == playerColorAttribute)
+        for (int i = 0; i < game->GetHouseColor().size(); i++)
+            if (game->GetHouseColor()[i]->getName() == playerColorAttribute)
             {
-                color = colors[i];
+                color = game->GetHouseColor()[i];
                 break;
             }
 
@@ -252,10 +353,10 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
         {
             auto priceAttribute = stoi(powerPlantNode.node().attribute("price").value());
 
-            std::shared_ptr<PowerPlantCard> playerCard = nullptr;
-            for (auto card : Config::GetInstance().GetCards())
+            shared_ptr<PowerPlantCard> playerCard = nullptr;
+            for (auto card : game->GetAllCards())
             {
-                std::shared_ptr<PowerPlantCard> powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(card);
+                shared_ptr<PowerPlantCard> powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(card);
                 if (powerPlantCard && powerPlantCard->GetPrice() == priceAttribute)
                 {
                     playerCard = powerPlantCard;
@@ -281,48 +382,45 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml)
             }
         }
 
-        players.push_back(player);
+        game->GetPlayers().push_back(player);
     }
 
     return true;
 }
 
-bool GameStatus::LoadOrderedPlayers(pugi::xml_document& xml)
+bool GameStatus::LoadOrderedPlayers(pugi::xml_document& xml) const
 {
-    orderedPlayers = vector<Player*>();
-
     if (!xml.child("game").child("orderedPlayers"))
         return false;
 
     for (auto playerNode : xml.select_nodes("//orderedPlayers/player"))
     {
-        string nameAttribute = playerNode.node().attribute("name").value();
+        string colorAttribute = playerNode.node().attribute("color").value();
 
-        Player* player = nullptr;
-        for (auto p : players)
-            if (p->GetName() == nameAttribute)
+        shared_ptr<Player> player;
+        for (auto p : game->GetPlayers())
+            if (p->GetColor()->getName() == colorAttribute)
             {
-                player = p.get();
+                player = p;
                 break;
             }
 
         // Specified player couldn't be found in the list of players
         if (!player)
         {
-            Error("Player with name '" + nameAttribute + "' couldn't be found " +
+            Error("Player with color '" + colorAttribute + "' couldn't be found " +
                   "in the list of players\n");
             return false;
         }
 
-        orderedPlayers.push_back(player);
+        game->GetPlayerOrder().push_back(player);
     }
 
     return true;
 }
 
-bool GameStatus::LoadResourceMarket(pugi::xml_document& xml)
+bool GameStatus::LoadResourceMarket(pugi::xml_document& xml) const
 {
-    resourceMarket = make_shared<ResourceMarket>();
     if (!xml.child("game").child("market"))
         return false;
 
@@ -330,16 +428,14 @@ bool GameStatus::LoadResourceMarket(pugi::xml_document& xml)
     {
         string nameAttribute = resourceNode.node().attribute("name").value();
         auto amountAttribute = stoi(resourceNode.node().attribute("amount").value());
-        resourceMarket->AddResource(nameAttribute, amountAttribute);
+        game->GetResourceMarket().AddResource(nameAttribute, amountAttribute);
     }
 
     return true;
 }
 
-bool GameStatus::LoadCardDeck(pugi::xml_document& xml)
+bool GameStatus::LoadCardDeck(pugi::xml_document& xml) const
 {
-    cardDeck = vector<shared_ptr<Card>>();
-
     auto cardDeckNode = xml.child("game").child("cardDeck");
     if (!cardDeckNode)
         return false;
@@ -352,7 +448,7 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml)
             string imageAttribute = cardNode.attribute("image").value();
             auto resourcesAttribute = stoi(cardNode.attribute("resources").value());
             auto powerAttribute = stoi(cardNode.attribute("power").value());
-            // TODO: add image attribute to the card
+            // TODO: FARZAD add image attribute to the card
             auto card = make_shared<PowerPlantCard>(priceAttribute,
                                                                 powerAttribute, resourcesAttribute);
 
@@ -362,23 +458,80 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml)
                 card->AddActiveResource(nameAttribute);
             }
 
-            cardDeck.push_back(card);
+            game->GetCardStack().GetCards().push_back(card);
         }
         else if (ToLower(cardNode.name()) == "stepcard")
         {
             auto stepAttribute = stoi(cardNode.attribute("step").value());
             string imageAttribute = cardNode.attribute("image").value();
-            // TODO: add image attribute to the card
+            // TODO: FARZAD add image attribute to the card
             auto card = make_shared<StepCard>(stepAttribute);
-            cardDeck.push_back(card);
+            game->GetCardStack().GetCards().push_back(card);
         }
     }
 
     return true;
 }
 
-bool GameStatus::LoadFile(string gameFilePath, string playersFilePath)
+bool GameStatus::LoadAllCards(pugi::xml_document& xml) const
 {
+    auto cardsNode = xml.child("game").child("cards");
+    if (!cardsNode)
+        return false;
+
+    for (auto cardNode : cardsNode.children())
+    {
+        if (ToLower(cardNode.name()) == "powerplantcard")
+        {
+            auto priceAttribute = stoi(cardNode.attribute("price").value());
+            string imageAttribute = cardNode.attribute("image").value();
+            auto resourcesAttribute = stoi(cardNode.attribute("resources").value());
+            auto powerAttribute = stoi(cardNode.attribute("power").value());
+            // TODO: FARZAD add image attribute to the card
+            auto card = make_shared<PowerPlantCard>(priceAttribute,
+                                                                powerAttribute, resourcesAttribute);
+
+            for (auto resourceNode : cardNode.children("resource"))
+            {
+                string nameAttribute = resourceNode.attribute("name").value();
+                card->AddActiveResource(nameAttribute);
+            }
+
+            game->GetAllCards().push_back(card);
+        }
+        else if (ToLower(cardNode.name()) == "stepcard")
+        {
+            auto stepAttribute = stoi(cardNode.attribute("step").value());
+            string imageAttribute = cardNode.attribute("image").value();
+            // TODO: FARZAD add image attribute to the card
+            auto card = make_shared<StepCard>(stepAttribute);
+            game->GetAllCards().push_back(card);
+        }
+    }
+
+    return true;
+}
+
+bool GameStatus::Init(Game* game, string mapName, string configFilePath) const
+{
+    if (!Config::GetInstance().LoadFile(game, configFilePath))
+        return false;
+
+    for (auto map : Config::GetInstance().GetMaps())
+        if (map->GetName() == mapName)
+        {
+            game->SetMap(map);
+            break;
+        }
+
+    return true;
+}
+
+bool GameStatus::LoadFile(Game* game, string gameFilePath,
+                          string playersFilePath)
+{
+    this->game = game;
+
     pugi::xml_document gameXml;
     pugi::xml_document playersXml;
 
@@ -454,11 +607,32 @@ bool GameStatus::LoadFile(string gameFilePath, string playersFilePath)
         return false;
     }
 
+    if (!LoadAllCards(gameXml))
+    {
+        Error("Could not read data for all cards from the game file\n");
+        return false;
+    }
+
+    if (!LoadFullTurn(gameXml))
+    {
+        Error("Could not read full turn value from the game file\n");
+        return false;
+    }
+
+    if (!LoadPhase(gameXml))
+    {
+        Error("Could not read phase value from the game file\n");
+        return false;
+    }
+
     return true;
 }
 
-bool GameStatus::SaveFile(string gameFilePath, string playersFilePath)
+bool GameStatus::SaveFile(Game* game, string gameFilePath,
+                          string playersFilePath)
 {
+    this->game = game;
+
     if (!SaveGameFile(gameFilePath))
     {
         Error("Could not save game file to the path '" + gameFilePath + "'\n");

@@ -17,22 +17,20 @@ void Game::Setup() {
 
 	// Data from the user
 	std::string cinMap = "USA";
-	
-	// Load information from config
-	int initElektro = Config::GetInstance().GetElektro();
-	cardStack.SetCards(Config::GetInstance().GetCards());
+	bool cinNewGame = true;
 
-	// Select map
-	for (auto tmpMap : Config::GetInstance().GetMaps()) {
-		if (tmpMap->GetName() == cinMap) {
-			map = tmpMap;
-			break;
-		}
+	if (cinNewGame) {
+		// Initialize game
+		GameStatus::GetInstance().Init(this, cinMap, ":/test/Resources/config/Config.xml");
+
+	} else {
+		// If loading saved game
+		GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",
+			"Resources/saved games/PG_2016-03-2/Players.xml");
 	}
 
 	// Initialize components
-	int numTurns = 1;
-	rMarket = std::make_shared<ResourceMarket>();
+	fullTurn = 1;
 
 	// Test players
 	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
@@ -43,6 +41,9 @@ void Game::Setup() {
 	players.push_back(p2);
 	playerOrder.push_back(p1);
 	playerOrder.push_back(p2);
+
+	// Test dijkstra
+	std::cout <<  map->GetShortestPath("Seattle","Boston") << std::endl;
 }
 
 
@@ -275,7 +276,7 @@ void Game::Bureaucracy() {
 void Game::PlayGame() {
 
 	while (!gameOver) {
-		std::cout << "Turn " << numTurns << std::endl;
+		std::cout << "Turn " << fullTurn << std::endl;
 
 		for (std::shared_ptr<Player> p : players) {
 			std::cout << p << std::endl;
