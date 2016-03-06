@@ -10,7 +10,17 @@ private:
 public:
 	ResourceMarket();
 	~ResourceMarket();
-	void AddResource(Resource resource, int amount);
-    void AddResource(string resourceName, int amount);
+	bool AddResource(Resource resource, int amount);
+    bool AddResource(string resourceName, int amount);
+	bool RemoveResource(Resource, int);
+	bool RemoveResource(string, int);
+
+	int GetNbResource(Resource);
+	int GetCapacityResource(Resource);
+
+	int GetPrice(Resource, int);
+	int GetPrice(string, int);
+
+
 };
 

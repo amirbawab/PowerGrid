@@ -14,6 +14,7 @@
 #include "Overview.h"
 #include "GameStatus.h"
 
+using std::vector;
 using std::shared_ptr;
 using std::cout;
 using std::endl;

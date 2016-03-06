@@ -13,8 +13,15 @@ ResourceMarketLevel::~ResourceMarketLevel() {
 }
 
 /// Add 1 to a specific resource
-bool ResourceMarketLevel::addResource(Resource resource) {
+bool ResourceMarketLevel::AddResource(Resource resource) {
 	if (counter[resource] == capacity[resource]) return false;
 	++counter[resource];
+	return true;
+}
+
+/// Remove 1 from a specific resource
+bool ResourceMarketLevel::RemoveResource(Resource resource) {
+	if (counter[resource] == 0) return false;
+	--counter[resource];
 	return true;
 }

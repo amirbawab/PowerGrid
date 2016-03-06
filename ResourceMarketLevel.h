@@ -14,6 +14,7 @@ public:
 	~ResourceMarketLevel();
 	int GetCapacity(Resource resource) const { return capacity[resource]; };
 	int GetCounter(Resource resource) const { return counter[resource]; };
-	bool addResource(Resource resource);
+	bool AddResource(Resource);
+	bool RemoveResource(Resource);
 };
 

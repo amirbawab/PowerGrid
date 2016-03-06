@@ -17,17 +17,70 @@ ResourceMarket::~ResourceMarket() {
 }
 
 /// Add resource at most 'amount' amount
-void ResourceMarket::AddResource(Resource resource, int amount) {
+bool ResourceMarket::AddResource(Resource resource, int amount) {
+	if (GetNbResource(resource) + amount > GetCapacityResource(resource))
+		return false;
+
 	int right = levels.size()-1;
 	while (right >= 0 && amount > 0) {
-		if (levels[right]->addResource(resource))
+		if (levels[right]->AddResource(resource))
 			amount--;
 		else
 			right--;
 	}
+	return true;
 }
 
-void ResourceMarket::AddResource(string resourceName, int amount)
+bool ResourceMarket::AddResource(string resourceName, int amount)
 {
-    AddResource(GetResourceByName(resourceName), amount);
+    return AddResource(GetResourceByName(resourceName), amount);
 }
+
+/// Remove resources at most 'amount' amount
+bool ResourceMarket::RemoveResource(Resource resource, int amount) {
+	if (GetNbResource(resource) < amount)
+		return false;
+
+	int right = 0;
+	while (right < levels.size() && amount > 0) {
+		if (levels[right]->RemoveResource(resource))
+			amount--;
+		else
+			right++;
+	}
+	return true;
+}
+
+bool ResourceMarket::RemoveResource(string resource, int amount) {
+	return RemoveResource(GetResourceByName(resource), amount);
+}
+
+/// Gets the number of available resources of the input type
+int ResourceMarket::GetNbResource(Resource re) {
+	int total = 0;
+	for (int i = 0; i < size(levels); i++) {
+		total += levels[i]->GetCounter(re);
+	}
+	return total;
+}
+
+/// Gets the total capacity of the market to hold the resource of the input type
+int ResourceMarket::GetCapacityResource(Resource re) {
+	int total = 0;
+	for (int i = 0; i < size(levels); i++) {
+		total += levels[i]->GetCapacity(re);
+	}
+	return total;
+}
+
+int ResourceMarket::GetPrice(Resource resource, int amount) {
+	int quantityLeft = amount;
+	int totalPrice = 0;
+	int quantityInLevel;
+	// Check if there are enough resources
+	if (GetNbResource(resource) < amount) {
+		return 9999;
+	}
+}
+
+
