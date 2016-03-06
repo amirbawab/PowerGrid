@@ -103,3 +103,9 @@ int Player::GetHighestPowerPlant() {
 	}
 	return max;
 }
+
+
+/// Buy the number of resource specified from the resource market
+bool Player::BuyResource(shared_ptr<ResourceMarket>, Resource resource, int amount) {
+	return true;
+}

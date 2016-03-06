@@ -5,6 +5,7 @@
 #include "PowerPlantCard.h"
 #include "Resource.h"
 #include "CardStack.h"
+#include "ResourceMarket.h"
 #include <memory>
 #include <vector>
 
@@ -43,6 +44,9 @@ public:
 	bool AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant);
 	void ReplacePowerPlant(shared_ptr<PowerPlantCard>, int);
 	bool BuyPowerPlant(CardStack&, int, int);
+
+	bool BuyResource(shared_ptr<ResourceMarket>, Resource, int);
+	bool BuyResource(shared_ptr<ResourceMarket>, string, int);
 
     bool BuyHouse(House& house);
 
