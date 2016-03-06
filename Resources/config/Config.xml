@@ -139,8 +139,8 @@
     <powerPlantCard price="27" image="" resources="0" power="3" />
     <powerPlantCard price="50" image="" resources="0" power="6" />
     <powerPlantCard price="18" image="" resources="0" power="2" />
-    <powerPlantCard price="13" image="" resources="0" power="1" />
-    <stepCard step="3" image=""/>
+    <powerPlantCard price="13" image="" resources="0" power="1" ignore_first="no" position="top" />
+    <stepCard step="3" image="" ignore_first="no" position="bottom"/>
   </cards>
 
   <overview description="Instruction card">
