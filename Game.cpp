@@ -31,7 +31,6 @@ void Game::Setup() {
 
 	// Initialize components
 	int numTurns = 1;
-	rMarket = std::make_shared<ResourceMarket>();
 
 	// Test players
 	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);

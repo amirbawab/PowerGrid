@@ -75,7 +75,7 @@ bool Config::LoadResourceMarket(pugi::xml_document& xml)
     }
 
     for (auto resource : initialResource)
-        game->GetResourceMarket()->AddResource(resource.first, resource.second);
+        game->GetResourceMarket().AddResource(resource.first, resource.second);
 
     return true;
 }
