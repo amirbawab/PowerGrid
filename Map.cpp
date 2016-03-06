@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Helpers.h"
 #include <QFile>
+#include <limits>
 
 using std::string;
 using std::cout;
@@ -290,4 +291,38 @@ void Map::PopulateConnections(pugi::xml_node& map)
         connectionSecondAttribute.set_value(connections[connectionIndex]->getSecond()->GetName().c_str());
         connectionCostAttribute.set_value(connections[connectionIndex]->getCost());
     }
+}
+
+/// Get the shortest path between two cities
+int Map::GetShortestPath(std::string fromCity, std::string toCity) {
+	
+	// Get cities indicies
+	int fromCityIndex = GetCityIndex(fromCity);
+	int toCityIndex = GetCityIndex(toCity);
+
+	// If any city was not found
+	if (fromCityIndex == INVALID_VALUE || toCityIndex == INVALID_VALUE)
+		return INVALID_VALUE;
+
+	// Prepare required information
+	std::vector<bool> visited(cities.size(), false);
+	std::vector<int> cost(cities.size(), std::numeric_limits<int>::max());
+
+	// Prepare first city
+	visited[fromCityIndex] = true;
+	cost[fromCityIndex] = 0;
+
+	// Mark all nodes as unvisited and dijkstra value to max
+
+
+	// Loop on neightbor cities
+	for (auto conn : connectionList[fromCityIndex]) {
+		shared_ptr<City> first = cities[cityIndex];
+		shared_ptr<City> second = cities[conn.first];
+		int cost = conn.second;
+		connections.push_back(Connection(first, second, cost));
+	}
+
+
+	return 1;
 }

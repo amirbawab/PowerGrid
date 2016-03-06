@@ -13,6 +13,8 @@ class Map
 public:
 	explicit Map(std::string fileName);
 
+	static const int INVALID_VALUE = -1;
+
     std::vector<std::shared_ptr<Region>> GetRegions() const { return regions; }
     std::vector<std::shared_ptr<City>> GetCities() const { return cities; }
     std::vector<std::unique_ptr<Connection>> const& GetConnections() const { return connections; }
@@ -25,6 +27,7 @@ public:
     std::vector<Connection> GetConnections(std::string city);
     static std::shared_ptr<City> GetOppositeOf(const Connection& connection,
                                         std::string city);
+	int GetShortestPath(std::string fromCity, std::string toCity);
 
 private:
     std::string fileName;
