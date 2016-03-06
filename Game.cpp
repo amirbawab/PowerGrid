@@ -223,48 +223,43 @@ void Game::BuyRawMaterials() {
 	// Each player gets to buy resources
 	for (shared_ptr<Player> p : playerOrder) {
 		currentPlayer = p;
+		cout << currentPlayer->GetName() << ", it is your turn to buy resources." << endl;
 
-		string type;
 		int amount;
-		bool success = true;
-		while (true) {
-			cout << currentPlayer->GetName() << ", enter the type of resource to buy (Coal, Oil, Garbage or Uranium) or \"N\" to pass: " << endl;
-			cin >> type;
-			if (type == "N") {
-				break;
+		int allowed;
+		// Loop over every power plant the player owns
+		for (shared_ptr<PowerPlantCard> plant : currentPlayer->GetPowerPlants()) {
+			cout << "Buying resources for this power plant: " << endl;
+			cout << plant << endl << endl;
+
+			// Loop over every resource the power plant accepts
+			for (Resource resource : plant->GetActiveResources()) {
+				bool allowed;
+				do {
+					cout << "How much " << GetResourceName(resource) << " would you like to buy? (Enter 0 to pass)" << endl;
+					cin >> amount;
+					allowed = currentPlayer->BuyResources(rMarket, plant, resource, amount);
+
+					if (!allowed)
+						cout << "You cannot buy that amount. Try again." << endl;
+				} while (!allowed);
 			}
-			else {
-				cout << "Enter the amount of " << type << " to buy: " << endl;
-				cin >> amount;
-			}
-			if (type == "Coal") {
-				success = currentPlayer->BuyResource(rMarket, Resource::COAL, amount);
-			}
-			else if (type == "Oil") {
-				success = currentPlayer->BuyResource(rMarket, Resource::OIL, amount);
-			}
-			else if (type == "Garbage") {
-				success = currentPlayer->BuyResource(rMarket, Resource::GARBAGE, amount);
-			}
-			else if (type == "Uranium") {
-				success = currentPlayer->BuyResource(rMarket, Resource::URANIUM, amount);
-			}
-			else {
-				cout << "Not a valid resource type" << endl;
-				success = false;
-			}
-			if (success)
-				cout << "Succesfully bought " << amount << " " << type << endl;
-			else
-				cout << "Couldn't buy resources.";
-			
 		}
 	}
 }
 
 /// Step 4, buying cities
 void Game::BuyCities() {
+	// Update play order so worst starts
+	UpdatePlayOrder(true);
 
+	// Each player gets to buy cities
+	for (shared_ptr<Player> p : playerOrder) {
+		currentPlayer = p;
+		cout << currentPlayer->GetName() << ", it is your turn to buy cities." << endl;
+
+
+	}
 }
 
 /// Step 5, bureaucracy
