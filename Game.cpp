@@ -16,12 +16,21 @@ Game::~Game() {
 void Game::Setup() {
 
 	// Data from the user
+	// TODO Use cin for those data
 	std::string cinMap = "USA";
+	int cinNumberOfPlayers = 2;
 	bool cinNewGame = true;
+	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
+	std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
 
+	
 	if (cinNewGame) {
+
 		// Initialize game
 		GameStatus::GetInstance().Init(this, cinMap, ":/test/Resources/config/Config.xml");
+
+		// Prepate card stack
+		cardStack.Prepare(cinNumberOfPlayers);
 
 	} else {
 		// If loading saved game
@@ -32,18 +41,11 @@ void Game::Setup() {
 	// Initialize components
 	fullTurn = 1;
 
-	// Test players
-	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
-	std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
-
 	// Add players
 	players.push_back(p1);
 	players.push_back(p2);
 	playerOrder.push_back(p1);
 	playerOrder.push_back(p2);
-
-	// Test dijkstra
-	std::cout <<  map->GetShortestPath("Seattle","Boston") << std::endl;
 }
 
 
