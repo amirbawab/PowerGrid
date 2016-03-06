@@ -12,6 +12,7 @@ public:
 	ResourceMarketLevel() {};
 	ResourceMarketLevel(int, int, int, int, int cost);
 	~ResourceMarketLevel();
+	int GetCost() const { return cost; };
 	int GetCapacity(Resource resource) const { return capacity[resource]; };
 	int GetCounter(Resource resource) const { return counter[resource]; };
 	bool AddResource(Resource);

@@ -7,7 +7,7 @@ PowerPlantCard::~PowerPlantCard() {
 /// Place resrouces if possible
 bool PowerPlantCard::PlaceResource(Resource resource, int amount) {
 
-	// If resrouce not allowed or capacity overflow, return false
+	// If resource not allowed or capacity overflow, return false
 	if (activeResources.find(resource) == activeResources.end() || GetTotalPlacedResources() + amount > capacity)
 		return false;
 

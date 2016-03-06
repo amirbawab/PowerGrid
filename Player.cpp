@@ -106,6 +106,21 @@ int Player::GetHighestPowerPlant() {
 
 
 /// Buy the number of resource specified from the resource market
-bool Player::BuyResource(ResourceMarket&, Resource resource, int amount) {
-	return true;
+bool Player::BuyResources(ResourceMarket& rMarket, shared_ptr<PowerPlantCard> plant, Resource resource, int amount) {
+	int price = rMarket.GetPrice(resource, amount);
+
+	if (amount >= 0 && 
+		HasElektro(price) && 
+		(plant->GetTotalPlacedResources() + amount <= 2 * plant->GetCapacity()) &&
+		(plant->GetActiveResources().find(resource) != plant->GetActiveResources().end())) {
+
+		plant->PlaceResource(resource, amount);
+		SetElektro(GetElektro() - amount);
+		return true;
+	}
+	return false;
+}
+
+bool Player::BuyResources(ResourceMarket& rMarket, shared_ptr<PowerPlantCard> plant, string resource, int amount) {
+	return BuyResources(rMarket, plant, GetResourceByName(resource), amount);
 }
