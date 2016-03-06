@@ -58,7 +58,7 @@ public:
 	std::vector<std::shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
 	std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
 	int GetPhase() const { return phase; }
-	Overview& GetOverviewyup() { return overview; }
+	Overview& GetOverview() { return overview; }
 	int GetInitElektro() { return initElektro; }
 	
 	// Setters
