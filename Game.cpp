@@ -266,16 +266,36 @@ void Game::BuyCities() {
 			cin >> temp;
 			
 			if (temp == "N") {
+				cout << *currentPlayer << " has finished buying cities." << endl;
 				break;
 			}
 			else {
 				cout << "Enter the name of the city: " << endl;
 				cin >> temp;
+				shared_ptr<City> city = map->GetCityByName(temp);
 				
+				// Check if name is legal
+				if (city == nullptr) {
+					cout << "Invalid city name." << endl;
+					continue;
+				}
+				else {
+					// Find the cost of connecting to that city
+					int cost;
+					if (currentPlayer->GetHouses().empty())
+						cost = city->GetHousePrice();
+					else 
+						cost = city->GetHousePrice() + map->GetShortestPath(currentPlayer, temp);
+				}
+				// Buy the city
+				shared_ptr<House> newHouse = std::make_shared<House>(city);
+				if (currentPlayer->BuyHouse(newHouse))
+					cout << *currentPlayer << " has bought " << temp << endl;
+				else
+					cout << "Could not buy " << temp << endl;
+
 			}
-
 		}
-
 
 	}
 }
@@ -292,7 +312,7 @@ void Game::PlayGame() {
 		cout << "Turn " << fullTurn << endl;
 
 		for (std::shared_ptr<Player> p : players) {
-			cout << p << endl;
+			p->DisplayStatus();
 		}
 		cout << "-------" << endl << endl;
 
@@ -301,7 +321,7 @@ void Game::PlayGame() {
 		UpdatePlayOrder(false);
 		cout << "The order is:" << endl;
 		for (std::shared_ptr<Player> p : playerOrder) {
-			cout << p->GetName() << " ";
+			cout << *p << " ";
 		}
 		cout << endl;
 
@@ -310,7 +330,7 @@ void Game::PlayGame() {
 		AuctionPlants();
 
 		for (std::shared_ptr<Player> p : players) {
-			cout << p << endl;
+			p->DisplayStatus();
 		}
 
 		// Step 3

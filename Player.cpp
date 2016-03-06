@@ -20,9 +20,9 @@ Player::~Player()
 {
 }
 
-bool Player::BuyHouse(House& house)
+bool Player::BuyHouse(shared_ptr<House> house)
 {
-    int housePrice = house.GetPrice();
+    int housePrice = house->GetPrice();
 
     if (elektro < housePrice)
     {
@@ -32,11 +32,11 @@ bool Player::BuyHouse(House& house)
         return false;
     }
 
-    if (!house.GetCity()->AddHouse())
+    if (!house->GetCity()->AddHouse())
         return false;
 
     elektro -= housePrice;
-    houses.push_back(std::make_shared<House>(house));
+    houses.push_back(house);
     return true;
 }
 

@@ -50,7 +50,7 @@ public:
 	bool BuyResources(ResourceMarket&, shared_ptr<PowerPlantCard>, Resource, int);
 	bool BuyResources(ResourceMarket&, shared_ptr<PowerPlantCard>, string, int);
 
-    bool BuyHouse(House& house);
+    bool BuyHouse(shared_ptr<House> house);
 
     void DisplayStatus() const;
 };

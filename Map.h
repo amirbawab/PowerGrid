@@ -3,6 +3,7 @@
 #include "City.h"
 #include "Connection.h"
 #include "Region.h"
+#include "Player.h"
 #include <vector>
 #include <map>
 #include <pugixml.hpp>
@@ -25,11 +26,11 @@ public:
     bool SaveFile(std::string fileName);
     void DisplayMap() const;
 
-    static std::shared_ptr<City> GetOppositeOf(const Connection& connection,
-                                        std::string city);
+    static std::shared_ptr<City> GetOppositeOf(const Connection& connection, std::string city);
 	int GetShortestPath(std::string fromCity, std::string toCity);
-	std::shared_ptr<City> GetCityByName(std::string cityName);
+	int GetShortestPath(shared_ptr<Player>, string toCity);
 
+	std::shared_ptr<City> GetCityByName(std::string cityName);
 private:
     std::string fileName;
 	std::string name;
