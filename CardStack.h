@@ -14,7 +14,7 @@ private:
 
 	const int VISIBILE_CARDS = 8;
 	const int FUTURE_MARKET_INDEX = 4;
-	int stepCardDrawn = 0;
+	int lastStepDrawn = 0;
 	std::vector<std::shared_ptr<Card>> cards;
 	std::vector<std::shared_ptr<Card>> visiblePlants;  // indices 0-3 are current plants, 4-7 are future plants
 
@@ -30,7 +30,7 @@ public:
 	bool DrawPlant();
 	void Prepare(int numPlayers);
 
-	int GetStepCardDrawn() { return stepCardDrawn; }
+	int GetLastStepDrawn() { return lastStepDrawn; }
 	
 	void PrintInfo();
 };

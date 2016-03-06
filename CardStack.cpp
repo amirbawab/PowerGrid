@@ -30,7 +30,7 @@ bool CardStack::DrawPlant() {
 
 		// If step card
 		} else if(stepCard = std::dynamic_pointer_cast<StepCard>(top)) {
-			stepCardDrawn++;
+			lastStepDrawn = stepCard->GetStep();
 			return DrawPlant();
 		}
 	}
@@ -143,4 +143,13 @@ void CardStack::Prepare(int numPlayers) {
 			size--; // Decrease the size
 		}
 	}
+
+	// Sort step cards
+	std::sort(cards.begin() + size, cards.end(), [](std::shared_ptr<Card> lhs, std::shared_ptr<Card> rhs) {
+
+		// Cast
+		std::shared_ptr<StepCard> stepCardLHS = std::dynamic_pointer_cast<StepCard>(lhs);
+		std::shared_ptr<StepCard> stepCardRHS = std::dynamic_pointer_cast<StepCard>(rhs);
+		return stepCardLHS->GetStep() <stepCardRHS->GetStep();
+	});
 }
