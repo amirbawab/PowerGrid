@@ -92,6 +92,7 @@ bool Player::BuyPowerPlant(CardStack& cardStack, int index, int cost) {
 		cardStack.DrawPlant();
 		return true;
 	}
+	return false;
 }
 
 /// Get the number corresponding to the highest power plant
