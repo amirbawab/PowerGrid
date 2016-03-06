@@ -30,7 +30,7 @@ bool CardStack::DrawPlant() {
 
 		// If step card
 		} else if(stepCard = std::dynamic_pointer_cast<StepCard>(top)) {
-			stepCardDrawn++;
+			lastStepDrawn = stepCard->GetStep();
 			return DrawPlant();
 		}
 	}
