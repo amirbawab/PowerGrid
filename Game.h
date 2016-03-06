@@ -11,6 +11,7 @@
 #include "CardStack.h"
 #include "Map.h"
 #include "Config.h"
+#include "Overview.h"
 #include "GameStatus.h"
 
 using std::shared_ptr;
@@ -36,6 +37,7 @@ private:
 	bool gameOver = false;
 	int currentBid;
 	std::shared_ptr<Player> highestBidder;
+	Overview overview;
 
 public:
 	Game();
@@ -54,11 +56,13 @@ public:
 	std::vector<std::shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
 	std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
 	int GetPhase() const { return phase; }
+	Overview GetOverview() { return overview; }
 
 	// Setters
 	void SetMap(std::shared_ptr<Map>& map) { this->map = map; }
 	void SetFullTurn(int fullTurn) { this->fullTurn = fullTurn; }
 	void SetPhase(int phase) { this->phase = phase; }
+	void SetOverview(Overview& overview) { this->overview = overview; }
 
 	void UpdatePlayOrder(bool); // step 1
 	void AuctionPlants();  // step 2
