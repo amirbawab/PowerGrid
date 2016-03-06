@@ -38,6 +38,8 @@ private:
 	int currentBid;
 	std::shared_ptr<Player> highestBidder;
 	Overview overview;
+	int initElektro;
+
 
 public:
 	Game();
@@ -56,13 +58,14 @@ public:
 	std::vector<std::shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
 	std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
 	int GetPhase() const { return phase; }
-	Overview GetOverview() { return overview; }
-
+	Overview& GetOverviewyup() { return overview; }
+	int GetInitElektro() { return initElektro; }
+	
 	// Setters
 	void SetMap(std::shared_ptr<Map>& map) { this->map = map; }
 	void SetFullTurn(int fullTurn) { this->fullTurn = fullTurn; }
 	void SetPhase(int phase) { this->phase = phase; }
-	void SetOverview(Overview& overview) { this->overview = overview; }
+	void SetInitElektro(int initElektro) { this->initElektro = initElektro; }
 
 	void UpdatePlayOrder(bool); // step 1
 	void AuctionPlants();  // step 2
