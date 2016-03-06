@@ -25,7 +25,7 @@ private:
 	// General attributes
 	int fullTurn;  // the number of turns since the beginning
 	std::vector<std::shared_ptr<Player>> players;
-	std::shared_ptr<ResourceMarket> rMarket;
+	ResourceMarket rMarket;
 	CardStack cardStack;
 	std::vector<std::shared_ptr<HouseColor>> houseColor;
  	std::vector<std::shared_ptr<Card>> allCards;
@@ -51,7 +51,7 @@ public:
 	// Getters
 	int GetFullTurn() const { return fullTurn; }
 	std::vector<std::shared_ptr<Player>>& GetPlayers() { return players; }
-	std::shared_ptr<ResourceMarket>& GetResourceMarket() { return rMarket; }
+	ResourceMarket& GetResourceMarket() { return rMarket; }
 	CardStack& GetCardStack() { return cardStack; }
 	std::vector<std::shared_ptr<Card>>& GetAllCards() { return allCards; }
 	std::shared_ptr<Map>& GetMap() { return map; }

@@ -314,7 +314,7 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 
 	// Mark all nodes as unvisited and dijkstra value to max
 
-
+	/*
 	// Loop on neightbor cities
 	for (auto conn : connectionList[fromCityIndex]) {
 		shared_ptr<City> first = cities[cityIndex];
@@ -322,7 +322,7 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 		int cost = conn.second;
 		connections.push_back(Connection(first, second, cost));
 	}
-
+	*/
 
 	return 1;
 }
