@@ -111,6 +111,7 @@ bool Config::LoadCards(pugi::xml_document& xml) const
         }
 
         game->GetAllCards().push_back(powerPlantCard);
+		game->GetCardStack().GetCards().push_back(powerPlantCard);
     }
 
     for (auto stepCardNode : xml.select_nodes("//cards/stepCard"))
@@ -121,6 +122,7 @@ bool Config::LoadCards(pugi::xml_document& xml) const
 
         auto stepCard = make_shared<StepCard>(stepAttribute);
         game->GetAllCards().push_back(stepCard);
+		game->GetCardStack().GetCards().push_back(stepCard);
     }
 
     return true;
