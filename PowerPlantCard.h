@@ -31,6 +31,9 @@ public:
 	int GetPower() const { return power; }
 	int GetCapacity() const { return capacity; }
 	int GetTotalPlacedResources();
+	bool ConsumeResources();
+	bool ConsumeResources(Resource resource1, int, Resource resource2, int);
+	
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const PowerPlantCard& card) {

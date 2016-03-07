@@ -304,11 +304,61 @@ void Game::Bureaucracy() {
 	UpdatePlayOrder(false);
 	
 	// Check for end of game
-
+	for (shared_ptr<Player> p : players) {
+		if (p->GetHouses().size() >= overview.GetNbCitiesToEnd(players.size())) {
+			gameOver = true;
+			cout << "The game is ending this turn, power as many cities as you can!" << endl;
+		}
+	}
+	if (gameOver) {
+		vector<int> numPowered;
+		numPowered.resize(players.size(), 0);
+	}
 
 	// Count number of cities that can be powered and get money
 	// TO DO: let players move resources around
+	int numPoweredCities;
+	int i = 0;
+	for (shared_ptr<Player> p : playerOrder) {
+		currentPlayer = p;
+		cout << *currentPlayer << ", it is your turn to use your power plants." << endl;
 
+		numPoweredCities = 0;
+		string input;
+		for (shared_ptr<PowerPlantCard> plant : currentPlayer->GetPowerPlants()) {
+			cout << *plant << endl;
+			if (plant->GetTotalPlacedResources() >= plant->GetCapacity()) {
+				cout << "Do you want to power this plant? (Enter \"N\" for no, anything else for yes)" << endl;
+				cin >> input;
+
+				if (input == "N") {
+					continue;
+				}
+				else {
+					numPoweredCities += plant->GetPower();
+
+
+					// Add message for hybrid plants for picking resources to use
+
+				}
+				
+
+			}
+			else {
+				cout << "Not enough resources to power this plant\n" << plant << endl;
+			}
+		}
+
+		i++;
+	}
+
+	// If the game is ending, determine the winner
+	if (gameOver) {
+
+	}
+
+
+	// Change the visible power plants
 	if (phase == 1 || phase == 2) {
 		// Place highest plant under stack 
 		cardStack.PlaceHighestVisibleAtEndOfStack();
