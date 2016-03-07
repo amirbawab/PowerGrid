@@ -122,8 +122,8 @@ bool PlayerTest::test_BuyHouse()
 {
 	Player pBob("", nullptr, 0);
 
-	std::shared_ptr<City> testcolor = std::make_shared<City>();
-	return pBob.BuyHouse(testcolor);
+	std::shared_ptr<House> testhouse = std::make_shared<House>();
+	return pBob.BuyHouse(testhouse);
 
 }
 
