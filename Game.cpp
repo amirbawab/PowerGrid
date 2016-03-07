@@ -293,16 +293,38 @@ void Game::BuyCities() {
 					cout << *currentPlayer << " has bought " << temp << endl;
 				else
 					cout << "Could not buy " << temp << endl;
-
 			}
 		}
-
 	}
 }
 
 /// Step 5, bureaucracy
 void Game::Bureaucracy() {
+	// Update play order to best starts
+	UpdatePlayOrder(false);
+	
+	// Check for end of game
 
+
+	// Count number of cities that can be powered and get money
+	// TO DO: let players move resources around
+
+	
+	if (phase == 1 || phase == 2) {
+		// Place highest plant under stack 
+
+	}
+	else {
+		// Remove lowest plant from the game
+	}
+
+	// Restock raw materials
+
+
+
+
+
+	
 }
 
 /// Runs the main game loop
