@@ -32,7 +32,7 @@ private:
  	std::vector<std::shared_ptr<Card>> allCards;
 	std::shared_ptr<Map> map;
 	std::vector<std::shared_ptr<Player>> playerOrder;  // players placed in the correct turn order
-	int playStep;  // current step of the turn
+	int playStep = 0;  // current step of the turn
 	std::shared_ptr<Player> currentPlayer;  // pointer to the current player
 	int phase;  // phase of the game (1, 2 or 3)
 	bool gameOver = false;
@@ -44,7 +44,7 @@ private:
 
 public:
 	Game();
-	~Game();
+	~Game() {};
 
 	void Setup();
 	void PlayGame();

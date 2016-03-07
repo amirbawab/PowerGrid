@@ -26,6 +26,15 @@ public:
         std::string GetTitle() const { return title; }
         void AddInfo(std::string infoString) { info.push_back(infoString); }
         std::vector<std::string> const& GetInfo() const { return info; }
+
+		// To string
+		friend std::ostream& operator<<(std::ostream& stream, const OverviewStep& step) {
+			stream << "Step " << step.GetStep() << ": " << step.GetTitle() << std::endl;
+			for (auto info : step.GetInfo())
+				stream << "\t" << info << std::endl;
+			return stream;
+		}
+
     };
 
 	// Overview rules

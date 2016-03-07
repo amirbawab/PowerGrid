@@ -9,9 +9,6 @@ Game::Game() {
 	Setup();
 }
 
-Game::~Game() {
-}
-
 /// Sets up the game at the beginning
 void Game::Setup() {
 
@@ -41,11 +38,20 @@ void Game::Setup() {
 	// Initialize components
 	fullTurn = 1;
 
-	// Add players
+	// Add players to players vector
 	players.push_back(p1);
 	players.push_back(p2);
-	playerOrder.push_back(p1);
-	playerOrder.push_back(p2);
+
+	// Configure players
+	for (auto player : players) {
+
+		// Adjust money value
+		player->SetElektro(initElektro);
+	}
+
+	// Add then shuffle
+	for (auto player : players) playerOrder.push_back(player);
+	std::random_shuffle(playerOrder.begin(), playerOrder.end());
 }
 
 
@@ -66,17 +72,12 @@ bool comparePlayerPriority(std::shared_ptr<Player> p1, std::shared_ptr<Player> p
 	return false;
 }
 
-/// Reverse comparison
-bool comparePlayerPriorityReverse(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) {
-	return !comparePlayerPriority(p1, p2);
-}
-
 /// Step 1, sets the players in the proper turn order
 void Game::UpdatePlayOrder(bool reverse) {
 	if (!reverse)
 		std::sort(playerOrder.begin(), playerOrder.end(), comparePlayerPriority);
 	else
-		std::sort(playerOrder.begin(), playerOrder.end(), comparePlayerPriorityReverse);
+		std::sort(playerOrder.begin(), playerOrder.end(), [](std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
 }
 
 /// Finds the index of the player in the vector
@@ -387,20 +388,24 @@ void Game::Bureaucracy() {
 void Game::PlayGame() {
 
 	while (!gameOver) {
+
+		// Display turn number
 		cout << "Turn " << fullTurn << endl;
 
-		for (std::shared_ptr<Player> p : players) {
-			p->DisplayStatus();
-		}
-		cout << "-------" << endl << endl;
+		// Display players info
+		for (std::shared_ptr<Player> p : players) p->DisplayStatus();
+
+		// Reset step counter
+		playStep = 0;
 
 		// Step 1
-		cout << endl << "Step 1. Determining turn order\n" << endl;
+		cout << endl << *overview.GetSteps()[playStep++] << endl;
+
+		// Update players order ASC order
 		UpdatePlayOrder(false);
+
 		cout << "The order is:" << endl;
-		for (std::shared_ptr<Player> p : playerOrder) {
-			cout << *p << " ";
-		}
+		for (std::shared_ptr<Player> p : playerOrder)  cout << *p << " ";
 		cout << endl;
 
 		// Step 2
