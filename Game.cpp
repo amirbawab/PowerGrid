@@ -300,23 +300,30 @@ void Game::BuyCities() {
 
 /// Step 5, bureaucracy
 void Game::Bureaucracy() {
+
 	// Update play order to best starts
 	UpdatePlayOrder(false);
 	
+	// End of game cities
+	int citiesEndOfGame = overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame;
+
 	// Check for end of game
-	for (shared_ptr<Player> p : players) {
-		if (p->GetHouses().size() >= overview.GetNbCitiesToEnd(players.size())) {
+	for (int i = 0; i < players.size() && !gameOver; i++) {
+		
+		// Get player
+		std::shared_ptr<Player> p = players[i];
+
+		// If player has the number of cities to end the game
+		if (p->GetHouses().size() >= citiesEndOfGame) {
 			gameOver = true;
 			cout << "The game is ending this turn, power as many cities as you can!" << endl;
+			vector<int> numPowered;
+			numPowered.resize(players.size(), 0);
 		}
-	}
-	if (gameOver) {
-		vector<int> numPowered;
-		numPowered.resize(players.size(), 0);
 	}
 
 	// Count number of cities that can be powered and get money
-	// TO DO: let players move resources around
+	// TODO let players move resources around
 	int numPoweredCities;
 	int i = 0;
 	for (shared_ptr<Player> p : playerOrder) {

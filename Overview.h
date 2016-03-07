@@ -54,7 +54,7 @@ public:
     std::vector<std::shared_ptr<OverviewStep>> const& GetSteps() const { return steps; }
 	std::shared_ptr<OverviewStep> AddStep(int step, std::string title);
 	int GetPayment(int numCities) { return payments[numCities]; }
-	std::shared_ptr<OverviewRule> GetValueAt(int numberOfPlayer, int phase, Resource resoure) { return overviewRules[numberOfPlayer-2]; }
+	OverviewRule GetRuleByNumOfPlayers(int numberOfPlayer) { return overviewRules[numberOfPlayer-2]; }
 
 	void Setup();
 
@@ -67,5 +67,5 @@ private:
 	const vector<int> payments{ 10, 22, 33, 44, 54, 64, 73, 82, 90, 98, 105, 112, 118, 124, 129, 134, 138, 142, 145, 148, 150 };
 
 	// Rules
-	vector<std::shared_ptr<OverviewRule>> overviewRules;
+	vector<OverviewRule> overviewRules;
 };
