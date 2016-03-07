@@ -304,16 +304,16 @@ void Game::Bureaucracy() {
 	UpdatePlayOrder(false);
 	
 	// Check for end of game
-	for (shared_ptr<Player> p : players) {
-		if (p->GetHouses().size() >= overview.GetNbCitiesToEnd(players.size())) {
-			gameOver = true;
-			cout << "The game is ending this turn, power as many cities as you can!" << endl;
-		}
-	}
-	if (gameOver) {
-		vector<int> numPowered;
-		numPowered.resize(players.size(), 0);
-	}
+//	for (shared_ptr<Player> p : players) {
+//		if (p->GetHouses().size() >= overview.GetNbCitiesToEnd(players.size())) {
+//			gameOver = true;
+//			cout << "The game is ending this turn, power as many cities as you can!" << endl;
+//		}
+//	}
+//	if (gameOver) {
+//		vector<int> numPowered;
+//		numPowered.resize(players.size(), 0);
+//	}
 
 	// Count number of cities that can be powered and get money
 	// TO DO: let players move resources around
