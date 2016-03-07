@@ -9,7 +9,11 @@ bool PlayerTest::run() {
 	// All test cases
 	success &= test_GetName();
 	success &= test_SetName();
-
+	success &= test_SetElektro();
+	success &= test_HasElektro();
+	success &= test_GetHouses();
+	success &= test_AddPowerPlant();
+	success &= test_GetPowerPlants();
 	// Return true if tests are successful
 	return success;
 }
@@ -41,4 +45,93 @@ bool PlayerTest::test_SetName() {
 
 	// Check if get name return expected value
 	return pBob.GetName() == name;
+}
+
+bool PlayerTest::test_GetElektro() {
+
+	Player pBob("", nullptr, 0);
+	
+	pBob.SetElektro(20);
+
+		
+	
+	int test = pBob.GetElektro();
+
+	return pBob.GetElektro() == test;
+
+
+}
+
+bool PlayerTest::test_GetColor()
+{
+	Player pBob("", nullptr, 0);
+	std::shared_ptr<HouseColor> testcolor = std::make_shared<HouseColor>("black", "");
+	pBob.SetColor(testcolor);
+
+
+	return testcolor == pBob.GetColor();
+
+}
+
+bool PlayerTest::test_SetElektro()
+{
+	Player pBob("", nullptr, 0);
+    
+	int testelectro = 20;
+
+	pBob.SetElektro(testelectro);
+
+	return pBob.GetElektro() == testelectro;
+
+
+}
+
+bool PlayerTest::test_GetPowerPlants()
+{
+	std::vector<std::shared_ptr<PowerPlantCard>> test;
+	Player pBob("", nullptr, 0);
+
+
+	return test == pBob.GetPowerPlants();
+
+
+}
+
+bool PlayerTest::test_HasElektro()
+{
+	int testelektro = 20;
+
+	
+	Player pBob("", nullptr, 0);
+	pBob.SetElektro(20);
+	
+	return 	pBob.HasElektro(testelektro);
+
+}
+
+bool PlayerTest::test_GetHouses()
+
+{
+	Player pBob("", nullptr, 0);
+	std::vector<std::shared_ptr<House>> testhouse = pBob.GetHouses();
+
+	return testhouse == pBob.GetHouses();
+}
+
+bool PlayerTest::test_BuyHouse()
+{
+	Player pBob("", nullptr, 0);
+
+	std::shared_ptr<City> testcolor = std::make_shared<City>();
+	return pBob.BuyHouse(testcolor);
+
+}
+
+bool PlayerTest::test_AddPowerPlant() {
+
+	Player pBob("", nullptr, 0);
+	std::shared_ptr<PowerPlantCard> test = std::make_shared<PowerPlantCard>();
+	return pBob.AddPowerPlant(test);
+	
+
 }
