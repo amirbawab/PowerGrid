@@ -14,8 +14,6 @@ private:
 	bool test_GetPlant();
 	bool test_RemovePlant();
 	bool test_DrawPlant();
-	bool test_DiscardCards();
-	bool test_PrintInfo();
 
 
 };
