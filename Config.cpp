@@ -95,8 +95,7 @@ bool Config::LoadCards(pugi::xml_document& xml) const
 		//TODO: FARZAD also add the image path to the card
         string imageAttribute = standardCardNode.node().attribute("image").value();
 
-        auto powerPlantCard = make_shared<PowerPlantCard>(priceAttribute,
-                                                          resourcesAttribute, powerAttribute);
+        auto powerPlantCard = make_shared<PowerPlantCard>(priceAttribute, powerAttribute, resourcesAttribute);
 		powerPlantCard->SetIgnoreFirst(ignoreFirstAttribute != "no");
 		powerPlantCard->SetPosition(positionAttribute);
 

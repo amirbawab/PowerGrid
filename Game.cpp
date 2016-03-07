@@ -23,7 +23,7 @@ void Game::Setup() {
 	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
 	std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
 
-	
+	// If new game
 	if (cinNewGame) {
 
 		// Initialize game
