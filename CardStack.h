@@ -31,6 +31,7 @@ public:
 	void Prepare(int numPlayers);
 
 	int GetLastStepDrawn() { return lastStepDrawn; }
+	void PlaceHighestVisibleAtEndOfStack();
 	
 	void PrintInfo();
 };

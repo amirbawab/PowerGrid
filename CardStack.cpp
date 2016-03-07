@@ -48,6 +48,13 @@ void CardStack::PrintInfo() {
 		std::cout << visiblePlants[i] << std::endl;
 }
 
+/// Place highest visible card at the end of the stack
+void CardStack::PlaceHighestVisibleAtEndOfStack() {
+	std::shared_ptr<Card> lastCard = visiblePlants.back();
+	visiblePlants.pop_back();
+	cards.push_back(lastCard);
+}
+
 void CardStack::Prepare(int numPlayers) {
 	
 	// Prepare remove

@@ -309,10 +309,10 @@ void Game::Bureaucracy() {
 	// Count number of cities that can be powered and get money
 	// TO DO: let players move resources around
 
-	
 	if (phase == 1 || phase == 2) {
 		// Place highest plant under stack 
-
+		cardStack.PlaceHighestVisibleAtEndOfStack();
+		cardStack.DrawPlant();
 	}
 	else {
 		// Remove lowest plant from the game
@@ -324,7 +324,6 @@ void Game::Bureaucracy() {
 
 
 
-	
 }
 
 /// Runs the main game loop
