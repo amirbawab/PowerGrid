@@ -55,7 +55,7 @@
     </powerPlantCard>
 	 <powerPlantCard price="13" image="" resources="0" power="1" ignore_first="no" position="top" />
 
-    <powerPlantCard price="14" image="" resources="4" power="2">
+    <powerPlantCard price="14" image="" resources="2" power="2">
       <resource name="garbage"/>
     </powerPlantCard>
     <powerPlantCard price="15" image="" resources="2" power="3">
