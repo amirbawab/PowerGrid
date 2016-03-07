@@ -12,6 +12,8 @@ using std::map;
 class Overview
 {
 public:
+
+	// Overview step
     class OverviewStep
     {
     private:
@@ -26,29 +28,44 @@ public:
         std::vector<std::string> const& GetInfo() const { return info; }
     };
 
+	// Overview rules
+	struct OverviewRule {
+	public:
+		// Constructor
+		OverviewRule() : resourceStep(NB_STEPS) {}
+
+		// Table 1
+		int region;
+		int randomeRemove;
+		int maxPowerPlant;
+		int step2Cities;
+		int citiesEndOfGame;
+		int GetResourceAt(int phase, Resource resource) { return resourceStep[phase - 1][resource]; }
+	private:
+		// Table 2
+		vector<map<Resource, int>> resourceStep;
+		friend class Overview;
+	};
+
+	// Methods
     Overview();
     ~Overview();
 
     std::vector<std::shared_ptr<OverviewStep>> const& GetSteps() const { return steps; }
 	std::shared_ptr<OverviewStep> AddStep(int step, std::string title);
-	int GetPayment(int numHouses);
-	int GetNbCitiesToEnd(int numPlayers);
-	int GetNbResourceToAdd(int numPlayers, int step, Resource);
+	int GetPayment(int numCities) { return payments[numCities]; }
+	std::shared_ptr<OverviewRule> GetValueAt(int numberOfPlayer, int phase, Resource resoure) { return overviewRules[numberOfPlayer-2]; }
 
 	void Setup();
 
 private:
     std::vector<std::shared_ptr<OverviewStep>> steps;
-	static const int NB_PAYMENT_LEVELS = 21;
 	static const int MAX_NB_PLAYERS = 6;
 	static const int NB_STEPS = 3;
 
-	const int payments[NB_PAYMENT_LEVELS] = { 10, 22, 33, 44, 54, 64, 73,
-												82, 90, 98, 105, 112, 118, 124,
-												129, 134, 138, 142, 145, 148, 150 };
+	// Get money
+	const vector<int> payments{ 10, 22, 33, 44, 54, 64, 73, 82, 90, 98, 105, 112, 118, 124, 129, 134, 138, 142, 145, 148, 150 };
 
-	const int nbCitiesToEnd[MAX_NB_PLAYERS-1] = { 21, 17, 17, 15, 14 };
-	std::vector<std::vector<std::map<Resource, int>>> nbResourceToAdd;
-
-	void SetNbResourceToAdd(int numPlayers, int step, Resource, int amount);
+	// Rules
+	vector<std::shared_ptr<OverviewRule>> overviewRules;
 };

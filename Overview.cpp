@@ -1,7 +1,8 @@
 #include "Overview.h"
 
-Overview::Overview()
+Overview::Overview() : overviewRules(MAX_NB_PLAYERS-1)
 {
+	// Setup
 	Setup();
 }
 
@@ -12,77 +13,122 @@ Overview::~Overview()
 
 /// Sets up the number of resources to add (...and other things maybe?)
 void Overview::Setup() {
-	// Resizes the vectors to the correct number of players and steps
-	nbResourceToAdd.resize(MAX_NB_PLAYERS - 1);
-	for (vector<map<Resource, int>> v : nbResourceToAdd) {
-		v.resize(NB_STEPS);
-	}
-	// Initialize the values
-	// 2 players
-	SetNbResourceToAdd(2, 1, Resource::COAL, 3);
-	SetNbResourceToAdd(2, 2, Resource::COAL, 4);
-	SetNbResourceToAdd(2, 3, Resource::COAL, 3);
-	SetNbResourceToAdd(2, 1, Resource::OIL, 2);
-	SetNbResourceToAdd(2, 2, Resource::OIL, 2);
-	SetNbResourceToAdd(2, 3, Resource::OIL, 4);
-	SetNbResourceToAdd(2, 1, Resource::GARBAGE, 1);
-	SetNbResourceToAdd(2, 2, Resource::GARBAGE, 2);
-	SetNbResourceToAdd(2, 3, Resource::GARBAGE, 3);
-	SetNbResourceToAdd(2, 1, Resource::URANIUM, 1);
-	SetNbResourceToAdd(2, 2, Resource::URANIUM, 1);
-	SetNbResourceToAdd(2, 3, Resource::URANIUM, 1);
-	// 3 players
-	SetNbResourceToAdd(2, 1, Resource::COAL, 4);
-	SetNbResourceToAdd(2, 2, Resource::COAL, 5);
-	SetNbResourceToAdd(2, 3, Resource::COAL, 3);
-	SetNbResourceToAdd(2, 1, Resource::OIL, 2);
-	SetNbResourceToAdd(2, 2, Resource::OIL, 3);
-	SetNbResourceToAdd(2, 3, Resource::OIL, 4);
-	SetNbResourceToAdd(2, 1, Resource::GARBAGE, 1);
-	SetNbResourceToAdd(2, 2, Resource::GARBAGE, 2);
-	SetNbResourceToAdd(2, 3, Resource::GARBAGE, 3);
-	SetNbResourceToAdd(2, 1, Resource::URANIUM, 1);
-	SetNbResourceToAdd(2, 2, Resource::URANIUM, 1);
-	SetNbResourceToAdd(2, 3, Resource::URANIUM, 1);
-	// 4 players
-	SetNbResourceToAdd(2, 1, Resource::COAL, 5);
-	SetNbResourceToAdd(2, 2, Resource::COAL, 6);
-	SetNbResourceToAdd(2, 3, Resource::COAL, 4);
-	SetNbResourceToAdd(2, 1, Resource::OIL, 3);
-	SetNbResourceToAdd(2, 2, Resource::OIL, 4);
-	SetNbResourceToAdd(2, 3, Resource::OIL, 5);
-	SetNbResourceToAdd(2, 1, Resource::GARBAGE, 2);
-	SetNbResourceToAdd(2, 2, Resource::GARBAGE, 3);
-	SetNbResourceToAdd(2, 3, Resource::GARBAGE, 4);
-	SetNbResourceToAdd(2, 1, Resource::URANIUM, 1);
-	SetNbResourceToAdd(2, 2, Resource::URANIUM, 2);
-	SetNbResourceToAdd(2, 3, Resource::URANIUM, 2);
-	// 5 players
-	SetNbResourceToAdd(2, 1, Resource::COAL, 5);
-	SetNbResourceToAdd(2, 2, Resource::COAL, 7);
-	SetNbResourceToAdd(2, 3, Resource::COAL, 5);
-	SetNbResourceToAdd(2, 1, Resource::OIL, 4);
-	SetNbResourceToAdd(2, 2, Resource::OIL, 5);
-	SetNbResourceToAdd(2, 3, Resource::OIL, 6);
-	SetNbResourceToAdd(2, 1, Resource::GARBAGE, 3);
-	SetNbResourceToAdd(2, 2, Resource::GARBAGE, 3);
-	SetNbResourceToAdd(2, 3, Resource::GARBAGE, 5);
-	SetNbResourceToAdd(2, 1, Resource::URANIUM, 2);
-	SetNbResourceToAdd(2, 2, Resource::URANIUM, 3);
-	SetNbResourceToAdd(2, 3, Resource::URANIUM, 2);
-	// 6 players
-	SetNbResourceToAdd(2, 1, Resource::COAL, 7);
-	SetNbResourceToAdd(2, 2, Resource::COAL, 9);
-	SetNbResourceToAdd(2, 3, Resource::COAL, 6);
-	SetNbResourceToAdd(2, 1, Resource::OIL, 5);
-	SetNbResourceToAdd(2, 2, Resource::OIL, 6);
-	SetNbResourceToAdd(2, 3, Resource::OIL, 7);
-	SetNbResourceToAdd(2, 1, Resource::GARBAGE, 3);
-	SetNbResourceToAdd(2, 2, Resource::GARBAGE, 5);
-	SetNbResourceToAdd(2, 3, Resource::GARBAGE, 6);
-	SetNbResourceToAdd(2, 1, Resource::URANIUM, 2);
-	SetNbResourceToAdd(2, 2, Resource::URANIUM, 3);
-	SetNbResourceToAdd(2, 3, Resource::URANIUM, 3);
+
+	// TODO To be read from files
+	// 2.1 Players
+	overviewRules[0]->region = 3;
+	overviewRules[0]->randomeRemove = 8;
+	overviewRules[0]->maxPowerPlant = 4;
+	overviewRules[0]->step2Cities = 10;
+	overviewRules[0]->citiesEndOfGame = 21;
+
+	// 2.2 Players
+	overviewRules[0]->resourceStep[0][COAL] = 3;
+	overviewRules[0]->resourceStep[0][OIL] = 2;
+	overviewRules[0]->resourceStep[0][GARBAGE] = 1;
+	overviewRules[0]->resourceStep[0][URANIUM] = 1;
+
+	overviewRules[0]->resourceStep[1][COAL] = 4;
+	overviewRules[0]->resourceStep[1][OIL] = 2;
+	overviewRules[0]->resourceStep[1][GARBAGE] = 2;
+	overviewRules[0]->resourceStep[1][URANIUM] = 1;
+
+	overviewRules[0]->resourceStep[2][COAL] = 3;
+	overviewRules[0]->resourceStep[2][OIL] = 4;
+	overviewRules[0]->resourceStep[2][GARBAGE] = 3;
+	overviewRules[0]->resourceStep[2][URANIUM] = 1;
+
+	// 3.1 Players
+	overviewRules[1]->region = 3;
+	overviewRules[1]->randomeRemove = 8;
+	overviewRules[1]->maxPowerPlant = 3;
+	overviewRules[1]->step2Cities = 7;
+	overviewRules[1]->citiesEndOfGame = 17;
+
+	// 3.2 Players
+	overviewRules[1]->resourceStep[0][COAL] = 4;
+	overviewRules[1]->resourceStep[0][OIL] = 2;
+	overviewRules[1]->resourceStep[0][GARBAGE] = 1;
+	overviewRules[1]->resourceStep[0][URANIUM] = 1;
+
+	overviewRules[1]->resourceStep[1][COAL] = 5;
+	overviewRules[1]->resourceStep[1][OIL] = 3;
+	overviewRules[1]->resourceStep[1][GARBAGE] = 2;
+	overviewRules[1]->resourceStep[1][URANIUM] = 1;
+
+	overviewRules[1]->resourceStep[2][COAL] = 3;
+	overviewRules[1]->resourceStep[2][OIL] = 4;
+	overviewRules[1]->resourceStep[2][GARBAGE] = 3;
+	overviewRules[1]->resourceStep[2][URANIUM] = 1;
+
+	// 4.1 Players
+	overviewRules[2]->region = 4;
+	overviewRules[2]->randomeRemove = 4;
+	overviewRules[2]->maxPowerPlant = 3;
+	overviewRules[2]->step2Cities = 7;
+	overviewRules[2]->citiesEndOfGame = 17;
+
+	// 4.2 Players
+	overviewRules[2]->resourceStep[0][COAL] = 5;
+	overviewRules[2]->resourceStep[0][OIL] = 3;
+	overviewRules[2]->resourceStep[0][GARBAGE] = 2;
+	overviewRules[2]->resourceStep[0][URANIUM] = 1;
+
+	overviewRules[2]->resourceStep[1][COAL] = 6;
+	overviewRules[2]->resourceStep[1][OIL] = 4;
+	overviewRules[2]->resourceStep[1][GARBAGE] = 3;
+	overviewRules[2]->resourceStep[1][URANIUM] = 2;
+
+	overviewRules[2]->resourceStep[2][COAL] = 4;
+	overviewRules[2]->resourceStep[2][OIL] = 5;
+	overviewRules[2]->resourceStep[2][GARBAGE] = 4;
+	overviewRules[2]->resourceStep[2][URANIUM] = 2;
+
+	// 5.1 Players
+	overviewRules[3]->region = 5;
+	overviewRules[3]->randomeRemove = 0;
+	overviewRules[3]->maxPowerPlant = 3;
+	overviewRules[3]->step2Cities = 7;
+	overviewRules[3]->citiesEndOfGame = 15;
+
+	// 5.2 Players
+	overviewRules[3]->resourceStep[0][COAL] = 5;
+	overviewRules[3]->resourceStep[0][OIL] = 4;
+	overviewRules[3]->resourceStep[0][GARBAGE] = 3;
+	overviewRules[3]->resourceStep[0][URANIUM] = 2;
+
+	overviewRules[3]->resourceStep[1][COAL] = 7;
+	overviewRules[3]->resourceStep[1][OIL] = 5;
+	overviewRules[3]->resourceStep[1][GARBAGE] = 3;
+	overviewRules[3]->resourceStep[1][URANIUM] = 3;
+
+	overviewRules[3]->resourceStep[2][COAL] = 5;
+	overviewRules[3]->resourceStep[2][OIL] = 6;
+	overviewRules[3]->resourceStep[2][GARBAGE] = 5;
+	overviewRules[3]->resourceStep[2][URANIUM] = 2;
+
+	// 6.1 Players
+	overviewRules[4]->region = 5;
+	overviewRules[4]->randomeRemove = 0;
+	overviewRules[4]->maxPowerPlant = 3;
+	overviewRules[4]->step2Cities = 6;
+	overviewRules[4]->citiesEndOfGame = 14;
+
+	// 6.2 Players
+	overviewRules[4]->resourceStep[0][COAL] = 7;
+	overviewRules[4]->resourceStep[0][OIL] = 5;
+	overviewRules[4]->resourceStep[0][GARBAGE] = 3;
+	overviewRules[4]->resourceStep[0][URANIUM] = 2;
+
+	overviewRules[4]->resourceStep[1][COAL] = 9;
+	overviewRules[4]->resourceStep[1][OIL] = 6;
+	overviewRules[4]->resourceStep[1][GARBAGE] = 5;
+	overviewRules[4]->resourceStep[1][URANIUM] = 3;
+
+	overviewRules[4]->resourceStep[2][COAL] = 6;
+	overviewRules[4]->resourceStep[2][OIL] = 7;
+	overviewRules[4]->resourceStep[2][GARBAGE] = 6;
+	overviewRules[4]->resourceStep[2][URANIUM] = 3;
 }
 
 
@@ -91,34 +137,4 @@ std::shared_ptr<Overview::OverviewStep> Overview::AddStep(int step, std::string 
     auto overviewStep = std::make_shared<OverviewStep>(step, title);
 	steps.push_back(overviewStep);
 	return overviewStep;
-}
-
-/// Get payment amount for a given number of houses
-int Overview::GetPayment(int numCities) {
-	if (numCities >= 0 && numCities < NB_PAYMENT_LEVELS)
-		return payments[numCities];
-	else
-		return -1;
-};
-
-/// Get the number of cities required to end the game 
-int Overview::GetNbCitiesToEnd(int numPlayers) {
-	if (numPlayers >= 2 && numPlayers <= MAX_NB_PLAYERS)
-		return nbCitiesToEnd[numPlayers - 2];
-	else
-		return -1;
-}
-
-/// Get the number of resources to add of a given type
-int Overview::GetNbResourceToAdd(int numPlayers, int step, Resource resource) {
-	if ((numPlayers >= 2 && numPlayers <= MAX_NB_PLAYERS) &&
-		(step >= 1 && step <= 3))
-		return nbResourceToAdd[numPlayers - 2][step - 1][resource];
-	else
-		return -1;
-}
-
-/// Sets the number of resources to be added
-void Overview::SetNbResourceToAdd(int numPlayers, int step, Resource resource, int amount) {
-	nbResourceToAdd[numPlayers - 2][step - 1][resource] = amount;
 }
