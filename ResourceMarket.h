@@ -7,8 +7,9 @@
 class ResourceMarket {
 private:
 	std::vector<std::shared_ptr<ResourceMarketLevel>> levels; 
+
 public:
-	ResourceMarket();
+    ResourceMarket();
 	~ResourceMarket();
 	bool AddResource(Resource resource, int amount);
     bool AddResource(string resourceName, int amount);
@@ -19,8 +20,6 @@ public:
 	int GetCapacityResource(Resource);
 
 	int GetPrice(Resource, int);
-	int GetPrice(string, int);
-
-
+	int GetPrice(string resourceName, int amount);
 };
 

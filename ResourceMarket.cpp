@@ -98,4 +98,7 @@ int ResourceMarket::GetPrice(Resource resource, int amount) {
 	}
 }
 
-
+int ResourceMarket::GetPrice(string resourceName, int amount)
+{
+    return GetPrice(GetResourceByName(resourceName), amount);
+}

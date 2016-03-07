@@ -23,7 +23,7 @@ class GameStatus
     bool SaveGameFile(std::string gameFilePath);
     void PopulateMap(pugi::xml_node& gameXml) const;
     void PopulateOrderedPlayers(pugi::xml_node& gameXml) const;
-    void PopulateResourceMarket(pugi::xml_node& gameXml);
+    void PopulateResourceMarket(pugi::xml_node& gameXml) const;
     void PopulateCardDeck(pugi::xml_node& gameXml) const;
     void PopulateAllCards(pugi::xml_node& gameXml) const;
     void PopulateOverview(pugi::xml_node& gameXml) const;

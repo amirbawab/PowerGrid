@@ -91,15 +91,28 @@ void GameStatus::PopulateOrderedPlayers(pugi::xml_node& gameXml) const
     for (auto player : game->GetPlayerOrder())
     {
         auto playerNode = orderedPlayersNode.append_child("player");
-        auto nameAttribute = playerNode.append_attribute("name");
-        nameAttribute.set_value(player->GetName().c_str());
+        auto colorAttribute = playerNode.append_attribute("color");
+        colorAttribute.set_value(player->GetColor()->getName().c_str());
     }
 }
 
-void GameStatus::PopulateResourceMarket(pugi::xml_node& gameXml)
+void GameStatus::PopulateResourceMarket(pugi::xml_node& gameXml) const
 {
     auto marketNode = gameXml.append_child("market");
-    // TODO: FARZAD needs to be implemented
+
+    for (auto i = 0; i < res::total; i++)
+    {
+        auto resource = static_cast<Resource>(i);
+
+        // Append the node and the attributes
+        auto resourceNode = marketNode.append_child("resource");
+        auto nameAttribute = resourceNode.append_attribute("name");
+        auto amountAttribute = resourceNode.append_attribute("amount");
+
+        // Set attributes values
+        nameAttribute.set_value(GetResourceName(resource).c_str());
+        amountAttribute.set_value(game->GetResourceMarket().GetNbResource(resource));
+    }
 }
 
 void GameStatus::PopulateCardDeck(pugi::xml_node& gameXml) const
