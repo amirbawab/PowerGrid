@@ -119,6 +119,7 @@
     <connection first="Savannah" second="Raleigh" cost="7" />
     <connection first="Savannah" second="Jacksonville" cost="0" />
     <connection first="Jacksonville" second="Tampa" cost="4" />
+    <connection first="Tampa" second="Miami" cost="4" />
     <connection first="Raleigh" second="Pittsbugh" cost="7" />
     <connection first="Raleigh" second="Norfolk" cost="3" />
     <connection first="Norfolk" second="Washington D.C." cost="5" />

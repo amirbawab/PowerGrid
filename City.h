@@ -2,7 +2,9 @@
 
 #include <string>
 #include "Region.h"
+#include "Connection.h"
 #include <memory>
+#include <vector>
 
 class City
 {
@@ -17,10 +19,13 @@ public:
     void SetRegion(std::shared_ptr<Region> region) { this->region = region; }
 
     int GetNumberOfHouses() const { return houses; }
+	std::vector<std::shared_ptr<Connection>> const&  GetConnections() const { return connections; }
+	void AddConnection(std::shared_ptr<Connection> connection) { connections.push_back(connection); }
 
     int GetHousePrice() const;
     bool AddHouse();
 	bool IsFull();
+	bool IsConnectedTo(std::string cityName);
 
     bool operator==(const City& other) const { return this->name == other.name; }
     bool operator==(const std::string& cityName) const { return this->name == cityName; }
@@ -36,5 +41,6 @@ private:
 	static const int MAX_VALUE = 3;
     std::string name = "";
     std::shared_ptr<Region> region;
+	std::vector<std::shared_ptr<Connection>> connections;
 };
 

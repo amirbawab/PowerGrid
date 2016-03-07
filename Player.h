@@ -5,46 +5,52 @@
 #include "PowerPlantCard.h"
 #include "Resource.h"
 #include "CardStack.h"
+#include "ResourceMarket.h"
 #include <memory>
 #include <vector>
 
 using std::shared_ptr;
+using std::vector;
+using std::string;
 
 class Player
 {
 private:
-    std::string name;
+    string name;
     int elektro = 50;
-    std::vector<std::shared_ptr<House>> houses;
-	std::vector<std::shared_ptr<PowerPlantCard>> powerPlants;
-	std::vector<int> resources;
-	std::shared_ptr<HouseColor> color;
+    vector<shared_ptr<House>> houses;
+	vector<shared_ptr<PowerPlantCard>> powerPlants;
+	vector<int> resources;
+	shared_ptr<HouseColor> color;
 
 public:
     Player();
-    Player(std::string name, std::shared_ptr<HouseColor> color, int elektro);
+    Player(string name, shared_ptr<HouseColor> color, int elektro);
     ~Player();
 
     int GetElektro() const { return elektro; }
     void SetElektro(int elektro) { this->elektro = elektro; }
 	bool HasElektro(int elektro) { return (this->elektro >= elektro); }
 
-    std::string GetName() const { return name; }
-    void SetName(std::string name) { this->name = name; }
+    string GetName() const { return name; }
+    void SetName(string name) { this->name = name; }
 
-    std::shared_ptr<HouseColor> const& GetColor() const { return color; }
-    void SetColor(std::shared_ptr<HouseColor> color) { this->color = color; }
+    shared_ptr<HouseColor> const& GetColor() const { return color; }
+    void SetColor(shared_ptr<HouseColor> color) { this->color = color; }
 
-	std::vector<std::shared_ptr<House>> const& GetHouses() const { return houses; }
-	std::vector<std::shared_ptr<PowerPlantCard>> const& GetPowerPlants() const { return powerPlants; }
+	vector<shared_ptr<House>> const& GetHouses() const { return houses; }
+	vector<shared_ptr<PowerPlantCard>> const& GetPowerPlants() const { return powerPlants; }
 	int GetResources(Resource resource) const { return resources[resource]; }
 	
 	int GetHighestPowerPlant();
-	bool AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant);
+	bool AddPowerPlant(shared_ptr<PowerPlantCard> powerPlant);
 	void ReplacePowerPlant(shared_ptr<PowerPlantCard>, int);
-	bool BuyPowerPlant(shared_ptr<CardStack>, int, int);
+	bool BuyPowerPlant(CardStack&, int, int);
 
-    bool BuyHouse(House& house);
+	bool BuyResources(ResourceMarket&, shared_ptr<PowerPlantCard>, Resource, int);
+	bool BuyResources(ResourceMarket&, shared_ptr<PowerPlantCard>, string, int);
+
+    bool BuyHouse(shared_ptr<House> house);
 
     void DisplayStatus() const;
 };

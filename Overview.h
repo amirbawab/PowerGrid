@@ -1,8 +1,13 @@
 #pragma once
 
+#include "Resource.h"
 #include <memory>
 #include <string>
 #include <vector>
+#include <map>
+
+using std::vector;
+using std::map;
 
 class Overview
 {
@@ -26,7 +31,24 @@ public:
 
     std::vector<std::shared_ptr<OverviewStep>> const& GetSteps() const { return steps; }
 	std::shared_ptr<OverviewStep> AddStep(int step, std::string title);
+	int GetPayment(int numHouses);
+	int GetNbCitiesToEnd(int numPlayers);
+	int GetNbResourceToAdd(int numPlayers, int step, Resource);
+
+	void Setup();
 
 private:
     std::vector<std::shared_ptr<OverviewStep>> steps;
+	static const int NB_PAYMENT_LEVELS = 21;
+	static const int MAX_NB_PLAYERS = 6;
+	static const int NB_STEPS = 3;
+
+	const int payments[NB_PAYMENT_LEVELS] = { 10, 22, 33, 44, 54, 64, 73,
+												82, 90, 98, 105, 112, 118, 124,
+												129, 134, 138, 142, 145, 148, 150 };
+
+	const int nbCitiesToEnd[MAX_NB_PLAYERS-1] = { 21, 17, 17, 15, 14 };
+	std::vector<std::vector<std::map<Resource, int>>> nbResourceToAdd;
+
+	void SetNbResourceToAdd(int numPlayers, int step, Resource, int amount);
 };

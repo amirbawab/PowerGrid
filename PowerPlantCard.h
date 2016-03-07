@@ -9,11 +9,11 @@ class PowerPlantCard : public Card {
 private:
 	int price = 0;
 	int power = 0;
-	int capacity = 0;
+	int capacity = 0;  // number of resources needed to power the plant (but it can hold up to 2 * capacity)
 	std::set<Resource> activeResources;
 	std::map<Resource, int> placedResources;
 
-	int GetTotalPlacedResources();
+
 
 public:
 	PowerPlantCard() {}
@@ -29,9 +29,10 @@ public:
 	std::map<Resource, int> const& GetPlacedResources() const { return placedResources; }
 	int GetPrice() const { return price; }
 	int GetPower() const { return power; }
-	int GetCapcity() const { return capacity; }
+	int GetCapacity() const { return capacity; }
+	int GetTotalPlacedResources();
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const PowerPlantCard& card) {
-	return stream << "Price: " << card.GetPrice() << ", Power: " << card.GetPower() << ", Capacity: " << card.GetCapcity();
+	return stream << "Price: " << card.GetPrice() << ", Power: " << card.GetPower() << ", Capacity: " << card.GetCapacity();
 }

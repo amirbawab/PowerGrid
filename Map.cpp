@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Helpers.h"
 #include <QFile>
+#include <limits>
+#include <queue>
 
 using std::string;
 using std::cout;
@@ -83,9 +85,9 @@ void Map::DisplayMap() const
 
         cityIndex = 1;
         for (auto city = cities.begin(); city != cities.end(); ++city)
-            if (city->get()->GetRegion()->GetName() == region->get()->GetName())
+            if (city->second->GetRegion()->GetName() == region->get()->GetName())
             {
-                cout << "\t\t" << cityIndex << ". " << city->get()->GetName() << endl;
+                cout << "\t\t" << cityIndex << ". " << city->second->GetName() << endl;
                 cityIndex++;
             }
     }
@@ -93,49 +95,27 @@ void Map::DisplayMap() const
     cout << endl <<  "-------------------------------------------------------------" << endl;
     cout << "Connections:" << endl;
     int connectionIndex = 0;
-    for (auto connection = connectionList.begin(); connection != connectionList.end(); ++connection)
-    {
-        cout << cities[connectionIndex++]->GetName() << ":" << endl;
-
-        for (auto mapIt = connection->begin(); mapIt != connection->end(); ++mapIt)
-            if (mapIt->second != -1)
-                cout << "\t=== " << mapIt->second << " ==> " << cities[mapIt->first]->GetName() << endl;
-
-        cout << endl;
-    }
-}
-
-vector<Connection> Map::GetConnections(string city)
-{
-    auto connections = vector<Connection>();
-    int cityIndex = GetCityIndex(city);
-    
-    if (cityIndex == -1)
-        return connections;
-
-    for (auto conn : connectionList[cityIndex])
-    {
-        shared_ptr<City> first = cities[cityIndex];
-        shared_ptr<City> second = cities[conn.first];
-        int cost = conn.second;
-        connections.push_back(Connection(first, second, cost));
-    }
-
-    return connections;
+	
+	for (auto city = cities.begin(); city != cities.end(); ++city) {
+		cout << city->second->GetName() << ":" << endl;
+		for (auto connection = city->second->GetConnections().begin(); connection != city->second->GetConnections().end(); ++connection)
+			cout << "\t=== " << (*connection)->GetFirst()->GetName() << " ==> " << (*connection)->GetSecond()->GetName() << endl;
+		cout << endl;
+	}
 }
 
 shared_ptr<City> Map::GetOppositeOf(const Connection& connection, string city)
 {
-    if (connection.getFirst() == city)
-        return connection.getSecond();
-    if (connection.getSecond() == city)
-        return connection.getFirst();
+    if (connection.GetFirst() == city)
+        return connection.GetSecond();
+    if (connection.GetSecond() == city)
+        return connection.GetFirst();
 
     return nullptr;
 }
 
 
-bool Map::AddConnection(City first, City second, int cost)
+bool Map::AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> second, int cost)
 {
     if (cities.size() == 0)
     {
@@ -143,34 +123,30 @@ bool Map::AddConnection(City first, City second, int cost)
         return false;
     }
 
-    int firstCity = GetCityIndex(first.GetName());
-    int secondCity = GetCityIndex(second.GetName());
-    if (firstCity == -1 || secondCity == -1)
+    if (cities.find(first->GetName()) == cities.end() || cities.find(second->GetName()) == cities.end())
     {
         Error("At least one of the cities cannot be found. Unable to add a connection\n");
         return false;
     }
 
-    if (connectionList[firstCity][secondCity] != -1 || connectionList[secondCity][firstCity] != -1)
+    if (first->IsConnectedTo(second->GetName()))
     {
         Error("It seems that we have duplicate entries for the connection between '" +
-            first.GetName() + "' and '" + second.GetName() + "'\n");
+            first->GetName() + "' and '" + second->GetName() + "'\n");
         return false;
     }
 
-    connectionList[firstCity][secondCity] = cost;
-    connectionList[secondCity][firstCity] = cost;
+	// Create a connection
+	std::shared_ptr<Connection> connection = std::make_shared<Connection>(first, second, cost);
+
+	// Add it to cities
+	first->AddConnection(connection);
+	second->AddConnection(connection);
+
+	// Add to list of connections
+	connections.push_back(connection);
+
     return true;
-}
-
-int Map::GetCityIndex(const string cityName) const
-{
-    auto city = find(cities.begin(), cities.end(), cityName);
-
-    if (city == cities.end())
-        return -1;
-
-    return distance(cities.begin(), city);
 }
 
 int Map::GetRegionIndex(const string regionName) const
@@ -185,7 +161,7 @@ int Map::GetRegionIndex(const string regionName) const
 
 bool Map::LoadCities(pugi::xml_document& xml)
 {
-    cities = vector<shared_ptr<City>>();
+    cities = std::map<std::string, std::shared_ptr<City>>();
     regions = vector<shared_ptr<Region>>();
 
     auto mapNode = xml.child("map");
@@ -198,7 +174,7 @@ bool Map::LoadCities(pugi::xml_document& xml)
         string regionName = cityNode.node().attribute("region").value();
 
         // We can't have two cities with the same name
-        if (GetCityIndex(cityName) != -1)
+        if (cities.find(cityName) != cities.end())
         {
             Error("It seems that the input file contains two cities with the same name!\n");
             return false;
@@ -208,7 +184,7 @@ bool Map::LoadCities(pugi::xml_document& xml)
 
         shared_ptr<Region> cityRegion;
         int regionIndex = GetRegionIndex(regionName);
-        if (regionIndex == -1)
+        if (regionIndex == INVALID_VALUE)
         {
             cityRegion = make_shared<Region>(regionName);
             city->SetRegion(cityRegion);
@@ -217,7 +193,8 @@ bool Map::LoadCities(pugi::xml_document& xml)
         else
             city->SetRegion(regions[regionIndex]);
 
-        cities.push_back(city);
+		// Add city to map
+        cities[cityName] = city;
     }
 
     return true;
@@ -231,20 +208,13 @@ bool Map::LoadConnections(pugi::xml_document& xml)
         return false;
     }
 
-    connections = vector<unique_ptr<Connection>>();
-    connectionList = vector<map<int, int>>(cities.size());
-
-    // Initialize the connectionList to contain all -1's
-    for (int fromCity = 0; fromCity < connectionList.size(); fromCity++)
-        for (int toCity = 0; toCity < cities.size(); toCity++)
-            connectionList[fromCity][toCity] = -1;
+    connections = vector<std::shared_ptr<Connection>>();
 
     auto mapNode = xml.child("map");
     if (!mapNode)
         return false;
 
     string firstCity, secondCity;
-    int firstCityIndex, secondCityIndex;
     int cost;
     for (auto connection : xml.select_nodes("//connections/connection"))
     {
@@ -252,13 +222,17 @@ bool Map::LoadConnections(pugi::xml_document& xml)
         secondCity = connection.node().attribute("second").value();
         cost = std::stoi(connection.node().attribute("cost").value());
 
-        if (!AddConnection(firstCity, secondCity, cost))
-            return false;
+		if (cities.find(firstCity) == cities.end() || cities.find(secondCity) == cities.end()) {
+			Error("One of the cities " + firstCity + " or " + secondCity + " is not registered!\n");
+			return false;
+		}
 
-        firstCityIndex = GetCityIndex(firstCity);
-        secondCityIndex = GetCityIndex(secondCity);
-        connections.push_back(make_unique<Connection>(cities[firstCityIndex],
-                                                      cities[secondCityIndex], cost));
+		// Get cities
+		std::shared_ptr<City> first = cities[firstCity];
+		std::shared_ptr<City> second = cities[secondCity];
+
+        if (!AddConnection(first, second, cost))
+            return false;
     }
 
     return true;
@@ -267,13 +241,13 @@ bool Map::LoadConnections(pugi::xml_document& xml)
 void Map::PopulateCities(pugi::xml_node& map)
 {
     pugi::xml_node citiesNode = map.append_child("cities");
-    for (int cityIndex = 0; cityIndex < cities.size(); cityIndex++)
+	for (auto city = cities.begin(); city != cities.end(); ++city)
     {
         pugi::xml_node cityNode = citiesNode.append_child("city");
         pugi::xml_attribute cityNameAttribute = cityNode.append_attribute("name");
         pugi::xml_attribute cityRegionAttribute = cityNode.append_attribute("region");
-        cityNameAttribute.set_value(cities[cityIndex]->GetName().c_str());
-        cityRegionAttribute.set_value(cities[cityIndex]->GetRegion()->GetName().c_str());
+        cityNameAttribute.set_value(city->first.c_str());
+        cityRegionAttribute.set_value(city->second->GetRegion()->GetName().c_str());
     }
 }
 
@@ -286,8 +260,134 @@ void Map::PopulateConnections(pugi::xml_node& map)
         pugi::xml_attribute connectionFirstAttribute = connectionNode.append_attribute("first");
         pugi::xml_attribute connectionSecondAttribute = connectionNode.append_attribute("second");
         pugi::xml_attribute connectionCostAttribute = connectionNode.append_attribute("cost");
-        connectionFirstAttribute.set_value(connections[connectionIndex]->getFirst()->GetName().c_str());
-        connectionSecondAttribute.set_value(connections[connectionIndex]->getSecond()->GetName().c_str());
-        connectionCostAttribute.set_value(connections[connectionIndex]->getCost());
+        connectionFirstAttribute.set_value(connections[connectionIndex]->GetFirst()->GetName().c_str());
+        connectionSecondAttribute.set_value(connections[connectionIndex]->GetSecond()->GetName().c_str());
+        connectionCostAttribute.set_value(connections[connectionIndex]->GetCost());
     }
+}
+
+class  CityCostComparable {
+public:
+	static const int UNVISITED = 0;
+	static const int VISITING = 1;
+	static const int VISITED = 2;
+	int cost = std::numeric_limits<int>::max();
+	int visited = UNVISITED;
+	std::shared_ptr<City> city;
+	CityCostComparable(std::shared_ptr<City> city) : city(city) {};
+};
+
+struct CityCostComparator {
+	bool operator()(const std::shared_ptr<CityCostComparable> lhs, const std::shared_ptr<CityCostComparable> rhs) const {
+		return lhs->cost > rhs->cost;
+	}
+};
+
+/// Get the shortest path between two cities
+int Map::GetShortestPath(std::string fromCity, std::string toCity) {
+
+	// If any city was not found
+	if (cities.find(fromCity) == cities.end() || cities.find(toCity) == cities.end()) {
+		Error("Cannot find " + fromCity + " or " + toCity + " in Dijkstra!");
+		return INVALID_VALUE;
+	}
+
+	// Prepare required information
+	std::map<std::string, std::shared_ptr<CityCostComparable>> citiesComparable;
+
+	// Create comparable cities
+	for (auto city = cities.begin(); city != cities.end(); ++city) {
+		citiesComparable[city->first] = std::make_shared<CityCostComparable>(cities[city->first]);
+	}
+
+	// Create priority queue
+	std::priority_queue<std::shared_ptr<CityCostComparable>, std::vector<std::shared_ptr<CityCostComparable>>, CityCostComparator> pQueue;
+
+	// Prepare first city
+	citiesComparable[fromCity]->cost = 0;
+	citiesComparable[fromCity]->visited = CityCostComparable::VISITING;
+	pQueue.push(citiesComparable[fromCity]);
+
+	// Start
+	while (!pQueue.empty()) {
+		
+		// Get top
+		std::shared_ptr<CityCostComparable> topCityCostComparable = pQueue.top();
+
+		// Mark visited
+		topCityCostComparable->visited = CityCostComparable::VISITED;
+
+		// If found my target, no need to continue calculating the other path
+		if (topCityCostComparable->city->GetName() == toCity)
+			return topCityCostComparable->cost;
+
+		// Remove top
+		pQueue.pop();
+
+		// Get neighbor connections
+		std::vector<std::shared_ptr<Connection>> topConnections = topCityCostComparable->city->GetConnections();
+		
+		// Loop on connections
+		for (auto connection = topConnections.begin(); connection != topConnections.end(); ++connection) {
+			
+			// Get opposite city
+			std::shared_ptr<City> oppositeCity = GetOppositeOf(**connection, topCityCostComparable->city->GetName());
+
+			// Get city cost comparable
+			std::shared_ptr<CityCostComparable> oppositeCityCostComparable = citiesComparable[oppositeCity->GetName()];
+
+			// If not visited
+			if (oppositeCityCostComparable->visited != CityCostComparable::VISITED) {
+
+				// Calculate path
+				int pathCost = (*connection)->GetCost() + topCityCostComparable->cost;
+
+				// If new path is less then update
+				if (pathCost < oppositeCityCostComparable->cost) {
+
+					// If unvisited
+					if (oppositeCityCostComparable->visited == CityCostComparable::UNVISITED) {
+						oppositeCityCostComparable->cost = pathCost;
+
+					// If visiting
+					} else {
+						// Empty queue into a tmp vector, make the changes then reput everything into the queue
+						std::vector<std::shared_ptr<CityCostComparable>> tmpVector;
+						while (!pQueue.empty()) { tmpVector.push_back(pQueue.top()); pQueue.pop(); }
+						oppositeCityCostComparable->cost = pathCost;
+						while (!tmpVector.empty()) { pQueue.push(tmpVector[tmpVector.size() - 1]); tmpVector.pop_back(); }
+					}
+				}
+
+				// If unvisited, add to queue
+				if (oppositeCityCostComparable->visited == CityCostComparable::UNVISITED)
+					pQueue.push(oppositeCityCostComparable);
+
+				// Mark visiting
+				oppositeCityCostComparable->visited = CityCostComparable::VISITING;
+			}
+		}
+	}
+	
+	// Invalid
+	return INVALID_VALUE;
+}
+
+/// Get the smallest cost for a player to connect to a specified city
+int Map::GetShortestPath(shared_ptr<Player> player, string toCity) {
+	int min = 9999;
+	int cost;
+	for (shared_ptr<House> house : player->GetHouses()) {
+		cost = GetShortestPath(house->GetCity()->GetName(), toCity);
+		if (cost < min)
+			min = cost;
+	}
+	return cost; // returns INVALID_VALUE if no path is found
+}
+
+
+/// Get city by name or nullptr
+std::shared_ptr<City> Map::GetCityByName(std::string cityName) {
+	if (cities.find(cityName) == cities.end()) return nullptr;
+	return cities[cityName];
 }

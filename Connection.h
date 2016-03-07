@@ -1,7 +1,7 @@
 #pragma once
-#include "City.h"
 #include <memory>
 
+class City;
 class Connection
 {
 public:
@@ -10,13 +10,13 @@ public:
                std::shared_ptr<City> secondCity, int cost)
         : first(firstCity), second(secondCity), cost(cost) { }
     
-    std::shared_ptr<City> getFirst() const { return first; }
+    std::shared_ptr<City> GetFirst() const { return first; }
     void setFirst(std::shared_ptr<City> city) { first = city; }
 
-    std::shared_ptr<City> getSecond() const { return second; }
+    std::shared_ptr<City> GetSecond() const { return second; }
     void setSecond(std::shared_ptr<City> city) { second = city; }
 
-    int getCost() const { return cost; }
+    int GetCost() const { return cost; }
     void setCost(int cost) { this->cost = cost; }
 
     bool operator==(const Connection& other) const;
