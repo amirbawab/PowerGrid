@@ -20,7 +20,7 @@ class GameStatus
     bool LoadFullTurn(pugi::xml_document& xml) const;
     bool LoadPhase(pugi::xml_document& xml) const;
 
-    bool SaveGameFile(std::string gameFilePath);
+    bool SaveGameFile(std::string gameFilePath) const;
     void PopulateMap(pugi::xml_node& gameXml) const;
     void PopulateOrderedPlayers(pugi::xml_node& gameXml) const;
     void PopulateResourceMarket(pugi::xml_node& gameXml) const;

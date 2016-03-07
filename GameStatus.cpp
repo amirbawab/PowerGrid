@@ -66,7 +66,7 @@ bool GameStatus::LoadPhase(pugi::xml_document& xml) const
     return true;
 }
 
-bool GameStatus::SaveGameFile(string gameFilePath)
+bool GameStatus::SaveGameFile(string gameFilePath) const
 {
     pugi::xml_document document;
     auto game = document.append_child("game");
