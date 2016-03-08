@@ -94,12 +94,20 @@ void Map::DisplayMap() const
 
     cout << endl <<  "-------------------------------------------------------------" << endl;
     cout << "Connections:" << endl;
-    int connectionIndex = 0;
 	
 	for (auto city = cities.begin(); city != cities.end(); ++city) {
-		cout << city->second->GetName() << ":" << endl;
-		for (auto connection = city->second->GetConnections().begin(); connection != city->second->GetConnections().end(); ++connection)
-			cout << "\t=== " << (*connection)->GetFirst()->GetName() << " ==> " << (*connection)->GetSecond()->GetName() << endl;
+
+	    auto cityName = city->second->GetName();
+		cout << cityName << ":" << endl;
+
+        for (auto connection = city->second->GetConnections().begin(); connection != city->second->GetConnections().end(); ++connection)
+        {
+            auto firstCity = connection->get()->GetFirst()->GetName();
+            auto secondCity = connection->get()->GetSecond()->GetName();
+            cout << "\t=== " << connection->get()->GetCost() << " ===> ";
+            cout << (firstCity == cityName ? secondCity : firstCity) << endl;
+        }
+
 		cout << endl;
 	}
 }
