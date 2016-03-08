@@ -30,6 +30,7 @@ int PowerPlantCard::GetTotalPlacedResources() {
 bool PowerPlantCard::ConsumeResources(Resource resource, int amount) {
 	if (placedResources[resource] - amount < 0) return false;
 	placedResources[resource] -= amount;
+	return true;
 }
 
 /// Print details about the card
