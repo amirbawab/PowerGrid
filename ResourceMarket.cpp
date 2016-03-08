@@ -1,5 +1,6 @@
 #include "ResourceMarket.h"
 #include "Helpers.h"
+#include <limits>
 
 ResourceMarket::ResourceMarket() : levels(12) {
 
@@ -58,7 +59,7 @@ bool ResourceMarket::RemoveResource(string resource, int amount) {
 /// Gets the number of available resources of the input type
 int ResourceMarket::GetNbResource(Resource re) {
 	int total = 0;
-	for (int i = 0; i < size(levels); i++) {
+	for (int i = 0; i < levels.size(); i++) {
 		total += levels[i]->GetCounter(re);
 	}
 	return total;
@@ -67,7 +68,7 @@ int ResourceMarket::GetNbResource(Resource re) {
 /// Gets the total capacity of the market to hold the resource of the input type
 int ResourceMarket::GetCapacityResource(Resource re) {
 	int total = 0;
-	for (int i = 0; i < size(levels); i++) {
+	for (int i = 0; i < levels.size(); i++) {
 		total += levels[i]->GetCapacity(re);
 	}
 	return total;
@@ -79,11 +80,11 @@ int ResourceMarket::GetPrice(Resource resource, int amount) {
 	int quantityInLevel;
 	// Check if there are enough resources
 	if (GetNbResource(resource) < amount) {
-		return 9999;
+		return PG::INVALID;
 	}
 	else {
 		// Find the price
-		for (int i = 0; i < size(levels); i++) {
+		for (int i = 0; i < levels.size(); i++) {
 			quantityInLevel = levels[i]->GetCounter(resource);
 			if (quantityLeft > quantityInLevel) {
 				totalPrice += quantityInLevel * levels[i]->GetCost();

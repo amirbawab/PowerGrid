@@ -80,18 +80,6 @@ void Game::UpdatePlayOrder(bool reverse) {
 		std::sort(playerOrder.begin(), playerOrder.end(), [](std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
 }
 
-/// Finds the index of the player in the vector
-int GetPlayerIndex(shared_ptr<Player> player, vector<shared_ptr<Player>>& playerVec) {
-	int index = 0;
-	for (shared_ptr<Player> p : playerVec) {
-		if (p.get() == player.get()) {
-			return index;
-		}
-		index++;
-	}
-	return -1;
-}
-
 /// Plays out step 2, auctioning power plants
 void Game::AuctionPlants() {
 	
@@ -277,7 +265,6 @@ void Game::AuctionPlants() {
 	}
 }
 	
-
 /// Plays out step 3, buying raw materials
 void Game::BuyRawMaterials() {
 	// Update play order so worst starts
@@ -286,14 +273,22 @@ void Game::BuyRawMaterials() {
 	// Each player gets to buy resources
 	for (shared_ptr<Player> p : playerOrder) {
 		currentPlayer = p;
-		cout << currentPlayer->GetName() << ", it is your turn to buy resources." << endl;
+		cout << *currentPlayer << ", it is your turn to buy resources." << endl;
 
 		int amount;
 		int allowed;
 		// Loop over every power plant the player owns
 		for (shared_ptr<PowerPlantCard> plant : currentPlayer->GetPowerPlants()) {
-			cout << "Buying resources for this power plant: " << endl;
-			cout << plant << endl << endl;
+			
+			// If does not take any resources
+			if (plant->GetActiveResources().size() == 0) {
+				cout << "Skipping the following power plant because it doesn't take any resources:" << endl;
+				plant->PrintDetails();
+				continue;
+			}
+
+			cout << "\nBuying resources for this power plant: " << endl;
+			plant->PrintDetails();
 
 			// Loop over every resource the power plant accepts
 			for (Resource resource : plant->GetActiveResources()) {
@@ -301,6 +296,14 @@ void Game::BuyRawMaterials() {
 				do {
 					cout << "How much " << GetResourceName(resource) << " would you like to buy? (Enter 0 to pass)" << endl;
 					cin >> amount;
+
+					// Check invalid input
+					if (!cin.good()) {
+						cin.clear();
+						cin.ignore(INT_MAX, '\n');
+						amount = PG::INVALID;
+					}
+
 					allowed = currentPlayer->BuyResources(rMarket, plant, resource, amount);
 
 					if (!allowed)

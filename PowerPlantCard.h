@@ -12,9 +12,7 @@ private:
 	int capacity = 0;  // number of resources needed to power the plant (but it can hold up to 2 * capacity)
 	std::set<Resource> activeResources;
 	std::map<Resource, int> placedResources;
-
-
-
+	
 public:
 	PowerPlantCard() {}
 	PowerPlantCard(int price, int power, int capacity) : price(price), power(power), capacity(capacity) {}
@@ -34,11 +32,17 @@ public:
 	bool ConsumeResources();
 	bool ConsumeResources(Resource resource1, int, Resource resource2, int);
 	
+	void PrintDetails();
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const PowerPlantCard& card) {
-	stream << "Price: " << card.GetPrice() << ", Power: " << card.GetPower() << ", Capacity: " << card.GetCapacity() << ", Resource: ";
-	for (Resource resource : card.GetActiveResources())
-		stream << " " << GetResourceName(resource);
+	stream << "Price: " << card.GetPrice() << ", Power: " << card.GetPower() << ", Capacity: " << card.GetCapacity();
+	
+	// If takes resources
+	if (card.GetActiveResources().size() > 0) {
+		stream << ", Resource(s): ";
+		for (Resource resource : card.GetActiveResources())
+			stream << " " << GetResourceName(resource);
+	}
 	return stream;
 }

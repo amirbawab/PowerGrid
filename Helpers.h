@@ -30,3 +30,7 @@ inline string ToUpper(string input)
     transform(result.begin(), result.end(), result.begin(), toupper);
     return result;
 }
+
+namespace PG {
+	const int INVALID = -1;
+}

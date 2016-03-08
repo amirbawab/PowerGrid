@@ -54,7 +54,43 @@ void Player::DisplayStatus() const
     output += separator + message;
     output += "\tTotal money: " + to_string(elektro) + "\n";
     output += "\tNumber of houses: " + to_string(houses.size()) + "\n";
-    output += separator;
+    
+	// Print houses
+	for (int i = 0; i < houses.size(); i++)
+		output += "\t\tHouse #" + to_string(i + 1) + " - Name: " + houses[i]->GetCity()->GetName() + ", Price: " + to_string(houses[i]->GetPrice()) + "\n";
+
+	output += "\tNumber of power plants: " + to_string(powerPlants.size()) + "\n";
+
+	// Print power plants
+	for (int i = 0; i < powerPlants.size(); i++) {
+
+		// Cache
+		std::shared_ptr<PowerPlantCard> powerPlant = powerPlants[i];
+
+		output += "\t\tPowerplant #" + to_string(i + 1) + " - Price: " + to_string(powerPlant->GetPrice()) + ", Power: " + to_string(powerPlant->GetPower()) +",Capacity: " + to_string(powerPlant->GetCapacity());
+		
+		// If takes resources
+		if (powerPlant->GetActiveResources().size() > 0) {
+			output += ", Resource(s): ";
+			for (Resource resource : powerPlant->GetActiveResources())
+				output += " " + GetResourceName(resource);
+			output += "\n";
+		}
+
+		// If has resources placed
+		if (powerPlant->GetPlacedResources().size() > 0) {
+			output += "\t\t\tPlaced resources:\n";
+			for (auto resource : powerPlant->GetPlacedResources()) {
+				if (resource.second > 0)
+					output += "\t\t\t" + GetResourceName(resource.first) + ": " + to_string(resource.second) + "\n";
+			}
+		}
+		else {
+			output += "\t\t\tNo resources placed.\n";
+		}
+	}
+
+	output += separator;
     cout << output;
 }
 

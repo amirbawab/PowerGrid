@@ -42,3 +42,32 @@ bool PowerPlantCard::ConsumeResources() {
 bool PowerPlantCard::ConsumeResources(Resource resource1, int amount1, Resource resource2, int amount2) {
 	return true;
 }
+
+/// Print details about the card
+void PowerPlantCard::PrintDetails() {
+	std::cout << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << "Price: " << GetPrice() << ", Power: " << GetPower() << ", Capacity: " << GetCapacity();
+
+	// If takes resources
+	if (GetActiveResources().size() > 0) {
+		std::cout << ", Resource(s): ";
+		for (Resource resource : GetActiveResources())
+			std::cout << " " << GetResourceName(resource);
+	}
+	std::cout << std::endl;
+
+	// If has resources placed
+	if (GetPlacedResources().size() > 0) {
+		std::cout << "\tPlaced resources:";
+		for (auto resource : GetPlacedResources()) {
+			if (resource.second > 0)
+				std::cout << GetResourceName(resource.first) << ": " << resource.second << std::endl;
+		}
+	}
+	else {
+		std::cout << "No resources placed." << std::endl;
+	}
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
+}
