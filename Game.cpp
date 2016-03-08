@@ -569,17 +569,17 @@ void Game::PlayGame() {
 		AuctionPlants();
 
 		// Check if phase 3
-		phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
-
-		// Display players info
-		for (std::shared_ptr<Player> p : players) p->DisplayStatus();
-
-		// Check if phase 3
 		if (phase != 3) {
 			phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
 			cardStack.ShuffleStack();
 		}
 
+		// Display players info
+		for (std::shared_ptr<Player> p : players) p->DisplayStatus();
+
+		// Step 3
+		cout << endl << *overview.GetSteps()[playStep++] << endl;
+		
 		// Buy resources
 		BuyRawMaterials();
 
