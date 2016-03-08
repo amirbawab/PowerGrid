@@ -466,6 +466,7 @@ void Game::PlayGame() {
 
 		// Step 4
 		cout << endl << "Step 4. Buy cities\n" << endl;
+		BuyCities();
 
 		// Step 5
 		cout << endl << "Step 3. Bureaucracy\n" << endl;
