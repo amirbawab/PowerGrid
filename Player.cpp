@@ -123,7 +123,7 @@ bool Player::BuyPowerPlant(CardStack& cardStack, int index, int cost) {
 				
 				// Check invalid value
 				if (!cin.good()) {
-					i = -1;
+					i = PG::INVALID;
 					cin.clear();
 					cin.ignore(INT_MAX, '\n');
 				}
