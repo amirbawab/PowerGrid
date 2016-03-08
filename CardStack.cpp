@@ -41,11 +41,11 @@ bool CardStack::DrawPlant() {
 void CardStack::PrintInfo() {
 	std::cout << "Current plants: " << std::endl;
 	for (int i = 0; i < FUTURE_MARKET_INDEX; i++)
-		std::cout << visiblePlants[i] << std::endl;
+		std::cout << "[" << i << "] " << *GetPlant(i) << std::endl;
 
 	std::cout << "Future plants: " << std::endl;
 	for (int i = FUTURE_MARKET_INDEX; i < VISIBILE_CARDS; i++)
-		std::cout << visiblePlants[i] << std::endl;
+		std::cout << "[" << i << "] " << *GetPlant(i) << std::endl;
 }
 
 /// Place highest visible card at the end of the stack
@@ -159,4 +159,9 @@ void CardStack::Prepare(int numPlayers) {
 		std::shared_ptr<StepCard> stepCardRHS = std::dynamic_pointer_cast<StepCard>(rhs);
 		return stepCardLHS->GetStep() <stepCardRHS->GetStep();
 	});
+}
+
+std::shared_ptr<PowerPlantCard> const CardStack::GetPlant(int index){ 
+	if (index < 0 || index >= visiblePlants.size()) return nullptr;
+	return std::dynamic_pointer_cast<PowerPlantCard>(visiblePlants[index]); 
 }
