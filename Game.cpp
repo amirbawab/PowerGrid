@@ -27,7 +27,7 @@ void Game::Setup() {
 		GameStatus::GetInstance().Init(this, cinMap, ":/test/Resources/config/Config.xml");
 
 		// Prepate card stack
-		cardStack.Prepare(cinNumberOfPlayers);
+		cardStack.Prepare(overview.GetRuleByNumOfPlayers(cinNumberOfPlayers).randomeRemove);
 
 	} else {
 		// If loading saved game
@@ -384,23 +384,6 @@ void Game::Bureaucracy() {
 	// Winners
 	vector<std::shared_ptr<Player>> winners;
 
-	// Check for end of game
-	/*
-	The player should power all the 17 cities to end the game.
-	for (int i = 0; i < players.size() && !gameOver; i++) {
-		
-		// Get player
-		std::shared_ptr<Player> p = players[i];
-
-		// If player has the number of cities to end the game
-		if (p->GetHouses().size() >= citiesEndOfGame) {
-			gameOver = true;
-			cout << "The game is ending this turn, power as many cities as you can!" << endl;
-			vector<int> numPowered;
-			numPowered.resize(players.size(), 0);
-		}
-	}*/
-
 	// Count number of cities that can be powered and get money
 	// TODO let players move resources around
 	for (shared_ptr<Player> p : playerOrder) {
@@ -433,19 +416,22 @@ void Game::Bureaucracy() {
 					} else if (plant->GetActiveResources().size() > 1) {
 						
 						// Required
-						int required = plant->GetCapacity();
+						int required = 0;
 
-						// While require is not satisfied
-						while (required > 0) {
+						// While required is not satisfied
+						while (required < plant->GetCapacity()) {
 							
 							// Loop on active resources
 							for (auto resource : plant->GetActiveResources()) {
 
 								// If required satisfied
-								if (required == 0) break;
+								if (required == plant->GetCapacity()) break;
+								
+								// If doesn't have this resource
+								if (plant->GetPlacedResource(resource) == 0) continue;
 
 								// Usable placed resources
-								int usablePlaced = std::min(plant->GetPlacedResource(resource), plant->GetCapacity());
+								int usablePlaced = std::min(plant->GetPlacedResource(resource), plant->GetCapacity() - required);
 								cout << "How many " << GetResourceName(resource) << " out of " << usablePlaced << " usuable (might have more) would you like to power ?" << endl;
 
 								// Take input from user
@@ -463,16 +449,12 @@ void Game::Bureaucracy() {
 									// If invalid number
 									if (consume < 0 || consume > usablePlaced)
 										cout << "Cannot consume this amount. Try again." << endl;
-
-									// If consumed more than required
-									else if (required - consume < 0)
-										cout << "You cannot consume more than required. Try again.";
 										
-								} while (consume < 0 || consume > usablePlaced || required - consume < 0);
+								} while (consume < 0 || consume > usablePlaced);
 
 								// Consume
 								cout << "Consumed " << consume << " " << GetResourceName(resource) << " from this power plant." << endl;
-								required -= consume;
+								required += consume;
 								plant->ConsumeResources(resource, consume);
 							}
 						}
@@ -482,37 +464,60 @@ void Game::Bureaucracy() {
 			else {
 				cout << "Not enough resources to power this plant\n" << plant << endl;
 			}
+		}
 
-			// Take min between number of houses that can be powered and the actual number of houses
-			int playerHouses = currentPlayer->GetHouses().size();
-			numPoweredCities = std::min(numPoweredCities, playerHouses);
+		// Take min between number of houses that can be powered and the actual number of houses
+		int playerHouses = currentPlayer->GetHouses().size();
+		numPoweredCities = std::min(numPoweredCities, playerHouses);
 
-			// Get money
-			currentPlayer->SetElektro(currentPlayer->GetElektro() + overview.GetPayment(numPoweredCities));
+		// Get money
+		cout << *currentPlayer << " powered " << std::to_string(numPoweredCities) << " houses, earning " << std::to_string(overview.GetPayment(numPoweredCities)) << " Elektro.";
+		currentPlayer->SetElektro(currentPlayer->GetElektro() + overview.GetPayment(numPoweredCities));
 
-			// If game over
-			if (citiesEndOfGame <= numPoweredCities) {
-				gameOver = true;
-				winners.push_back(currentPlayer);
-			}
+		// If game over
+		if (citiesEndOfGame <= numPoweredCities) {
+			gameOver = true;
+			winners.push_back(currentPlayer);
 		}
 	}
 
 	// If game is over
 	if (gameOver) {
 
-		// If more than one winner
 		if (winners.size() == 1)
 			winner = winners[0];
-		else {
+
+		// If more than one winner
+		else if(winners.size() > 1) {
 			
-			// TODO Based on money
+			// Get max
+			int maxMoney = winners[0]->GetElektro();
+			for (int i = 1; i < winners.size(); i++) {
+				if (winners[i]->GetElektro() > maxMoney)
+					maxMoney = winners[i]->GetElektro();
+			}
+
+			// Take the max only
+			for (int i = 0; i < winners.size(); i++)
+				if (winners[i]->GetElektro() != maxMoney)
+					winners.erase(winners.begin() + i);
+
+			// If only one winner
+			if (winners.size() == 1) {
+				winner = winners[0];
+			
+			// If more than one winner
+			} else if(winners.size() > 1) {
+				
+				int maxCitiesIndex = 0;
+				for (int i = 1; i < winners.size(); i++) {
+					if (winners[i]->GetHouses().size() > winners[maxCitiesIndex]->GetHouses().size())
+						maxCitiesIndex = i;
+				}
+				winner = winners[maxCitiesIndex];
+			}
 		}
-
-		// End of game
-		return;
 	}
-
 
 	// Change the visible power plants
 	if (phase == 1 || phase == 2) {
@@ -520,16 +525,17 @@ void Game::Bureaucracy() {
 		cardStack.PlaceHighestVisibleAtEndOfStack();
 		cardStack.DrawPlant();
 	}
-	else {
+	else if(phase == 3) {
 		// Remove lowest plant from the game
+		cardStack.RemoveLowestVisible();
+		cardStack.DrawPlant();
 	}
 
 	// Restock raw materials
-
-
-
-
-
+	for (int i = 0; i < res::total; i++) {
+		Resource resource = static_cast<Resource>(COAL + i);
+		rMarket.AddResource(resource, overview.GetRuleByNumOfPlayers(players.size()).GetResourceAt(phase, resource));
+	}
 }
 
 /// Runs the main game loop
@@ -562,12 +568,18 @@ void Game::PlayGame() {
 		// Auction
 		AuctionPlants();
 
+		// Check if phase 3
+		phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
+
 		// Display players info
 		for (std::shared_ptr<Player> p : players) p->DisplayStatus();
 
-		// Step 3
-		cout << endl << *overview.GetSteps()[playStep++] << endl;
-		
+		// Check if phase 3
+		if (phase != 3) {
+			phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
+			cardStack.ShuffleStack();
+		}
+
 		// Buy resources
 		BuyRawMaterials();
 
@@ -577,9 +589,29 @@ void Game::PlayGame() {
 		// Buy houses
 		BuyCities();
 
+		// Check phase 2
+		for (int i = 0; i < players.size() && phase < 2; i++) {
+			if (players[i]->GetHouses().size() >= overview.GetRuleByNumOfPlayers(players.size()).step2Cities) {
+				phase = 2;
+				cardStack.RemoveLowestVisible();
+				cardStack.DrawPlant();
+			}
+		}
+
 		// Step 5
 		cout << endl << *overview.GetSteps()[playStep++] << endl;
 
-		break; // testing for now
+		// Bureaucracy
+		// Note: The winner is announced in Step 5 and not in Step 4
+		Bureaucracy();
+
+		// Check if phase 3
+		if (phase != 3) {
+			phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
+			cardStack.ShuffleStack();
+		}
+
+		// Increase turn
+		fullTurn++;
 	};
 }

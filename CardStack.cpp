@@ -59,26 +59,8 @@ void CardStack::PlaceHighestVisibleAtEndOfStack() {
 	cards.push_back(lastCard);
 }
 
-void CardStack::Prepare(int numPlayers) {
+void CardStack::Prepare(int removeCard) {
 	
-	// Prepare remove
-	int removeCard = 0;
-
-	// TODO To be read from configuration file later
-	switch(numPlayers) {
-	case 2:
-	case 3:
-		removeCard = 8;
-		break;
-	case 4:
-		removeCard = 4;
-		break;
-	case 5:
-	case 6:
-		removeCard = 0;
-		break;
-	}
-
 	// Sort cards
 	std::sort(cards.begin(), cards.end(), [](std::shared_ptr<Card> lhs, std::shared_ptr<Card> rhs) {
 		
@@ -168,4 +150,9 @@ void CardStack::Prepare(int numPlayers) {
 std::shared_ptr<PowerPlantCard> const CardStack::GetPlant(int index){ 
 	if (index < 0 || index >= visiblePlants.size()) return nullptr;
 	return std::dynamic_pointer_cast<PowerPlantCard>(visiblePlants[index]); 
+}
+
+void CardStack::RemoveLowestVisible() {
+	if (visiblePlants.size() > 0)
+		visiblePlants.erase(visiblePlants.begin());
 }

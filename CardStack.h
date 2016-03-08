@@ -30,10 +30,12 @@ public:
 	std::shared_ptr<PowerPlantCard> const GetPlant(int index);
 	void RemovePlant(int index) { visiblePlants.erase(visiblePlants.begin() + index); };
 	bool DrawPlant();
-	void Prepare(int numPlayers);
+	void Prepare(int removeCard);
+	void ShuffleStack() { std::random_shuffle(cards.begin(), cards.end()); };
 
 	int GetLastStepDrawn() { return lastStepDrawn; }
 	void PlaceHighestVisibleAtEndOfStack();
+	void RemoveLowestVisible();
 	
 	void PrintInfo();
 };
