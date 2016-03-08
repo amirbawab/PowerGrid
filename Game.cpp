@@ -37,6 +37,7 @@ void Game::Setup() {
 
 	// Initialize components
 	fullTurn = 1;
+	phase = 1;
 
 	// Add players to players vector
 	players.push_back(p1);
@@ -326,7 +327,7 @@ void Game::BuyCities() {
 
 		string temp;
 		while (true) {
-			cout << "Would you like to buy a city? (Enter \"N\" if not, anything else if yes)" << endl;
+			cout << "\nWould you like to buy a city? (Enter \"N\" if not, anything else if yes)" << endl;
 			cin >> temp;
 			
 			if (temp == "N") {
@@ -337,26 +338,35 @@ void Game::BuyCities() {
 				cout << "Enter the name of the city: " << endl;
 				cin >> temp;
 				shared_ptr<City> city = map->GetCityByName(temp);
-				
+
 				// Check if name is legal
-				if (city == nullptr) {
+				if (!city) {
 					cout << "Invalid city name." << endl;
 					continue;
 				}
-				else {
-					// Find the cost of connecting to that city
-					int cost;
-					if (currentPlayer->GetHouses().empty())
-						cost = city->GetHousePrice();
-					else 
-						cost = city->GetHousePrice() + map->GetShortestPath(currentPlayer, temp);
+				else if (city->GetNumberOfHouses() == phase) {
+					cout << "Cannot buy a house. " << city->GetName() << " is already saturated for this phase.";
+					continue;
 				}
-				// Buy the city
-				shared_ptr<House> newHouse = std::make_shared<House>(city);
-				if (currentPlayer->BuyHouse(newHouse))
-					cout << *currentPlayer << " has bought " << temp << endl;
+
+				// Find the cost of connecting to that city
+				int cost;
+				if (currentPlayer->GetHouses().empty())
+					cost = city->GetHousePrice();
 				else
-					cout << "Could not buy " << temp << endl;
+					cost = city->GetHousePrice() + map->GetShortestPath(currentPlayer, temp);
+				
+				// Not enough money
+				if (!currentPlayer->HasElektro(cost)) {
+					cout << "Not enough money to buy " << city->GetName() << " for a total cost of " << std::to_string(cost) << " Elektro." << endl;
+				
+				// Can buy
+				} else {
+					// Buy the city
+					shared_ptr<House> newHouse = std::make_shared<House>(city);
+					currentPlayer->BuyHouse(newHouse);
+					cout << *currentPlayer << " has bought a house at " << temp << " for a total cost of " << std::to_string(cost) << " Elektro." << endl;
+				}
 			}
 		}
 	}

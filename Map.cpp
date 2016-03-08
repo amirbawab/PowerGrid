@@ -383,7 +383,7 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 
 /// Get the smallest cost for a player to connect to a specified city
 int Map::GetShortestPath(shared_ptr<Player> player, string toCity) {
-	int min = 9999;
+	int min = std::numeric_limits<int>::max();
 	int cost;
 	for (shared_ptr<House> house : player->GetHouses()) {
 		cost = GetShortestPath(house->GetCity()->GetName(), toCity);
