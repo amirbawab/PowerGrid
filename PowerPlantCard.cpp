@@ -47,11 +47,11 @@ void PowerPlantCard::PrintDetails() {
 	std::cout << std::endl;
 
 	// If has resources placed
-	if (GetPlacedResources().size() > 0) {
-		std::cout << "\tPlaced resources:";
+	if (GetTotalPlacedResources() > 0) {
+		std::cout << "\tPlaced resources:" << std::endl;
 		for (auto resource : GetPlacedResources()) {
 			if (resource.second > 0)
-				std::cout << GetResourceName(resource.first) << ": " << resource.second << std::endl;
+				std::cout << "\t" << GetResourceName(resource.first) << " = " << resource.second << std::endl;
 		}
 	}
 	else {

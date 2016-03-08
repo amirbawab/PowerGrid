@@ -393,9 +393,9 @@ void Game::Bureaucracy() {
 
 		string input;
 		for (shared_ptr<PowerPlantCard> plant : currentPlayer->GetPowerPlants()) {
-			cout << *plant << endl;
+			plant->PrintDetails();
 			if (plant->GetTotalPlacedResources() >= plant->GetCapacity()) {
-				cout << "Do you want to power this plant? (Enter \"N\" for no, anything else for yes)" << endl;
+				cout << "Do you want to power the above plant? (Enter \"N\" for no, anything else for yes)" << endl;
 				cin >> input;
 
 				// If don't want to power houses
@@ -462,7 +462,7 @@ void Game::Bureaucracy() {
 				}
 			}
 			else {
-				cout << "Not enough resources to power this plant\n" << plant << endl;
+				cout << "Not enough resources to power this plant\n" << endl;
 			}
 		}
 
@@ -471,7 +471,7 @@ void Game::Bureaucracy() {
 		numPoweredCities = std::min(numPoweredCities, playerHouses);
 
 		// Get money
-		cout << *currentPlayer << " powered " << std::to_string(numPoweredCities) << " houses, earning " << std::to_string(overview.GetPayment(numPoweredCities)) << " Elektro.";
+		cout << *currentPlayer << " powered " << std::to_string(numPoweredCities) << " houses, earning " << std::to_string(overview.GetPayment(numPoweredCities)) << " Elektro." << endl;
 		currentPlayer->SetElektro(currentPlayer->GetElektro() + overview.GetPayment(numPoweredCities));
 
 		// If game over
@@ -571,7 +571,7 @@ void Game::PlayGame() {
 		// Check if phase 3
 		if (phase != 3) {
 			phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
-			cardStack.ShuffleStack();
+			if(phase == 3) cardStack.ShuffleStack();
 		}
 
 		// Display players info
@@ -608,7 +608,7 @@ void Game::PlayGame() {
 		// Check if phase 3
 		if (phase != 3) {
 			phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
-			cardStack.ShuffleStack();
+			if (phase == 3) cardStack.ShuffleStack();
 		}
 
 		// Increase turn

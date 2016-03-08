@@ -78,7 +78,7 @@ void Player::DisplayStatus() const
 		}
 
 		// If has resources placed
-		if (powerPlant->GetPlacedResources().size() > 0) {
+		if (powerPlant->GetTotalPlacedResources() > 0) {
 			output += "\t\t\tPlaced resources:\n";
 			for (auto resource : powerPlant->GetPlacedResources()) {
 				if (resource.second > 0)
