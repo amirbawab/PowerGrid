@@ -145,12 +145,17 @@ void Game::AuctionPlants() {
 				break;
 			}
 		}
-		cout << *currentPlayer << " starts this auctioning round and can pick a power plant." << endl;
+		cout << *currentPlayer << " starts this auctioning round and can pick a power plant.\n" << endl;
 
-		// Place a bid or pass
-		cout << "Place a bid? (Type \"N\" if not, anything else for yes)" << endl;
+		// Prepare answer
 		string answer;
-		cin >> answer;
+
+		// If not first turn
+		if (fullTurn > 1) {
+			// Place a bid or pass
+			cout << "Place a bid? (Type \"N\" if not, anything else for yes)" << endl;
+			cin >> answer;
+		}
 
 		// If pass or not enough money for cheapest plant
 		if (ToLower(answer) == "n" || !currentPlayer->HasElektro(cardStack.GetPlant(0)->GetPrice())) {
@@ -164,7 +169,6 @@ void Game::AuctionPlants() {
 			cardStack.PrintInfo();
 
 			// Pick a power plant
-			// TODO Check for boundary cases
 			int plantIndex;
 			std::shared_ptr<PowerPlantCard> selectedPlant;
 			bool enoughMoney;
@@ -172,12 +176,18 @@ void Game::AuctionPlants() {
 				cout << *currentPlayer << ", pick a power plant: (Enter the index)" << endl;
 				cin >> plantIndex;
 
-				// TODO check for phase
+				// If invalid character
+				if (!cin.good()) {
+					Error("Invalid input.");
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+
 				// If player selected a card from the future market
-				if (plantIndex >= CardStack::FUTURE_MARKET_INDEX && plantIndex < CardStack::VISIBILE_CARDS) {
+				} else if (plantIndex >= CardStack::FUTURE_MARKET_INDEX && plantIndex < CardStack::VISIBILE_CARDS) {
 					Error("You can't buy from future market plants.");
-				}
-				else {
+				
+				// If player selected a valid index
+				} else {
 					// Get power plant or nullptr
 					selectedPlant = cardStack.GetPlant(plantIndex);
 
@@ -202,7 +212,7 @@ void Game::AuctionPlants() {
 			int bid;
 
 			// Print selected plant
-			cout << *cardStack.GetPlant(plantIndex) << endl;
+			cout << "Selected card: " << *cardStack.GetPlant(plantIndex) << endl;
 
 			// Bidding on the chosen plant
 			while (true) {
@@ -210,19 +220,26 @@ void Game::AuctionPlants() {
 				if (!initialBid && currentPlayer.get() == highestBidder.get()) {
 					currentPlayer->BuyPowerPlant(cardStack, plantIndex, currentBid);
 					canBuy[currentPlayer.get()] = false;
-					cout << currentPlayer->GetName() << " won this auction for " << currentBid << endl;
+					cout << *currentPlayer << " won this auction for " << currentBid << endl;
 					break;
 				} 
 				
 				// If initial bid
 				if (initialBid) {
 					bid = cardStack.GetPlant(plantIndex)->GetPrice();
-					cout << *currentPlayer << " makes the initial bid for " << bid << "." << endl;
+					cout << *currentPlayer << " makes the initial bid." << endl;
 				}
 				else {
 					// For subsequent bids, need to enter the amount
-					cout << currentPlayer->GetName() << ", enter your bid amount: (Enter 0 to pass)" << endl;
+					cout << *currentPlayer << ", enter your bid amount: (Enter 0 to pass)" << endl;
 					cin >> bid;
+
+					// If invalid input, pass
+					if (!cin.good()) {
+						bid = 0;
+						cin.clear();
+						cin.ignore(INT_MAX, '\n');
+					}
 				}
 
 				// Subsequent bids are not the initial one anymore
@@ -243,10 +260,10 @@ void Game::AuctionPlants() {
 				// Get current player index
 				int nextIndex = (std::distance(players.begin(), std::find(players.begin(), players.end(), currentPlayer)) + 1) % players.size();
 				
-				// Loop on players till 
+				// Loop on players till full turn
 				while (players[nextIndex] != currentPlayer) {
 					
-					// If can big
+					// If can bid
 					if (canBid[players[nextIndex].get()]) {
 						currentPlayer = players[nextIndex];
 						break;
@@ -461,15 +478,19 @@ void Game::PlayGame() {
 		for (std::shared_ptr<Player> p : players) p->DisplayStatus();
 
 		// Step 3
-		cout << endl << "Step 3. Buy raw materials\n" << endl;
+		cout << endl << *overview.GetSteps()[playStep++] << endl;
+		
+		// Buy resources
 		BuyRawMaterials();
 
 		// Step 4
-		cout << endl << "Step 4. Buy cities\n" << endl;
+		cout << endl << *overview.GetSteps()[playStep++] << endl;
+		
+		// Buy houses
 		BuyCities();
 
 		// Step 5
-		cout << endl << "Step 3. Bureaucracy\n" << endl;
+		cout << endl << *overview.GetSteps()[playStep++] << endl;
 
 		break; // testing for now
 	};

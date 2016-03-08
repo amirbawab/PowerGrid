@@ -39,13 +39,17 @@ bool CardStack::DrawPlant() {
 
 /// Print power plant market info
 void CardStack::PrintInfo() {
+	std::cout << std::endl;
 	std::cout << "Current plants: " << std::endl;
 	for (int i = 0; i < FUTURE_MARKET_INDEX; i++)
 		std::cout << "[" << i << "] " << *GetPlant(i) << std::endl;
 
+	std::cout << std::endl;
+
 	std::cout << "Future plants: " << std::endl;
 	for (int i = FUTURE_MARKET_INDEX; i < VISIBILE_CARDS; i++)
 		std::cout << "[" << i << "] " << *GetPlant(i) << std::endl;
+	std::cout << std:: endl;
 }
 
 /// Place highest visible card at the end of the stack

@@ -84,6 +84,14 @@ bool Player::BuyPowerPlant(CardStack& cardStack, int index, int cost) {
 			do {
 				cout << "Enter index of power plant to replace: " << endl;
 				cin >> i;
+				
+				// Check invalid value
+				if (!cin.good()) {
+					i = -1;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
+
 			} while (!(i >= 0 && i <= 2));
 			ReplacePowerPlant(cardStack.GetPlant(index), i);
 		}
