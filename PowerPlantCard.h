@@ -29,8 +29,8 @@ public:
 	int GetPower() const { return power; }
 	int GetCapacity() const { return capacity; }
 	int GetTotalPlacedResources();
-	bool ConsumeResources();
-	bool ConsumeResources(Resource resource1, int, Resource resource2, int);
+	bool ConsumeResources(Resource resource1, int);
+	int GetPlacedResource(Resource resource) { return placedResources[resource]; }
 	
 	void PrintDetails();
 };

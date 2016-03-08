@@ -381,7 +381,12 @@ void Game::Bureaucracy() {
 	// End of game cities
 	int citiesEndOfGame = overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame;
 
+	// Winners
+	vector<std::shared_ptr<Player>> winners;
+
 	// Check for end of game
+	/*
+	The player should power all the 17 cities to end the game.
 	for (int i = 0; i < players.size() && !gameOver; i++) {
 		
 		// Get player
@@ -394,17 +399,15 @@ void Game::Bureaucracy() {
 			vector<int> numPowered;
 			numPowered.resize(players.size(), 0);
 		}
-	}
+	}*/
 
 	// Count number of cities that can be powered and get money
 	// TODO let players move resources around
-	int numPoweredCities;
-	int i = 0;
 	for (shared_ptr<Player> p : playerOrder) {
+		int numPoweredCities = 0;
 		currentPlayer = p;
 		cout << *currentPlayer << ", it is your turn to use your power plants." << endl;
 
-		numPoweredCities = 0;
 		string input;
 		for (shared_ptr<PowerPlantCard> plant : currentPlayer->GetPowerPlants()) {
 			cout << *plant << endl;
@@ -412,30 +415,102 @@ void Game::Bureaucracy() {
 				cout << "Do you want to power this plant? (Enter \"N\" for no, anything else for yes)" << endl;
 				cin >> input;
 
+				// If don't want to power houses
 				if (input == "N") {
 					continue;
 				}
 				else {
+
+					// Update total number of powered houses
 					numPoweredCities += plant->GetPower();
 
+					// If one type of resources
+					if (plant->GetActiveResources().size() == 1) {
+						cout << "Consumed " << plant->GetCapacity() << " " << GetResourceName(*plant->GetActiveResources().begin()) << " from this power plant." << endl;
+						plant->ConsumeResources(*plant->GetActiveResources().begin(), plant->GetCapacity());
 
-					// Add message for hybrid plants for picking resources to use
+					// If the plant accepts more than one type of resource
+					} else if (plant->GetActiveResources().size() > 1) {
+						
+						// Required
+						int required = plant->GetCapacity();
 
+						// While require is not satisfied
+						while (required > 0) {
+							
+							// Loop on active resources
+							for (auto resource : plant->GetActiveResources()) {
+
+								// If required satisfied
+								if (required == 0) break;
+
+								// Usable placed resources
+								int usablePlaced = std::min(plant->GetPlacedResource(resource), plant->GetCapacity());
+								cout << "How many " << GetResourceName(resource) << " out of " << usablePlaced << " usuable (might have more) would you like to power ?" << endl;
+
+								// Take input from user
+								int consume;
+								do {
+									cin >> consume;
+
+									// If invalid input
+									if (!cin.good()) {
+										consume = 0;
+										cin.clear();
+										cin.ignore(INT_MAX, '\n');
+									}
+
+									// If invalid number
+									if (consume < 0 || consume > usablePlaced)
+										cout << "Cannot consume this amount. Try again." << endl;
+
+									// If consumed more than required
+									else if (required - consume < 0)
+										cout << "You cannot consume more than required. Try again.";
+										
+								} while (consume < 0 || consume > usablePlaced || required - consume < 0);
+
+								// Consume
+								cout << "Consumed " << consume << " " << GetResourceName(resource) << " from this power plant." << endl;
+								required -= consume;
+								plant->ConsumeResources(resource, consume);
+							}
+						}
+					}
 				}
-				
-
 			}
 			else {
 				cout << "Not enough resources to power this plant\n" << plant << endl;
 			}
-		}
 
-		i++;
+			// Take min between number of houses that can be powered and the actual number of houses
+			int playerHouses = currentPlayer->GetHouses().size();
+			numPoweredCities = std::min(numPoweredCities, playerHouses);
+
+			// Get money
+			currentPlayer->SetElektro(currentPlayer->GetElektro() + overview.GetPayment(numPoweredCities));
+
+			// If game over
+			if (citiesEndOfGame <= numPoweredCities) {
+				gameOver = true;
+				winners.push_back(currentPlayer);
+			}
+		}
 	}
 
-	// If the game is ending, determine the winner
+	// If game is over
 	if (gameOver) {
 
+		// If more than one winner
+		if (winners.size() == 1)
+			winner = winners[0];
+		else {
+			
+			// TODO Based on money
+		}
+
+		// End of game
+		return;
 	}
 
 

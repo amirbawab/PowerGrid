@@ -26,21 +26,10 @@ int PowerPlantCard::GetTotalPlacedResources() {
 	return total;
 }
 
-/// Consumes the number of resources needed to power the plant (for single resource plants)
-bool PowerPlantCard::ConsumeResources() {
-	if (activeResources.size() == 1 && capacity < GetTotalPlacedResources()) {
-		for (Resource r : activeResources) {
-			placedResources[r] -= capacity;
-		}
-		return true;
-	}
-	else
-		return false;
-}
-
-/// Consumes the specified number of resources needed to power the plant (for hybrid resource plants)
-bool PowerPlantCard::ConsumeResources(Resource resource1, int amount1, Resource resource2, int amount2) {
-	return true;
+/// Consumes the specified number of resources needed to power the plant
+bool PowerPlantCard::ConsumeResources(Resource resource, int amount) {
+	if (placedResources[resource] - amount < 0) return false;
+	placedResources[resource] -= amount;
 }
 
 /// Print details about the card
