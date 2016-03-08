@@ -24,6 +24,7 @@ bool Player::BuyHouse(shared_ptr<House> house)
 {
     int housePrice = house->GetPrice();
 
+	// Check for enough money
     if (elektro < housePrice)
     {
         Error("Player " + name + " with color '" + color->getName() + "' doesn't have" +
@@ -32,6 +33,12 @@ bool Player::BuyHouse(shared_ptr<House> house)
         return false;
     }
 
+	// Check if already bought in this city
+	for (auto tmpHouse : houses)
+		if (tmpHouse->GetCity() == house->GetCity())
+			return false;
+
+	// If can't add (City saturated)
     if (!house->GetCity()->AddHouse())
         return false;
 
