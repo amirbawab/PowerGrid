@@ -712,6 +712,12 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
+    if (!LoadOverview(gameXml))
+    {
+        Error("Could not read card overview data from the game file\n");
+        return false;
+    }
+
 	if (!LoadPlayers(playersXml)) {
 		Error("Could not read player data from players file\n");
 		return false;
