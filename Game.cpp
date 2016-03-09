@@ -16,7 +16,7 @@ void Game::Setup() {
 	// TODO Use cin for those data
 	std::string cinMap = "USA";
 	int cinNumberOfPlayers = 2;
-	bool cinNewGame = true;
+	bool cinNewGame = false;
 	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
 	std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
 
@@ -29,7 +29,27 @@ void Game::Setup() {
 		// Prepate card stack
 		cardStack.Prepare(overview.GetRuleByNumOfPlayers(cinNumberOfPlayers).randomeRemove);
 
+		// Display map
 		map->DisplayMap();
+
+		// Initialize components
+		fullTurn = 1;
+		phase = 1;
+
+		// Add players to players vector
+		players.push_back(p1);
+		players.push_back(p2);
+
+		// Configure players
+		for (auto player : players) {
+
+			// Adjust money value
+			player->SetElektro(initElektro);
+		}
+
+		// Add then shuffle
+		for (auto player : players) playerOrder.push_back(player);
+		std::random_shuffle(playerOrder.begin(), playerOrder.end());
 
 	} else {
 		// If loading saved game
@@ -37,24 +57,7 @@ void Game::Setup() {
 			"Resources/saved games/PG_2016-03-2/Players.xml");
 	}
 
-	// Initialize components
-	fullTurn = 1;
-	phase = 1;
-
-	// Add players to players vector
-	players.push_back(p1);
-	players.push_back(p2);
-
-	// Configure players
-	for (auto player : players) {
-
-		// Adjust money value
-		player->SetElektro(initElektro);
-	}
-
-	// Add then shuffle
-	for (auto player : players) playerOrder.push_back(player);
-	std::random_shuffle(playerOrder.begin(), playerOrder.end());
+	
 }
 
 

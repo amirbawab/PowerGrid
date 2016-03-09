@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <game full_turn="1" phase="2">
  
-  <map file="FULL_PATH/USAMap.xml" description="USA map"/>
+  <map file=":/PowerGrid/Resources/config/map/USAMap.xml" description="USA map"/>
   <orderedPlayers>
-	<player color="blue"/>
-	<player color="black"/>
+  	<player color="blue"/>
+  	<player color="black"/>
   </orderedPlayers>
 
   <market description="Resrouce market">
@@ -14,27 +14,131 @@
     <resource name="uranium" amount="2"/>
   </market>
 
+  <visibleCards>
+    <powerPlantCard price="7" image="" resources="3" power="2">
+      <resource name="oil"/>
+    </powerPlantCard>
+    <powerPlantCard price="8" image="" resources="3" power="2">
+      <resource name="coal"/>
+    </powerPlantCard>
+    <powerPlantCard price="9" image="" resources="1" power="1">
+      <resource name="oil"/>
+    </powerPlantCard>
+    <powerPlantCard price="10" image="" resources="2" power="2">
+      <resource name="coal"/>
+    </powerPlantCard>
+    <powerPlantCard price="11" image="" resources="1" power="2">
+      <resource name="uranium"/>
+    </powerPlantCard>
+    <powerPlantCard price="12" image="" resources="2" power="2">
+      <resource name="oil"/>
+      <resource name="coal"/>
+    </powerPlantCard>
+   <powerPlantCard price="13" image="" resources="0" power="1" ignore_first="no" position="top" />
+    <powerPlantCard price="14" image="" resources="2" power="2">
+      <resource name="garbage"/>
+    </powerPlantCard>
+  </visibleCards>
+
   <cardDeck description="Deck of card, order is important">
-    <powerPlantCard price="3" image="" resources="3" power="4">
+    <powerPlantCard price="15" image="" resources="2" power="3">
+      <resource name="coal"/>
+    </powerPlantCard>
+    <powerPlantCard price="16" image="" resources="2" power="3">
+      <resource name="oil"/>
+    </powerPlantCard>
+    <powerPlantCard price="17" image="" resources="1" power="2">
+      <resource name="uranium"/>
+    </powerPlantCard>
+  <powerPlantCard price="18" image="" resources="0" power="2" />
+   <powerPlantCard price="19" image="" resources="2" power="3">
+      <resource name="garbage"/>
+    </powerPlantCard>
+   <powerPlantCard price="20" image="" resources="3" power="5">
+      <resource name="coal"/>
+    </powerPlantCard>
+   <powerPlantCard price="21" image="" resources="2" power="4">
       <resource name="coal"/>
       <resource name="oil"/>
     </powerPlantCard>
-    <powerPlantCard price="13" image="" resources="0" power="1"></powerPlantCard>
-    <stepCard step="2" image=""/>
-    <stepCard step="3" image=""/>
+  <powerPlantCard price="22" image="" resources="0" power="2" />
+
+    <powerPlantCard price="23" image="" resources="1" power="3">
+      <resource name="uranium"/>
+    </powerPlantCard>
+   <powerPlantCard price="24" image="" resources="2" power="4">
+      <resource name="garbage"/>
+    </powerPlantCard>
+    <powerPlantCard price="25" image="" resources="2" power="5">
+      <resource name="coal"/>
+    </powerPlantCard>
+    <powerPlantCard price="26" image="" resources="2" power="5">
+      <resource name="oil"/>
+    </powerPlantCard>
+  <powerPlantCard price="27" image="" resources="0" power="3" />
+    <powerPlantCard price="28" image="" resources="1" power="4">
+      <resource name="uranium"/>
+    </powerPlantCard>
+    <powerPlantCard price="29" image="" resources="1" power="4">
+      <resource name="coal"/>
+      <resource name="oil"/>
+    </powerPlantCard>
+    <powerPlantCard price="30" image="" resources="3" power="6">
+      <resource name="garbage"/>
+    </powerPlantCard>
+    <powerPlantCard price="31" image="" resources="3" power="6">
+      <resource name="coal"/>
+    </powerPlantCard>
+    <powerPlantCard price="32" image="" resources="3" power="6">
+      <resource name="oil"/>
+    </powerPlantCard>
+  <powerPlantCard price="33" image="" resources="0" power="4" />
+    <powerPlantCard price="34" image="" resources="1" power="5">
+      <resource name="uranium"/>
+    </powerPlantCard>
+    <powerPlantCard price="35" image="" resources="1" power="5">
+      <resource name="oil"/>
+    </powerPlantCard>
+    <powerPlantCard price="36" image="" resources="3" power="7">
+      <resource name="coal"/>
+    </powerPlantCard>
+  <powerPlantCard price="37" image="" resources="0" power="4" />
+
+    <powerPlantCard price="38" image="" resources="3" power="7">
+      <resource name="garbage"/>
+    </powerPlantCard>
+    <powerPlantCard price="39" image="" resources="1" power="6">
+      <resource name="uranium"/>
+    </powerPlantCard>
+    <powerPlantCard price="40" image="" resources="2" power="6">
+      <resource name="oil"/>
+    </powerPlantCard>
+    <powerPlantCard price="42" image="" resources="2" power="6">
+      <resource name="coal"/>
+    </powerPlantCard>
+    <powerPlantCard price="44" image="" resources="0" power="5" />
+
+    <powerPlantCard price="46" image="" resources="3" power="7">
+      <resource name="oil"/>
+      <resource name="coal"/>
+    </powerPlantCard>
+    <powerPlantCard price="50" image="" resources="0" power="6" />
+    <stepCard step="3" image="" ignore_first="no" position="bottom"/>
   </cardDeck>
 
   <cards description="Deck of cards including standard and step cards">
-    <powerPlantCard price="5" image="" resources="2" power="1">
-      <resource name="coal"/>
-      <resource name="oil"/>
-    </powerPlantCard>
-    <powerPlantCard price="4" image="" resources="2" power="1">
-      <resource name="coal"/>
-    </powerPlantCard>
     <powerPlantCard price="3" image="" resources="2" power="1">
       <resource name="oil"/>
+    </powerPlantCard> 
+  <powerPlantCard price="4" image="" resources="2" power="1">
+      <resource name="coal"/>
     </powerPlantCard>
+   
+   <powerPlantCard price="5" image="" resources="2" power="1">
+      <resource name="coal"/>
+      <resource name="oil"/>
+    </powerPlantCard>
+   
     <powerPlantCard price="6" image="" resources="1" power="1">
       <resource name="garbage"/>
     </powerPlantCard>
@@ -57,7 +161,9 @@
       <resource name="oil"/>
       <resource name="coal"/>
     </powerPlantCard>
-    <powerPlantCard price="14" image="" resources="4" power="2">
+   <powerPlantCard price="13" image="" resources="0" power="1" ignore_first="no" position="top" />
+
+    <powerPlantCard price="14" image="" resources="2" power="2">
       <resource name="garbage"/>
     </powerPlantCard>
     <powerPlantCard price="15" image="" resources="2" power="3">
@@ -69,42 +175,23 @@
     <powerPlantCard price="17" image="" resources="1" power="2">
       <resource name="uranium"/>
     </powerPlantCard>
-    <powerPlantCard price="38" image="" resources="3" power="7">
+  <powerPlantCard price="18" image="" resources="0" power="2" />
+   <powerPlantCard price="19" image="" resources="2" power="3">
       <resource name="garbage"/>
     </powerPlantCard>
-    <powerPlantCard price="39" image="" resources="1" power="6">
-      <resource name="uranium"/>
-    </powerPlantCard>
-    <powerPlantCard price="40" image="" resources="2" power="6">
-      <resource name="oil"/>
-    </powerPlantCard>
-    <powerPlantCard price="42" image="" resources="2" power="6">
+   <powerPlantCard price="20" image="" resources="3" power="5">
       <resource name="coal"/>
     </powerPlantCard>
-    <powerPlantCard price="44" image="" resources="1" power="2">
-      <resource name="uranium"/>
-    </powerPlantCard>
-    <powerPlantCard price="46" image="" resources="3" power="7">
-      <resource name="oil"/>
-      <resource name="coal"/>
-    </powerPlantCard>
-    <powerPlantCard price="19" image="" resources="2" power="3">
-      <resource name="garbage"/>
-    </powerPlantCard>
-    <powerPlantCard price="20" image="" resources="3" power="5">
-      <resource name="coal"/>
-    </powerPlantCard>
-    <powerPlantCard price="21" image="" resources="2" power="4">
+   <powerPlantCard price="21" image="" resources="2" power="4">
       <resource name="coal"/>
       <resource name="oil"/>
     </powerPlantCard>
-    <powerPlantCard price="20" image="" resources="3" power="5">
-      <resource name="coal"/>
-    </powerPlantCard>
+  <powerPlantCard price="22" image="" resources="0" power="2" />
+
     <powerPlantCard price="23" image="" resources="1" power="3">
       <resource name="uranium"/>
     </powerPlantCard>
-    <powerPlantCard price="24" image="" resources="2" power="4">
+   <powerPlantCard price="24" image="" resources="2" power="4">
       <resource name="garbage"/>
     </powerPlantCard>
     <powerPlantCard price="25" image="" resources="2" power="5">
@@ -113,6 +200,7 @@
     <powerPlantCard price="26" image="" resources="2" power="5">
       <resource name="oil"/>
     </powerPlantCard>
+  <powerPlantCard price="27" image="" resources="0" power="3" />
     <powerPlantCard price="28" image="" resources="1" power="4">
       <resource name="uranium"/>
     </powerPlantCard>
@@ -129,6 +217,7 @@
     <powerPlantCard price="32" image="" resources="3" power="6">
       <resource name="oil"/>
     </powerPlantCard>
+  <powerPlantCard price="33" image="" resources="0" power="4" />
     <powerPlantCard price="34" image="" resources="1" power="5">
       <resource name="uranium"/>
     </powerPlantCard>
@@ -138,15 +227,28 @@
     <powerPlantCard price="36" image="" resources="3" power="7">
       <resource name="coal"/>
     </powerPlantCard>
-    <powerPlantCard price="22" image="" resources="0" power="2" />
-    <powerPlantCard price="33" image="" resources="0" power="4" />
-    <powerPlantCard price="37" image="" resources="0" power="4" />
+  <powerPlantCard price="37" image="" resources="0" power="4" />
+
+    <powerPlantCard price="38" image="" resources="3" power="7">
+      <resource name="garbage"/>
+    </powerPlantCard>
+    <powerPlantCard price="39" image="" resources="1" power="6">
+      <resource name="uranium"/>
+    </powerPlantCard>
+    <powerPlantCard price="40" image="" resources="2" power="6">
+      <resource name="oil"/>
+    </powerPlantCard>
+    <powerPlantCard price="42" image="" resources="2" power="6">
+      <resource name="coal"/>
+    </powerPlantCard>
     <powerPlantCard price="44" image="" resources="0" power="5" />
-    <powerPlantCard price="27" image="" resources="0" power="3" />
+
+    <powerPlantCard price="46" image="" resources="3" power="7">
+      <resource name="oil"/>
+      <resource name="coal"/>
+    </powerPlantCard>
     <powerPlantCard price="50" image="" resources="0" power="6" />
-    <powerPlantCard price="18" image="" resources="0" power="2" />
-    <powerPlantCard price="13" image="" resources="0" power="1" />
-    <stepCard step="3" image=""/>
+    <stepCard step="3" image="" ignore_first="no" position="bottom"/>
   </cards>
 
   <overview description="Instruction card">

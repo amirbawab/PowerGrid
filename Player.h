@@ -38,7 +38,7 @@ public:
     shared_ptr<HouseColor> const& GetColor() const { return color; }
     void SetColor(shared_ptr<HouseColor> color) { this->color = color; }
 
-	vector<shared_ptr<House>> const& GetHouses() const { return houses; }
+	vector<shared_ptr<House>>& GetHouses() { return houses; }
 	vector<shared_ptr<PowerPlantCard>> const& GetPowerPlants() const { return powerPlants; }
 	int GetResources(Resource resource) const { return resources[resource]; }
 	

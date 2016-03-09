@@ -361,10 +361,21 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
 
         auto player = make_shared<Player>(playerNameAttribute, color, elektro);
 
+		for (auto houseNode : playerNode.node().child("houses").children("house")) {
+			auto cityAttribute = houseNode.attribute("city").value();
+			auto priceAttribute = stoi(houseNode.attribute("price").value());
+
+			std::shared_ptr<House> newHouse = std::make_shared<House>();
+			newHouse->SetCity(game->GetMap()->GetCityByName(cityAttribute));
+			newHouse->SetPrice(priceAttribute);
+
+			player->GetHouses().push_back(newHouse);
+		}
+
         // Read power plants and add them
-        for (auto powerPlantNode : playerNode.node().select_nodes("//powerplant"))
+		for (auto powerPlantNode : playerNode.node().child("powerplants").children("powerplant"))
         {
-            auto priceAttribute = stoi(powerPlantNode.node().attribute("price").value());
+            auto priceAttribute = stoi(powerPlantNode.attribute("price").value());
 
             shared_ptr<PowerPlantCard> playerCard = nullptr;
             for (auto card : game->GetAllCards())
@@ -387,10 +398,10 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
             player->AddPowerPlant(playerCard);
 
             // Read resource values and put them in the card
-            for (auto resourceNode : powerPlantNode.node().select_nodes("//resource"))
+            for (auto resourceNode : powerPlantNode.children("resource"))
             {
-                string resourceNameAttribute = resourceNode.node().attribute("name").value();
-                auto amountAttribute = stoi(resourceNode.node().attribute("amount").value());
+                string resourceNameAttribute = resourceNode.attribute("name").value();
+                auto amountAttribute = stoi(resourceNode.attribute("amount").value());
                 playerCard->PlaceResource(resourceNameAttribute, amountAttribute);
             }
         }
@@ -596,18 +607,6 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
-    if (!LoadPlayers(playersXml))
-    {
-        Error("Could not read player data from players file\n");
-        return false;
-    }
-
-    if (!LoadOrderedPlayers(gameXml))
-    {
-        Error("Could not read oredered players from the game file\n");
-        return false;
-    }
-
     if (!LoadResourceMarket(gameXml))
     {
         Error("Could not read resource market data from the game file\n");
@@ -625,6 +624,16 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         Error("Could not read data for all cards from the game file\n");
         return false;
     }
+
+	if (!LoadPlayers(playersXml)) {
+		Error("Could not read player data from players file\n");
+		return false;
+	}
+
+	if (!LoadOrderedPlayers(gameXml)) {
+		Error("Could not read oredered players from the game file\n");
+		return false;
+	}
 
     if (!LoadFullTurn(gameXml))
     {

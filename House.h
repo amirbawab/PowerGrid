@@ -16,5 +16,7 @@ public:
 
     std::shared_ptr<City> GetCity() const { return city; }
     int GetPrice() const { return price; }
+	void SetCity(std::shared_ptr<City> city) { this->city = city; }
+	void SetPrice(int price) { this->price = price; }
 };
 
