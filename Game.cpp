@@ -407,7 +407,7 @@ void Game::Bureaucracy() {
 		for (shared_ptr<PowerPlantCard> plant : currentPlayer->GetPowerPlants()) {
 			plant->PrintDetails();
 			if (plant->GetTotalPlacedResources() >= plant->GetCapacity()) {
-				cout << "Do you want to power the above plant? (Y/N): ";
+				cout << "Do you want to use the above plant? (Y/N): ";
 				cin >> input;
 
 				// Keep trying
@@ -480,7 +480,7 @@ void Game::Bureaucracy() {
 				}
 			}
 			else {
-				cout << "Not enough resources to power this plant\n" << endl;
+				cout << "Not enough resources to use this plant.\n" << endl;
 			}
 		}
 
@@ -489,7 +489,7 @@ void Game::Bureaucracy() {
 		numPoweredCities = std::min(numPoweredCities, playerHouses);
 
 		// Get money
-		cout << *currentPlayer << " powered " << std::to_string(numPoweredCities) << " houses, earning " << std::to_string(overview.GetPayment(numPoweredCities)) << " Elektro." << endl;
+		cout << *currentPlayer << " powered " << std::to_string(numPoweredCities) << " house(s), earning " << std::to_string(overview.GetPayment(numPoweredCities)) << " Elektro." << endl;
 		currentPlayer->SetElektro(currentPlayer->GetElektro() + overview.GetPayment(numPoweredCities));
 
 		// If game over
@@ -565,7 +565,7 @@ void Game::PlayGame() {
 		cout << "Turn " << fullTurn << endl;
 
 		// Display players info
-		for (std::shared_ptr<Player> p : players) p->DisplayStatus();
+		for (auto p : players) p->DisplayStatus();
 
 		// Reset step counter
 		playStep = 0;
@@ -589,11 +589,14 @@ void Game::PlayGame() {
 		// Check if phase 3
 		if (phase != 3) {
 			phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
-			if(phase == 3) cardStack.ShuffleStack();
+			if (phase == 3) { 
+				cardStack.ShuffleStack();
+				cout << "Phase 3 starts now." << endl;
+			}
 		}
 
 		// Display players info
-		for (std::shared_ptr<Player> p : players) p->DisplayStatus();
+		for (auto p : players) p->DisplayStatus();
 
 		// Step 3
 		cout << endl << *overview.GetSteps()[playStep++] << endl;
@@ -601,11 +604,17 @@ void Game::PlayGame() {
 		// Buy resources
 		BuyRawMaterials();
 
+		// Display players info
+		for (auto p : players) p->DisplayStatus();
+
 		// Step 4
 		cout << endl << *overview.GetSteps()[playStep++] << endl;
 		
 		// Buy houses
 		BuyCities();
+
+		// Display players info
+		for (auto p : players) p->DisplayStatus();
 
 		// Check phase 2
 		for (int i = 0; i < players.size() && phase < 2; i++) {
