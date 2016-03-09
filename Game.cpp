@@ -7,6 +7,10 @@ Game::Game() {
 
 	// Setup
 	Setup();
+
+	// Save map
+	if (map->SaveFile("SavedMap.xml"))
+		cout << "Map saved." << endl;
 }
 
 /// Sets up the game at the beginning
@@ -16,7 +20,7 @@ void Game::Setup() {
 	// TODO Use cin for those data
 	std::string cinMap = "USA";
 	int cinNumberOfPlayers = 2;
-	bool cinNewGame = false;
+	bool cinNewGame = true;
 	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
 	std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
 
