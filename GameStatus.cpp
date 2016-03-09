@@ -370,6 +370,7 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
 			newHouse->SetPrice(priceAttribute);
 
 			player->GetHouses().push_back(newHouse);
+			game->GetMap()->GetCityByName(cityAttribute)->AddHouse();
 		}
 
         // Read power plants and add them

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<game full_turn="1" phase="2">
+<game full_turn="1" phase="1">
  
   <map file=":/PowerGrid/Resources/config/map/USAMap.xml" description="USA map"/>
   <orderedPlayers>

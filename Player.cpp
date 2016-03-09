@@ -54,7 +54,7 @@ void Player::DisplayStatus() const
     string message = "Displaying status for Player '" + name +
         "' with color '" + color->getName() + "':\n";
 
-    for (int i = 0; i < message.length(); i++)
+    for (int i = 0; i < message.length() + 20; i++)
         separator += "-";
 
     separator += "\n";
