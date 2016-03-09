@@ -491,6 +491,8 @@ bool GameStatus::LoadVisibleCards(pugi::xml_document& xml) const
             game->GetCardStack().GetVisibleCards().push_back(playerCard);
         }
     }
+
+	return true;
 }
 
 bool GameStatus::LoadCardDeck(pugi::xml_document& xml) const
