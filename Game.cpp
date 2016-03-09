@@ -142,8 +142,14 @@ void Game::AuctionPlants() {
 		// If not first turn
 		if (fullTurn > 1) {
 			// Place a bid or pass
-			cout << "Place a bid? (Type \"N\" if not, anything else for yes)" << endl;
+			cout << "Place a bid? (Y/N): ";
 			cin >> answer;
+
+			// Keep trying
+			while (ToLower(answer) != "n" && ToLower(answer) != "y") {
+				cout << "Please enter \"Y\" for yes and \"N\" for no: ";
+				cin >> answer;
+			}
 		}
 
 		// If pass or not enough money for cheapest plant
@@ -162,7 +168,7 @@ void Game::AuctionPlants() {
 			std::shared_ptr<PowerPlantCard> selectedPlant;
 			bool enoughMoney;
 			do {
-				cout << *currentPlayer << ", pick a power plant: (Enter the index)" << endl;
+				cout << *currentPlayer << ", pick a power plant (Enter the index): ";
 				cin >> plantIndex;
 
 				// If invalid character
@@ -220,7 +226,7 @@ void Game::AuctionPlants() {
 				}
 				else {
 					// For subsequent bids, need to enter the amount
-					cout << *currentPlayer << ", enter your bid amount: (Enter 0 to pass)" << endl;
+					cout << *currentPlayer << ", enter your bid amount (Enter 0 to pass): ";
 					cin >> bid;
 
 					// If invalid input, pass
@@ -327,15 +333,21 @@ void Game::BuyCities() {
 
 		string temp;
 		while (true) {
-			cout << "\nWould you like to buy a city? (Enter \"N\" if not, anything else if yes)" << endl;
+			cout << "\nWould you like to buy a city? (Y/N): ";
 			cin >> temp;
 			
-			if (temp == "N") {
+			// Keep trying
+			while (ToLower(temp) != "n" && ToLower(temp) != "y") {
+				cout << "Please enter \"Y\" for yes and \"N\" for no: ";
+				cin >> temp;
+			}
+
+			if (ToLower(temp) == "n") {
 				cout << *currentPlayer << " has finished buying cities." << endl;
 				break;
 			}
 			else {
-				cout << "Enter the name of the city: " << endl;
+				cout << "Enter the name of the city: ";
 				cin >> temp;
 				shared_ptr<City> city = map->GetCityByName(temp);
 
@@ -395,11 +407,17 @@ void Game::Bureaucracy() {
 		for (shared_ptr<PowerPlantCard> plant : currentPlayer->GetPowerPlants()) {
 			plant->PrintDetails();
 			if (plant->GetTotalPlacedResources() >= plant->GetCapacity()) {
-				cout << "Do you want to power the above plant? (Enter \"N\" for no, anything else for yes)" << endl;
+				cout << "Do you want to power the above plant? (Y/N): ";
 				cin >> input;
 
+				// Keep trying
+				while (ToLower(input) != "n" && ToLower(input) != "y") {
+					cout << "Please enter \"Y\" for yes and \"N\" for no: ";
+					cin >> input;
+				}
+
 				// If don't want to power houses
-				if (input == "N") {
+				if (ToLower(input) == "n") {
 					continue;
 				}
 				else {
@@ -432,7 +450,7 @@ void Game::Bureaucracy() {
 
 								// Usable placed resources
 								int usablePlaced = std::min(plant->GetPlacedResource(resource), plant->GetCapacity() - required);
-								cout << "How many " << GetResourceName(resource) << " out of " << usablePlaced << " usuable (might have more) would you like to power ?" << endl;
+								cout << "How many " << GetResourceName(resource) << " out of " << usablePlaced << " usuable (might have more) would you like to power ? ";
 
 								// Take input from user
 								int consume;
