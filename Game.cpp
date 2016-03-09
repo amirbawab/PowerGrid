@@ -20,7 +20,7 @@ void Game::Setup() {
 	// TODO Use cin for those data
 	std::string cinMap = "USA";
 	int cinNumberOfPlayers = 2;
-	bool cinNewGame = true;
+	bool cinNewGame = false;
 	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
 	std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
 
@@ -589,6 +589,9 @@ void Game::PlayGame() {
 		for (auto p : playerOrder)  cout << *p << " ";
 		cout << endl;
 
+		// Resources
+		PrintRemainingResources();
+
 		// Step 2
 		cout << endl << *overview.GetSteps()[playStep++] << endl;
 
@@ -647,7 +650,47 @@ void Game::PlayGame() {
 			if (phase == 3) cardStack.ShuffleStack();
 		}
 
+		// Print score
+		PrintScrore();
+
 		// Increase turn
 		fullTurn++;
 	};
+}
+
+void Game::PrintScrore() {
+
+	vector<std::shared_ptr<Player>> tmpPlayer = players;
+
+	sort(tmpPlayer.begin(), tmpPlayer.end(), [](std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
+
+	cout << endl << "Displaying the score track:" << endl;
+	for (auto player : tmpPlayer)
+		cout << *player << " score: " << player->GetHouses().size() << endl;
+	cout << endl;
+}
+
+void Game::PrintRemainingResources() {
+	std::map<Resource, int> total;
+
+	for (int i = 0; i < res::total; i++) {
+		total[static_cast<Resource>(i)] = rMarket.GetCapacityResource(static_cast<Resource>(i));
+	}
+
+	for (int i = 0; i < res::total; i++) {
+
+		for (auto player : players) {
+			total[static_cast<Resource>(i)] -= player->GetResources(static_cast<Resource>(i));
+		}
+	}
+
+	for (int i = 0; i < res::total; i++) {
+		total[static_cast<Resource>(i)] -= rMarket.GetNbResource(static_cast<Resource>(i));
+	}
+
+	cout << "\nRemaining resources:" << endl;
+	for (auto mapData : total) {
+		cout << GetResourceName(mapData.first) << ": " << mapData.second << endl;
+	}
+	cout << endl;
 }
