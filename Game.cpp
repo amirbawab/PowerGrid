@@ -29,6 +29,8 @@ void Game::Setup() {
 		// Prepate card stack
 		cardStack.Prepare(overview.GetRuleByNumOfPlayers(cinNumberOfPlayers).randomeRemove);
 
+		map->DisplayMap();
+
 	} else {
 		// If loading saved game
 		GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",

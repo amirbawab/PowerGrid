@@ -4,6 +4,7 @@
 #include <QFile>
 #include <limits>
 #include <queue>
+#include <stack>
 
 using std::string;
 using std::cout;
@@ -274,30 +275,33 @@ void Map::PopulateConnections(pugi::xml_node& map)
     }
 }
 
-class  CityCostComparable {
-public:
+/// Get the shortest path between two cities
+int Map::GetShortestPath(std::string fromCity, std::string toCity) {
+
+	// Status
 	static const int UNVISITED = 0;
 	static const int VISITING = 1;
 	static const int VISITED = 2;
-	int cost = std::numeric_limits<int>::max();
-	int visited = UNVISITED;
-	std::shared_ptr<City> city;
-	CityCostComparable(std::shared_ptr<City> city) : city(city) {};
-};
 
-struct CityCostComparator {
-	bool operator()(const std::shared_ptr<CityCostComparable> lhs, const std::shared_ptr<CityCostComparable> rhs) const {
-		return lhs->cost > rhs->cost;
-	}
-};
+	class  CityCostComparable {
+	public:
+		int cost = std::numeric_limits<int>::max();
+		int visited = UNVISITED;
+		string parent;
+		std::shared_ptr<City> city;
+		CityCostComparable(std::shared_ptr<City> city) : city(city) {};
+	};
 
-/// Get the shortest path between two cities
-int Map::GetShortestPath(std::string fromCity, std::string toCity) {
+	struct CityCostComparator {
+		bool operator()(const std::shared_ptr<CityCostComparable> lhs, const std::shared_ptr<CityCostComparable> rhs) const {
+			return lhs->cost > rhs->cost;
+		}
+	};
 
 	// If any city was not found
 	if (cities.find(fromCity) == cities.end() || cities.find(toCity) == cities.end()) {
 		Error("Cannot find " + fromCity + " or " + toCity + " in Dijkstra!");
-		return INVALID_VALUE;
+		return PG::INVALID;
 	}
 
 	// Prepare required information
@@ -313,7 +317,7 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 
 	// Prepare first city
 	citiesComparable[fromCity]->cost = 0;
-	citiesComparable[fromCity]->visited = CityCostComparable::VISITING;
+	citiesComparable[fromCity]->visited = VISITING;
 	pQueue.push(citiesComparable[fromCity]);
 
 	// Start
@@ -323,11 +327,30 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 		std::shared_ptr<CityCostComparable> topCityCostComparable = pQueue.top();
 
 		// Mark visited
-		topCityCostComparable->visited = CityCostComparable::VISITED;
+		topCityCostComparable->visited = VISITED;
 
 		// If found my target, no need to continue calculating the other path
-		if (topCityCostComparable->city->GetName() == toCity)
+		if (topCityCostComparable->city->GetName() == toCity) {
+
+			// Prepare stack
+			std::stack<string> path;
+			auto tmpCity = citiesComparable[toCity];
+
+			// Print the path
+			while (tmpCity) {
+				path.push(tmpCity->city->GetName());
+				tmpCity = citiesComparable[tmpCity->parent];
+			}
+			std::cout << "Possible path:";
+			while (!path.empty()) { 
+				std::cout << "\t" << path.top();
+				path.pop();
+			}
+
+			std::cout << std::endl;
+
 			return topCityCostComparable->cost;
+		}
 
 		// Remove top
 		pQueue.pop();
@@ -345,7 +368,7 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 			std::shared_ptr<CityCostComparable> oppositeCityCostComparable = citiesComparable[oppositeCity->GetName()];
 
 			// If not visited
-			if (oppositeCityCostComparable->visited != CityCostComparable::VISITED) {
+			if (oppositeCityCostComparable->visited != VISITED) {
 
 				// Calculate path
 				int pathCost = (*connection)->GetCost() + topCityCostComparable->cost;
@@ -354,8 +377,9 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 				if (pathCost < oppositeCityCostComparable->cost) {
 
 					// If unvisited
-					if (oppositeCityCostComparable->visited == CityCostComparable::UNVISITED) {
+					if (oppositeCityCostComparable->visited == UNVISITED) {
 						oppositeCityCostComparable->cost = pathCost;
+						oppositeCityCostComparable->parent = topCityCostComparable->city->GetName();
 
 					// If visiting
 					} else {
@@ -363,16 +387,17 @@ int Map::GetShortestPath(std::string fromCity, std::string toCity) {
 						std::vector<std::shared_ptr<CityCostComparable>> tmpVector;
 						while (!pQueue.empty()) { tmpVector.push_back(pQueue.top()); pQueue.pop(); }
 						oppositeCityCostComparable->cost = pathCost;
+						oppositeCityCostComparable->parent = topCityCostComparable->city->GetName();
 						while (!tmpVector.empty()) { pQueue.push(tmpVector[tmpVector.size() - 1]); tmpVector.pop_back(); }
 					}
 				}
 
 				// If unvisited, add to queue
-				if (oppositeCityCostComparable->visited == CityCostComparable::UNVISITED)
+				if (oppositeCityCostComparable->visited == UNVISITED)
 					pQueue.push(oppositeCityCostComparable);
 
 				// Mark visiting
-				oppositeCityCostComparable->visited = CityCostComparable::VISITING;
+				oppositeCityCostComparable->visited = VISITING;
 			}
 		}
 	}

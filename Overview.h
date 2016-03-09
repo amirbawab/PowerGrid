@@ -29,7 +29,7 @@ public:
 
 		// To string
 		friend std::ostream& operator<<(std::ostream& stream, const OverviewStep& step) {
-			stream << "=======================================================" << endl;
+			stream << "=======================================================" << std::endl;
 			stream << "Step " << step.GetStep() << ": " << step.GetTitle() << std::endl;
 			for (auto info : step.GetInfo())
 				stream << "\t" << info << std::endl;

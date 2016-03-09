@@ -129,7 +129,7 @@
     <connection first="Buffalo" second="New York" cost="8" />
     <connection first="Pittsbugh" second="Washington D.C." cost="6" />
     <connection first="Washington D.C." second="Philadelphia" cost="3" />
-    <connection first="Washington D.C." second="New York" cost="0" />
     <connection first="New York" second="Boston" cost="3" />
+    <connection first="New York" second="Philadelphia" cost="0" />
   </connections>
 </map>
