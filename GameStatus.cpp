@@ -595,6 +595,28 @@ bool GameStatus::LoadAllCards(pugi::xml_document& xml) const
     return true;
 }
 
+bool GameStatus::LoadOverview(pugi::xml_document& xml) const
+{
+    if (!xml.child("game").child("overview"))
+        return false;
+
+    for (auto stepNode : xml.select_nodes("//overview/step"))
+    {
+        int numberAttribute = stoi(stepNode.node().attribute("number").value());
+        string titleAttribute = stepNode.node().attribute("title").value();
+
+        auto overviewStep = game->GetOverview().AddStep(numberAttribute, titleAttribute);
+
+        for (auto infoNode : stepNode.node().children("info"))
+        {
+            string textAttribute = infoNode.attribute("text").value();
+            overviewStep->AddInfo(textAttribute);
+        }
+    }
+
+    return true;
+}
+
 bool GameStatus::Init(Game* game, string mapName, string configFilePath) const
 {
     if (!Config::GetInstance().LoadFile(game, configFilePath))

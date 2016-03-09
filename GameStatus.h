@@ -17,6 +17,7 @@ class GameStatus
     bool LoadVisibleCards(pugi::xml_document& xml) const;
     bool LoadCardDeck(pugi::xml_document& xml) const;
     bool LoadAllCards(pugi::xml_document& xml) const;
+    bool LoadOverview(pugi::xml_document& xml) const;
     bool LoadColors(pugi::xml_document& xml) const;
     bool LoadFullTurn(pugi::xml_document& xml) const;
     bool LoadPhase(pugi::xml_document& xml) const;
