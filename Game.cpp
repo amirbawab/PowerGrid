@@ -577,7 +577,7 @@ void Game::PlayGame() {
 		UpdatePlayOrder(false);
 
 		cout << "The order is:" << endl;
-		for (std::shared_ptr<Player> p : playerOrder)  cout << *p << " ";
+		for (auto p : playerOrder)  cout << *p << " ";
 		cout << endl;
 
 		// Step 2
@@ -598,6 +598,10 @@ void Game::PlayGame() {
 		// Display players info
 		for (auto p : players) p->DisplayStatus();
 
+		cout << "The order is:" << endl;
+		for (auto p : playerOrder)  cout << *p << " ";
+		cout << endl;
+
 		// Step 3
 		cout << endl << *overview.GetSteps()[playStep++] << endl;
 		
@@ -607,6 +611,10 @@ void Game::PlayGame() {
 		// Display players info
 		for (auto p : players) p->DisplayStatus();
 
+		cout << "The order is:" << endl;
+		for (auto p : playerOrder)  cout << *p << " ";
+		cout << endl;
+
 		// Step 4
 		cout << endl << *overview.GetSteps()[playStep++] << endl;
 		
@@ -615,6 +623,10 @@ void Game::PlayGame() {
 
 		// Display players info
 		for (auto p : players) p->DisplayStatus();
+
+		cout << "The order is:" << endl;
+		for (auto p : playerOrder)  cout << *p << " ";
+		cout << endl;
 
 		// Check phase 2
 		for (int i = 0; i < players.size() && phase < 2; i++) {
