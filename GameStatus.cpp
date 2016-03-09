@@ -365,7 +365,7 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
 			auto cityAttribute = houseNode.attribute("city").value();
 			auto priceAttribute = stoi(houseNode.attribute("price").value());
 
-			std::shared_ptr<House> newHouse = std::make_shared<House>();
+			shared_ptr<House> newHouse = make_shared<House>();
 			newHouse->SetCity(game->GetMap()->GetCityByName(cityAttribute));
 			newHouse->SetPrice(priceAttribute);
 
@@ -380,7 +380,7 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
             shared_ptr<PowerPlantCard> playerCard = nullptr;
             for (auto card : game->GetAllCards())
             {
-                shared_ptr<PowerPlantCard> powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(card);
+                shared_ptr<PowerPlantCard> powerPlantCard = dynamic_pointer_cast<PowerPlantCard>(card);
                 if (powerPlantCard && powerPlantCard->GetPrice() == priceAttribute)
                 {
                     playerCard = powerPlantCard;
@@ -458,6 +458,41 @@ bool GameStatus::LoadResourceMarket(pugi::xml_document& xml) const
     return true;
 }
 
+bool GameStatus::LoadVisibleCards(pugi::xml_document& xml) const
+{
+    auto visibleCardsNode = xml.child("game").child("visibleCards");
+    if (!visibleCardsNode)
+        return false;
+
+    for (auto cardNode : visibleCardsNode.children())
+    {
+        if (ToLower(cardNode.name()) == "powerplantcard")
+        {
+            auto priceAttribute = stoi(cardNode.attribute("price").value());
+
+            shared_ptr<PowerPlantCard> playerCard = nullptr;
+            for (auto card : game->GetAllCards())
+            {
+                shared_ptr<PowerPlantCard> powerPlantCard = dynamic_pointer_cast<PowerPlantCard>(card);
+                if (powerPlantCard && powerPlantCard->GetPrice() == priceAttribute)
+                {
+                    playerCard = powerPlantCard;
+                    break;
+                }
+            }
+
+            // The specified card couldn't be found
+            if (!playerCard)
+            {
+                Error("Card with specified price: '" + std::to_string(priceAttribute) + "' is not valid!");
+                return false;
+            }
+
+            game->GetCardStack().GetVisibleCards().push_back(playerCard);
+        }
+    }
+}
+
 bool GameStatus::LoadCardDeck(pugi::xml_document& xml) const
 {
     auto cardDeckNode = xml.child("game").child("cardDeck");
@@ -469,28 +504,50 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml) const
         if (ToLower(cardNode.name()) == "powerplantcard")
         {
             auto priceAttribute = stoi(cardNode.attribute("price").value());
-            string imageAttribute = cardNode.attribute("image").value();
-            auto resourcesAttribute = stoi(cardNode.attribute("resources").value());
-            auto powerAttribute = stoi(cardNode.attribute("power").value());
-            // TODO: FARZAD add image attribute to the card
-            auto card = make_shared<PowerPlantCard>(priceAttribute,
-                                                                powerAttribute, resourcesAttribute);
 
-            for (auto resourceNode : cardNode.children("resource"))
+            shared_ptr<PowerPlantCard> playerCard = nullptr;
+            for (auto card : game->GetAllCards())
             {
-                string nameAttribute = resourceNode.attribute("name").value();
-                card->AddActiveResource(nameAttribute);
+                shared_ptr<PowerPlantCard> powerPlantCard = dynamic_pointer_cast<PowerPlantCard>(card);
+                if (powerPlantCard && powerPlantCard->GetPrice() == priceAttribute)
+                {
+                    playerCard = powerPlantCard;
+                    break;
+                }
             }
 
-            game->GetCardStack().GetCards().push_back(card);
+            // The specified card couldn't be found
+            if (!playerCard)
+            {
+                Error("Card with specified price: '" + std::to_string(priceAttribute) + "' is not valid!");
+                return false;
+            }
+
+            game->GetCardStack().GetCards().push_back(playerCard);
         }
         else if (ToLower(cardNode.name()) == "stepcard")
         {
             auto stepAttribute = stoi(cardNode.attribute("step").value());
-            string imageAttribute = cardNode.attribute("image").value();
-            // TODO: FARZAD add image attribute to the card
-            auto card = make_shared<StepCard>(stepAttribute);
-            game->GetCardStack().GetCards().push_back(card);
+
+            shared_ptr<StepCard> cardDeskStepCard = nullptr;
+            for (auto card : game->GetAllCards())
+            {
+                shared_ptr<StepCard> stepCard = dynamic_pointer_cast<StepCard>(card);
+                if (stepCard && stepCard->GetStep() == stepAttribute)
+                {
+                    cardDeskStepCard = stepCard;
+                    break;
+                }
+            }
+
+            // The specified card couldn't be found
+            if (!cardDeskStepCard)
+            {
+                Error("Card with specified step: '" + std::to_string(stepAttribute) + "' is not valid!");
+                return false;
+            }
+
+            game->GetCardStack().GetCards().push_back(cardDeskStepCard);
         }
     }
 
@@ -613,15 +670,21 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
-    if (!LoadCardDeck(gameXml))
-    {
-        Error("Could not read card deck data from the game file\n");
-        return false;
-    }
-
     if (!LoadAllCards(gameXml))
     {
         Error("Could not read data for all cards from the game file\n");
+        return false;
+    }
+
+    if (!LoadVisibleCards(gameXml))
+    {
+        Error("Could not read visible card data from the game file\n");
+        return false;
+    }
+
+    if (!LoadCardDeck(gameXml))
+    {
+        Error("Could not read card deck data from the game file\n");
         return false;
     }
 
