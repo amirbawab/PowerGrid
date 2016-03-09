@@ -67,6 +67,7 @@ bool Map::SaveFile(string fileName)
 {
     pugi::xml_document document;
     pugi::xml_node map = document.append_child("map");
+    map.append_attribute("name").set_value(GetName().c_str());
     PopulateCities(map);
     PopulateConnections(map);
     return document.save_file(fileName.c_str());
