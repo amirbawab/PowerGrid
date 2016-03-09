@@ -14,6 +14,7 @@ class Map
 {
 public:
 	explicit Map(std::string fileName);
+	Map() {}
 
 	static const int INVALID_VALUE = -1;
 
@@ -31,13 +32,14 @@ public:
 	int GetShortestPath(shared_ptr<Player>, string toCity);
 
 	std::shared_ptr<City> GetCityByName(std::string cityName);
+	bool AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> second, int cost);
+	void AddCity(std::shared_ptr<City> city) { cities[city->GetName()] = city; }
 private:
     std::string fileName;
 	std::string name;
     std::vector<std::shared_ptr<Region>> regions;
     std::map<std::string, std::shared_ptr<City>> cities;
     std::vector<std::shared_ptr<Connection>> connections;
-    bool AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> second, int cost);
     int GetRegionIndex(const std::string regionName) const;
     bool LoadCities(pugi::xml_document& xml);
     bool LoadConnections(pugi::xml_document& xml);
