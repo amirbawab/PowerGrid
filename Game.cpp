@@ -38,8 +38,8 @@ void Game::Setup() {
 	if (cinNewGame) {
 		
 		// Create players
-		std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
-		std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
+		std::shared_ptr<Player> p1 = std::make_shared<Player>("Player 1", std::make_shared<HouseColor>("Red", ""), initElektro);
+		std::shared_ptr<Player> p2 = std::make_shared<Player>("Player 2", std::make_shared<HouseColor>("Blue", ""), initElektro);
 
 		// New game message
 		cout << "New game selected for two players: " << *p1 << " and " << *p2 << endl;
@@ -51,6 +51,7 @@ void Game::Setup() {
 		cardStack.Prepare(overview.GetRuleByNumOfPlayers(cinNumberOfPlayers).randomeRemove);
 
 		// Display map
+		cout << "Displaying the map: " << endl;
 		map->DisplayMap();
 
 		// Initialize components
