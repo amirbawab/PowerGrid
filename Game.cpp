@@ -16,16 +16,33 @@ Game::Game() {
 /// Sets up the game at the beginning
 void Game::Setup() {
 
+	// Welcome
+	cout << "Welcome to power grid. " << endl << "Type N for new game or L for load saved game: ";
+
+	string gameType;
+	cin >> gameType;
+
+	while (ToLower(gameType) != "n" && ToLower(gameType) != "l") {
+		cout << "Type N for new game or L for load saved game: ";
+		cin >> gameType;
+	}
+
+	bool cinNewGame = ToLower(gameType) == "n";
+
 	// Data from the user
 	// TODO Use cin for those data
 	std::string cinMap = "USA";
 	int cinNumberOfPlayers = 2;
-	bool cinNewGame = false;
-	std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
-	std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
-
+	
 	// If new game
 	if (cinNewGame) {
+		
+		// Create players
+		std::shared_ptr<Player> p1 = std::make_shared<Player>("Joe", std::make_shared<HouseColor>("Red", ""), initElektro);
+		std::shared_ptr<Player> p2 = std::make_shared<Player>("Jane", std::make_shared<HouseColor>("Blue", ""), initElektro);
+
+		// New game message
+		cout << "New game selected for two players: " << *p1 << " and " << *p2 << endl;
 
 		// Initialize game
 		GameStatus::GetInstance().Init(this, cinMap, ":/test/Resources/config/Config.xml");
