@@ -459,6 +459,45 @@ bool GameStatus::LoadResourceMarket(pugi::xml_document& xml) const
     return true;
 }
 
+bool GameStatus::LoadAllCards(pugi::xml_document& xml) const
+{
+    auto cardsNode = xml.child("game").child("cards");
+    if (!cardsNode)
+        return false;
+
+    for (auto cardNode : cardsNode.children())
+    {
+        if (ToLower(cardNode.name()) == "powerplantcard")
+        {
+            auto priceAttribute = stoi(cardNode.attribute("price").value());
+            string imageAttribute = cardNode.attribute("image").value();
+            auto resourcesAttribute = stoi(cardNode.attribute("resources").value());
+            auto powerAttribute = stoi(cardNode.attribute("power").value());
+            // TODO: FARZAD add image attribute to the card
+            auto card = make_shared<PowerPlantCard>(priceAttribute,
+                                                                powerAttribute, resourcesAttribute);
+
+            for (auto resourceNode : cardNode.children("resource"))
+            {
+                string nameAttribute = resourceNode.attribute("name").value();
+                card->AddActiveResource(nameAttribute);
+            }
+
+            game->GetAllCards().push_back(card);
+        }
+        else if (ToLower(cardNode.name()) == "stepcard")
+        {
+            auto stepAttribute = stoi(cardNode.attribute("step").value());
+            string imageAttribute = cardNode.attribute("image").value();
+            // TODO: FARZAD add image attribute to the card
+            auto card = make_shared<StepCard>(stepAttribute);
+            game->GetAllCards().push_back(card);
+        }
+    }
+
+    return true;
+}
+
 bool GameStatus::LoadVisibleCards(pugi::xml_document& xml) const
 {
     auto visibleCardsNode = xml.child("game").child("visibleCards");
@@ -551,45 +590,6 @@ bool GameStatus::LoadCardDeck(pugi::xml_document& xml) const
             }
 
             game->GetCardStack().GetCards().push_back(cardDeskStepCard);
-        }
-    }
-
-    return true;
-}
-
-bool GameStatus::LoadAllCards(pugi::xml_document& xml) const
-{
-    auto cardsNode = xml.child("game").child("cards");
-    if (!cardsNode)
-        return false;
-
-    for (auto cardNode : cardsNode.children())
-    {
-        if (ToLower(cardNode.name()) == "powerplantcard")
-        {
-            auto priceAttribute = stoi(cardNode.attribute("price").value());
-            string imageAttribute = cardNode.attribute("image").value();
-            auto resourcesAttribute = stoi(cardNode.attribute("resources").value());
-            auto powerAttribute = stoi(cardNode.attribute("power").value());
-            // TODO: FARZAD add image attribute to the card
-            auto card = make_shared<PowerPlantCard>(priceAttribute,
-                                                                powerAttribute, resourcesAttribute);
-
-            for (auto resourceNode : cardNode.children("resource"))
-            {
-                string nameAttribute = resourceNode.attribute("name").value();
-                card->AddActiveResource(nameAttribute);
-            }
-
-            game->GetAllCards().push_back(card);
-        }
-        else if (ToLower(cardNode.name()) == "stepcard")
-        {
-            auto stepAttribute = stoi(cardNode.attribute("step").value());
-            string imageAttribute = cardNode.attribute("image").value();
-            // TODO: FARZAD add image attribute to the card
-            auto card = make_shared<StepCard>(stepAttribute);
-            game->GetAllCards().push_back(card);
         }
     }
 
