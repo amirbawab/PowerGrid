@@ -132,3 +132,11 @@ QPushButton#left_arrow {
 	border-width: 0px;
 	qproperty-alignment: 'AlignCenter';
  }
+
+ QWidget#row_label_h4_bg {
+	background: url(:/PowerGrid/Resources/rowBg.jpg) no-repeat;
+	min-width: 810px;
+	min-height: 60px;
+	color: #fff;
+	font-size: 40px;
+ }

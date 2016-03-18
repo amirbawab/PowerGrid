@@ -160,6 +160,12 @@
     <Filter Include="Header Files\test\player">
       <UniqueIdentifier>{da9d8595-4c38-4b22-8777-af0202211bd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\pages\playerConfig\components">
+      <UniqueIdentifier>{07a33550-bc0b-4f20-9e03-5360a7cb2ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\playerConfig\components">
+      <UniqueIdentifier>{0b0d5b68-dd41-4d4a-a004-eb8376f06088}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -258,6 +264,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerConfigRowWidget.cpp">
+      <Filter>Source Files\gui\pages\playerConfig\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -351,6 +360,9 @@
     </ClInclude>
     <ClInclude Include="GenericTest.h">
       <Filter>Header Files\test</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerConfigRowWidget.h">
+      <Filter>Header Files\gui\pages\playerConfig\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
