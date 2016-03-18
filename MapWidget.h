@@ -8,9 +8,6 @@
 
 class MapWidget : public TemplateNextBackWidget {
 	Q_OBJECT
-public:
-	MapWidget();
-	~MapWidget();
 private:
 	class SelectMapWidget : public QWidget {
 	private:
@@ -36,8 +33,12 @@ private:
 	SelectNumberOfPlayerWidget *selectNumberOfPlayerWidget;
 	void paintEvent(QPaintEvent *);
 
-	private slots:
-		void increment();
-		void decrement();
+private slots:
+	void increment();
+	void decrement();
+public:
+	MapWidget();
+	~MapWidget();
+	int GetNumberOfPlayers() { return std::stoi(selectNumberOfPlayerWidget->numberOfPlayersLabel->text().toStdString()); }
 };
 

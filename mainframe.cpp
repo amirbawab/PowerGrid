@@ -59,6 +59,7 @@ void MainFrame::onMapBack() {
 void MainFrame::onMapNext() {
 	qDebug("Next from map selection screen");
 	centerStackWidget->setCurrentIndex(playerConfigWidgetIndex);
+	playerConfigWidget->SetNumberOfPlayers(mapWidget->GetNumberOfPlayers());
 }
 
 void MainFrame::onPlayerConfigBack() {

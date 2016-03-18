@@ -12,23 +12,11 @@ PlayerConfigWidget::PlayerConfigWidget() {
 	// Set rows spacing
 	vBoxLayout->setSpacing(10);
 
-	// TODO Read input from previous page
-	rows.push_back(new PlayerConfigRowWidget());
-	rows.push_back(new PlayerConfigRowWidget());
-	rows.push_back(new PlayerConfigRowWidget());
-	rows.push_back(new PlayerConfigRowWidget());
-	rows.push_back(new PlayerConfigRowWidget());
-	rows.push_back(new PlayerConfigRowWidget());
-
 	// Set id
 	titleLabel->setObjectName("global_h2");
 
 	// Set layout
 	rowsWidget->setLayout(vBoxLayout);
-
-	// Add rows to the rows widget
-	for (int i = 0; i < rows.size(); i++)
-		vBoxLayout->addWidget(rows[i], i, Qt::AlignCenter);
 
 	// Add components
 	centerLayout->addWidget(titleLabel, 0, 0, Qt::AlignCenter);
@@ -39,6 +27,22 @@ PlayerConfigWidget::~PlayerConfigWidget() {
 	delete titleLabel;
 	delete vBoxLayout;
 	delete rowsWidget;
+}
+
+void PlayerConfigWidget::SetNumberOfPlayers(int num) {
+
+	// Clear old components
+	for (int i = rows.size()-1; i >= 0; i--) {
+		vBoxLayout->removeWidget(rows[i]);
+		delete rows[i];
+		rows.erase(rows.begin() + i);
+	}
+		
+	// Add rows to the rows widget
+	for (int i = 0; i < num; i++) {
+		rows.push_back(new PlayerConfigRowWidget("Player " + std::to_string(i + 1)));
+		vBoxLayout->addWidget(rows[i], i, Qt::AlignCenter);
+	}
 }
 
 /// This method is required when Q_OBJECT is added

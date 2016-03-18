@@ -12,6 +12,14 @@ QLabel#global_h2 {
 	border-width: 0px;
 }
 
+QLineEdit#transparent_h5_bg {
+	color: #fff;
+	font-size: 25px;
+	background-color: rgba(0, 0, 0, 0);
+	border-style: outset;
+	border-width: 0px;
+}
+
 QPushButton#global_h2_button {
 	color: #fff;
 	font-family: 'Hemmet Personal Use Only';

@@ -8,12 +8,13 @@ class PlayerConfigWidget : public TemplateNextBackWidget {
 	Q_OBJECT
 private:
 	void paintEvent(QPaintEvent *pe);
-public:
-	PlayerConfigWidget();
-	~PlayerConfigWidget();
+	std::vector<PlayerConfigRowWidget*> rows;
 	QWidget *rowsWidget;
 	QLabel *titleLabel;
 	QVBoxLayout *vBoxLayout;
-	std::vector<PlayerConfigRowWidget*> rows;
+public:
+	PlayerConfigWidget();
+	~PlayerConfigWidget();
+	void SetNumberOfPlayers(int num);
 };
 
