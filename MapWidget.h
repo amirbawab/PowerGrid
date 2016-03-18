@@ -32,10 +32,8 @@ private:
 		QLabel *titleLabel, *numberOfPlayersLabel;
 	};
 
-	QGridLayout *wrapperGridLayout;
 	SelectMapWidget *selectMapWidget;
 	SelectNumberOfPlayerWidget *selectNumberOfPlayerWidget;
-	QWidget *wrapperWidget;
 	void paintEvent(QPaintEvent *);
 
 	private slots:

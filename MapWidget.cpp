@@ -3,31 +3,21 @@
 MapWidget::MapWidget() {
 	
 	// Init components
-	wrapperWidget = new QWidget();
-	wrapperGridLayout = new QGridLayout(wrapperWidget);
 	selectMapWidget = new SelectMapWidget();
 	selectNumberOfPlayerWidget = new SelectNumberOfPlayerWidget();
 
-	// Set wrapper layout
-	wrapperWidget->setLayout(wrapperGridLayout);
-
-	// Add component to wrapper
-	wrapperGridLayout->addWidget(selectMapWidget, 0, 0, Qt::AlignCenter);
-	wrapperGridLayout->addWidget(selectNumberOfPlayerWidget, 0, 1, Qt::AlignCenter);
+	// Add component to center
+	centerLayout->addWidget(selectMapWidget, 0, 0, Qt::AlignCenter);
+	centerLayout->addWidget(selectNumberOfPlayerWidget, 0, 1, Qt::AlignCenter);
 
 	// Connect
 	connect(selectNumberOfPlayerWidget->plusBtn, SIGNAL(clicked()), this, SLOT(increment()));
 	connect(selectNumberOfPlayerWidget->minusBtn, SIGNAL(clicked()), this, SLOT(decrement()));
-
-	// Add components to widget
-	gridLayout->addWidget(wrapperWidget, 0, 0, 0);
 }
 
 MapWidget::~MapWidget() {
-	// delete selectNumberOfPlayerWidget;
+	delete selectNumberOfPlayerWidget;
 	delete selectMapWidget;
-	delete wrapperGridLayout;
-	delete wrapperWidget;
 }
 
 MapWidget::SelectMapWidget::SelectMapWidget() {
@@ -115,7 +105,7 @@ void MapWidget::decrement() {
 	// Get value as int
 	int val = std::stoi(selectNumberOfPlayerWidget->numberOfPlayersLabel->text().toStdString());
 
-	// MAX 6
+	// MIN 2
 	if (val > 2) val--;
 
 	// Update

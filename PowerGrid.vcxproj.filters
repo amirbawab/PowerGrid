@@ -255,6 +255,9 @@
     <ClCompile Include="PlayerTest.cpp">
       <Filter>Source Files\test\player</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -268,6 +271,9 @@
     </CustomBuild>
     <CustomBuild Include="WelcomeMenuWidget.h">
       <Filter>Header Files\gui\pages\welcome\components</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PlayerConfigWidget.h">
+      <Filter>Header Files\gui\pages\playerConfig</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +309,6 @@
     </ClInclude>
     <ClInclude Include="WelcomeWidget.h">
       <Filter>Header Files\gui\pages\welcome</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerConfigWidget.h">
-      <Filter>Header Files\gui\pages\playerConfig</Filter>
     </ClInclude>
     <ClInclude Include="House.h">
       <Filter>Header Files\house</Filter>
