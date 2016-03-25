@@ -15,6 +15,8 @@
         <file>Resources/bg_no_frame.jpg</file>
         <file>Resources/board/top_banner.png</file>
         <file>Resources/board/bottom_banner.png</file>
+        <file>Resources/buttons/mode_button.png</file>
+        <file>Resources/buttons/mode_button_pressed.png</file>
     </qresource>
     <qresource prefix="/test">
         <file>Resources/config/Config.xml</file>

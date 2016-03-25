@@ -50,6 +50,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BoardBottomWidget.cpp" />
+    <ClCompile Include="BoardCenterWidget.cpp" />
     <ClCompile Include="BoardTopWidget.cpp" />
     <ClCompile Include="BoardWidget.cpp" />
     <ClCompile Include="Card.cpp" />
@@ -91,6 +92,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="BoardBottomWidget.h" />
+    <ClInclude Include="BoardCenterWidget.h" />
     <ClInclude Include="BoardTopWidget.h" />
     <ClInclude Include="BoardWidget.h" />
     <ClInclude Include="Card.h" />

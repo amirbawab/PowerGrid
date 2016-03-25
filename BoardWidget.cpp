@@ -6,6 +6,7 @@ BoardWidget::BoardWidget() {
 	gridLayout = new QGridLayout();
 	boardTopWidget = new BoardTopWidget();
 	boardBottomWidget = new BoardBottomWidget();
+	boardCenterWidget = new BoardCenterWidget();
 
 	// Set layout
 	setLayout(gridLayout);
@@ -15,6 +16,7 @@ BoardWidget::BoardWidget() {
 
 	// Add components
 	gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);
+	gridLayout->addWidget(boardCenterWidget, 1, 0);
 	gridLayout->addWidget(boardBottomWidget, 2, 0, Qt::AlignBottom);
 }
 
