@@ -166,6 +166,12 @@
     <Filter Include="Header Files\gui\pages\playerConfig\components">
       <UniqueIdentifier>{0b0d5b68-dd41-4d4a-a004-eb8376f06088}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\pages\board">
+      <UniqueIdentifier>{d0351949-ad25-488c-8bdc-c72ad057362b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board">
+      <UniqueIdentifier>{ea2b9ae4-593a-4cab-bfc6-2f9fd1164fbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -267,6 +273,9 @@
     <ClCompile Include="PlayerConfigRowWidget.cpp">
       <Filter>Source Files\gui\pages\playerConfig\components</Filter>
     </ClCompile>
+    <ClCompile Include="BoardWidget.cpp">
+      <Filter>Source Files\gui\pages\board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -363,6 +372,9 @@
     </ClInclude>
     <ClInclude Include="PlayerConfigRowWidget.h">
       <Filter>Header Files\gui\pages\playerConfig\components</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardWidget.h">
+      <Filter>Header Files\gui\pages\board</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

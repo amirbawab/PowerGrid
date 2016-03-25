@@ -17,6 +17,7 @@
 #include "WelcomeWidget.h"
 #include "MapWidget.h"
 #include "PlayerConfigWidget.h"
+#include "BoardWidget.h"
 
 class MainFrame : public QMainWindow {
 	Q_OBJECT
@@ -28,13 +29,15 @@ private:
 	WelcomeWidget *welcomeWidget;
 	MapWidget *mapWidget;
 	PlayerConfigWidget *playerConfigWidget;
+	BoardWidget *boardWidget;
 	void paintEvent(QPaintEvent *);
-	int welcomeWidgetIndex, mapWidgetIndex, playerConfigWidgetIndex;
+	int welcomeWidgetIndex, mapWidgetIndex, playerConfigWidgetIndex, boardWidgetIndex;
 private slots:
 	void onNewGame();
 	void onMapBack();
 	void onMapNext();
 	void onPlayerConfigBack();
+	void onPlayerConfigNext();
 };
 
 #endif // MAINFRAME_H

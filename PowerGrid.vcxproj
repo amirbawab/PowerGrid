@@ -49,6 +49,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BoardWidget.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardStack.cpp" />
     <ClCompile Include="City.cpp" />
@@ -87,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BoardWidget.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardStack.h" />
     <ClInclude Include="City.h" />
