@@ -2,10 +2,11 @@
 
 #include "Resource.h"
 #include "Card.h"
+#include <QPushButton>
 #include <set>
 #include <map>
 
-class PowerPlantCard : public Card {
+class PowerPlantCard : public Card, public QPushButton {
 private:
 	int price = 0;
 	int power = 0;

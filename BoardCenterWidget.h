@@ -4,6 +4,7 @@
 #include <QGridLayout>
 #include <QStackedWidget>
 #include <QPushButton>
+#include "PowerPlantModeWidget.h"
 
 class BoardCenterWidget : public QWidget {
 public:
@@ -15,5 +16,7 @@ private:
 	QWidget *modeWidget;
 	QPushButton *powerPlantsModeButton, *mapModeButton, *resourceModeButton, *overviewModeButton;
 	QVBoxLayout *vBoxLayout;
+	PowerPlantModeWidget *powerPlantModeWidget;
+	int powerPlantModeWidgetIndex;
 };
 

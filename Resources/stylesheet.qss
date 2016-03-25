@@ -126,6 +126,13 @@ QPushButton#boardModeButton:pressed {
 	background: url(:/PowerGrid/Resources/buttons/mode_button_pressed.png) no-repeat;
 }
 
+QPushButton#powerPlantCardButton {
+	min-width: 43px;
+	min-height: 42px;
+	border-style: outset;
+	border-width: 0px;
+}
+
 /****************************
  *
  *		ARROWS

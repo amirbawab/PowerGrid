@@ -291,6 +291,9 @@
     <ClCompile Include="BoardCenterWidget.cpp">
       <Filter>Source Files\gui\pages\board\components</Filter>
     </ClCompile>
+    <ClCompile Include="PowerPlantModeWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -398,6 +401,9 @@
       <Filter>Header Files\gui\pages\board\components</Filter>
     </ClInclude>
     <ClInclude Include="BoardCenterWidget.h">
+      <Filter>Header Files\gui\pages\board\components</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerPlantModeWidget.h">
       <Filter>Header Files\gui\pages\board\components</Filter>
     </ClInclude>
   </ItemGroup>
