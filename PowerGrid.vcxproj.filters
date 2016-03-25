@@ -172,6 +172,12 @@
     <Filter Include="Header Files\gui\pages\board">
       <UniqueIdentifier>{ea2b9ae4-593a-4cab-bfc6-2f9fd1164fbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\pages\board\components">
+      <UniqueIdentifier>{7f22f375-bf6e-4133-92e8-7224e9d39483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board\components">
+      <UniqueIdentifier>{2b9039e5-6ecf-43fd-b4bd-9bbe95267b26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -276,6 +282,12 @@
     <ClCompile Include="BoardWidget.cpp">
       <Filter>Source Files\gui\pages\board</Filter>
     </ClCompile>
+    <ClCompile Include="BoardTopWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardBottomWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -375,6 +387,12 @@
     </ClInclude>
     <ClInclude Include="BoardWidget.h">
       <Filter>Header Files\gui\pages\board</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardTopWidget.h">
+      <Filter>Header Files\gui\pages\board\components</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardBottomWidget.h">
+      <Filter>Header Files\gui\pages\board\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

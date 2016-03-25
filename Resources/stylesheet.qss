@@ -47,6 +47,14 @@ QWidget#templateLogoWidget {
 }
 
 /**
+ * Template logo widget
+ **/
+QWidget#templateBoardWidget {
+	border-image: url(:/PowerGrid/Resources/bg_no_frame.jpg) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+}
+
+/**
  * Logo for the template
  **/
 QLabel#templateLogo {
@@ -148,3 +156,26 @@ QPushButton#left_arrow {
 	color: #fff;
 	font-size: 40px;
  }
+
+ /*******************
+ *
+ *		BOARD
+ *
+ *******************/
+QWidget#boardTopWidget {
+	border-image: url(:/PowerGrid/Resources/board/top_banner.png) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+	max-height: 128px;
+	min-height: 128px;
+	color: #fff;
+	font-size: 40px;
+}
+
+QWidget#boardBottomWidget {
+	border-image: url(:/PowerGrid/Resources/board/bottom_banner.png) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+	max-height: 280px;
+	min-height: 280px;
+	color: #fff;
+	font-size: 40px;
+}
