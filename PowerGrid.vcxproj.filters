@@ -315,6 +315,9 @@
     <ClCompile Include="ResourceMarketLevelWidget.cpp">
       <Filter>Source Files\gui\pages\board\components\mode\components</Filter>
     </ClCompile>
+    <ClCompile Include="OverviewModeWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -432,6 +435,9 @@
     </ClInclude>
     <ClInclude Include="ResourceMarketLevelWidget.h">
       <Filter>Header Files\gui\pages\board\components\mode\components</Filter>
+    </ClInclude>
+    <ClInclude Include="OverviewModeWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

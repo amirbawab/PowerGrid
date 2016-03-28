@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include "PowerPlantModeWidget.h"
 #include "ResourceMarketModeWidget.h"
+#include "OverviewModeWidget.h"
 #include <QStyleOption>
 #include <QPainter>
 
@@ -22,7 +23,8 @@ private:
 	QVBoxLayout *vBoxLayout;
 	PowerPlantModeWidget *powerPlantModeWidget;
 	ResourceMarketModeWidget* resourceMarketModeWidget;
-	int powerPlantModeWidgetIndex, resourceMarketModeWidgetIndex;
+	OverviewModeWidget *overviewModeWidget;
+	int powerPlantModeWidgetIndex, resourceMarketModeWidgetIndex, overviewModeWidgetIndex;
 	void paintEvent(QPaintEvent *pe);
 private slots:
 	void onMapMode();

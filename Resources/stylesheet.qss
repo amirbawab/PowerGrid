@@ -213,3 +213,8 @@ QWidget#modeWidget {
 	max-width: 55px;
 	min-width: 55px;
 }
+
+QScrollArea#overviewScrollArea {
+	background-color:transparent;
+	border-width: 0px;
+}

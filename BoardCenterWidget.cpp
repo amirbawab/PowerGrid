@@ -13,6 +13,7 @@ BoardCenterWidget::BoardCenterWidget() {
 	overviewModeButton = new QPushButton();
 	powerPlantModeWidget = new PowerPlantModeWidget();
 	resourceMarketModeWidget = new ResourceMarketModeWidget();
+	overviewModeWidget = new OverviewModeWidget();
 
 	// Configure components
 	modeWidget->setObjectName("modeWidget");
@@ -28,6 +29,7 @@ BoardCenterWidget::BoardCenterWidget() {
 	// Add to stack
 	powerPlantModeWidgetIndex = centerStackedWidget->addWidget(powerPlantModeWidget);
 	resourceMarketModeWidgetIndex = centerStackedWidget->addWidget(resourceMarketModeWidget);
+	overviewModeWidgetIndex = centerStackedWidget->addWidget(overviewModeWidget);
 
 	// Default active
 	centerStackedWidget->setCurrentIndex(powerPlantModeWidgetIndex);
@@ -35,10 +37,11 @@ BoardCenterWidget::BoardCenterWidget() {
 	// Connect buttons
 	connect(powerPlantsModeButton, SIGNAL(clicked()), this, SLOT(onPowerPlantMode()));
 	connect(resourceMarketModeButton, SIGNAL(clicked()), this, SLOT(onResourceMarketMode()));
+	connect(overviewModeButton, SIGNAL(clicked()), this, SLOT(onOverviewMode()));
 
 	// Add components
-	vBoxLayout->addWidget(powerPlantsModeButton, 0);
 	vBoxLayout->addWidget(mapModeButton, 0);
+	vBoxLayout->addWidget(powerPlantsModeButton, 0);
 	vBoxLayout->addWidget(resourceMarketModeButton, 0);
 	vBoxLayout->addWidget(overviewModeButton, 0);
 	gridLayout->addWidget(centerStackedWidget, 0, 0);
@@ -52,6 +55,7 @@ BoardCenterWidget::~BoardCenterWidget() {
 	delete overviewModeButton;
 	delete powerPlantModeWidget;
 	delete resourceMarketModeWidget;
+	delete overviewModeWidget;
 	delete vBoxLayout;
 	delete modeWidget;
 	delete centerStackedWidget;
@@ -78,6 +82,7 @@ void BoardCenterWidget::onPowerPlantMode() {
 
 void BoardCenterWidget::onOverviewMode() {
 	qDebug("Switching to overview mode");
+	centerStackedWidget->setCurrentIndex(overviewModeWidgetIndex);
 }
 
 /// This method is required when Q_OBJECT is added

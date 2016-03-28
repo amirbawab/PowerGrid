@@ -22,6 +22,7 @@
         <file>Resources/resources/garbage.png</file>
         <file>Resources/resources/oil.png</file>
         <file>Resources/resources/uranium.png</file>
+        <file>Resources/overview/all.png</file>
     </qresource>
     <qresource prefix="/test">
         <file>Resources/config/Config.xml</file>

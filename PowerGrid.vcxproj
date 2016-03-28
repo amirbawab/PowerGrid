@@ -76,6 +76,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapWidget.cpp" />
     <ClCompile Include="Overview.cpp" />
+    <ClCompile Include="OverviewModeWidget.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerConfigRowWidget.cpp" />
     <ClCompile Include="PlayerConfigWidget.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStatus.h" />
     <ClInclude Include="GenericTest.h" />
+    <ClInclude Include="OverviewModeWidget.h" />
     <ClInclude Include="PlayerConfigRowWidget.h" />
     <ClInclude Include="PlayerTest.h" />
     <ClInclude Include="PowerPlantModeWidget.h" />
