@@ -133,6 +133,13 @@ QPushButton#powerPlantCardButton {
 	border-width: 0px;
 }
 
+QPushButton#resourceButton {
+	min-width: 50px;
+	min-height: 50px;
+	border-style: outset;
+	border-width: 0px;
+}
+
 /****************************
  *
  *		ARROWS

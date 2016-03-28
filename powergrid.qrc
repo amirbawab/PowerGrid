@@ -18,6 +18,10 @@
         <file>Resources/buttons/mode_button.png</file>
         <file>Resources/buttons/mode_button_pressed.png</file>
         <file>Resources/powerplants/dummy.png</file>
+        <file>Resources/resources/coal.png</file>
+        <file>Resources/resources/garbage.png</file>
+        <file>Resources/resources/oil.png</file>
+        <file>Resources/resources/uranium.png</file>
     </qresource>
     <qresource prefix="/test">
         <file>Resources/config/Config.xml</file>

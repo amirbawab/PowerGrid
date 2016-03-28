@@ -85,6 +85,7 @@
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="ResourceMarket.cpp" />
     <ClCompile Include="ResourceMarketLevel.cpp" />
+    <ClCompile Include="ResourceMarketLevelWidget.cpp" />
     <ClCompile Include="ResourceMarketModeWidget.cpp" />
     <ClCompile Include="StepCard.cpp" />
     <ClCompile Include="TemplateLogoWidget.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="Region.h" />
     <ClInclude Include="ResourceMarket.h" />
     <ClInclude Include="ResourceMarketLevel.h" />
+    <ClInclude Include="ResourceMarketLevelWidget.h" />
     <ClInclude Include="ResourceMarketModeWidget.h" />
     <ClInclude Include="StepCard.h" />
     <ClInclude Include="WelcomeWidget.h" />
