@@ -9,15 +9,16 @@ BoardCenterWidget::BoardCenterWidget() {
 	vBoxLayout = new QVBoxLayout();
 	powerPlantsModeButton = new QPushButton();
 	mapModeButton = new QPushButton();
-	resourceModeButton = new QPushButton();
+	resourceMarketModeButton = new QPushButton();
 	overviewModeButton = new QPushButton();
 	powerPlantModeWidget = new PowerPlantModeWidget();
+	resourceMarketModeWidget = new ResourceMarketModeWidget();
 
 	// Configure components
 	modeWidget->setObjectName("modeWidget");
 	powerPlantsModeButton->setObjectName("boardModeButton");
 	mapModeButton->setObjectName("boardModeButton");
-	resourceModeButton->setObjectName("boardModeButton");
+	resourceMarketModeButton->setObjectName("boardModeButton");
 	overviewModeButton->setObjectName("boardModeButton");
 
 	// Set layout
@@ -26,28 +27,64 @@ BoardCenterWidget::BoardCenterWidget() {
 
 	// Add to stack
 	powerPlantModeWidgetIndex = centerStackedWidget->addWidget(powerPlantModeWidget);
+	resourceMarketModeWidgetIndex = centerStackedWidget->addWidget(resourceMarketModeWidget);
 
 	// Default active
 	centerStackedWidget->setCurrentIndex(powerPlantModeWidgetIndex);
 
+	// Connect buttons
+	connect(powerPlantsModeButton, SIGNAL(clicked()), this, SLOT(onPowerPlantMode()));
+	connect(resourceMarketModeButton, SIGNAL(clicked()), this, SLOT(onResourceMarketMode()));
+
 	// Add components
 	vBoxLayout->addWidget(powerPlantsModeButton, 0);
 	vBoxLayout->addWidget(mapModeButton, 0);
-	vBoxLayout->addWidget(resourceModeButton, 0);
+	vBoxLayout->addWidget(resourceMarketModeButton, 0);
 	vBoxLayout->addWidget(overviewModeButton, 0);
 	gridLayout->addWidget(centerStackedWidget, 0, 0);
 	gridLayout->addWidget(modeWidget, 0, 1, Qt::AlignRight);
 }
 
-
 BoardCenterWidget::~BoardCenterWidget() {
 	delete powerPlantsModeButton;
 	delete mapModeButton;
-	delete resourceModeButton;
+	delete resourceMarketModeButton;
 	delete overviewModeButton;
 	delete powerPlantModeWidget;
+	delete resourceMarketModeWidget;
 	delete vBoxLayout;
 	delete modeWidget;
 	delete centerStackedWidget;
 	delete gridLayout;
 }
+
+/**********
+ * SLOTS
+ **********/
+
+void BoardCenterWidget::onMapMode() {
+	qDebug("Switching to map mode");
+}
+
+void BoardCenterWidget::onResourceMarketMode() {
+	qDebug("Switching to resource market mode");
+	centerStackedWidget->setCurrentIndex(resourceMarketModeWidgetIndex);
+}
+
+void BoardCenterWidget::onPowerPlantMode() {
+	qDebug("Switching to power plant mode");
+	centerStackedWidget->setCurrentIndex(powerPlantModeWidgetIndex);
+}
+
+void BoardCenterWidget::onOverviewMode() {
+	qDebug("Switching to overview mode");
+}
+
+/// This method is required when Q_OBJECT is added
+/// Without this method, the CSS will not be applied
+void BoardCenterWidget::paintEvent(QPaintEvent *pe) {
+	QStyleOption o;
+	o.initFrom(this);
+	QPainter p(this);
+	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
+};

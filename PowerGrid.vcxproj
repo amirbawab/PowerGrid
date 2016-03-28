@@ -60,6 +60,7 @@
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStatus.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_BoardCenterWidget.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_MainFrame.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_MapWidget.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigWidget.cpp" />
@@ -84,6 +85,7 @@
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="ResourceMarket.cpp" />
     <ClCompile Include="ResourceMarketLevel.cpp" />
+    <ClCompile Include="ResourceMarketModeWidget.cpp" />
     <ClCompile Include="StepCard.cpp" />
     <ClCompile Include="TemplateLogoWidget.cpp" />
     <ClCompile Include="TemplateNextBackWidget.cpp" />
@@ -93,7 +95,12 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="BoardBottomWidget.h" />
-    <ClInclude Include="BoardCenterWidget.h" />
+    <CustomBuild Include="BoardCenterWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing BoardCenterWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(ProjectDir)include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
     <ClInclude Include="BoardTopWidget.h" />
     <ClInclude Include="BoardWidget.h" />
     <ClInclude Include="Card.h" />
@@ -118,6 +125,7 @@
     <ClInclude Include="Region.h" />
     <ClInclude Include="ResourceMarket.h" />
     <ClInclude Include="ResourceMarketLevel.h" />
+    <ClInclude Include="ResourceMarketModeWidget.h" />
     <ClInclude Include="StepCard.h" />
     <ClInclude Include="WelcomeWidget.h" />
     <CustomBuild Include="MainFrame.h">

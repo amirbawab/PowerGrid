@@ -294,6 +294,12 @@
     <ClCompile Include="PowerPlantModeWidget.cpp">
       <Filter>Source Files\gui\pages\board\components</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceMarketModeWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BoardCenterWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -310,6 +316,9 @@
     </CustomBuild>
     <CustomBuild Include="PlayerConfigWidget.h">
       <Filter>Header Files\gui\pages\playerConfig</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BoardCenterWidget.h">
+      <Filter>Header Files\gui\pages\board\components</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -400,10 +409,10 @@
     <ClInclude Include="BoardBottomWidget.h">
       <Filter>Header Files\gui\pages\board\components</Filter>
     </ClInclude>
-    <ClInclude Include="BoardCenterWidget.h">
+    <ClInclude Include="PowerPlantModeWidget.h">
       <Filter>Header Files\gui\pages\board\components</Filter>
     </ClInclude>
-    <ClInclude Include="PowerPlantModeWidget.h">
+    <ClInclude Include="ResourceMarketModeWidget.h">
       <Filter>Header Files\gui\pages\board\components</Filter>
     </ClInclude>
   </ItemGroup>
