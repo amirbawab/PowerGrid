@@ -18,6 +18,14 @@ PlayerConfigWidget::PlayerConfigWidget() {
 	// Set layout
 	rowsWidget->setLayout(vBoxLayout);
 
+	// Dummy data
+	houseColors.push_back(new HouseColor("black", ":/PowerGrid/Resources/houses/black.png"));
+	houseColors.push_back(new HouseColor("purple", ":/PowerGrid/Resources/houses/purple.png"));
+	houseColors.push_back(new HouseColor("green", ":/PowerGrid/Resources/houses/green.png"));
+	houseColors.push_back(new HouseColor("blue", ":/PowerGrid/Resources/houses/blue.png"));
+	houseColors.push_back(new HouseColor("yellow", ":/PowerGrid/Resources/houses/yellow.png"));
+	houseColors.push_back(new HouseColor("red", ":/PowerGrid/Resources/houses/red.png"));
+
 	// Add components
 	centerLayout->addWidget(titleLabel, 0, 0, Qt::AlignCenter);
 	centerLayout->addWidget(rowsWidget, 1, 0, Qt::AlignCenter);
@@ -40,7 +48,9 @@ void PlayerConfigWidget::SetNumberOfPlayers(int num) {
 		
 	// Add rows to the rows widget
 	for (int i = 0; i < num; i++) {
-		rows.push_back(new PlayerConfigRowWidget("Player " + std::to_string(i + 1)));
+		PlayerConfigRowWidget *row = new PlayerConfigRowWidget("Player " + std::to_string(i + 1));
+		row->SetHouseColor(houseColors[i%houseColors.size()]);
+		rows.push_back(row);
 		vBoxLayout->addWidget(rows[i], i, Qt::AlignCenter);
 	}
 }

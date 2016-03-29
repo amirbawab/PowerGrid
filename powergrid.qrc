@@ -23,6 +23,11 @@
         <file>Resources/resources/oil.png</file>
         <file>Resources/resources/uranium.png</file>
         <file>Resources/overview/all.png</file>
+        <file>Resources/houses/black.png</file>
+        <file>Resources/houses/blue.png</file>
+        <file>Resources/houses/green.png</file>
+        <file>Resources/houses/purple.png</file>
+        <file>Resources/houses/yellow.png</file>
     </qresource>
     <qresource prefix="/test">
         <file>Resources/config/Config.xml</file>

@@ -15,7 +15,6 @@ PlayerConfigRowWidget::PlayerConfigRowWidget(string name) {
 
 	// Create logo
 	houseLabel = new QLabel();
-	houseLabel->setPixmap(QPixmap(":/PowerGrid/Resources/houses/red.png"));
 	houseLabel->setContentsMargins(-1,-1,10,-1);
 
 	// Add component
@@ -27,3 +26,7 @@ PlayerConfigRowWidget::~PlayerConfigRowWidget() {
 	delete playerName;
 }
 	
+void PlayerConfigRowWidget::SetHouseColor(HouseColor *houseColor) {
+	this->houseColor = houseColor;
+	houseLabel->setPixmap(QPixmap(houseColor->getImage().c_str()));
+}
