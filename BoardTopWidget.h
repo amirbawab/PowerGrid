@@ -2,12 +2,23 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <vector>
+#include "Player.h"
 
-class BoardTopWidget : public QWidget {
+class GameTurnWidget : public QWidget {
 public:
-	BoardTopWidget();
-	~BoardTopWidget();
+	GameTurnWidget();
+	~GameTurnWidget();
 private:
 	QGridLayout *gridLayout;
 };
 
+class BoardTopWidget : public QWidget {
+public:
+	std::vector<Player*> players;
+	BoardTopWidget();
+	~BoardTopWidget();
+	
+private:
+	QGridLayout *gridLayout;
+};
