@@ -318,6 +318,9 @@
     <ClCompile Include="OverviewModeWidget.cpp">
       <Filter>Source Files\gui\pages\board\components\mode</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigRowWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -337,6 +340,9 @@
     </CustomBuild>
     <CustomBuild Include="BoardCenterWidget.h">
       <Filter>Header Files\gui\pages\board\components</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PlayerConfigRowWidget.h">
+      <Filter>Header Files\gui\pages\playerConfig\components</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -414,9 +420,6 @@
     </ClInclude>
     <ClInclude Include="GenericTest.h">
       <Filter>Header Files\test</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerConfigRowWidget.h">
-      <Filter>Header Files\gui\pages\playerConfig\components</Filter>
     </ClInclude>
     <ClInclude Include="BoardWidget.h">
       <Filter>Header Files\gui\pages\board</Filter>
