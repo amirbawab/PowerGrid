@@ -1,9 +1,10 @@
 #include "MapDesignerGraphicsView.h"
 #include <iostream>
 #include <QResizeEvent>
-#include <QMouseEvent>
 #include <QInputDialog>
+#include <QMessageBox>
 
+using std::string;
 using std::cout;
 using std::endl;
 using std::vector;
@@ -26,25 +27,23 @@ void MapDesignerGraphicsView::UpdateScene()
         scene()->addItem(costTextItem);
     }
 
-    for (auto city : cities)
+    for (auto cityMapItem : cities)
     {
-        auto cityName = new QGraphicsTextItem(city->GetName().c_str());
-        cityName->setPos(city->GetNameLocation(cityFont));
-        cityName->setFont(cityFont);
-        scene()->addItem(cityName);
-        scene()->addItem(city.get());
+        auto cityNameTextItem = cityMapItem.second->GetNameTextItem(cityFont);
+        scene()->addItem(cityNameTextItem);
+        scene()->addItem(cityMapItem.second.get());
     }
 }
 
-int MapDesignerGraphicsView::GetCityByPoint(QPoint point)
+string MapDesignerGraphicsView::GetCityByPoint(QPoint point)
 {
-    auto cityIndex = -1;
+    string cityName = "";
 
-    for (int i = 0; i < cities.size(); i++)
-        if (cities[i]->contains(point))
-            cityIndex = i;
+    for (auto cityMapItem : cities)
+        if (cityMapItem.second->contains(point))
+            cityName = cityMapItem.first;
 
-    return cityIndex;
+    return cityName;
 }
 
 void MapDesignerGraphicsView::resizeEvent(QResizeEvent*)
@@ -76,7 +75,15 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
         auto city = make_shared<City>(point, CITY_WIDTH, CITY_HEIGHT);
         city->SetName(cityName.toStdString());
         city->setBrush(QBrush(regionColor));
-        cities.push_back(city);
+
+        if (cities.find(cityName.toStdString()) != cities.end())
+        {
+            QMessageBox::warning(this, "Duplicate City Name",
+                                 "City with name '" + cityName + "' already exists!");
+            OnCancelOperation();
+            return;
+        }
+        cities[cityName.toStdString()] = city;
 
         addCity = false;
         emit ClearMessage();
@@ -89,12 +96,12 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
         auto point = event->pos();
 
         // If no city contains this point
-        auto cityIndex = GetCityByPoint(point);
-        if (cityIndex == -1)
+        auto cityName = GetCityByPoint(point);
+        if (cityName == "")
             return;
 
         connection = make_unique<Connection>();
-        connection->SetFirstCity(cities[cityIndex]);
+        connection->SetFirstCity(cities[cityName]);
 
         addConnectionFirstCity = false;
         addConnectionSecondCity = true;
@@ -106,8 +113,8 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
         auto point = event->pos();
 
         // If no city contains this point
-        auto cityIndex = GetCityByPoint(point);
-        if (cityIndex == -1)
+        auto cityName = GetCityByPoint(point);
+        if (cityName == "")
             return;
 
         bool ok;
@@ -121,8 +128,27 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
             return;
         }
 
-        connection->SetSecondCity(cities[cityIndex]);
+        connection->SetSecondCity(cities[cityName]);
         connection->SetCost(cost);
+
+        for (auto& conn : connections)
+        {
+            auto firstCityName  = conn->GetFirstCity()->GetName();
+            auto secondCityName = conn->GetSecondCity()->GetName();
+
+            auto currentFirstCityName  = connection->GetFirstCity()->GetName();
+            auto currentSecondCityName = connection->GetSecondCity()->GetName();
+
+            if (firstCityName == currentFirstCityName || firstCityName == secondCityName ||
+                secondCityName == firstCityName || secondCityName == secondCityName)
+            {
+                QMessageBox::warning(this, "Duplicate Connection Entry", QString::fromStdString(
+                                     "There's already a connection between '" + currentFirstCityName +
+                                     "' and '" + currentSecondCityName + "'"));
+                OnCancelOperation();
+                return;
+            }
+        }
         connections.push_back(std::move(connection));
 
         addConnectionSecondCity = false;
@@ -142,8 +168,8 @@ MapDesignerGraphicsView::MapDesignerGraphicsView()
 {
     cityFont = QFont("Calibri", 12, QFont::Bold, true);
     connectionFont = QFont("Tahoma", 12, QFont::Bold);
-//    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     grabKeyboard();
 }
 

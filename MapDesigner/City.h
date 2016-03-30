@@ -18,5 +18,6 @@ public:
 
     QPoint GetNameLocation(QFont font) const;
     QPoint GetCenter() const;
+    QGraphicsSimpleTextItem* GetNameTextItem(QFont font) const;
 };
 

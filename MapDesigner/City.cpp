@@ -27,3 +27,12 @@ QPoint City::GetCenter() const
 {
     return QPoint(rect().x() + rect().width() / 2, rect().y() + rect().height() / 2);
 }
+
+QGraphicsSimpleTextItem* City::GetNameTextItem(QFont font) const
+{
+    auto cityNameTextItem = new QGraphicsSimpleTextItem(name.c_str());
+    cityNameTextItem->setPos(GetNameLocation(font));
+    cityNameTextItem->setFont(font);
+    
+    return cityNameTextItem;
+}

@@ -20,7 +20,9 @@ public:
     int GetCostCircleDiameter(QFont font) const;
 
     void SetFirstCity(std::shared_ptr<City> city) { this->first = city; }
+    std::shared_ptr<City> GetFirstCity() const { return first; }
     void SetSecondCity(std::shared_ptr<City> city);
+    std::shared_ptr<City> GetSecondCity() const { return second; }
 
     void SetCost(int cost) { this->cost = cost; }
     int GetCost() const { return cost; }

@@ -19,7 +19,8 @@ class MapDesignerGraphicsView : public QGraphicsView
     std::shared_ptr<City> connectionFirstCity;
     std::shared_ptr<City> connectionSecondCity;
 
-    std::vector<std::shared_ptr<City>> cities;
+//    std::vector<std::shared_ptr<City>> cities;
+    std::map<std::string, std::shared_ptr<City>> cities;
     std::vector<std::unique_ptr<Connection>> connections;
 
     QFont cityFont;
@@ -27,7 +28,7 @@ class MapDesignerGraphicsView : public QGraphicsView
 
 private:
     void UpdateScene();
-    int GetCityByPoint(QPoint point);
+    std::string GetCityByPoint(QPoint point);
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
