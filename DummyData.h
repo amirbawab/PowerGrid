@@ -19,29 +19,37 @@ private:
 		std::shared_ptr<HouseColor> house5 = std::make_shared<HouseColor>("yellow", ":/PowerGrid/Resources/houses/yellow.png");
 		std::shared_ptr<HouseColor> house6 = std::make_shared<HouseColor>("red", ":/PowerGrid/Resources/houses/red.png");
 
-		// Store house colors
-		houseColors.push_back(house1.get());
-		houseColors.push_back(house2.get());
-		houseColors.push_back(house3.get());
-		houseColors.push_back(house4.get());
-		houseColors.push_back(house5.get());
-		houseColors.push_back(house6.get());
-
 		// Players
-		players.push_back(new Player("Player one", house1, 50));
-		players.push_back(new Player("Player two", house2, 50));
-		players.push_back(new Player("Player three", house3, 50));
-		players.push_back(new Player("Player four", house4, 50));
-		players.push_back(new Player("Player five", house5, 50));
-		players.push_back(new Player("Player six", house6, 50));
+		std::shared_ptr<Player> player1 = std::make_shared<Player>("Player one", house1, 50);
+		std::shared_ptr<Player> player2 = std::make_shared<Player>("Player two", house2, 50);
+		std::shared_ptr<Player> player3 = std::make_shared<Player>("Player three", house3, 50);
+		std::shared_ptr<Player> player4 = std::make_shared<Player>("Player four", house4, 50);
+		std::shared_ptr<Player> player5 = std::make_shared<Player>("Player five", house5, 50);
+		std::shared_ptr<Player> player6 = std::make_shared<Player>("Player six", house6, 50);
+
+		// Store house colors
+		houseColors.push_back(house1);
+		houseColors.push_back(house2);
+		houseColors.push_back(house3);
+		houseColors.push_back(house4);
+		houseColors.push_back(house5);
+		houseColors.push_back(house6);
+
+		// Store players
+		players.push_back(player1);
+		players.push_back(player2);
+		players.push_back(player3);
+		players.push_back(player4);
+		players.push_back(player5);
+		players.push_back(player6);
 	}
 
 	DummyData(DummyData const&) = delete;
 	void operator=(DummyData const&) = delete;
 
 public:
-	std::vector<HouseColor*> houseColors;
-	std::vector<Player*> players;
+	std::vector<std::shared_ptr<HouseColor>> houseColors;
+	std::vector<std::shared_ptr<Player>> players;
 
 	static DummyData& getInstance() {
 		static DummyData instance;

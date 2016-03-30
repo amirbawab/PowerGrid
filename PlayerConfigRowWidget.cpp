@@ -34,6 +34,11 @@ void PlayerConfigRowWidget::SetHouseColorIndex(int houseColorIndex) {
 	houseButton->setIconSize(QSize(30, 30));
 }
 
+void PlayerConfigRowWidget::UpdatePlayer() {
+	player->SetName(GetPlayerName());
+	player->SetColor(GetHouseColor());
+}
+
 
 /**************
 * SLOTS

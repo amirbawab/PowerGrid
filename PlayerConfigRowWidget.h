@@ -11,6 +11,7 @@
 #include <QPaintEvent>
 #include <QStyleOption>
 #include <QPainter>
+#include <memory>
 
 using std::string;
 
@@ -20,8 +21,8 @@ private:
 	QLineEdit *playerName;
 	QHBoxLayout *hBoxLayout;
 	QPushButton *houseButton;
-	std::vector<HouseColor*> houseColors;
-	Player *player;
+	std::vector<std::shared_ptr<HouseColor>> houseColors;
+	std::shared_ptr<Player> player;
 	int houseColorIndex;
 	void paintEvent(QPaintEvent *pe);
 	
@@ -30,10 +31,12 @@ public:
 	~PlayerConfigRowWidget();
 	void SetPlayerName(string name);
 	string GetPlayerName() const { return playerName->text().toStdString(); }
-	void SetHouseColors(std::vector<HouseColor*> &houseColors) { this->houseColors = houseColors; }
+	void SetHouseColors(std::vector<std::shared_ptr<HouseColor>> &houseColors) { this->houseColors = houseColors; }
 	void SetHouseColorIndex(int houseColorIndex);
-	void SetPlayer(Player* player) { this->player = player; }
-	Player* GetPlayer() { return player; }
+	void SetPlayer(std::shared_ptr<Player> player) { this->player = player; }
+	std::shared_ptr<Player> GetPlayer() { return player; }
+	std::shared_ptr<HouseColor> GetHouseColor() { return houseColors[houseColorIndex]; }
+	void UpdatePlayer();
 
 private slots:
 	void OnHouseClick();

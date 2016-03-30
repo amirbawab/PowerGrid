@@ -53,7 +53,23 @@ void PlayerConfigWidget::SetNumberOfPlayers(int num) {
 	}
 }
 
+bool PlayerConfigWidget::HasError() {
 
+	// Check if two players have the same color
+	for (int i = 0; i < rows.size(); i++) {
+		for (int j = i + 1; j < rows.size(); j++) {
+			if (rows[i]->GetHouseColor() == rows[j]->GetHouseColor())
+				return false;
+		}
+	}
+	return true;
+}
+
+void PlayerConfigWidget::UpdatePlayersInfo() {
+	for (int i = 0; i < rows.size(); i++) {
+		rows[i]->UpdatePlayer();
+	}
+}
 
 /// This method is required when Q_OBJECT is added
 /// Without this method, the CSS will not be applied
