@@ -4,23 +4,27 @@
 #include <QGridLayout>
 #include <vector>
 #include "Player.h"
+#include "DataStore.h"
+#include <memory>
 
 class GameTurnWidget : public QWidget {
 public:
 	GameTurnWidget();
 	~GameTurnWidget();
-	void SetPlayer(std::vector<Player*> &players) { this->players = players; }
+	void SetPlayers(std::vector<std::shared_ptr<Player>> &players) { this->players = players; }
 private:
 	QGridLayout *gridLayout;
-	std::vector<Player*> players;
+	std::vector<std::shared_ptr<Player>> players;
 };
 
 class BoardTopWidget : public QWidget {
 public:
-	std::vector<Player*> players;
+	std::vector<std::shared_ptr<Player>> players;
+	void SetPlayers(std::vector<std::shared_ptr<Player>> &players);
 	BoardTopWidget();
 	~BoardTopWidget();
 	
 private:
 	QGridLayout *gridLayout;
+	GameTurnWidget *gameTurnWidget;
 };

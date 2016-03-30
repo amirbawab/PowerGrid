@@ -19,8 +19,8 @@ PlayerConfigWidget::PlayerConfigWidget() {
 	rowsWidget->setLayout(vBoxLayout);
 
 	// Dummy data
-	SetHouseColors(DummyData::getInstance().houseColors);
-	SetPlayers(DummyData::getInstance().players);
+	SetHouseColors(DataStore::getInstance().houseColors);
+	SetPlayers(DataStore::getInstance().players);
 
 	// Add components
 	centerLayout->addWidget(titleLabel, 0, 0, Qt::AlignCenter);

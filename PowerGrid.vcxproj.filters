@@ -442,7 +442,7 @@
     <ClInclude Include="OverviewModeWidget.h">
       <Filter>Header Files\gui\pages\board\components\mode</Filter>
     </ClInclude>
-    <ClInclude Include="DummyData.h">
+    <ClInclude Include="DataStore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
