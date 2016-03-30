@@ -76,6 +76,7 @@ void MainFrame::onPlayerConfigNext() {
 	// If no errors, go to next page
 	if (!playerConfigWidget->HasError()) {
 		playerConfigWidget->UpdatePlayersInfo();
+		boardWidget->Refresh();
 		centerStackWidget->setCurrentIndex(boardWidgetIndex);
 	} else {
 		qDebug("Errors found on this page.");

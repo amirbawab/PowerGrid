@@ -34,6 +34,7 @@ public:
 
     string GetName() const { return name; }
     void SetName(string name) { this->name = name; }
+	string GetInitials(int max=2);
 
     shared_ptr<HouseColor> const& GetColor() const { return color; }
     void SetColor(shared_ptr<HouseColor> color) { this->color = color; }

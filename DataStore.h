@@ -42,6 +42,14 @@ private:
 		players.push_back(player4);
 		players.push_back(player5);
 		players.push_back(player6);
+
+		// Store order
+		playersTurn.push_back(player1);
+		playersTurn.push_back(player2);
+		playersTurn.push_back(player3);
+		playersTurn.push_back(player4);
+		playersTurn.push_back(player5);
+		playersTurn.push_back(player6);
 	}
 
 	DataStore(DataStore const&) = delete;
@@ -50,6 +58,7 @@ private:
 public:
 	std::vector<std::shared_ptr<HouseColor>> houseColors;
 	std::vector<std::shared_ptr<Player>> players;
+	std::vector<std::shared_ptr<Player>> playersTurn;
 
 	static DataStore& getInstance() {
 		static DataStore instance;

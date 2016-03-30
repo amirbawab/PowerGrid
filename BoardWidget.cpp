@@ -20,9 +20,15 @@ BoardWidget::BoardWidget() {
 	gridLayout->addWidget(boardBottomWidget, 2, 0, Qt::AlignBottom);
 }
 
-
 BoardWidget::~BoardWidget() {
 	delete boardTopWidget;
 	delete boardBottomWidget;
 	delete gridLayout;
+}
+
+void BoardWidget::Refresh() {
+	
+	// Refresh all widgets
+	boardTopWidget->Refresh();
+
 }

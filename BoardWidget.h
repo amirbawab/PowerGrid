@@ -10,6 +10,7 @@ class BoardWidget : public QWidget {
 public:
 	BoardWidget();
 	~BoardWidget();
+	void Refresh();
 
 private:
 	QGridLayout *gridLayout;
