@@ -7,6 +7,7 @@ BoardTopWidget::BoardTopWidget() {
 	// Init components
 	gridLayout = new QGridLayout();
 	gameTurnWidget = new GameTurnWidget();
+	stepPhaseWidget = new StepPhaseWidget();
 
 	// Set layout
 	setLayout(gridLayout);
@@ -15,11 +16,13 @@ BoardTopWidget::BoardTopWidget() {
 	setObjectName("boardTopWidget");
 
 	// Add components
-	gridLayout->addWidget(gameTurnWidget,0,0,Qt::AlignLeft);
+	gridLayout->addWidget(gameTurnWidget, 0, 0, Qt::AlignLeft);
+	gridLayout->addWidget(stepPhaseWidget, 0, 1, Qt::AlignCenter);
 }
 
 BoardTopWidget::~BoardTopWidget() {
 	delete gameTurnWidget;
+	delete stepPhaseWidget;
 	delete gridLayout;
 }
 
@@ -68,5 +71,32 @@ void GameTurnWidget::UpdatePlayersTurn() {
 }
 
 GameTurnWidget::~GameTurnWidget() {
+	delete gridLayout;
+}
+
+// StepPhaseWidget class
+
+StepPhaseWidget::StepPhaseWidget() {
+
+	// Init components
+	gridLayout = new QGridLayout();
+	stepNumberLabel = new QLabel("1");
+	phaseNumberLabel = new QLabel("2");
+	QLabel *stepLabel = new QLabel("Step");
+	QLabel *phaseLabel = new QLabel("Phase");
+
+	// Set layout
+	setLayout(gridLayout);
+
+	// Add components
+	gridLayout->addWidget(stepLabel, 0, 0, Qt::AlignLeft);
+	gridLayout->addWidget(stepNumberLabel, 0, 1, Qt::AlignLeft);
+	gridLayout->addWidget(phaseLabel, 1, 0, Qt::AlignLeft); 
+	gridLayout->addWidget(phaseNumberLabel, 1, 1, Qt::AlignLeft);
+}
+
+StepPhaseWidget::~StepPhaseWidget() {
+	delete phaseNumberLabel;
+	delete stepNumberLabel;
 	delete gridLayout;
 }

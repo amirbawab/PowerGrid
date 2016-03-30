@@ -19,6 +19,16 @@ private:
 	std::vector<QLabel*> playersTurnLabels;
 };
 
+class StepPhaseWidget : public QWidget {
+public:
+	StepPhaseWidget();
+	~StepPhaseWidget();
+private:
+	QGridLayout *gridLayout;
+	QLabel *stepNumberLabel;
+	QLabel *phaseNumberLabel;
+};
+
 class BoardTopWidget : public QWidget {
 public:
 	std::vector<std::shared_ptr<Player>> players;
@@ -29,4 +39,5 @@ public:
 private:
 	QGridLayout *gridLayout;
 	GameTurnWidget *gameTurnWidget;
+	StepPhaseWidget *stepPhaseWidget;
 };
