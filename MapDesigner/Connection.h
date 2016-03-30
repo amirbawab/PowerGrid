@@ -6,6 +6,9 @@
 
 class Connection : public QGraphicsLineItem
 {
+    const int LINE_WIDTH = 5;
+    const QColor LINE_COLOR = Qt::blue;
+
     std::shared_ptr<City> first;
     std::shared_ptr<City> second;
     int cost = 0;
@@ -23,5 +26,7 @@ public:
     int GetCost() const { return cost; }
 
     QSize GetCostPixelSize(QFont font) const;
+    QGraphicsSimpleTextItem* GetCostTextItem(QFont font) const;
+    QGraphicsEllipseItem* GetCostEllipseItem(QFont font) const;
 };
 

@@ -1,6 +1,7 @@
 #include "Connection.h"
 #include <QFont>
 #include <QFontMetrics>
+#include <QPen>
 
 QPoint Connection::GetCostLocation(QFont font) const
 {
@@ -31,6 +32,7 @@ void Connection::SetSecondCity(std::shared_ptr<City> city)
     this->second = city;
     setLine(first->GetCenter().x(), first->GetCenter().y(),
             second->GetCenter().x(), second->GetCenter().y());
+    setPen(QPen(LINE_COLOR, LINE_WIDTH));
 }
 
 QSize Connection::GetCostPixelSize(QFont font) const
@@ -41,4 +43,31 @@ QSize Connection::GetCostPixelSize(QFont font) const
     auto costPixelWidth = metrics.width(costString.c_str());
     auto costPixelHeight = metrics.height();
     return QSize(costPixelWidth, costPixelHeight);
+}
+
+QGraphicsSimpleTextItem* Connection::GetCostTextItem(QFont font) const
+{
+    auto costString = std::to_string(GetCost());
+    auto costLocation = GetCostLocation(font);
+
+    auto costTextItem = new QGraphicsSimpleTextItem(QString::fromStdString(costString));
+    costTextItem->setPos(costLocation);
+    costTextItem->setFont(font);
+
+    return costTextItem;
+}
+
+QGraphicsEllipseItem* Connection::GetCostEllipseItem(QFont font) const
+{
+    auto costLocation = GetCostLocation(font);
+    auto costSize = GetCostPixelSize(font);
+    auto costDiameter = GetCostCircleDiameter(font);
+
+    auto costCircle = new QGraphicsEllipseItem(costLocation.x() + costSize.width() / 2 - costDiameter / 2,
+                                               costLocation.y() + costSize.height() / 2 - costDiameter / 2,
+                                               costDiameter, costDiameter);
+    costCircle->setBrush(QBrush(Qt::white));
+    costCircle->setPen(QPen(LINE_COLOR, LINE_WIDTH / 2));
+
+    return costCircle;
 }

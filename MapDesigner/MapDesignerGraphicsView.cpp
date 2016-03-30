@@ -18,22 +18,11 @@ void MapDesignerGraphicsView::UpdateScene()
 
     for (auto& connection : connections)
     {
-        auto costString = std::to_string(connection->GetCost());
-        auto costLocation = connection->GetCostLocation(connectionFont);
-        auto costSize = connection->GetCostPixelSize(connectionFont);
-        auto costDiameter = connection->GetCostCircleDiameter(connectionFont);
+        auto costTextItem = connection->GetCostTextItem(connectionFont);
+        auto costEllipseItem = connection->GetCostEllipseItem(connectionFont);
 
-//        auto connectionCost = new QGraphicsTextItem(QString::fromStdString(costString));
-        auto costTextItem = new QGraphicsSimpleTextItem(QString::fromStdString(costString));
-        costTextItem->setPos(costLocation);
-        costTextItem->setFont(connectionFont);
-
-        auto costCircle = new QGraphicsEllipseItem(costLocation.x() + costSize.width() / 2 - costDiameter / 2,
-                                                   costLocation.y() + costSize.height() / 2 - costDiameter / 2,
-                                                   costDiameter, costDiameter);
-        costCircle->setBrush(QBrush(Qt::white));
         scene()->addItem(connection.get());
-        scene()->addItem(costCircle);
+        scene()->addItem(costEllipseItem);
         scene()->addItem(costTextItem);
     }
 
@@ -78,7 +67,7 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
                                               QLineEdit::Normal, "", &ok);
         grabKeyboard();
 
-        if (!ok)
+        if (!ok || cityName.isEmpty())
         {
             emit ClearMessage();
             return;
@@ -151,7 +140,7 @@ void MapDesignerGraphicsView::keyPressEvent(QKeyEvent* event)
 
 MapDesignerGraphicsView::MapDesignerGraphicsView()
 {
-    cityFont = QFont("Calibri", 12);
+    cityFont = QFont("Calibri", 12, QFont::Bold, true);
     connectionFont = QFont("Tahoma", 12, QFont::Bold);
 //    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
