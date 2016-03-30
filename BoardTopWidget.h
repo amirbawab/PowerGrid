@@ -11,6 +11,7 @@ public:
 	~GameTurnWidget();
 private:
 	QGridLayout *gridLayout;
+	vector<Player*> players;
 };
 
 class BoardTopWidget : public QWidget {

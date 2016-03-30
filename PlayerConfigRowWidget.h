@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HouseColor.h"
+#include "Player.h"
 #include <qwidget.h>
 #include <QLineEdit>
 #include <QHBoxLayout>
@@ -20,6 +21,7 @@ private:
 	QHBoxLayout *hBoxLayout;
 	QPushButton *houseButton;
 	std::vector<HouseColor*> houseColors;
+	Player *player;
 	int houseColorIndex;
 	void paintEvent(QPaintEvent *pe);
 	
@@ -30,6 +32,8 @@ public:
 	string GetPlayerName() const { return playerName->text().toStdString(); }
 	void SetHouseColors(std::vector<HouseColor*> &houseColors) { this->houseColors = houseColors; }
 	void SetHouseColorIndex(int houseColorIndex);
+	void SetPlayer(Player* player) { this->player = player; }
+	Player* GetPlayer() { return player; }
 
 private slots:
 	void OnHouseClick();
