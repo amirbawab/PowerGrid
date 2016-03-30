@@ -11,6 +11,10 @@ private:
 	// Constructor
 	DataStore() {
 
+		// Step and phase number
+		step = 1;
+		phase = 1;
+
 		// Houses
 		std::shared_ptr<HouseColor> house1 = std::make_shared<HouseColor>("black", ":/PowerGrid/Resources/houses/black.png");
 		std::shared_ptr<HouseColor> house2 = std::make_shared<HouseColor>("purple", ":/PowerGrid/Resources/houses/purple.png");
@@ -59,6 +63,8 @@ public:
 	std::vector<std::shared_ptr<HouseColor>> houseColors;
 	std::vector<std::shared_ptr<Player>> players;
 	std::vector<std::shared_ptr<Player>> playersTurn;
+	int step;
+	int phase;
 
 	static DataStore& getInstance() {
 		static DataStore instance;

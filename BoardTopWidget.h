@@ -12,7 +12,7 @@ class GameTurnWidget : public QWidget {
 public:
 	GameTurnWidget();
 	~GameTurnWidget();
-	void UpdatePlayersTurn();
+	void Refresh();
 private:
 	QGridLayout *gridLayout;
 	std::vector<std::shared_ptr<Player>> playersTurn;
@@ -23,6 +23,7 @@ class StepPhaseWidget : public QWidget {
 public:
 	StepPhaseWidget();
 	~StepPhaseWidget();
+	void Refresh();
 private:
 	QGridLayout *gridLayout;
 	QLabel *stepNumberLabel;

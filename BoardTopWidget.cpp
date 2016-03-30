@@ -29,7 +29,8 @@ BoardTopWidget::~BoardTopWidget() {
 void BoardTopWidget::Refresh() {
 	
 	// Refresh widgets
-	gameTurnWidget->UpdatePlayersTurn();
+	gameTurnWidget->Refresh();
+	stepPhaseWidget->Refresh();
 }
 
 // GameTurnWidget class
@@ -46,7 +47,7 @@ GameTurnWidget::GameTurnWidget() {
 	playersTurn = DataStore::getInstance().playersTurn;
 }
 
-void GameTurnWidget::UpdatePlayersTurn() {
+void GameTurnWidget::Refresh() {
 	
 	// Clear old components
 	for (int i = 0; i < playersTurnLabels.size(); i++) {
@@ -80,10 +81,16 @@ StepPhaseWidget::StepPhaseWidget() {
 
 	// Init components
 	gridLayout = new QGridLayout();
-	stepNumberLabel = new QLabel("1");
-	phaseNumberLabel = new QLabel("2");
+	stepNumberLabel = new QLabel();
+	phaseNumberLabel = new QLabel();
 	QLabel *stepLabel = new QLabel("Step");
 	QLabel *phaseLabel = new QLabel("Phase");
+
+	// Set ID
+	stepNumberLabel->setObjectName("step_phase_label");
+	phaseNumberLabel->setObjectName("step_phase_label");
+	stepLabel->setObjectName("step_phase_label");
+	phaseLabel->setObjectName("step_phase_label");
 
 	// Set layout
 	setLayout(gridLayout);
@@ -99,4 +106,9 @@ StepPhaseWidget::~StepPhaseWidget() {
 	delete phaseNumberLabel;
 	delete stepNumberLabel;
 	delete gridLayout;
+}
+
+void StepPhaseWidget::Refresh() {
+	stepNumberLabel->setText(QString::fromStdString(std::to_string(DataStore::getInstance().step)));
+	phaseNumberLabel->setText(QString::fromStdString(std::to_string(DataStore::getInstance().phase)));
 }

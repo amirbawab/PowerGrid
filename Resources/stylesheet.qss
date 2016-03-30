@@ -198,6 +198,11 @@ QPushButton#left_arrow {
 	font-size: 25px;
  }
 
+ QLabel#step_phase_label {
+	color: #fff;
+	font-size: 25px; 
+ }
+
  /*******************
  *
  *		BOARD
