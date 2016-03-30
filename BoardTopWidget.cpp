@@ -13,7 +13,7 @@ BoardTopWidget::BoardTopWidget() {
 	// Set id
 	setObjectName("boardTopWidget");
 
-	
+	// Dummy data
 }
 
 BoardTopWidget::~BoardTopWidget() {

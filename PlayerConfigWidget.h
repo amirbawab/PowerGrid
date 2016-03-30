@@ -4,6 +4,7 @@
 #include "PlayerConfigRowWidget.h"
 #include "Player.h"
 #include <vector>
+#include "DummyData.h"
 
 class PlayerConfigWidget : public TemplateNextBackWidget {
 	Q_OBJECT
@@ -19,7 +20,7 @@ public:
 	PlayerConfigWidget();
 	~PlayerConfigWidget();
 	void SetPlayers(std::vector<Player*> &players) { this->players = players; }
-	void SetHouseColrs(std::vector<HouseColor*> houseColors) { this->houseColors = houseColors; }
+	void SetHouseColors(std::vector<HouseColor*> houseColors) { this->houseColors = houseColors; }
 	void SetNumberOfPlayers(int num);
 };
 

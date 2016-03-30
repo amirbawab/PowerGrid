@@ -9,9 +9,10 @@ class GameTurnWidget : public QWidget {
 public:
 	GameTurnWidget();
 	~GameTurnWidget();
+	void SetPlayer(std::vector<Player*> &players) { this->players = players; }
 private:
 	QGridLayout *gridLayout;
-	vector<Player*> players;
+	std::vector<Player*> players;
 };
 
 class BoardTopWidget : public QWidget {

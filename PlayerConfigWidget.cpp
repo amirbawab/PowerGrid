@@ -19,12 +19,8 @@ PlayerConfigWidget::PlayerConfigWidget() {
 	rowsWidget->setLayout(vBoxLayout);
 
 	// Dummy data
-	houseColors.push_back(new HouseColor("black", ":/PowerGrid/Resources/houses/black.png"));
-	houseColors.push_back(new HouseColor("purple", ":/PowerGrid/Resources/houses/purple.png"));
-	houseColors.push_back(new HouseColor("green", ":/PowerGrid/Resources/houses/green.png"));
-	houseColors.push_back(new HouseColor("blue", ":/PowerGrid/Resources/houses/blue.png"));
-	houseColors.push_back(new HouseColor("yellow", ":/PowerGrid/Resources/houses/yellow.png"));
-	houseColors.push_back(new HouseColor("red", ":/PowerGrid/Resources/houses/red.png"));
+	SetHouseColors(DummyData::getInstance().houseColors);
+	SetPlayers(DummyData::getInstance().players);
 
 	// Add components
 	centerLayout->addWidget(titleLabel, 0, 0, Qt::AlignCenter);
@@ -50,11 +46,14 @@ void PlayerConfigWidget::SetNumberOfPlayers(int num) {
 	for (int i = 0; i < num; i++) {
 		PlayerConfigRowWidget *row = new PlayerConfigRowWidget("Player " + std::to_string(i + 1));
 		row->SetHouseColors(houseColors);
+		row->SetPlayer(players[i]);
 		row->SetHouseColorIndex(i % houseColors.size());
 		rows.push_back(row);
 		vBoxLayout->addWidget(rows[i], i, Qt::AlignCenter);
 	}
 }
+
+
 
 /// This method is required when Q_OBJECT is added
 /// Without this method, the CSS will not be applied
