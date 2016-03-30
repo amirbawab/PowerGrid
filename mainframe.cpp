@@ -72,7 +72,14 @@ void MainFrame::onPlayerConfigBack() {
 
 void MainFrame::onPlayerConfigNext() {
 	qDebug("Next from player config screen");
-	centerStackWidget->setCurrentIndex(boardWidgetIndex);
+
+	// If no errors, go to next page
+	if (!playerConfigWidget->HasError()) {
+		playerConfigWidget->UpdatePlayersInfo();
+		centerStackWidget->setCurrentIndex(boardWidgetIndex);
+	} else {
+		qDebug("Errors found on this page.");
+	}
 }
 
 

@@ -59,10 +59,10 @@ bool PlayerConfigWidget::HasError() {
 	for (int i = 0; i < rows.size(); i++) {
 		for (int j = i + 1; j < rows.size(); j++) {
 			if (rows[i]->GetHouseColor() == rows[j]->GetHouseColor())
-				return false;
+				return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 void PlayerConfigWidget::UpdatePlayersInfo() {
