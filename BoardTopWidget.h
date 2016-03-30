@@ -30,9 +30,19 @@ private:
 	QLabel *phaseNumberLabel;
 };
 
+class ScoreWidget : public QWidget {
+public:
+	ScoreWidget();
+	~ScoreWidget();
+	void Refresh();
+private:
+	QGridLayout *gridLayout;
+	std::vector<std::shared_ptr<Player>> players;
+	std::vector<QLabel*> playersScoreLabels;
+};
+
 class BoardTopWidget : public QWidget {
 public:
-	std::vector<std::shared_ptr<Player>> players;
 	BoardTopWidget();
 	~BoardTopWidget();
 	void Refresh();
@@ -41,4 +51,5 @@ private:
 	QGridLayout *gridLayout;
 	GameTurnWidget *gameTurnWidget;
 	StepPhaseWidget *stepPhaseWidget;
+	ScoreWidget *scoreWidget;
 };

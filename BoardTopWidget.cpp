@@ -8,6 +8,7 @@ BoardTopWidget::BoardTopWidget() {
 	gridLayout = new QGridLayout();
 	gameTurnWidget = new GameTurnWidget();
 	stepPhaseWidget = new StepPhaseWidget();
+	scoreWidget = new ScoreWidget();
 
 	// Set layout
 	setLayout(gridLayout);
@@ -18,6 +19,7 @@ BoardTopWidget::BoardTopWidget() {
 	// Add components
 	gridLayout->addWidget(gameTurnWidget, 0, 0, Qt::AlignLeft);
 	gridLayout->addWidget(stepPhaseWidget, 0, 1, Qt::AlignCenter);
+	gridLayout->addWidget(scoreWidget, 0, 2, Qt::AlignRight);
 }
 
 BoardTopWidget::~BoardTopWidget() {
@@ -31,6 +33,7 @@ void BoardTopWidget::Refresh() {
 	// Refresh widgets
 	gameTurnWidget->Refresh();
 	stepPhaseWidget->Refresh();
+	scoreWidget->Refresh();
 }
 
 // GameTurnWidget class
@@ -111,4 +114,46 @@ StepPhaseWidget::~StepPhaseWidget() {
 void StepPhaseWidget::Refresh() {
 	stepNumberLabel->setText(QString::fromStdString(std::to_string(DataStore::getInstance().step)));
 	phaseNumberLabel->setText(QString::fromStdString(std::to_string(DataStore::getInstance().phase)));
+}
+
+// ScoreWidget class
+
+ScoreWidget::ScoreWidget() {
+	
+	// Init components
+	gridLayout = new QGridLayout();
+	
+	// Set layout
+	setLayout(gridLayout);
+
+	// Set players
+	players = DataStore::getInstance().players;
+}
+
+ScoreWidget::~ScoreWidget() {
+	delete gridLayout;
+}
+
+void ScoreWidget::Refresh() {
+
+	// Clear old components
+	for (int i = 0; i < playersScoreLabels.size(); i++) {
+		gridLayout->removeWidget(playersScoreLabels[i]);
+		delete playersScoreLabels[i];
+		playersScoreLabels.erase(playersScoreLabels.begin() + i);
+	}
+
+	// Draw houses
+	for (int i = 0; i < players.size(); i++) {
+		QLabel *playerLabel = new QLabel();
+		playerLabel->setPixmap(QPixmap(players[i]->GetColor()->getImage().c_str()));
+		gridLayout->addWidget(playerLabel, 0, i * 2, Qt::AlignCenter);
+
+		QLabel *playerNameLabel = new QLabel((players[i]->GetInitials() + ":" + std::to_string(players[i]->GetHouses().size())).c_str());
+		playerNameLabel->setObjectName("turn_label");
+		gridLayout->addWidget(playerNameLabel, 0, i * 2 + 1, Qt::AlignLeft);
+
+		playersScoreLabels.push_back(playerLabel);
+		playersScoreLabels.push_back(playerNameLabel);
+	}
 }
