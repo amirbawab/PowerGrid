@@ -20,6 +20,11 @@ BoardBottomWidget::BoardBottomWidget() {
 	gridLayout->addWidget(boardProfileWidget, 0, 0, Qt::AlignCenter);
 	gridLayout->addWidget(boardPlayerPowerPlantsWidget, 0, 1, Qt::AlignCenter);
 	gridLayout->addWidget(boardMessageWidget, 0, 2, Qt::AlignCenter);
+
+	// Add spaces
+	gridLayout->setColumnStretch(0, 1);
+	gridLayout->setColumnStretch(1, 4);
+	gridLayout->setColumnStretch(2, 4);
 }
 
 BoardBottomWidget::~BoardBottomWidget() {
