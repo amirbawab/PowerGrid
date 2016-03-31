@@ -4,43 +4,42 @@ ResourceMarketLevelWidget::ResourceMarketLevelWidget() {
 
 	// Init components
 	gridLayout = new QGridLayout();
-	costLabel = new QLabel("10 Elektro");
+	costLabel = new QLabel();
 	costLabel->setAlignment(Qt::AlignCenter);
 
 	// Set layout
 	setLayout(gridLayout);
 	
-	// Configure layout
+	// Configure components
 	gridLayout->setSpacing(0);
+	
+	// Set id
+	costLabel->setObjectName("resource_cost_label");
+
+	// Add cost
+	gridLayout->addWidget(costLabel, 0, 0, 1, 3, Qt::AlignCenter);
 
 	// Icon dimensions
 	iconWidth = 50;
 	iconHeight = 50;
 }
 
-void ResourceMarketLevelWidget::RefreshUraniumLevelMarket() {
-	
-	// Add cost
-	gridLayout->addWidget(costLabel, 0, 0, Qt::AlignCenter);
+void ResourceMarketLevelWidget::CreateUraniumLevelMarket() {
 	
 	QPushButton *button = new QPushButton();
 	button->setObjectName("resourceButton");
 	button->setIconSize(QSize(iconWidth, iconHeight));
-	button->setIcon(QIcon(":/PowerGrid/Resources/resources/uranium.png"));
 	gridLayout->addWidget(button, 1, 0, Qt::AlignCenter);
+	uraniumButtons.push_back(button);
 }
 
-void ResourceMarketLevelWidget::RefreshFullLevelMarket() {
-	
-	// Add cost
-	gridLayout->addWidget(costLabel, 0, 0, 1, 3, Qt::AlignCenter);
+void ResourceMarketLevelWidget::CreateFullLevelMarket() {
 
 	// Add coil
 	for (int i = 0; i < 3; i++) {
 		QPushButton *button = new QPushButton();
 		button->setObjectName("resourceButton");
 		button->setIconSize(QSize(iconWidth, iconHeight));
-		button->setIcon(QIcon(":/PowerGrid/Resources/resources/coal.png"));
 		coalButtons.push_back(button);
 	}
 
@@ -53,7 +52,6 @@ void ResourceMarketLevelWidget::RefreshFullLevelMarket() {
 		QPushButton *button = new QPushButton();
 		button->setObjectName("resourceButton");
 		button->setIconSize(QSize(iconWidth, iconHeight));
-		button->setIcon(QIcon(":/PowerGrid/Resources/resources/oil.png"));
 		oilButtons.push_back(button);
 	}
 
@@ -65,7 +63,6 @@ void ResourceMarketLevelWidget::RefreshFullLevelMarket() {
 		QPushButton *button = new QPushButton();
 		button->setObjectName("resourceButton");
 		button->setIconSize(QSize(iconWidth, iconHeight));
-		button->setIcon(QIcon(":/PowerGrid/Resources/resources/garbage.png"));
 		garbageButtons.push_back(button);
 	}
 
@@ -78,7 +75,6 @@ void ResourceMarketLevelWidget::RefreshFullLevelMarket() {
 		QPushButton *button = new QPushButton();
 		button->setObjectName("resourceButton");
 		button->setIconSize(QSize(iconWidth, iconHeight));
-		button->setIcon(QIcon(":/PowerGrid/Resources/resources/uranium.png"));
 		uraniumButtons.push_back(button);
 	}
 
@@ -102,4 +98,53 @@ ResourceMarketLevelWidget::~ResourceMarketLevelWidget() {
 
 void ResourceMarketLevelWidget::Refresh() {
 	
+	// Update cost
+	costLabel->setText(QString::fromStdString(std::to_string(level->GetCost()) + " Elektro"));
+
+	// Draw coal
+	int totalCoal = level->GetCounter(COAL);
+	for (int i = coalButtons.size()-1; i >= 0; i--) {
+		if (totalCoal == 0) {
+			coalButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/coal_bw.png"));
+		} else {
+			coalButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/coal.png"));
+			totalCoal--;
+		}
+	}
+
+	// Draw oil
+	int totalOil = level->GetCounter(OIL);
+	for (int i = oilButtons.size() - 1; i >= 0; i--) {
+		if (totalOil == 0) {
+			oilButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/oil_bw.png"));
+		}
+		else {
+			coalButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/oil.png"));
+			totalOil--;
+		}
+	}
+
+	// Draw garbage
+	int totalGarbage = level->GetCounter(GARBAGE);
+	for (int i = garbageButtons.size() - 1; i >= 0; i--) {
+		if (totalGarbage == 0) {
+			garbageButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/garbage_bw.png"));
+		}
+		else {
+			garbageButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/garbage.png"));
+			totalGarbage--;
+		}
+	}
+
+	// Draw uranium
+	int totalUranim = level->GetCounter(URANIUM);
+	for (int i = uraniumButtons.size() - 1; i >= 0; i--) {
+		if (totalUranim == 0) {
+			uraniumButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/uranium_bw.png"));
+		}
+		else {
+			uraniumButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/uranium.png"));
+			totalUranim--;
+		}
+	}
 }

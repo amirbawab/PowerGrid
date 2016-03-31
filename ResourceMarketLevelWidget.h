@@ -12,8 +12,8 @@ class ResourceMarketLevelWidget : public QWidget {
 public:
 	ResourceMarketLevelWidget();
 	~ResourceMarketLevelWidget();
-	void RefreshFullLevelMarket();
-	void RefreshUraniumLevelMarket();
+	void CreateFullLevelMarket();
+	void CreateUraniumLevelMarket();
 	int iconWidth;
 	int iconHeight;
 	void Refresh();

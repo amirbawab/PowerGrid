@@ -14,6 +14,15 @@ ResourceMarketModeWidget::ResourceMarketModeWidget() {
 		resourceMarketLevelwidgets.push_back(widget);
 	}
 
+	// Initialize market
+	for (int i = 0; i < 8; i++) {
+		resourceMarketLevelwidgets[i]->CreateFullLevelMarket();
+	}
+
+	for (int i = 0; i < 4; i++) {
+		resourceMarketLevelwidgets[i + 8]->CreateUraniumLevelMarket();
+	}
+
 	// Add widgets
 	int max_row = resourceMarketLevelwidgets.size() / 2;
 	for (int i = 0; i < resourceMarketLevelwidgets.size(); i++)
@@ -30,15 +39,9 @@ void ResourceMarketModeWidget::Refresh() {
 	// Load market
 	std::vector<std::shared_ptr<ResourceMarketLevel>> levels = DataStore::getInstance().resourceMarket->GetLevels();
 
-	// Dummy data
-	for (int i = 0; i < 8; i++) {
+	// Refresh market
+	for (int i = 0; i < resourceMarketLevelwidgets.size(); i++) {
 		resourceMarketLevelwidgets[i]->SetResourceMarketLevel(levels[i]);
-		resourceMarketLevelwidgets[i]->RefreshFullLevelMarket();
-	}
-
-	// Dummy data
-	for (int i = 0; i < 4; i++) {
-		resourceMarketLevelwidgets[i+8]->SetResourceMarketLevel(levels[i+8]);
-		resourceMarketLevelwidgets[i+8]->RefreshUraniumLevelMarket();
+		resourceMarketLevelwidgets[i]->Refresh();
 	}
 }
