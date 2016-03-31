@@ -18,7 +18,7 @@ ResourceMarketLevelWidget::ResourceMarketLevelWidget() {
 	iconHeight = 50;
 }
 
-void ResourceMarketLevelWidget::createUraniumLevelMarket() {
+void ResourceMarketLevelWidget::RefreshUraniumLevelMarket() {
 	
 	// Add cost
 	gridLayout->addWidget(costLabel, 0, 0, Qt::AlignCenter);
@@ -30,7 +30,7 @@ void ResourceMarketLevelWidget::createUraniumLevelMarket() {
 	gridLayout->addWidget(button, 1, 0, Qt::AlignCenter);
 }
 
-void ResourceMarketLevelWidget::createFullLevelMarket() {
+void ResourceMarketLevelWidget::RefreshFullLevelMarket() {
 	
 	// Add cost
 	gridLayout->addWidget(costLabel, 0, 0, 1, 3, Qt::AlignCenter);
@@ -98,4 +98,8 @@ ResourceMarketLevelWidget::~ResourceMarketLevelWidget() {
 
 	for (int i = 0; i < uraniumButtons.size(); i++)
 		delete uraniumButtons[i];
+}
+
+void ResourceMarketLevelWidget::Refresh() {
+	
 }

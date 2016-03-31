@@ -49,6 +49,9 @@ private:
 		std::shared_ptr<PowerPlantCard> card8 = std::make_shared<PowerPlantCard>(2, 0, 6);
 		card8->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
 
+		// Resource market levels
+		resourceMarket = std::make_shared<ResourceMarket>();
+
 		// Store house colors
 		houseColors.push_back(house1);
 		houseColors.push_back(house2);
@@ -100,6 +103,9 @@ private:
 		card1->PlaceResource(OIL, 2);
 		card1->PlaceResource(GARBAGE, 1);
 		card1->PlaceResource(URANIUM, 1);
+
+		// Add resources to resource market
+		resourceMarket->AddResource(COAL, 3);
 	}
 
 	DataStore(DataStore const&) = delete;
@@ -111,6 +117,7 @@ public:
 	std::vector<std::shared_ptr<Player>> playersTurn;
 	std::shared_ptr<Player> currentPlayer;
 	std::vector<std::shared_ptr<PowerPlantCard>> marketPowerPlantCards;
+	std::shared_ptr<ResourceMarket> resourceMarket;
 	int step;
 	int phase;
 

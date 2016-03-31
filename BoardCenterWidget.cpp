@@ -64,6 +64,7 @@ BoardCenterWidget::~BoardCenterWidget() {
 
 void BoardCenterWidget::Refresh() {
 	powerPlantModeWidget->Refresh();
+	resourceMarketModeWidget->Refresh();
 }
 
 /**********
