@@ -28,6 +28,10 @@
         <file>Resources/houses/green.png</file>
         <file>Resources/houses/purple.png</file>
         <file>Resources/houses/yellow.png</file>
+        <file>Resources/resources/coal_bw.png</file>
+        <file>Resources/resources/garbage_bw.png</file>
+        <file>Resources/resources/oil_bw.png</file>
+        <file>Resources/resources/uranium_bw.png</file>
     </qresource>
     <qresource prefix="/test">
         <file>Resources/config/Config.xml</file>
