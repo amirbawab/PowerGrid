@@ -54,6 +54,9 @@ private:
 		playersTurn.push_back(player4);
 		playersTurn.push_back(player5);
 		playersTurn.push_back(player6);
+
+		// Current player
+		currentPlayer = players[0];
 	}
 
 	DataStore(DataStore const&) = delete;
@@ -63,6 +66,7 @@ public:
 	std::vector<std::shared_ptr<HouseColor>> houseColors;
 	std::vector<std::shared_ptr<Player>> players;
 	std::vector<std::shared_ptr<Player>> playersTurn;
+	std::shared_ptr<Player> currentPlayer;
 	int step;
 	int phase;
 

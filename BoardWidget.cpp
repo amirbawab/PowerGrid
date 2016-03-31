@@ -33,5 +33,5 @@ void BoardWidget::Refresh() {
 	
 	// Refresh all widgets
 	boardTopWidget->Refresh();
-
+	boardBottomWidget->Refresh();
 }
