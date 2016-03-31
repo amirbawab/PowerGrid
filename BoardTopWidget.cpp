@@ -18,6 +18,9 @@ BoardTopWidget::BoardTopWidget() {
 
 	// Add components
 	gridLayout->addWidget(gameTurnWidget, 0, 0, Qt::AlignLeft);
+	gridLayout->setColumnStretch(0, 2);
+	gridLayout->setColumnStretch(1, 1);
+	gridLayout->setColumnStretch(2, 2);
 	gridLayout->addWidget(stepPhaseWidget, 0, 1, Qt::AlignCenter);
 	gridLayout->addWidget(scoreWidget, 0, 2, Qt::AlignRight);
 }
