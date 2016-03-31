@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 
-class PowerPlantCard : public Card, public QPushButton {
+class PowerPlantCard : public Card {
 private:
 	int price = 0;
 	int power = 0;

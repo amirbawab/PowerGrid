@@ -15,6 +15,7 @@ class BoardCenterWidget : public QWidget {
 public:
 	BoardCenterWidget();
 	~BoardCenterWidget();
+	void Refresh();
 private:
 	QGridLayout *gridLayout;
 	QStackedWidget *centerStackedWidget;

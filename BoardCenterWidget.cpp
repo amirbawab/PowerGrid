@@ -62,6 +62,10 @@ BoardCenterWidget::~BoardCenterWidget() {
 	delete gridLayout;
 }
 
+void BoardCenterWidget::Refresh() {
+	powerPlantModeWidget->Refresh();
+}
+
 /**********
  * SLOTS
  **********/

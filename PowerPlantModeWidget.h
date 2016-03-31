@@ -3,16 +3,18 @@
 #include <QWidget>
 #include <QPushButton>
 #include <vector>
-#include "PowerPlantCard.h"
 #include <QGridLayout>
+#include <memory>
+#include "DataStore.h"
 
 class PowerPlantModeWidget : public QWidget {
 public:
 	PowerPlantModeWidget();
 	~PowerPlantModeWidget();
+	void Refresh();
 private:
 	int per_row = 4;
-	std::vector<PowerPlantCard*> cards;
+	std::vector<QPushButton*> cards;
 	QGridLayout *gridLayout;
 };
 
