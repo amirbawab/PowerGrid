@@ -38,16 +38,19 @@ BoardProfileWidget::BoardProfileWidget() {
 	gridLayout = new QGridLayout();
 	playerNameLabel = new QLabel();
 	playerPictureLabel = new QLabel();
-
+	playerElektroLabel = new QLabel();
+	
 	// Set id
 	playerNameLabel->setObjectName("board_bottom_subtitle");
-
+	playerElektroLabel->setObjectName("board_bottom_subtitle_s");
+	
 	// Set layout
 	setLayout(gridLayout);
 
 	// Add components
 	gridLayout->addWidget(playerPictureLabel, 0, 0, Qt::AlignBottom | Qt::AlignCenter);
 	gridLayout->addWidget(playerNameLabel, 1, 0, Qt::AlignTop | Qt::AlignCenter);
+	gridLayout->addWidget(playerElektroLabel, 2, 0, Qt::AlignTop | Qt::AlignCenter);
 }
 
 BoardProfileWidget::~BoardProfileWidget() {
@@ -59,6 +62,7 @@ BoardProfileWidget::~BoardProfileWidget() {
 void BoardProfileWidget::Refresh() {
 	playerNameLabel->setText(DataStore::getInstance().currentPlayer->GetName().c_str());
 	playerPictureLabel->setPixmap(QPixmap(DataStore::getInstance().currentPlayer->GetColor()->getImage().c_str()));
+	playerElektroLabel->setText((std::to_string(DataStore::getInstance().currentPlayer->GetElektro()) + " Elektro").c_str());
 }
 
 // BoardResourcePowerPlantWiget

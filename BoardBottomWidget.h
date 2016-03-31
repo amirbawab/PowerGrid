@@ -16,6 +16,7 @@ public:
 private:
 	QLabel *playerNameLabel;
 	QLabel *playerPictureLabel;
+	QLabel *playerElektroLabel;
 	QGridLayout *gridLayout;
 };
 
