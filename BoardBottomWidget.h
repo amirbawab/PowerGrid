@@ -43,6 +43,16 @@ private:
 	QGridLayout *gridLayout;
 };
 
+class BoardMessageWidget : public QWidget {
+public:
+	BoardMessageWidget();
+	~BoardMessageWidget();
+	void Refresh();
+private:
+	QGridLayout *gridLayout;
+	QLabel *questionLabel;
+};
+
 class BoardBottomWidget : public QWidget {
 public:
 	BoardBottomWidget();
@@ -52,5 +62,6 @@ private:
 	QGridLayout *gridLayout;
 	BoardProfileWidget *boardProfileWidget;
 	BoardPlayerPowerPlantsWidget *boardPlayerPowerPlantsWidget;
+	BoardMessageWidget *boardMessageWidget;
 };
 

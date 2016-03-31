@@ -14,6 +14,7 @@ private:
 		// Step and phase number
 		step = 1;
 		phase = 1;
+		messageText = "Question goes here";
 
 		// Houses
 		std::shared_ptr<HouseColor> house1 = std::make_shared<HouseColor>("black", ":/PowerGrid/Resources/houses/black.png");
@@ -118,6 +119,7 @@ public:
 	std::shared_ptr<Player> currentPlayer;
 	std::vector<std::shared_ptr<PowerPlantCard>> marketPowerPlantCards;
 	std::shared_ptr<ResourceMarket> resourceMarket;
+	std::string messageText;
 	int step;
 	int phase;
 

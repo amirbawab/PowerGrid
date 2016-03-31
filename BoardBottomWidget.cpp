@@ -8,6 +8,7 @@ BoardBottomWidget::BoardBottomWidget() {
 	gridLayout = new QGridLayout();
 	boardProfileWidget = new BoardProfileWidget();
 	boardPlayerPowerPlantsWidget = new BoardPlayerPowerPlantsWidget();
+	boardMessageWidget = new BoardMessageWidget();
 
 	// Set layout
 	setLayout(gridLayout);
@@ -18,6 +19,7 @@ BoardBottomWidget::BoardBottomWidget() {
 	// Add components
 	gridLayout->addWidget(boardProfileWidget, 0, 0, Qt::AlignCenter);
 	gridLayout->addWidget(boardPlayerPowerPlantsWidget, 0, 1, Qt::AlignCenter);
+	gridLayout->addWidget(boardMessageWidget, 0, 2, Qt::AlignCenter);
 }
 
 BoardBottomWidget::~BoardBottomWidget() {
@@ -28,6 +30,7 @@ BoardBottomWidget::~BoardBottomWidget() {
 void BoardBottomWidget::Refresh() {
 	boardProfileWidget->Refresh();
 	boardPlayerPowerPlantsWidget->Refresh();
+	boardMessageWidget->Refresh();
 }
 
 // BoardProfileWidget class
@@ -188,4 +191,27 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 		gridLayout->addWidget(label, 0, i, Qt::AlignCenter);
 		label->repaint();
 	}
+}
+
+// BoardMessageWidget class
+
+BoardMessageWidget::BoardMessageWidget() {
+	
+	// Init components
+	gridLayout = new QGridLayout();
+	questionLabel = new QLabel();
+
+	// Set layout
+	setLayout(gridLayout);
+
+	// Add components
+	gridLayout->addWidget(questionLabel, 0, 0, Qt::AlignLeft);
+}
+
+BoardMessageWidget::~BoardMessageWidget() {
+	delete gridLayout;
+}
+
+void BoardMessageWidget::Refresh() {
+	questionLabel->setText(QString::fromStdString(DataStore::getInstance().messageText));
 }
