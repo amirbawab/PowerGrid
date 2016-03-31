@@ -14,6 +14,9 @@ BoardWidget::BoardWidget() {
 	// Set id
 	setObjectName("templateBoardWidget");
 
+	// Set margin
+	gridLayout->setContentsMargins(0, 0, 0, 0);
+	
 	// Add components
 	gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);
 	gridLayout->addWidget(boardCenterWidget, 1, 0);
