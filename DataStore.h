@@ -31,6 +31,24 @@ private:
 		std::shared_ptr<Player> player5 = std::make_shared<Player>("Player five", house5, 50);
 		std::shared_ptr<Player> player6 = std::make_shared<Player>("Player six", house6, 50);
 
+		// Power plants
+		std::shared_ptr<PowerPlantCard> card1 = std::make_shared<PowerPlantCard>(2, 0, 6);
+		card1->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
+		std::shared_ptr<PowerPlantCard> card2 = std::make_shared<PowerPlantCard>(2, 0, 6);
+		card2->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
+		std::shared_ptr<PowerPlantCard> card3 = std::make_shared<PowerPlantCard>(2, 0, 6);
+		card3->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
+		std::shared_ptr<PowerPlantCard> card4 = std::make_shared<PowerPlantCard>(2, 0, 6);
+		card4->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
+		std::shared_ptr<PowerPlantCard> card5 = std::make_shared<PowerPlantCard>(2, 0, 6);
+		card5->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
+		std::shared_ptr<PowerPlantCard> card6 = std::make_shared<PowerPlantCard>(2, 0, 6);
+		card6->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
+		std::shared_ptr<PowerPlantCard> card7 = std::make_shared<PowerPlantCard>(2, 0, 6);
+		card7->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
+		std::shared_ptr<PowerPlantCard> card8 = std::make_shared<PowerPlantCard>(2, 0, 6);
+		card8->SetImagePath(":/PowerGrid/Resources/powerplants/dummy.png");
+
 		// Store house colors
 		houseColors.push_back(house1);
 		houseColors.push_back(house2);
@@ -55,8 +73,33 @@ private:
 		playersTurn.push_back(player5);
 		playersTurn.push_back(player6);
 
+		// Store power plants
+		marketPowerPlantCards.push_back(card1);
+		marketPowerPlantCards.push_back(card2);
+		marketPowerPlantCards.push_back(card3);
+		marketPowerPlantCards.push_back(card4);
+		marketPowerPlantCards.push_back(card5);
+		marketPowerPlantCards.push_back(card6);
+		marketPowerPlantCards.push_back(card7);
+		marketPowerPlantCards.push_back(card8);
+
 		// Current player
 		currentPlayer = players[0];
+
+		// Set power plants for current player
+		currentPlayer->AddPowerPlant(card1);
+		currentPlayer->AddPowerPlant(card2);
+		currentPlayer->AddPowerPlant(card3);
+
+		// Add resources to current player power plant
+		card1->AddActiveResource(COAL);
+		card1->AddActiveResource(OIL);
+		card1->AddActiveResource(GARBAGE);
+		card1->AddActiveResource(URANIUM);
+		card1->PlaceResource(COAL, 2);
+		card1->PlaceResource(OIL, 2);
+		card1->PlaceResource(GARBAGE, 1);
+		card1->PlaceResource(URANIUM, 1);
 	}
 
 	DataStore(DataStore const&) = delete;
@@ -67,6 +110,7 @@ public:
 	std::vector<std::shared_ptr<Player>> players;
 	std::vector<std::shared_ptr<Player>> playersTurn;
 	std::shared_ptr<Player> currentPlayer;
+	std::vector<std::shared_ptr<PowerPlantCard>> marketPowerPlantCards;
 	int step;
 	int phase;
 

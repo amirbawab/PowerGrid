@@ -6,6 +6,7 @@
 #include "Player.h"
 #include <memory>
 #include "DataStore.h"
+#include <QPainter>
 
 class BoardProfileWidget : public QWidget {
 public:
@@ -18,6 +19,29 @@ private:
 	QGridLayout *gridLayout;
 };
 
+class BoardResourcePowerPlantWiget : public QWidget {
+public:
+	BoardResourcePowerPlantWiget();
+	~BoardResourcePowerPlantWiget();
+	void SetPowerPlantCard(std::shared_ptr<PowerPlantCard> powerPlantCard) { this->powerPlantCard = powerPlantCard; }
+	void Refresh();
+private:
+	std::shared_ptr<PowerPlantCard> powerPlantCard;
+	QGridLayout *gridLayout;
+	std::vector<QLabel*> resourceLables;
+	void paintEvent(QPaintEvent *e);
+};
+
+class BoardPlayerPowerPlantsWidget : public QWidget {
+public:
+	BoardPlayerPowerPlantsWidget();
+	~BoardPlayerPowerPlantsWidget();
+	void Refresh();
+private:
+	std::vector<BoardResourcePowerPlantWiget*> playerPowerPlantsWidgets;
+	QGridLayout *gridLayout;
+};
+
 class BoardBottomWidget : public QWidget {
 public:
 	BoardBottomWidget();
@@ -26,5 +50,6 @@ public:
 private:
 	QGridLayout *gridLayout;
 	BoardProfileWidget *boardProfileWidget;
+	BoardPlayerPowerPlantsWidget *boardPlayerPowerPlantsWidget;
 };
 

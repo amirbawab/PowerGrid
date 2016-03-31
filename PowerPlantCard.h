@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <set>
 #include <map>
+#include <string>
 
 class PowerPlantCard : public Card, public QPushButton {
 private:
