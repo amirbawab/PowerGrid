@@ -79,6 +79,7 @@ void MainFrame::onPlayerConfigNext() {
 		boardWidget->Refresh();
 		centerStackWidget->setCurrentIndex(boardWidgetIndex);
 	} else {
+		QMessageBox::critical(this, "Try again", "Players should have distinct house colors.", QMessageBox::Ok);
 		qDebug("Errors found on this page.");
 	}
 }

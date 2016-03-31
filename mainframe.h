@@ -18,6 +18,7 @@
 #include "MapWidget.h"
 #include "PlayerConfigWidget.h"
 #include "BoardWidget.h"
+#include <QMessageBox>
 
 class MainFrame : public QMainWindow {
 	Q_OBJECT
