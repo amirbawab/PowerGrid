@@ -33,6 +33,10 @@
         <file>Resources/resources/oil_bw.png</file>
         <file>Resources/resources/uranium_bw.png</file>
         <file>Resources/buttons/player_button.png</file>
+        <file>Resources/buttons/map_mode.png</file>
+        <file>Resources/buttons/overview_mode.png</file>
+        <file>Resources/buttons/power_mode.png</file>
+        <file>Resources/buttons/resource_mode.png</file>
     </qresource>
     <qresource prefix="/test">
         <file>Resources/config/Config.xml</file>

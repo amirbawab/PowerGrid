@@ -22,6 +22,12 @@ BoardCenterWidget::BoardCenterWidget() {
 	resourceMarketModeButton->setObjectName("boardModeButton");
 	overviewModeButton->setObjectName("boardModeButton");
 
+	// Set icons
+	mapModeButton->setIcon(QIcon(":/PowerGrid/Resources/buttons/map_mode.png"));
+	powerPlantsModeButton->setIcon(QIcon(":/PowerGrid/Resources/buttons/power_mode.png"));
+	resourceMarketModeButton->setIcon(QIcon(":/PowerGrid/Resources/buttons/resource_mode.png"));
+	overviewModeButton->setIcon(QIcon(":/PowerGrid/Resources/buttons/overview_mode.png"));
+
 	// Set layout
 	setLayout(gridLayout);
 	modeWidget->setLayout(vBoxLayout);
