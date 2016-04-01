@@ -107,6 +107,8 @@
     <ClCompile Include="mapdesigner.cpp" />
     <ClCompile Include="MapDesignerGraphicsView.cpp" />
     <ClCompile Include="MapDesignerWindow.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mapdesigner.h">
@@ -136,6 +138,8 @@
     <ClInclude Include="City.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="GeneratedFiles\ui_mapdesigner.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHouse.h" />
     <CustomBuild Include="MapDesignerGraphicsView.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing MapDesignerGraphicsView.h...</Message>
