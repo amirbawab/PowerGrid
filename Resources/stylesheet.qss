@@ -147,6 +147,16 @@ QPushButton#coloredHouse {
 	border-width: 0px;
 }
 
+QPushButton#player_button {
+	background: url(:/PowerGrid/Resources/buttons/player_button.png) no-repeat;
+	min-width: 76px;
+	min-height: 38px;
+	color: #fff;
+	font-size: 20px;
+	border-style: outset;
+	border-width: 0px;
+}
+
 /****************************
  *
  *		ARROWS
@@ -216,6 +226,11 @@ QPushButton#left_arrow {
  QLabel#resource_cost_label {
 	color: #fff;
 	font-size: 20px;
+ }
+
+  QLabel#board_message {
+	color: #fff;
+	font-size: 30px;
  }
 
  /*******************

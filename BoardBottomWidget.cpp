@@ -9,7 +9,7 @@ BoardBottomWidget::BoardBottomWidget() {
 	boardProfileWidget = new BoardProfileWidget();
 	boardPlayerPowerPlantsWidget = new BoardPlayerPowerPlantsWidget();
 	boardMessageWidget = new BoardMessageWidget();
-
+	
 	// Set layout
 	setLayout(gridLayout);
 
@@ -19,7 +19,7 @@ BoardBottomWidget::BoardBottomWidget() {
 	// Add components
 	gridLayout->addWidget(boardProfileWidget, 0, 0, Qt::AlignCenter);
 	gridLayout->addWidget(boardPlayerPowerPlantsWidget, 0, 1, Qt::AlignCenter);
-	gridLayout->addWidget(boardMessageWidget, 0, 2, Qt::AlignCenter);
+	gridLayout->addWidget(boardMessageWidget, 0, 2);
 
 	// Add spaces
 	gridLayout->setColumnStretch(0, 1);
@@ -205,12 +205,21 @@ BoardMessageWidget::BoardMessageWidget() {
 	// Init components
 	gridLayout = new QGridLayout();
 	questionLabel = new QLabel();
+	stepOnePanel = new StepOnePanel();
 
 	// Set layout
 	setLayout(gridLayout);
 
+	// Set id
+	questionLabel->setObjectName("board_message");
+
 	// Add components
 	gridLayout->addWidget(questionLabel, 0, 0, Qt::AlignLeft);
+	gridLayout->addWidget(stepOnePanel, 1, 0, Qt::AlignCenter);
+
+	// Configure spacing
+	gridLayout->setRowStretch(0, 1);
+	gridLayout->setRowStretch(1, 3);
 }
 
 BoardMessageWidget::~BoardMessageWidget() {
@@ -219,4 +228,31 @@ BoardMessageWidget::~BoardMessageWidget() {
 
 void BoardMessageWidget::Refresh() {
 	questionLabel->setText(QString::fromStdString(DataStore::getInstance().messageText));
+}
+
+// StepOneButtons class
+
+StepOnePanel::StepOnePanel() {
+	
+	// Init components
+	gridLayout = new QGridLayout();
+	okButton = new QPushButton("OK");
+	skipButton = new QPushButton("SKIP");
+
+	// Set id
+	okButton->setObjectName("player_button");
+	skipButton->setObjectName("player_button");
+
+	// Set layout
+	setLayout(gridLayout);
+
+	// Add components
+	gridLayout->addWidget(skipButton, 0, 0, Qt::AlignCenter);
+	gridLayout->addWidget(okButton, 0, 1, Qt::AlignCenter);
+}
+
+StepOnePanel::~StepOnePanel() {
+	delete okButton;
+	delete skipButton;
+	delete gridLayout;
 }

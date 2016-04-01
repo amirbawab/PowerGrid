@@ -32,6 +32,7 @@
         <file>Resources/resources/garbage_bw.png</file>
         <file>Resources/resources/oil_bw.png</file>
         <file>Resources/resources/uranium_bw.png</file>
+        <file>Resources/buttons/player_button.png</file>
     </qresource>
     <qresource prefix="/test">
         <file>Resources/config/Config.xml</file>

@@ -43,6 +43,18 @@ private:
 	QGridLayout *gridLayout;
 };
 
+class StepOnePanel : public QWidget {
+public:
+	StepOnePanel();
+	~StepOnePanel();
+private:
+	QGridLayout *gridLayout;
+	QPushButton *okButton;
+	QPushButton *skipButton;
+	private slots:
+	void onOkButton();
+};
+
 class BoardMessageWidget : public QWidget {
 public:
 	BoardMessageWidget();
@@ -51,6 +63,7 @@ public:
 private:
 	QGridLayout *gridLayout;
 	QLabel *questionLabel;
+	StepOnePanel *stepOnePanel;
 };
 
 class BoardBottomWidget : public QWidget {
