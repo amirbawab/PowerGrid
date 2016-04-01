@@ -7,6 +7,7 @@
 #include <memory>
 #include "DataStore.h"
 #include <QPainter>
+#include <QStyleOption>
 
 class BoardProfileWidget : public QWidget {
 public:
@@ -43,6 +44,21 @@ private:
 	QGridLayout *gridLayout;
 };
 
+class CounterWidget : public QWidget {
+	Q_OBJECT
+public:
+	CounterWidget();
+	~CounterWidget();
+private:
+	QGridLayout *gridLayout;
+	QPushButton *plusBtn, *minusBtn;
+	QLabel *numberLabel;
+	void paintEvent(QPaintEvent *pe);
+private slots:
+	void increment();
+	void decrement();
+};
+
 class StepOnePanel : public QWidget {
 public:
 	StepOnePanel();
@@ -51,8 +67,7 @@ private:
 	QGridLayout *gridLayout;
 	QPushButton *okButton;
 	QPushButton *skipButton;
-	private slots:
-	void onOkButton();
+	CounterWidget *counterWidget;
 };
 
 class BoardMessageWidget : public QWidget {

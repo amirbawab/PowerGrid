@@ -238,6 +238,7 @@ StepOnePanel::StepOnePanel() {
 	gridLayout = new QGridLayout();
 	okButton = new QPushButton("OK");
 	skipButton = new QPushButton("SKIP");
+	counterWidget = new CounterWidget();
 
 	// Set id
 	okButton->setObjectName("player_button");
@@ -247,8 +248,9 @@ StepOnePanel::StepOnePanel() {
 	setLayout(gridLayout);
 
 	// Add components
-	gridLayout->addWidget(skipButton, 0, 0, Qt::AlignCenter);
-	gridLayout->addWidget(okButton, 0, 1, Qt::AlignCenter);
+	gridLayout->addWidget(counterWidget, 0, 0, 1, 2, Qt::AlignCenter);
+	gridLayout->addWidget(skipButton, 1, 0, Qt::AlignCenter);
+	gridLayout->addWidget(okButton, 1, 1, Qt::AlignCenter);
 }
 
 StepOnePanel::~StepOnePanel() {
@@ -256,3 +258,72 @@ StepOnePanel::~StepOnePanel() {
 	delete skipButton;
 	delete gridLayout;
 }
+
+// CounterWidget class
+
+CounterWidget::CounterWidget() {
+	
+	// Init components
+	gridLayout = new QGridLayout();
+	plusBtn = new QPushButton("+");
+	minusBtn = new QPushButton("-");
+	numberLabel = new QLabel("0");
+
+	// Set id
+	minusBtn->setObjectName("counter_symbol");
+	plusBtn->setObjectName("counter_symbol");
+	numberLabel->setObjectName("counter_lable");
+
+	// Connect
+	connect(plusBtn, SIGNAL(clicked()), this, SLOT(increment()));
+	connect(minusBtn, SIGNAL(clicked()), this, SLOT(decrement()));
+
+	// Set layout
+	setLayout(gridLayout);
+
+	// Add components
+	gridLayout->addWidget(minusBtn, 0, 0, Qt::AlignRight);
+	gridLayout->addWidget(numberLabel, 0, 1, Qt::AlignCenter);
+	gridLayout->addWidget(plusBtn, 0, 2, Qt::AlignLeft);
+}
+
+CounterWidget::~CounterWidget() {
+	delete plusBtn;
+	delete minusBtn;
+	delete numberLabel;
+	delete gridLayout;
+}
+
+/// SLOTS ///
+
+void CounterWidget::increment() {
+	// Get value as int
+	int val = std::stoi(numberLabel->text().toStdString());
+
+	// MAX 500
+	if (val < 500) val++;
+
+	// Update
+	numberLabel->setText(QString::fromStdString(std::to_string(val)));
+}
+
+void CounterWidget::decrement() {
+	// Get value as int
+	int val = std::stoi(numberLabel->text().toStdString());
+
+	// MIN 0
+	if (val > 0) val--;
+
+	// Update
+	numberLabel->setText(QString::fromStdString(std::to_string(val)));
+}
+
+/// This method is required when Q_OBJECT is added
+/// Without this method, the CSS will not be applied
+void CounterWidget::paintEvent(QPaintEvent *pe) {
+	QStyleOption o;
+	o.initFrom(this);
+	QPainter p(this);
+	style()->drawPrimitive(
+		QStyle::PE_Widget, &o, &p, this);
+};
