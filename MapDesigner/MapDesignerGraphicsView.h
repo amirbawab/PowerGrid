@@ -7,9 +7,17 @@ class MapDesignerGraphicsView : public QGraphicsView
 {
     Q_OBJECT
 
+public:
+    const QColor DEFAULT_REGION_COLOR = Qt::white;
+
+    MapDesignerGraphicsView();
+
+    bool SetRegionColor(QColor regionColor);
+
+private:
     const int CITY_WIDTH  = 30;
     const int CITY_HEIGHT = 30;
-    QColor regionColor = Qt::white;
+    QColor regionColor = DEFAULT_REGION_COLOR;
 
     bool addCity = false;
     bool addConnectionFirstCity = false;
@@ -20,13 +28,13 @@ class MapDesignerGraphicsView : public QGraphicsView
     std::shared_ptr<City> connectionSecondCity;
 
 //    std::vector<std::shared_ptr<City>> cities;
+    std::vector<QColor> regionColors;
     std::map<std::string, std::shared_ptr<City>> cities;
     std::vector<std::unique_ptr<Connection>> connections;
 
     QFont cityFont;
     QFont connectionFont;
 
-private:
     void UpdateScene();
     std::string GetCityByPoint(QPoint point);
 
@@ -34,11 +42,6 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
-
-public:
-    MapDesignerGraphicsView();
-
-    void SetRegionColor(QColor regionColor) { this->regionColor = regionColor; }
 
 signals:
     void DisplayMessage(QString message);

@@ -4,6 +4,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <time.h>
+#include <QColorDialog>
 
 using std::string;
 using std::cout;
@@ -103,6 +104,13 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
             city->GetHouses().push_back(house);
         }
 
+        // Only add the region color if it's not already in the list
+        if (std::find(regionColors.begin(), regionColors.end(), regionColor) == regionColors.end())
+        {
+            QColorDialog::setCustomColor(regionColors.size(), regionColor);
+            regionColors.push_back(regionColor);
+        }
+
         addCity = false;
         emit ClearMessage();
 
@@ -157,8 +165,8 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
             auto currentFirstCityName  = connection->GetFirstCity()->GetName();
             auto currentSecondCityName = connection->GetSecondCity()->GetName();
 
-            if (firstCityName == currentFirstCityName || firstCityName == secondCityName ||
-                secondCityName == firstCityName || secondCityName == secondCityName)
+            if ((firstCityName == currentFirstCityName && secondCityName == currentSecondCityName) ||
+                (firstCityName == currentSecondCityName && secondCityName == currentFirstCityName))
             {
                 QMessageBox::warning(this, "Duplicate Connection Entry", QString::fromStdString(
                                      "There's already a connection between '" + currentFirstCityName +
@@ -189,6 +197,38 @@ MapDesignerGraphicsView::MapDesignerGraphicsView()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     grabKeyboard();
+}
+
+bool MapDesignerGraphicsView::SetRegionColor(QColor regionColor)
+{
+    // If the default color, allow it
+    if (regionColor == DEFAULT_REGION_COLOR)
+    {
+        this->regionColor = regionColor;
+        return true;
+    }
+
+    auto color = std::find(regionColors.begin(), regionColors.end(), regionColor);
+
+    // If the color is already in the selected colors
+    if (color != regionColors.end())
+    {
+        this->regionColor = *color;
+        return true;
+    }
+
+    // If region colors is not full, we allow
+    if (regionColors.size() < 6)
+    {
+        this->regionColor = regionColor;
+        return true;
+    }
+
+    // Otherwise, we only allow if the color is already in the list
+    if (color != regionColors.end())
+        return true;
+
+    return false;
 }
 
 void MapDesignerGraphicsView::OnAddCity()

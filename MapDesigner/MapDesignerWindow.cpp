@@ -49,6 +49,11 @@ MapDesignerWindow::MapDesignerWindow()
     connect(graphicsView           , SIGNAL(DisplayMessage(QString)), this, SLOT(OnDisplayMessage(QString)));
     connect(graphicsView           , SIGNAL(ClearMessage()), this, SLOT(OnClearMessage()));
     connect(changeRegionColorButton, SIGNAL(clicked()), this, SLOT(OnChangeRegionColor()));
+
+    auto colorRegionPalette = palette();
+    colorRegionPalette.setColor(QPalette::Background,
+                                (dynamic_cast<MapDesignerGraphicsView*>(graphicsView))->DEFAULT_REGION_COLOR);
+    regionColor->setPalette(colorRegionPalette);
 }
 
 MapDesignerWindow::~MapDesignerWindow()
@@ -72,9 +77,18 @@ void MapDesignerWindow::OnChangeRegionColor() const
     if (!selectedRegionColor.isValid())
         return;
 
-    (dynamic_cast<MapDesignerGraphicsView*>(graphicsView))->SetRegionColor(selectedRegionColor);
+    auto mapDesignerView = dynamic_cast<MapDesignerGraphicsView*>(graphicsView);
+    auto validColor = mapDesignerView->SetRegionColor(selectedRegionColor);
+    if (!validColor)
+    {
+        QMessageBox::warning(nullptr, "Invalid Color",
+                             "Cannot have more than 6 region colors!");
+        mapDesignerView->SetRegionColor(mapDesignerView->DEFAULT_REGION_COLOR);
+        selectedRegionColor = mapDesignerView->DEFAULT_REGION_COLOR;
+    }
 
-    auto colorRegionPalette(palette());
+    auto colorRegionPalette = palette();
     colorRegionPalette.setColor(QPalette::Background, selectedRegionColor);
     regionColor->setPalette(colorRegionPalette);
+
 }
