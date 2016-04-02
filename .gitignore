@@ -22,6 +22,8 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+Thumbs.db
+
 # Qt generated files
 GeneratedFiles
 
