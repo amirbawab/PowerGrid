@@ -1,14 +1,15 @@
 #pragma once
 #include "PlayerHouse.h"
+#include <memory>
 
 class Player
 {
-    std::vector<PlayerHouse> houses;
+    std::vector<std::unique_ptr<PlayerHouse>> houses;
 
 public:
     Player() {}
     ~Player() {}
 
-    std::vector<PlayerHouse>& GetHouses() { return houses; }
+    std::vector<std::unique_ptr<PlayerHouse>>& GetHouses() { return houses; }
 };
 

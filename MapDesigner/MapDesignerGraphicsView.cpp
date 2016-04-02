@@ -3,6 +3,7 @@
 #include <QResizeEvent>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <time.h>
 
 using std::string;
 using std::cout;
@@ -32,6 +33,16 @@ void MapDesignerGraphicsView::UpdateScene()
         auto cityNameTextItem = cityMapItem.second->GetNameTextItem(cityFont);
         scene()->addItem(cityNameTextItem);
         scene()->addItem(cityMapItem.second.get());
+
+        for (int i = 0; i < cityMapItem.second->GetHouses().size(); i++)
+        {
+            auto houseLocation = cityMapItem.second->GetHousePosition(i);
+            auto houseItem = cityMapItem.second->GetHouses()[i];
+            houseItem->setRect(houseLocation.x() - houseItem->rect().width() / 2,
+                               houseLocation.y() - houseItem->rect().height() / 2,
+                               houseItem->rect().width(), houseItem->rect().height());
+            scene()->addItem(houseItem.get());
+        }
     }
 }
 
@@ -84,6 +95,13 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
             return;
         }
         cities[cityName.toStdString()] = city;
+        srand(time(nullptr));
+        int random = rand() % 3;
+        for (int i = 0; i <= random; i++)
+        {
+            auto house = make_shared<PlayerHouse>();
+            city->GetHouses().push_back(house);
+        }
 
         addCity = false;
         emit ClearMessage();

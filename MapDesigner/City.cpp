@@ -36,3 +36,22 @@ QGraphicsSimpleTextItem* City::GetNameTextItem(QFont font) const
     
     return cityNameTextItem;
 }
+
+QPoint City::GetHousePosition(int index) const
+{
+    auto center = GetCenter();
+    int offset = 10;
+
+    switch (index)
+    {
+        // First house
+        case 0:
+            return QPoint(center.x(), center.y() - offset);
+        // Second house
+        case 1:
+            return QPoint(center.x() - offset, center.y() + offset);
+        // Default is third house!
+        default:
+            return QPoint(center.x() + offset, center.y() + offset);
+    }
+}
