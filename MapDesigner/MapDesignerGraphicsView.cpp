@@ -213,6 +213,7 @@ bool MapDesignerGraphicsView::SetRegionColor(QColor regionColor)
     // If the color is already in the selected colors
     if (color != regionColors.end())
     {
+        emit ClearMessage();
         this->regionColor = *color;
         return true;
     }
@@ -220,13 +221,17 @@ bool MapDesignerGraphicsView::SetRegionColor(QColor regionColor)
     // If region colors is not full, we allow
     if (regionColors.size() < 6)
     {
+        emit ClearMessage();
         this->regionColor = regionColor;
         return true;
     }
 
     // Otherwise, we only allow if the color is already in the list
     if (color != regionColors.end())
+    {
+        emit ClearMessage();
         return true;
+    }
 
     return false;
 }
@@ -234,17 +239,25 @@ bool MapDesignerGraphicsView::SetRegionColor(QColor regionColor)
 void MapDesignerGraphicsView::OnAddCity()
 {
     if (regionColor == Qt::white)
+    {
+        emit DisplayMessage("Please select a non-default region color");
         return;
+    }
 
+    emit ClearMessage();
     addCity = true;
     emit DisplayMessage("Please select the center of the city ...");
 }
 
 void MapDesignerGraphicsView::OnAddConnection()
 {
-    if (regionColor == Qt::white)
+    if (cities.size() < 2)
+    {
+        emit DisplayMessage("There must be at least two cities on the map");
         return;
+    }
 
+    emit ClearMessage();
     addConnectionFirstCity = true;
     emit DisplayMessage("Please select the first city ...");
 }
