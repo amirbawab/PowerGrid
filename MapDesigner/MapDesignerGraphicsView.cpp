@@ -51,13 +51,11 @@ void MapDesignerGraphicsView::UpdateScene()
 
 string MapDesignerGraphicsView::GetCityByPoint(QPoint point)
 {
-    string cityName = "";
-
     for (auto cityMapItem : cities)
         if (cityMapItem.second->contains(point))
-            cityName = cityMapItem.first;
+            return cityMapItem.first;
 
-    return cityName;
+    return "";
 }
 
 void MapDesignerGraphicsView::ResetScale()
@@ -96,6 +94,15 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
 
     if (addCity)
     {
+        // If thre's already a city at this point
+        auto existingCityName = GetCityByPoint(point);
+        if (existingCityName != "")
+        {
+            QMessageBox::warning(this, "Duplicate City",
+                                 "There's already a city here! Please select another point");
+            return;
+        }
+
         bool ok;
         releaseKeyboard();
         auto cityName = QInputDialog::getText(this, "City Name",
