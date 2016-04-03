@@ -27,6 +27,16 @@ public:
 	bool IsFull();
 	bool IsConnectedTo(std::string cityName);
 
+    void setX(int x) { this->x = x; }
+    void setY(int y) { this->y = y; }
+    void setWidth(int width) { this->width = width; }
+    void setHeight(int height) { this->height = height; }
+    
+    int getX() const { return x; }
+    int getY() const { return y; }
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
+
     bool operator==(const City& other) const { return this->name == other.name; }
     bool operator==(const std::string& cityName) const { return this->name == cityName; }
     friend bool operator==(const std::shared_ptr<City>& first, const std::shared_ptr<City>& second);
@@ -38,6 +48,7 @@ private:
     int secondHousePrice = 15;
     int thirdHousePrice = 20;
     int houses = 0;
+    int x, y, width, height;
 	static const int MAX_VALUE = 3;
     std::string name = "";
     std::shared_ptr<Region> region;
