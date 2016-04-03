@@ -3,11 +3,13 @@
 #include <QGraphicsEllipseItem>
 #include <Player.h>
 #include <memory>
+#include "City.h"
 
 class CityItem : public QGraphicsEllipseItem {
     std::string name;
     QColor regionColor;
-   
+    City *city;
+
 public:
     CityItem(QPoint topLeft, int width, int height);
 
@@ -22,5 +24,7 @@ public:
     QGraphicsSimpleTextItem* GetNameTextItem(QFont font) const;
 
     QPoint GetHousePosition(int index) const;
+    void SetCity(City* city) { this->city = city; }
+    City* GetCity() { return city; }
 };
 

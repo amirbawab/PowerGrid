@@ -19,15 +19,19 @@ MapGraphicsView::MapGraphicsView() {
     for (auto city : citiesMap) {
         citiesItemsMap[city.first] = std::make_shared<CityItem>(QPoint(city.second->getX(), 
             city.second->getY()), city.second->getWidth(), city.second->getHeight());
+        citiesItemsMap[city.first]->SetName(city.first);
+        citiesItemsMap[city.first]->SetCity(city.second.get());
+        citiesItemsMap[city.first]->SetRegionColor(QColor(city.second->GetRegion()->GetName().c_str()));
     }
 
     // Create connections items
     QFont connectionFont = QFont("Tahoma", 12, QFont::Bold);
     QFont cityFont = QFont("Calibri", 12, QFont::Bold, true);
     for (auto connection : connections) {
-        auto connectionItem = std::make_unique<ConnectionItem>();
+        connectionItems.push_back(std::make_unique<ConnectionItem>());
 
         // Set cities
+        auto connectionItem = connectionItems[connectionItems.size() - 1].get();
         connectionItem->SetFirstCity(citiesItemsMap[connection->GetFirst()->GetName()]);
         connectionItem->SetSecondCity(citiesItemsMap[connection->GetSecond()->GetName()]);
 
@@ -39,7 +43,7 @@ MapGraphicsView::MapGraphicsView() {
         auto costEllipseItem = connectionItem->GetCostEllipseItem(connectionFont);
 
         // Adding components
-        scene()->addItem(connectionItem.get());
+        scene()->addItem(connectionItem);
         scene()->addItem(costEllipseItem);
         scene()->addItem(costTextItem);
     }
