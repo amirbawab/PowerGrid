@@ -12,7 +12,7 @@ bool CardStack::DrawPlant() {
 	std::shared_ptr<StepCard> stepCard = nullptr;
 
 	// If can draw
-	while (visiblePlants.size() < VISIBILE_CARDS && cards.size() > 0 && powerPlantCard == nullptr) {
+	while (visiblePlants.size() < visibleCards && cards.size() > 0 && powerPlantCard == nullptr) {
 		
 		// Cache top
 		std::shared_ptr<Card> top = cards[0];
@@ -30,8 +30,8 @@ bool CardStack::DrawPlant() {
 
 		// If step card
 		} else if(stepCard = std::dynamic_pointer_cast<StepCard>(top)) {
-			lastStepDrawn = stepCard->GetStep();
-			return DrawPlant();
+			justDrewStep = stepCard->GetStep();
+			return true;  // Note that we do not draw a replacement (the market now has 7 cards)
 		}
 	}
 	return false;
@@ -41,13 +41,13 @@ bool CardStack::DrawPlant() {
 void CardStack::PrintInfo() {
 	std::cout << std::endl;
 	std::cout << "Current plants: " << std::endl;
-	for (int i = 0; i < FUTURE_MARKET_INDEX; i++)
+	for (int i = 0; i < futureMarketIndex; i++)
 		std::cout << "[" << i << "] " << *GetPlant(i) << std::endl;
 
 	std::cout << std::endl;
 
 	std::cout << "Future plants: " << std::endl;
-	for (int i = FUTURE_MARKET_INDEX; i < VISIBILE_CARDS; i++)
+	for (int i = futureMarketIndex; i < visibleCards; i++)
 		std::cout << "[" << i << "] " << *GetPlant(i) << std::endl;
 	std::cout << std:: endl;
 }
@@ -101,7 +101,7 @@ void CardStack::Prepare(int removeCard) {
 	});
 
 	// Place the cards in the visible
-	for (int i = 0; i < VISIBILE_CARDS && i < cards.size(); i++) {
+	for (int i = 0; i < visibleCards && i < cards.size(); i++) {
 		visiblePlants.push_back(cards[0]);
 		cards.erase(cards.begin());
 	}
@@ -155,4 +155,15 @@ std::shared_ptr<PowerPlantCard> const CardStack::GetPlant(int index){
 void CardStack::RemoveLowestVisible() {
 	if (visiblePlants.size() > 0)
 		visiblePlants.erase(visiblePlants.begin());
+}
+
+// When we reach step 3, updates the size of the visible market
+void CardStack::AdjustForStep3() {
+	visibleCards = 6;
+	futureMarketIndex = 6;
+	while (visiblePlants.size() > visibleCards) {
+		RemoveLowestVisible();
+	}
+	resetJustDrewStep();
+	// Note that we have to shuffle the card stack separately due to step 2 (auctioning plants)
 }

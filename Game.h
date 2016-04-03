@@ -75,7 +75,7 @@ public:
 	void BuyCities(); // step 4
 	void Bureaucracy();  // step 5
 
-	void PrintScrore();
+	void PrintScore();
 	void PrintRemainingResources();
 };
 

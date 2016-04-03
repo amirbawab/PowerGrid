@@ -205,7 +205,7 @@ void Game::AuctionPlants() {
 					cin.ignore(INT_MAX, '\n');
 
 				// If player selected a card from the future market
-				} else if (plantIndex >= CardStack::FUTURE_MARKET_INDEX && plantIndex < CardStack::VISIBILE_CARDS) {
+				} else if (plantIndex >= cardStack.futureMarketIndex && plantIndex < cardStack.visibleCards) {
 					Error("You can't buy from future market plants.");
 				
 				// If player selected a valid index
@@ -243,6 +243,16 @@ void Game::AuctionPlants() {
 					currentPlayer->BuyPowerPlant(cardStack, plantIndex, currentBid);
 					canBuy[currentPlayer.get()] = false;
 					cout << *currentPlayer << " won this auction for " << currentBid << endl;
+
+					// Check if we drew the Step 3 card
+					if (cardStack.GetJustDrewStep() == 3) {
+						cout << "The step 3 card was drawn." << endl;
+						
+						// Treat the step 3 card as though it was the highest plant in the market (only 7 plants are now visible)
+						cardStack.SetVisibleCards(7);
+						cardStack.ShuffleStack();
+					}
+
 					break;
 				} 
 				
@@ -296,6 +306,13 @@ void Game::AuctionPlants() {
 				}
 			}
 		}
+
+		// If we drew the step 3 card during any of the auction, only now do we adjust the size of the market and phase (at the end of all auctions)
+		if (cardStack.GetJustDrewStep() == 3) {
+			cardStack.AdjustForStep3();
+			phase = 3;
+		}
+
 	}
 }
 	
@@ -409,10 +426,52 @@ void Game::BuyCities() {
 			}
 		}
 	}
+
+	// Replace power plants in the market if they have a price less or equal to the highest number of cities owned by a player
+	int maxHouses = 0;
+	for (shared_ptr<Player> p : players) {
+		if (p->GetHouses().size() > maxHouses)
+			maxHouses = p->GetHouses().size();
+	}
+	while (cardStack.GetPlant(0)->GetPrice() <= maxHouses) {
+		cardStack.RemoveLowestVisible();
+		cardStack.DrawPlant();
+	}
+	// Check if we drew the step 3 card
+	if (cardStack.GetJustDrewStep() == 3) {
+		cardStack.AdjustForStep3();
+		cardStack.ShuffleStack();
+		phase = 3;
+
+		cout << "Entering phase 3." << endl;
+	}
+
 }
 
 /// Step 5, bureaucracy
 void Game::Bureaucracy() {
+
+	// Check if we enter phase 2
+	if (phase == 1) {
+		int step2Cities = overview.GetRuleByNumOfPlayers(players.size()).step2Cities;
+
+		// Check that a player has reached the number of cities for step 2
+		for (shared_ptr<Player> p : players) {
+			if (p->GetHouses().size() >= step2Cities) {
+				// Go to phase 2
+				phase = 2;
+
+				// Replace lowest power plant from the market
+				cardStack.RemoveLowestVisible();
+				cardStack.DrawPlant();
+
+				cout << "Entering phase 2." << endl;
+				break;
+			}
+		}
+	}
+
+
 
 	// Update play order to best starts
 	UpdatePlayOrder(false);
@@ -422,6 +481,9 @@ void Game::Bureaucracy() {
 
 	// Winners
 	vector<std::shared_ptr<Player>> winners;
+
+	// Let players move resources around
+
 
 	// Count number of cities that can be powered and get money
 	// TODO let players move resources around
@@ -570,11 +632,21 @@ void Game::Bureaucracy() {
 		cardStack.PlaceHighestVisibleAtEndOfStack();
 		cardStack.DrawPlant();
 	}
-	else if(phase == 3) {
+	else if (phase == 3) {
 		// Remove lowest plant from the game
 		cardStack.RemoveLowestVisible();
 		cardStack.DrawPlant();
 	}
+
+	// Check if we drew the step 3 card
+	if (cardStack.GetJustDrewStep() == 3) {
+		cardStack.AdjustForStep3();
+		cardStack.ShuffleStack();
+		phase = 3;
+		
+		cout << "Entering phase 3." << endl;
+	}
+
 
 	// Restock raw materials
 	for (int i = 0; i < res::total; i++) {
@@ -616,15 +688,6 @@ void Game::PlayGame() {
 		// Auction
 		AuctionPlants();
 
-		// Check if phase 3
-		if (phase != 3) {
-			phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
-			if (phase == 3) { 
-				cardStack.ShuffleStack();
-				cout << "Phase 3 starts now." << endl;
-			}
-		}
-
 		// Display players info
 		for (auto p : players) p->DisplayStatus();
 
@@ -646,15 +709,6 @@ void Game::PlayGame() {
 		// Display players info
 		for (auto p : players) p->DisplayStatus();
 
-		// Check phase 2
-		for (int i = 0; i < players.size() && phase < 2; i++) {
-			if (players[i]->GetHouses().size() >= overview.GetRuleByNumOfPlayers(players.size()).step2Cities) {
-				phase = 2;
-				cardStack.RemoveLowestVisible();
-				cardStack.DrawPlant();
-			}
-		}
-
 		// Step 5
 		cout << endl << *overview.GetSteps()[playStep++] << endl;
 
@@ -662,21 +716,15 @@ void Game::PlayGame() {
 		// Note: The winner is announced in Step 5 and not in Step 4
 		Bureaucracy();
 
-		// Check if phase 3
-		if (phase != 3) {
-			phase = cardStack.GetLastStepDrawn() == 3 ? 3 : phase;
-			if (phase == 3) cardStack.ShuffleStack();
-		}
-
 		// Print score
-		PrintScrore();
+		PrintScore();
 
 		// Increase turn
 		fullTurn++;
 	};
 }
 
-void Game::PrintScrore() {
+void Game::PrintScore() {
 
 	vector<std::shared_ptr<Player>> tmpPlayer = players;
 
