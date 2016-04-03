@@ -11,6 +11,7 @@ MainFrame::MainFrame(char* title, Application* application) : QMainWindow() {
 	welcomeWidget = new WelcomeWidget();
 	mapWidget = new MapWidget();
 	playerConfigWidget = new PlayerConfigWidget();
+	boardWidget = new BoardWidget();
 
 	// Configure welcome widget
 	welcomeWidget->setOnExitGame(this, SLOT(close()));
@@ -22,6 +23,7 @@ MainFrame::MainFrame(char* title, Application* application) : QMainWindow() {
 
 	// Configure player widget
 	playerConfigWidget->setOnBack(this, SLOT(onPlayerConfigBack()));
+	playerConfigWidget->setOnNext(this, SLOT(onPlayerConfigNext()));
 
 	// Center 
 	setCentralWidget(centerStackWidget);
@@ -30,6 +32,7 @@ MainFrame::MainFrame(char* title, Application* application) : QMainWindow() {
 	welcomeWidgetIndex = centerStackWidget->addWidget(welcomeWidget);
 	mapWidgetIndex = centerStackWidget->addWidget(mapWidget);
 	playerConfigWidgetIndex = centerStackWidget->addWidget(playerConfigWidget);
+	boardWidgetIndex = centerStackWidget->addWidget(boardWidget);
 
 	// Configure frame
 	resize(QDesktopWidget().availableGeometry(this).size() * 0.9); // 70% of width
@@ -59,11 +62,26 @@ void MainFrame::onMapBack() {
 void MainFrame::onMapNext() {
 	qDebug("Next from map selection screen");
 	centerStackWidget->setCurrentIndex(playerConfigWidgetIndex);
+	playerConfigWidget->SetNumberOfPlayers(mapWidget->GetNumberOfPlayers());
 }
 
 void MainFrame::onPlayerConfigBack() {
 	qDebug("Back from player config screen");
 	centerStackWidget->setCurrentIndex(mapWidgetIndex);
+}
+
+void MainFrame::onPlayerConfigNext() {
+	qDebug("Next from player config screen");
+
+	// If no errors, go to next page
+	if (!playerConfigWidget->HasError()) {
+		playerConfigWidget->UpdatePlayersInfo();
+		boardWidget->Refresh();
+		centerStackWidget->setCurrentIndex(boardWidgetIndex);
+	} else {
+		QMessageBox::critical(this, "Try again", "Players should have distinct house colors.", QMessageBox::Ok);
+		qDebug("Errors found on this page.");
+	}
 }
 
 

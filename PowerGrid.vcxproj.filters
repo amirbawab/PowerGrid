@@ -160,6 +160,48 @@
     <Filter Include="Header Files\test\player">
       <UniqueIdentifier>{da9d8595-4c38-4b22-8777-af0202211bd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\pages\playerConfig\components">
+      <UniqueIdentifier>{07a33550-bc0b-4f20-9e03-5360a7cb2ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\playerConfig\components">
+      <UniqueIdentifier>{0b0d5b68-dd41-4d4a-a004-eb8376f06088}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\board">
+      <UniqueIdentifier>{d0351949-ad25-488c-8bdc-c72ad057362b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board">
+      <UniqueIdentifier>{ea2b9ae4-593a-4cab-bfc6-2f9fd1164fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\board\components">
+      <UniqueIdentifier>{7f22f375-bf6e-4133-92e8-7224e9d39483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board\components">
+      <UniqueIdentifier>{2b9039e5-6ecf-43fd-b4bd-9bbe95267b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\board\components\mode">
+      <UniqueIdentifier>{0bfb3de7-579e-47ac-aa6f-2e9fb13bc4ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board\components\mode">
+      <UniqueIdentifier>{73a6c08d-e9f0-4ea8-a591-0ad92250af7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\board\components\mode\components">
+      <UniqueIdentifier>{d8b9ccd7-ad0b-4337-8d7d-06e0c2b38425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board\components\mode\components">
+      <UniqueIdentifier>{f43e2d6a-927f-450a-a966-9c924958e856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\board\components\mode\components\resource">
+      <UniqueIdentifier>{b2dd462b-e383-4bef-a256-9467a440bdaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\board\components\mode\components\map">
+      <UniqueIdentifier>{d9dd3a08-bf18-41aa-a168-3a09e41c035e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board\components\mode\components\resource">
+      <UniqueIdentifier>{db6be7d8-0ca4-4a7e-b668-f5acb74a7cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board\components\mode\components\map">
+      <UniqueIdentifier>{e284edeb-1473-4bf0-91f0-23dffa60f56d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -255,6 +297,51 @@
     <ClCompile Include="PlayerTest.cpp">
       <Filter>Source Files\test\player</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerConfigRowWidget.cpp">
+      <Filter>Source Files\gui\pages\playerConfig\components</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardWidget.cpp">
+      <Filter>Source Files\gui\pages\board</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardTopWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardBottomWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardCenterWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BoardCenterWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerPlantModeWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMarketModeWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="OverviewModeWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigRowWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BoardBottomWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="MapModeWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMarketLevelWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode\components\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGraphicsView.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode\components\map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -268,6 +355,18 @@
     </CustomBuild>
     <CustomBuild Include="WelcomeMenuWidget.h">
       <Filter>Header Files\gui\pages\welcome\components</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PlayerConfigWidget.h">
+      <Filter>Header Files\gui\pages\playerConfig</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BoardCenterWidget.h">
+      <Filter>Header Files\gui\pages\board\components</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PlayerConfigRowWidget.h">
+      <Filter>Header Files\gui\pages\playerConfig\components</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BoardBottomWidget.h">
+      <Filter>Header Files\gui\pages\board\components</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +402,6 @@
     </ClInclude>
     <ClInclude Include="WelcomeWidget.h">
       <Filter>Header Files\gui\pages\welcome</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerConfigWidget.h">
-      <Filter>Header Files\gui\pages\playerConfig</Filter>
     </ClInclude>
     <ClInclude Include="House.h">
       <Filter>Header Files\house</Filter>
@@ -348,6 +444,33 @@
     </ClInclude>
     <ClInclude Include="GenericTest.h">
       <Filter>Header Files\test</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardWidget.h">
+      <Filter>Header Files\gui\pages\board</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardTopWidget.h">
+      <Filter>Header Files\gui\pages\board\components</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerPlantModeWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMarketModeWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode</Filter>
+    </ClInclude>
+    <ClInclude Include="OverviewModeWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapModeWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMarketLevelWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode\components\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGraphicsView.h">
+      <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

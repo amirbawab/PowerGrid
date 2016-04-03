@@ -13,7 +13,7 @@ public:
 	void setOnNext(const QObject *, const char*);
 	void setOnBack(const QObject *, const char*);
 protected:
-	QGridLayout *gridLayout;
+	QGridLayout *centerLayout;
 private:
 	class ButtonsWidget : public QWidget {
 	public:
@@ -23,6 +23,8 @@ private:
 	private:
 		QHBoxLayout *hBoxLayout;
 	};
+	QGridLayout *gridLayout;
 	ButtonsWidget *buttonsWidget;
+	QWidget *centerWidget;
 };
 

@@ -19,6 +19,8 @@ public:
 	int GetNbResource(Resource);
 	int GetCapacityResource(Resource);
 
+	std::vector<std::shared_ptr<ResourceMarketLevel>> GetLevels() { return levels; }
+
 	int GetPrice(Resource, int);
 	int GetPrice(string resourceName, int amount);
 };

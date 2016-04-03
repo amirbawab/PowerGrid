@@ -12,6 +12,14 @@ QLabel#global_h2 {
 	border-width: 0px;
 }
 
+QLineEdit#transparent_h5_bg {
+	color: #fff;
+	font-size: 25px;
+	background-color: rgba(0, 0, 0, 0);
+	border-style: outset;
+	border-width: 0px;
+}
+
 QPushButton#global_h2_button {
 	color: #fff;
 	font-family: 'Hemmet Personal Use Only';
@@ -35,6 +43,14 @@ QPushButton#global_h2_button:pressed {
  **/
 QWidget#templateLogoWidget {
 	border-image: url(:/PowerGrid/Resources/bg.jpg) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+}
+
+/**
+ * Template logo widget
+ **/
+QWidget#templateBoardWidget {
+	border-image: url(:/PowerGrid/Resources/bg_no_frame.jpg) 0 0 0 0 stretch stretch;
 	border-width: 0px;
 }
 
@@ -77,7 +93,7 @@ QPushButton#templateLogoGenericButton:pressed {
 
 /****************************
  *
- *		TEMPLATE BUTTONS
+ *		BUTTONS
  *
  ****************************/
 QPushButton#templateGenericButton {
@@ -93,6 +109,70 @@ QPushButton#templateGenericButton {
 
 QPushButton#templateGenericButton:pressed {
 	color: #000;
+}
+
+QPushButton#boardModeButton {
+	background: url(:/PowerGrid/Resources/buttons/mode_button.png) no-repeat;
+	min-width: 43px;
+	min-height: 42px;
+	color: #fff;
+	font-family: 'Hemmet Personal Use Only';
+	font-size: 40px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#boardModeButton:pressed {
+	background: url(:/PowerGrid/Resources/buttons/mode_button_pressed.png) no-repeat;
+}
+
+QPushButton#powerPlantCardButton {
+	min-width: 43px;
+	min-height: 42px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#resourceButton {
+	min-width: 50px;
+	min-height: 50px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#coloredHouse {
+	min-width: 30px;
+	min-height: 30px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#player_button {
+	background: url(:/PowerGrid/Resources/buttons/player_button.png) no-repeat;
+	min-width: 76px;
+	min-height: 38px;
+	color: #fff;
+	font-size: 20px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#player_button:pressed {
+	color: #000;
+}
+
+QPushButton#counter_symbol {
+	background: url(:/PowerGrid/Resources/buttons/player_symbol_button.png) no-repeat;
+	min-width: 39px;
+	min-height: 38px;
+	color: #fff;
+	font-size: 20px;
+	border-style: outset;
+	border-width: 0px;
+}
+
+QPushButton#counter_symbol:pressed {
+	color:#000;
 }
 
 /****************************
@@ -132,3 +212,83 @@ QPushButton#left_arrow {
 	border-width: 0px;
 	qproperty-alignment: 'AlignCenter';
  }
+
+ QWidget#row_label_h4_bg {
+	background: url(:/PowerGrid/Resources/rowBg.jpg) no-repeat;
+	min-width: 810px;
+	min-height: 60px;
+	color: #fff;
+	font-size: 40px;
+ }
+
+ QLabel#turn_label {
+	color: #fff;
+	font-size: 25px;
+ }
+
+ QLabel#step_phase_label {
+	color: #fff;
+	font-size: 25px; 
+ }
+
+ QLabel#board_bottom_subtitle {
+	color: #fff;
+	font-size: 30px;
+ }
+
+ QLabel#board_bottom_subtitle_s {
+	color: #fff;
+	font-size: 20px;
+ }
+
+ QLabel#resource_cost_label {
+	color: #fff;
+	font-size: 20px;
+ }
+
+  QLabel#board_message {
+	color: #fff;
+	font-size: 30px;
+ }
+
+ QLabel#counter_lable {
+	color: #fff;
+	font-size: 35px;
+ }
+
+ /*******************
+ *
+ *		BOARD
+ *
+ *******************/
+QWidget#boardTopWidget {
+	border-image: url(:/PowerGrid/Resources/board/top_banner.png) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+	max-height: 128px;
+	min-height: 128px;
+	color: #fff;
+	font-size: 40px;
+}
+
+QWidget#boardBottomWidget {
+	border-image: url(:/PowerGrid/Resources/board/bottom_banner.png) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+	max-height: 280px;
+	min-height: 280px;
+	color: #fff;
+	font-size: 40px;
+}
+
+QWidget#modeWidget {
+	max-width: 55px;
+	min-width: 55px;
+}
+
+QScrollArea#overviewScrollArea {
+	background-color:transparent;
+	border-width: 0px;
+}
+
+QGraphicsView#mapGraphicsView {
+	background: transparent;
+}

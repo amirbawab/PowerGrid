@@ -167,11 +167,11 @@
   <money amount="50" description="Initial amount of money per player"/>
 
   <colors description="House colors">
-    <color name="black" image=""/>
-    <color name="purple" image=""/>
-    <color name="green" image=""/>
-    <color name="blue" image=""/>
-    <color name="yellow" image=""/>
-    <color name="red" image=""/>
+    <color name="black" image=":/PowerGrid/Resources/houses/black.png"/>
+    <color name="purple" image=":/PowerGrid/Resources/houses/purple.png"/>
+    <color name="green" image=":/PowerGrid/Resources/houses/green.png"/>
+    <color name="blue" image=":/PowerGrid/Resources/houses/blue.png"/>
+    <color name="yellow" image=":/PowerGrid/Resources/houses/yellow.png"/>
+    <color name="red" image=":/PowerGrid/Resources/houses/red.png"/>
   </colors>
 </config>

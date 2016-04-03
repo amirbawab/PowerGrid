@@ -1,13 +1,9 @@
-#include "Player.h"
-#include "Resource.h"
-#include "PowerPlantCard.h"
+#include <qfile.h>
+#include <qstring.h>
 
-#include <iostream>
-#include <string>
-#include <memory>
+#include "mainframe.h"
+#include "application.h"
 
-#include "GameStatus.h"
-#include "Config.h"
 #include "Game.h"
 
 int main(int argc, char *argv[]) {
@@ -18,7 +14,21 @@ int main(int argc, char *argv[]) {
 	// Play
 	// game.PlayGame();
 
-	
+	// Application
+	Application application(argc, argv);
 
-	return 0;
+	// Load css
+	QFile File(":/PowerGrid/Resources/stylesheet.qss");
+	File.open(QFile::ReadOnly);
+	QString StyleSheet = QLatin1String(File.readAll());
+
+	// Main frame
+	// Should this be a pointer or passing the address works ?
+	MainFrame mainframe("Power Grid", &application);
+
+	// Apply css
+	application.setStyleSheet(StyleSheet);
+
+	// Return
+	return application.exec();
 }

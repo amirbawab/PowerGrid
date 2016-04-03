@@ -156,6 +156,21 @@ int Player::GetHighestPowerPlant() {
 	return max;
 }
 
+string Player::GetInitials(int max) {
+	string result = "";
+	for (int i = 0; i < name.size() && max > 0; i++) {
+		if (i == 0 && name[i] != ' ') {
+			result += toupper(name[i]);
+			max--;
+		
+		} else if (i > 0 && name[i-1] == ' ' && name[i] != ' ') {
+			result += toupper(name[i]);
+			max--;
+		}
+	}
+	return result;
+}
+
 
 /// Buy the number of resource specified from the resource market
 bool Player::BuyResources(ResourceMarket& rMarket, shared_ptr<PowerPlantCard> plant, Resource resource, int amount) {
