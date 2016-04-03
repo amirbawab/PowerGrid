@@ -182,6 +182,10 @@ bool Map::LoadCities(pugi::xml_document& xml)
     {
         string cityName = cityNode.node().attribute("name").value();
         string regionName = cityNode.node().attribute("region").value();
+        auto x = std::stoi(cityNode.node().attribute("x").value());
+        auto y = std::stoi(cityNode.node().attribute("y").value());
+        auto width = std::stoi(cityNode.node().attribute("width").value());
+        auto height = std::stoi(cityNode.node().attribute("height").value());
 
         // We can't have two cities with the same name
         if (cities.find(cityName) != cities.end())
@@ -202,6 +206,12 @@ bool Map::LoadCities(pugi::xml_document& xml)
         }
         else
             city->SetRegion(regions[regionIndex]);
+
+        // Set oher attributes
+        city->setX(x);
+        city->setY(y);
+        city->setWidth(width);
+        city->setHeight(height);
 
         // Add city to map
         cities[cityName] = city;

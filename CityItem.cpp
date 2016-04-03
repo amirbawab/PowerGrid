@@ -6,8 +6,8 @@
 //using std::cout;
 //using std::endl;
 
-CityItem::CityItem(QPoint center, int width, int height) {
-    setRect(center.x() - width / 2, center.y() - height / 2, width, height);
+CityItem::CityItem(QPoint topLeft, int width, int height) {
+    setRect(topLeft.x(), topLeft.y(), width, height);
 }
 
 void CityItem::SetRegionColor(QColor regionColor) {

@@ -8,6 +8,9 @@ Game::Game() {
 	// Setup
 	Setup();
 
+    // Set map
+    DataStore::getInstance().map = GetMap();
+
 	// Save map
 	if (map->SaveFile("SavedMap.xml"))
 		cout << "Map saved." << endl;
@@ -31,7 +34,7 @@ void Game::Setup() {
 
 	// Data from the user
 	// TODO Use cin for those data
-	std::string cinMap = "USA";
+	std::string cinMap = "USA2";
 	int cinNumberOfPlayers = 2;
 	
 	// If new game

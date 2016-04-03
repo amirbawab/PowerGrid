@@ -6,15 +6,50 @@ MapGraphicsView::MapGraphicsView() {
 	setObjectName("mapGraphicsView");
 
 	// Init components
-	graphicsScene = new QGraphicsScene();
+	graphicsScene = std::make_unique<QGraphicsScene>();
 
 	// Set scene
-	setScene(graphicsScene);
+	setScene(graphicsScene.get());
 
-}
+    // Load cities and connections
+    std::map<std::string, std::shared_ptr<City>> citiesMap = DataStore::getInstance().map->GetCities();
+    std::vector<std::shared_ptr<Connection>> connections = DataStore::getInstance().map->GetConnections();
 
-MapGraphicsView::~MapGraphicsView() {
-	delete graphicsScene;
+    // Create cities items
+    for (auto city : citiesMap) {
+        citiesItemsMap[city.first] = std::make_shared<CityItem>(QPoint(city.second->getX(), 
+            city.second->getY()), city.second->getWidth(), city.second->getHeight());
+    }
+
+    // Create connections items
+    QFont connectionFont = QFont("Tahoma", 12, QFont::Bold);
+    QFont cityFont = QFont("Calibri", 12, QFont::Bold, true);
+    for (auto connection : connections) {
+        auto connectionItem = std::make_unique<ConnectionItem>();
+
+        // Set cities
+        connectionItem->SetFirstCity(citiesItemsMap[connection->GetFirst()->GetName()]);
+        connectionItem->SetSecondCity(citiesItemsMap[connection->GetSecond()->GetName()]);
+
+        // Set connection
+        connectionItem->SetConnection(connection);
+
+        // Style
+        auto costTextItem = connectionItem->GetCostTextItem(connectionFont);
+        auto costEllipseItem = connectionItem->GetCostEllipseItem(connectionFont);
+
+        // Adding components
+        scene()->addItem(connectionItem.get());
+        scene()->addItem(costEllipseItem);
+        scene()->addItem(costTextItem);
+    }
+
+    // Ading cities
+    for (auto city : citiesMap) {
+        auto cityNameTextItem = citiesItemsMap[city.first]->GetNameTextItem(cityFont);
+        scene()->addItem(cityNameTextItem);
+        scene()->addItem(citiesItemsMap[city.first].get());
+    }
 }
 
 void MapGraphicsView::wheelEvent(QWheelEvent* event) {
@@ -37,39 +72,7 @@ void MapGraphicsView::wheelEvent(QWheelEvent* event) {
 
 void MapGraphicsView::Refresh() {
     
-    std::map<std::string, std::shared_ptr<City>> citiesMap = DataStore::getInstance().map->GetCities();
-    std::vector<std::shared_ptr<Connection>> connections = DataStore::getInstance().map->GetConnections();
+    
 
-    // Loop on all cities
-    for (auto city : citiesMap) {
-        
-        graphicsScene.release();
-        graphicsScene = std::make_unique<QGraphicsScene>();
-        setScene(graphicsScene.get());
-
-        for (auto& connection : connections) {
-            auto costTextItem = connection->GetCostTextItem(connectionFont);
-            auto costEllipseItem = connection->GetCostEllipseItem(connectionFont);
-
-            scene()->addItem(connection.get());
-            scene()->addItem(costEllipseItem);
-            scene()->addItem(costTextItem);
-        }
-
-        for (auto cityMapItem : cities) {
-            auto cityNameTextItem = cityMapItem.second->GetNameTextItem(cityFont);
-            scene()->addItem(cityNameTextItem);
-            scene()->addItem(cityMapItem.second.get());
-
-            for (int i = 0; i < cityMapItem.second->GetHouses().size(); i++) {
-                auto houseLocation = cityMapItem.second->GetHousePosition(i);
-                auto houseItem = cityMapItem.second->GetHouses()[i];
-                houseItem->setRect(houseLocation.x() - houseItem->rect().width() / 2,
-                    houseLocation.y() - houseItem->rect().height() / 2,
-                    houseItem->rect().width(), houseItem->rect().height());
-                scene()->addItem(houseItem.get());
-            }
-        }
-
-    }
+   
 }

@@ -13,6 +13,7 @@
 #include "Config.h"
 #include "Overview.h"
 #include "GameStatus.h"
+#include "DataStore.h"
 
 using std::vector;
 using std::shared_ptr;

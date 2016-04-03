@@ -9,7 +9,7 @@
 int main(int argc, char *argv[]) {
 
 	// Create game
-	// Game game;
+	Game game;
 
 	// Play
 	// game.PlayGame();

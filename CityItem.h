@@ -9,7 +9,7 @@ class CityItem : public QGraphicsEllipseItem {
     QColor regionColor;
    
 public:
-    CityItem(QPoint center, int width, int height);
+    CityItem(QPoint topLeft, int width, int height);
 
     std::string GetName() const { return name; }
     void SetName(std::string name) { this->name = name; }
