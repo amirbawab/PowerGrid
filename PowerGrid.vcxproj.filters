@@ -324,6 +324,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_BoardBottomWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="MapModeWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -447,6 +450,9 @@
     </ClInclude>
     <ClInclude Include="DataStore.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapModeWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

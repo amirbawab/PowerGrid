@@ -14,6 +14,7 @@ BoardCenterWidget::BoardCenterWidget() {
 	powerPlantModeWidget = new PowerPlantModeWidget();
 	resourceMarketModeWidget = new ResourceMarketModeWidget();
 	overviewModeWidget = new OverviewModeWidget();
+	mapModeWidget = new MapModeWidget();
 
 	// Configure components
 	modeWidget->setObjectName("modeWidget");
@@ -36,6 +37,7 @@ BoardCenterWidget::BoardCenterWidget() {
 	powerPlantModeWidgetIndex = centerStackedWidget->addWidget(powerPlantModeWidget);
 	resourceMarketModeWidgetIndex = centerStackedWidget->addWidget(resourceMarketModeWidget);
 	overviewModeWidgetIndex = centerStackedWidget->addWidget(overviewModeWidget);
+	mapModeWidgetIndex = centerStackedWidget->addWidget(mapModeWidget);
 
 	// Default active
 	centerStackedWidget->setCurrentIndex(powerPlantModeWidgetIndex);
@@ -44,7 +46,8 @@ BoardCenterWidget::BoardCenterWidget() {
 	connect(powerPlantsModeButton, SIGNAL(clicked()), this, SLOT(onPowerPlantMode()));
 	connect(resourceMarketModeButton, SIGNAL(clicked()), this, SLOT(onResourceMarketMode()));
 	connect(overviewModeButton, SIGNAL(clicked()), this, SLOT(onOverviewMode()));
-
+	connect(mapModeButton, SIGNAL(clicked()), this, SLOT(onMapMode()));
+		
 	// Add components
 	vBoxLayout->addWidget(mapModeButton, 0);
 	vBoxLayout->addWidget(powerPlantsModeButton, 0);
@@ -60,6 +63,7 @@ BoardCenterWidget::~BoardCenterWidget() {
 	delete resourceMarketModeButton;
 	delete overviewModeButton;
 	delete powerPlantModeWidget;
+	delete mapModeWidget;
 	delete resourceMarketModeWidget;
 	delete overviewModeWidget;
 	delete vBoxLayout;
@@ -79,6 +83,7 @@ void BoardCenterWidget::Refresh() {
 
 void BoardCenterWidget::onMapMode() {
 	qDebug("Switching to map mode");
+	centerStackedWidget->setCurrentIndex(mapModeWidgetIndex);
 }
 
 void BoardCenterWidget::onResourceMarketMode() {

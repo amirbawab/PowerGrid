@@ -76,6 +76,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapModeWidget.cpp" />
     <ClCompile Include="MapWidget.cpp" />
     <ClCompile Include="Overview.cpp" />
     <ClCompile Include="OverviewModeWidget.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="GameStatus.h" />
     <ClInclude Include="GenericTest.h" />
     <ClInclude Include="DataStore.h" />
+    <ClInclude Include="MapModeWidget.h" />
     <ClInclude Include="OverviewModeWidget.h" />
     <CustomBuild Include="PlayerConfigRowWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

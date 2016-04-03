@@ -9,6 +9,7 @@
 #include "OverviewModeWidget.h"
 #include <QStyleOption>
 #include <QPainter>
+#include "MapModeWidget.h"
 
 class BoardCenterWidget : public QWidget {
 	Q_OBJECT;
@@ -25,7 +26,8 @@ private:
 	PowerPlantModeWidget *powerPlantModeWidget;
 	ResourceMarketModeWidget* resourceMarketModeWidget;
 	OverviewModeWidget *overviewModeWidget;
-	int powerPlantModeWidgetIndex, resourceMarketModeWidgetIndex, overviewModeWidgetIndex;
+	MapModeWidget* mapModeWidget;
+	int powerPlantModeWidgetIndex, resourceMarketModeWidgetIndex, overviewModeWidgetIndex, mapModeWidgetIndex;
 	void paintEvent(QPaintEvent *pe);
 private slots:
 	void onMapMode();
