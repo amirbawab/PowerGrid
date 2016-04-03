@@ -1,6 +1,7 @@
 #include "MapDesignerWindow.h"
 #include "MapDesignerGraphicsView.h"
 #include <iostream>
+#include <QFileDialog>
 
 using std::cout;
 using std::endl;
@@ -8,7 +9,7 @@ using std::vector;
 
 MapDesignerWindow::MapDesignerWindow()
 {
-    setFixedSize(1300, 800);
+    setFixedSize(1700, 900);
 
     centralWidget = new QWidget(this);
     layout = new QGridLayout(centralWidget);
@@ -18,6 +19,7 @@ MapDesignerWindow::MapDesignerWindow()
     changeRegionColorButton = new QPushButton("Change Region Color ...");
 
     addConnectionButton = new QPushButton("Add Connection");
+	exportXML = new QPushButton("Export to XML");
 
     layout->addWidget(graphicsView, 0, 0);
 
@@ -36,6 +38,7 @@ MapDesignerWindow::MapDesignerWindow()
 
     vLayout->addLayout(hLayout);
     vLayout->addWidget(addConnectionButton);
+	vLayout->addWidget(exportXML);
 
     layout->addLayout(vLayout, 1, 0);
 
@@ -49,6 +52,7 @@ MapDesignerWindow::MapDesignerWindow()
     connect(graphicsView           , SIGNAL(DisplayMessage(QString)), this, SLOT(OnDisplayMessage(QString)));
     connect(graphicsView           , SIGNAL(ClearMessage()), this, SLOT(OnClearMessage()));
     connect(changeRegionColorButton, SIGNAL(clicked()), this, SLOT(OnChangeRegionColor()));
+	connect(exportXML, SIGNAL(clicked()), this, SLOT(OnExportXML()));
 
     auto colorRegionPalette = palette();
     colorRegionPalette.setColor(QPalette::Background,
@@ -91,4 +95,9 @@ void MapDesignerWindow::OnChangeRegionColor() const
     colorRegionPalette.setColor(QPalette::Background, selectedRegionColor);
     regionColor->setPalette(colorRegionPalette);
 
+}
+
+void MapDesignerWindow::OnExportXML() const {
+	QString fileName = QFileDialog::getSaveFileName();
+	qDebug(fileName.toStdString().c_str());
 }
