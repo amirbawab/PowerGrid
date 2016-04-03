@@ -108,6 +108,8 @@ void Game::UpdatePlayOrder(bool reverse) {
 		std::sort(playerOrder.begin(), playerOrder.end(), [](std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
 }
 
+
+
 /// Plays out step 2, auctioning power plants
 void Game::AuctionPlants() {
 	
@@ -315,7 +317,151 @@ void Game::AuctionPlants() {
 
 	}
 }
-	
+
+int Game::GetNextPlayerIndex() {
+	return (std::distance(players.begin(), std::find(players.begin(), players.end(), currentPlayer)) + 1) % players.size();
+}
+
+void Game::Step2Start() {
+	// GUI Message: "Step 2"
+	UpdatePlayOrder(true);
+
+	// nowBidding is false when picking a plant and true when bidding on a plant
+	nowBidding = false;
+
+	// Find who starts the bidding war (best begins)
+	currentPlayer = playerOrder[0];
+
+	Step2PickPlant1();
+}
+
+void Game::Step2PickPlant1() {
+	// GUI Message: "Pick a plant to buy:"
+	// User can click on a plant and 'ok' to confirm 
+	// or click on 'skip' to pass (not available for turn 1)
+
+}
+
+void Game::Step2PickPlant2() {
+	bool skip = false; // GUI get: Check if user wants to buy a plant 
+	plantIndex = -1; // GUI get: Index of plant to put on auction
+
+	if (skip) {
+		canBuy[currentPlayer.get()] = false;
+		// Go to next player
+		currentPlayer = playerOrder[GetNextPlayerIndex()];
+		Step2PickPlant1(); // Next player picks a plant
+	}
+
+	// Check that player can buy that plant
+	if (cardStack.GetPlant(plantIndex)->GetPrice() > currentPlayer->GetElektro()) {
+		Step2PickPlant1();  // Pick another plant
+	}
+
+	// Reset bidding attribute to true for all players who can still buy
+	for (shared_ptr<Player> p : players) {
+		if (canBuy[p.get()])
+			canBid[p.get()] = true;
+		else
+			canBid[p.get()] = false;
+	}
+
+	// Make initial bid
+	currentBid = cardStack.GetPlant(plantIndex)->GetPrice();
+	highestBidder = currentPlayer;
+	cout << *currentPlayer << " makes the initial bid." << endl;
+
+	initialBid = true;
+	nowBidding = true;
+
+	Step2Bid2();
+}
+
+void Game::Step2Bid1() {
+	// GUI Message: "Player, Enter your bid amount for this power plant:"
+}
+
+void Game::Step2Bid2() {
+	if (!initialBid) {
+		int bid = 0; // GUI get: bid amount
+
+		// Updates the current bid and highest bidder
+		if (bid > currentBid && currentPlayer->HasElektro(bid)) {
+			currentBid = bid;
+			highestBidder = currentPlayer;
+			cout << "The highest bid is now " << currentBid << endl;
+		}
+		else {
+			// Can't participate in current bidding round if you pass
+			canBid[currentPlayer.get()] = false;
+			cout << *currentPlayer << " passed." << endl;
+		}
+	}
+
+	// No longer initial bid
+	initialBid = false;
+
+	// Updates currentPlayer to be the next person to play
+	// Get current player index
+	int nextIndex = (std::distance(players.begin(), std::find(players.begin(), players.end(), currentPlayer)) + 1) % players.size();
+	// Loop on players till full turn
+	while (players[nextIndex] != currentPlayer) {
+		// If can bid
+		if (canBid[players[nextIndex].get()]) {
+			currentPlayer = players[nextIndex];
+			break;
+		}
+		// Next player
+		nextIndex = (nextIndex + 1) % players.size();
+	}
+
+	// Check if the current player won the bidding round
+	if (currentPlayer.get() == highestBidder.get()) {
+		currentPlayer->BuyPowerPlant(cardStack, plantIndex, currentBid);
+		canBuy[currentPlayer.get()] = false;
+		cout << *currentPlayer << " won this auction for " << currentBid << endl;
+
+		// Check if we drew the Step 3 card
+		if (cardStack.GetJustDrewStep() == 3) {
+			cout << "The step 3 card was drawn." << endl;
+
+			// Treat the step 3 card as though it was the highest plant in the market (only 7 plants are now visible)
+			cardStack.SetVisibleCards(7);
+			cardStack.ShuffleStack();
+		}
+
+		// End the bidding phase
+		Step2BidEnd();
+	}
+
+	// Bidding continues
+	Step2Bid1();
+}
+
+void Game::Step2BidEnd() {
+	// Figure out what the next part of the game is
+	// Find who starts the next bidding war (best begins)
+	currentPlayer = nullptr;
+	for (shared_ptr<Player> p : playerOrder) {
+		if (canBuy[p.get()]) {
+			currentPlayer = p;
+			break;
+		}
+	}
+
+	// If no one can buy anymore, end step 2
+	if (currentPlayer == nullptr) {
+		Step3Start();  // Go to step 3
+	}
+
+	// Else we go to the next player to pick a plant for auction
+	Step2PickPlant1();
+}
+
+void Game::Step3Start() {
+
+}
+
 /// Plays out step 3, buying raw materials
 void Game::BuyRawMaterials() {
 	// Update play order so worst starts

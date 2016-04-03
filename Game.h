@@ -37,8 +37,7 @@ private:
 	std::shared_ptr<Player> currentPlayer;  // pointer to the current player
 	int phase;  // phase of the game (1, 2 or 3)
 	bool gameOver = false;
-	int currentBid;
-	std::shared_ptr<Player> highestBidder;
+
 	Overview overview;
 	int initElektro;
 
@@ -77,5 +76,32 @@ public:
 
 	void PrintScore();
 	void PrintRemainingResources();
+	
+	// GUI integration
+	void notify() { return; }; // Dummy for now
+
+	// Step 2 bidding
+
+	int GetNextPlayerIndex();
+	void Step2Start();
+	void Step2PickPlant1();
+	void Step2PickPlant2();
+	void Step2Bid1();
+	void Step2Bid2();
+	void Step2BidEnd();
+
+
+	bool nowBidding;
+	int biddingPlayer;
+	bool initialBid;
+	int currentBid;
+	int plantIndex;
+	std::map<Player*, bool> canBid;
+	std::map<Player*, bool> canBuy;
+	std::shared_ptr<Player> highestBidder;
+
+	void Step3Start();
+
+
 };
 
