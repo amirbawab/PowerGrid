@@ -12,14 +12,13 @@ private:
 	const string TOP = "top";
 	const string BOTTOM = "bottom";
 
-	int lastStepDrawn = 0;
+	int justDrewStep = 0;  // equal to 3 if we just drew the step 3 card
 	std::vector<std::shared_ptr<Card>> cards;
 	std::vector<std::shared_ptr<Card>> visiblePlants;  // indices 0-3 are current plants, 4-7 are future plants
 
 public:
-	
-	static const int VISIBILE_CARDS = 8;
-	static const int FUTURE_MARKET_INDEX = 4;
+	int visibleCards = 8;
+	int futureMarketIndex = 4;
 
 	CardStack() {}
 	~CardStack();
@@ -35,10 +34,16 @@ public:
 	void Prepare(int removeCard);
 	void ShuffleStack() { std::random_shuffle(cards.begin(), cards.end()); };
 
-	int GetLastStepDrawn() { return lastStepDrawn; }
+
 	void PlaceHighestVisibleAtEndOfStack();
 	void RemoveLowestVisible();
 	
+	int GetJustDrewStep() { return justDrewStep; };
+	void resetJustDrewStep() { justDrewStep = 0; };
+	void AdjustForStep3();
+	void SetVisibleCards(int num) { visibleCards = num; };
+
+
 	void PrintInfo();
 };
 
