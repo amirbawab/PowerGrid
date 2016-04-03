@@ -19,6 +19,9 @@ private:
     const int CITY_HEIGHT = 30;
     QColor regionColor = DEFAULT_REGION_COLOR;
 
+    int scaleSteps = 0;
+    float scaleFactor = 1.15f;
+
     bool addCity = false;
     bool addConnectionFirstCity = false;
     bool addConnectionSecondCity = false;
@@ -27,7 +30,6 @@ private:
     std::shared_ptr<City> connectionFirstCity;
     std::shared_ptr<City> connectionSecondCity;
 
-//    std::vector<std::shared_ptr<City>> cities;
     std::vector<QColor> regionColors;
     std::map<std::string, std::shared_ptr<City>> cities;
     std::vector<std::unique_ptr<Connection>> connections;
@@ -37,11 +39,13 @@ private:
 
     void UpdateScene();
     std::string GetCityByPoint(QPoint point);
+    void ResetScale();
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
+    void wheelEvent(QWheelEvent* event) override;
 
 signals:
     void DisplayMessage(QString message);

@@ -58,19 +58,47 @@ string MapDesignerGraphicsView::GetCityByPoint(QPoint point)
     return cityName;
 }
 
+void MapDesignerGraphicsView::ResetScale()
+{
+    while (scaleSteps != 0)
+    {
+        if (scaleSteps > 0)
+        {
+            scale(1 / scaleFactor, 1 / scaleFactor);
+            scaleSteps--;
+        }
+        else
+        {
+            scale(scaleFactor, scaleFactor);
+            scaleSteps++;
+        }
+    }
+}
+
 void MapDesignerGraphicsView::resizeEvent(QResizeEvent*)
 {
-    setSceneRect(rect());
+//    setSceneRect(0, 0, viewport()->frame)
+//    setSceneRect(frameRect());
+    setScene(new QGraphicsScene());
+    setSceneRect(0, 0, frameSize().width(), frameSize().height());
+//    fitInView(rect());
+//    setSceneRect(rect());
 }
 
 void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
 {
+    if (!addCity && !addConnectionFirstCity && !addConnectionSecondCity)
+        QGraphicsView::mousePressEvent(event);
+
     if (event->button() != Qt::LeftButton)
         return;
 
+    // 'mapToScene' returns QPointF; convert to QPoint
+    auto scenePoint = mapToScene(event->pos());
+    auto point = QPoint(scenePoint.x(), scenePoint.y());
+
     if (addCity)
     {
-        auto point = event->pos();
         bool ok;
         releaseKeyboard();
         auto cityName = QInputDialog::getText(this, "City Name",
@@ -80,7 +108,7 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
 
         if (!ok || cityName.isEmpty())
         {
-            emit ClearMessage();
+            emit DisplayMessage("You must specify a name for the city!");
             return;
         }
 
@@ -119,8 +147,6 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
 
     if (addConnectionFirstCity)
     {
-        auto point = event->pos();
-
         // If no city contains this point
         auto cityName = GetCityByPoint(point);
         if (cityName == "")
@@ -136,8 +162,6 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
     }
     else if (addConnectionSecondCity)
     {
-        auto point = event->pos();
-
         // If no city contains this point
         auto cityName = GetCityByPoint(point);
         if (cityName == "")
@@ -190,12 +214,33 @@ void MapDesignerGraphicsView::keyPressEvent(QKeyEvent* event)
         OnCancelOperation();
 }
 
+void MapDesignerGraphicsView::wheelEvent(QWheelEvent* event)
+{
+    // Don't zoom if nothing is in the scene
+    if (scene()->items().size() == 0)
+        return;
+
+    setTransformationAnchor(AnchorUnderMouse);
+    setDragMode(ScrollHandDrag);
+
+    if (event->delta() > 0)
+    {
+        scaleSteps++;
+        scale(scaleFactor, scaleFactor);
+    }
+    else
+    {
+        scaleSteps--;
+        scale(1 / scaleFactor, 1 / scaleFactor);
+    }
+}
+
 MapDesignerGraphicsView::MapDesignerGraphicsView()
 {
     cityFont = QFont("Calibri", 12, QFont::Bold, true);
     connectionFont = QFont("Tahoma", 12, QFont::Bold);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     grabKeyboard();
 }
 
@@ -246,6 +291,7 @@ void MapDesignerGraphicsView::OnAddCity()
 
     emit ClearMessage();
     addCity = true;
+    viewport()->setCursor(Qt::ArrowCursor);
     emit DisplayMessage("Please select the center of the city ...");
 }
 
@@ -259,6 +305,7 @@ void MapDesignerGraphicsView::OnAddConnection()
 
     emit ClearMessage();
     addConnectionFirstCity = true;
+    viewport()->setCursor(Qt::ArrowCursor);
     emit DisplayMessage("Please select the first city ...");
 }
 
