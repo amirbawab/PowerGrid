@@ -79,11 +79,7 @@ void MapDesignerGraphicsView::ResetScale()
 
 void MapDesignerGraphicsView::resizeEvent(QResizeEvent*)
 {
-//    setSceneRect(0, 0, viewport()->frame)
-//    setSceneRect(frameRect());
-    setSceneRect(0, 0, frameSize().width(), frameSize().height());
-//    fitInView(rect());
-//    setSceneRect(rect());
+    setSceneRect(rect());
 }
 
 void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
@@ -165,7 +161,7 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
     {
         // If no city contains this point
         auto cityName = GetCityByPoint(point);
-        if (cityName == "")
+        if (cityName == "" || cityName == connection->GetFirstCity()->GetName())
             return;
 
         bool ok;
