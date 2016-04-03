@@ -11,6 +11,12 @@ City::City(QPoint center, int width, int height)
     setRect(center.x() - width / 2, center.y() - height / 2, width, height);
 }
 
+void City::SetRegionColor(QColor regionColor)
+{
+    this->regionColor = regionColor;
+    setBrush(QBrush(regionColor));
+}
+
 QPoint City::GetNameLocation(QFont font) const
 {
     int nameOffset = 5;

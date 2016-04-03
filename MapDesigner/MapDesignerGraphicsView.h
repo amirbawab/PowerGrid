@@ -2,6 +2,7 @@
 
 #include <QGraphicsView>
 #include <Connection.h>
+#include "pugixml.hpp"
 
 class MapDesignerGraphicsView : public QGraphicsView
 {
@@ -13,6 +14,9 @@ public:
     MapDesignerGraphicsView();
 
     bool SetRegionColor(QColor regionColor);
+    std::vector<QColor>& GetRegionColors() { return regionColors; }
+    std::map<std::string, std::shared_ptr<City>>& GetCities() { return cities; }
+    std::vector<std::unique_ptr<Connection>>& GetConnections() { return connections; }
 
 private:
     std::unique_ptr<QGraphicsScene> graphicsScene;
@@ -41,6 +45,8 @@ private:
     void UpdateScene();
     std::string GetCityByPoint(QPoint point);
     void ResetScale();
+    void PopulateCities(pugi::xml_node& map);
+    void PopulateConnections(pugi::xml_node& map);
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
@@ -56,5 +62,6 @@ public slots:
     void OnAddCity();
     void OnAddConnection();
     void OnCancelOperation();
+    void OnExportXml();
 };
 

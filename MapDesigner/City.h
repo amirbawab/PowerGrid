@@ -20,7 +20,7 @@ public:
     std::vector<std::shared_ptr<Player>>& GetPlayers() { return players; }
     std::vector<std::shared_ptr<PlayerHouse>>& GetHouses() { return houses; }
 
-    void SetRegionColor(QColor regionColor) { this->regionColor = regionColor; }
+    void SetRegionColor(QColor regionColor);
     QColor GetRegionColor() const { return regionColor; }
 
     QPoint GetNameLocation(QFont font) const;

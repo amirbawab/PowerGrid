@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <time.h>
 #include <QColorDialog>
+#include <QFileDialog>
 
 using std::string;
 using std::cout;
@@ -117,8 +118,8 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
         }
 
         auto city = make_shared<City>(point, CITY_WIDTH, CITY_HEIGHT);
+        city->SetRegionColor(regionColor);
         city->SetName(cityName.toStdString());
-        city->setBrush(QBrush(regionColor));
 
         if (cities.find(cityName.toStdString()) != cities.end())
         {
@@ -321,4 +322,76 @@ void MapDesignerGraphicsView::OnCancelOperation()
     addCity = false;
     addConnectionFirstCity = addConnectionSecondCity = false;
     emit ClearMessage();
+}
+
+void MapDesignerGraphicsView::OnExportXml()
+{
+    releaseKeyboard();
+    auto mapName = QInputDialog::getText(this, "Map Name", "Please enter the map name");
+    if (mapName.isEmpty())
+    {
+        grabKeyboard();
+        return;
+    }
+
+    releaseKeyboard();
+    auto fileName = QFileDialog::getSaveFileName(this, "XML File Location",
+                                                 "", "XML Files (*.xml)");
+
+    if (fileName.isEmpty())
+    {
+        grabKeyboard();
+        return;
+    }
+
+    pugi::xml_document document;
+    auto map = document.append_child("map");
+    map.append_attribute("name").set_value(mapName.toStdString().c_str());
+    PopulateCities(map);
+    PopulateConnections(map);
+
+    if (document.save_file(fileName.toStdString().c_str()))
+        QMessageBox::information(this, "Success", "XML file saved successfully!");
+    else
+        QMessageBox::critical(this, "Error", "Could not save the XML file!");
+}
+
+void MapDesignerGraphicsView::PopulateCities(pugi::xml_node& map)
+{
+    auto citiesNode = map.append_child("cities");
+    for (auto cityMapItem : cities)
+    {
+        auto city = cityMapItem.second;
+
+        auto cityNode = citiesNode.append_child("city");
+        auto cityNameAttribute = cityNode.append_attribute("name");
+        auto cityRegionAttribute = cityNode.append_attribute("region");
+        auto cityXAttribute = cityNode.append_attribute("x");
+        auto cityYAttribute = cityNode.append_attribute("y");
+        auto cityWidthAttribute = cityNode.append_attribute("width");
+        auto cityHeightAttribute = cityNode.append_attribute("height");
+
+        cityNameAttribute.set_value(city->GetName().c_str());
+        cityRegionAttribute.set_value(city->GetRegionColor().name().toStdString().c_str());
+        cityXAttribute.set_value(city->rect().x());
+        cityYAttribute.set_value(city->rect().y());
+        cityWidthAttribute.set_value(city->rect().width());
+        cityHeightAttribute.set_value(city->rect().height());
+    }
+}
+
+void MapDesignerGraphicsView::PopulateConnections(pugi::xml_node& map)
+{
+    auto connectionsNode = map.append_child("connections");
+    for (auto& connection : connections)
+    {
+        auto connectionNode = connectionsNode.append_child("connection");
+        auto connectionFirstAttribute = connectionNode.append_attribute("first");
+        auto connectionSecondAttribute = connectionNode.append_attribute("second");
+        auto connectionCostAttribute = connectionNode.append_attribute("cost");
+
+        connectionFirstAttribute.set_value(connection->GetFirstCity()->GetName().c_str());
+        connectionSecondAttribute.set_value(connection->GetSecondCity()->GetName().c_str());
+        connectionCostAttribute.set_value(connection->GetCost());
+    }
 }
