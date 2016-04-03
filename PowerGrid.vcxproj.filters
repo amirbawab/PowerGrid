@@ -342,6 +342,12 @@
     <ClCompile Include="MapGraphicsView.cpp">
       <Filter>Source Files\gui\pages\board\components\mode\components\map</Filter>
     </ClCompile>
+    <ClCompile Include="CityItem.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode\components\map</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectionItem.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode\components\map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -470,6 +476,12 @@
       <Filter>Header Files\gui\pages\board\components\mode\components\resource</Filter>
     </ClInclude>
     <ClInclude Include="MapGraphicsView.h">
+      <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
+    </ClInclude>
+    <ClInclude Include="CityItem.h">
+      <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionItem.h">
       <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
     </ClInclude>
   </ItemGroup>
