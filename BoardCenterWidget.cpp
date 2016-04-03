@@ -40,7 +40,7 @@ BoardCenterWidget::BoardCenterWidget() {
 	mapModeWidgetIndex = centerStackedWidget->addWidget(mapModeWidget);
 
 	// Default active
-	centerStackedWidget->setCurrentIndex(powerPlantModeWidgetIndex);
+	centerStackedWidget->setCurrentIndex(mapModeWidgetIndex);
 
 	// Connect buttons
 	connect(powerPlantsModeButton, SIGNAL(clicked()), this, SLOT(onPowerPlantMode()));
