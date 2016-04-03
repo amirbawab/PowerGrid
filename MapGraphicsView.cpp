@@ -11,8 +11,6 @@ MapGraphicsView::MapGraphicsView() {
 	// Set scene
 	setScene(graphicsScene);
 
-	// Dummy drawing
-	graphicsScene->addEllipse(0, -100, 300, 60, QPen(Qt::black), QBrush(Qt::green));
 }
 
 MapGraphicsView::~MapGraphicsView() {
@@ -35,4 +33,12 @@ void MapGraphicsView::wheelEvent(QWheelEvent* event) {
 		scaleSteps--;
 		scale(1 / scaleFactor, 1 / scaleFactor);
 	}
+}
+
+void MapGraphicsView::Refresh() {
+    
+    std::map<std::string, std::shared_ptr<City>> citiesMap = DataStore::getInstance().map->GetCities();
+    std::vector<std::shared_ptr<Connection>> connections = DataStore::getInstance().map->GetConnections();
+
+
 }

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "HouseColor.h"
 #include <memory>
+#include "Map.h"
 
 class DataStore {
 private:
@@ -119,6 +120,7 @@ public:
 	std::shared_ptr<Player> currentPlayer;
 	std::vector<std::shared_ptr<PowerPlantCard>> marketPowerPlantCards;
 	std::shared_ptr<ResourceMarket> resourceMarket;
+    std::shared_ptr<Map> map;
 	std::string messageText;
 	int step;
 	int phase;
