@@ -15,6 +15,7 @@ public:
     bool SetRegionColor(QColor regionColor);
 
 private:
+    std::unique_ptr<QGraphicsScene> graphicsScene;
     const int CITY_WIDTH  = 30;
     const int CITY_HEIGHT = 30;
     QColor regionColor = DEFAULT_REGION_COLOR;

@@ -17,7 +17,9 @@ using std::make_unique;
 
 void MapDesignerGraphicsView::UpdateScene()
 {
-    setScene(new QGraphicsScene());
+    graphicsScene.release();
+    graphicsScene = make_unique<QGraphicsScene>();
+    setScene(graphicsScene.get());
 
     for (auto& connection : connections)
     {
@@ -79,7 +81,6 @@ void MapDesignerGraphicsView::resizeEvent(QResizeEvent*)
 {
 //    setSceneRect(0, 0, viewport()->frame)
 //    setSceneRect(frameRect());
-    setScene(new QGraphicsScene());
     setSceneRect(0, 0, frameSize().width(), frameSize().height());
 //    fitInView(rect());
 //    setSceneRect(rect());
@@ -237,6 +238,9 @@ void MapDesignerGraphicsView::wheelEvent(QWheelEvent* event)
 
 MapDesignerGraphicsView::MapDesignerGraphicsView()
 {
+    graphicsScene = make_unique<QGraphicsScene>();
+    setScene(graphicsScene.get());
+
     cityFont = QFont("Calibri", 12, QFont::Bold, true);
     connectionFont = QFont("Tahoma", 12, QFont::Bold);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
