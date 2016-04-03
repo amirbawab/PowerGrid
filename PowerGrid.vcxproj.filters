@@ -190,6 +190,18 @@
     <Filter Include="Header Files\gui\pages\board\components\mode\components">
       <UniqueIdentifier>{f43e2d6a-927f-450a-a966-9c924958e856}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\pages\board\components\mode\components\resource">
+      <UniqueIdentifier>{b2dd462b-e383-4bef-a256-9467a440bdaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\pages\board\components\mode\components\map">
+      <UniqueIdentifier>{d9dd3a08-bf18-41aa-a168-3a09e41c035e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board\components\mode\components\resource">
+      <UniqueIdentifier>{db6be7d8-0ca4-4a7e-b668-f5acb74a7cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\pages\board\components\mode\components\map">
+      <UniqueIdentifier>{e284edeb-1473-4bf0-91f0-23dffa60f56d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -312,9 +324,6 @@
     <ClCompile Include="ResourceMarketModeWidget.cpp">
       <Filter>Source Files\gui\pages\board\components\mode</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceMarketLevelWidget.cpp">
-      <Filter>Source Files\gui\pages\board\components\mode\components</Filter>
-    </ClCompile>
     <ClCompile Include="OverviewModeWidget.cpp">
       <Filter>Source Files\gui\pages\board\components\mode</Filter>
     </ClCompile>
@@ -326,6 +335,12 @@
     </ClCompile>
     <ClCompile Include="MapModeWidget.cpp">
       <Filter>Source Files\gui\pages\board\components\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMarketLevelWidget.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode\components\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGraphicsView.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode\components\map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -442,9 +457,6 @@
     <ClInclude Include="ResourceMarketModeWidget.h">
       <Filter>Header Files\gui\pages\board\components\mode</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceMarketLevelWidget.h">
-      <Filter>Header Files\gui\pages\board\components\mode\components</Filter>
-    </ClInclude>
     <ClInclude Include="OverviewModeWidget.h">
       <Filter>Header Files\gui\pages\board\components\mode</Filter>
     </ClInclude>
@@ -453,6 +465,12 @@
     </ClInclude>
     <ClInclude Include="MapModeWidget.h">
       <Filter>Header Files\gui\pages\board\components\mode</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMarketLevelWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode\components\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGraphicsView.h">
+      <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

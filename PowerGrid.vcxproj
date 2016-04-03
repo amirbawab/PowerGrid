@@ -76,6 +76,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapGraphicsView.cpp" />
     <ClCompile Include="MapModeWidget.cpp" />
     <ClCompile Include="MapWidget.cpp" />
     <ClCompile Include="Overview.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="GameStatus.h" />
     <ClInclude Include="GenericTest.h" />
     <ClInclude Include="DataStore.h" />
+    <ClInclude Include="MapGraphicsView.h" />
     <ClInclude Include="MapModeWidget.h" />
     <ClInclude Include="OverviewModeWidget.h" />
     <CustomBuild Include="PlayerConfigRowWidget.h">

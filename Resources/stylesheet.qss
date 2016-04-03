@@ -288,3 +288,7 @@ QScrollArea#overviewScrollArea {
 	background-color:transparent;
 	border-width: 0px;
 }
+
+QGraphicsView#mapGraphicsView {
+	background: transparent;
+}
