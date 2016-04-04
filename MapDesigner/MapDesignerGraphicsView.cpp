@@ -3,7 +3,6 @@
 #include <QResizeEvent>
 #include <QInputDialog>
 #include <QMessageBox>
-#include <time.h>
 #include <QColorDialog>
 #include <QFileDialog>
 
@@ -99,9 +98,27 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
         auto existingCityName = GetCityByPoint(point);
         if (existingCityName != "")
         {
-            QMessageBox::warning(this, "Duplicate City",
+            QMessageBox::critical(this, "Duplicate City",
                                  "There's already a city here! Please select another point");
             return;
+        }
+
+        // Check to see if the rectangle for the new city intersects the rectangle
+        //      for an existing city
+        QRect newCityRectangle(point.x() - CITY_WIDTH / 2,
+                               point.y() - CITY_HEIGHT / 2,
+                               CITY_WIDTH, CITY_HEIGHT);
+        for (auto city : cities)
+        {
+            auto cityRectangle = QRect(city.second->rect().x(), city.second->rect().y(),
+                                        city.second->rect().width(), city.second->rect().height());
+            if (newCityRectangle.intersects(cityRectangle))
+            {
+                QMessageBox::critical(this, "Error",
+                                      QString::fromStdString("Specified location is to close to city '" +
+                                      city.second->GetName() + "'"));
+                return;
+            }
         }
 
         bool ok;
@@ -129,13 +146,6 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
             return;
         }
         cities[cityName.toStdString()] = city;
-        srand(time(nullptr));
-        int random = rand() % 3;
-        for (int i = 0; i <= random; i++)
-        {
-            auto house = make_shared<PlayerHouse>();
-            city->GetHouses().push_back(house);
-        }
 
         // Only add the region color if it's not already in the list
         if (std::find(regionColors.begin(), regionColors.end(), regionColor) == regionColors.end())

@@ -1,7 +1,6 @@
 #include "MapDesignerWindow.h"
 #include "MapDesignerGraphicsView.h"
 #include <iostream>
-#include <QFileDialog>
 
 using std::cout;
 using std::endl;
@@ -9,7 +8,7 @@ using std::vector;
 
 MapDesignerWindow::MapDesignerWindow()
 {
-    setFixedSize(1700, 900);
+    setFixedSize(WIDTH, HEIGHT);
 
     centralWidget = new QWidget(this);
     layout = new QGridLayout(centralWidget);
@@ -19,15 +18,17 @@ MapDesignerWindow::MapDesignerWindow()
     changeRegionColorButton = new QPushButton("Change Region Color ...");
 
     addConnectionButton = new QPushButton("Add Connection");
-    exportXML = new QPushButton("Export to XML");
+    exportXML = new QPushButton("Export to XML ...");
 
     layout->addWidget(graphicsView, 0, 0);
 
-    auto vLayout = new QVBoxLayout();
-    auto hLayout = new QHBoxLayout();
+    hLayout = new QHBoxLayout();
     hLayout->addWidget(addCityButton);
+    hLayout->addWidget(addConnectionButton);
+    hLayout->addSpacerItem(new QSpacerItem(100, 0));
+
     hLayout->addWidget(changeRegionColorButton);
-    auto regionColorLabel = new QLabel("Current Region Color:");
+    regionColorLabel = new QLabel("Current Region Color:");
     regionColorLabel->setAlignment(Qt::AlignCenter);
     hLayout->addWidget(regionColorLabel);
     regionColor = new QLabel();
@@ -36,11 +37,10 @@ MapDesignerWindow::MapDesignerWindow()
     regionColor->setAutoFillBackground(true);
     hLayout->addWidget(regionColor);
 
-    vLayout->addLayout(hLayout);
-    vLayout->addWidget(addConnectionButton);
-    vLayout->addWidget(exportXML);
+    hLayout->addSpacerItem(new QSpacerItem(200, 0));
+    hLayout->addWidget(exportXML);
 
-    layout->addLayout(vLayout, 1, 0);
+    layout->addLayout(hLayout, 1, 0);
 
     setCentralWidget(centralWidget);
 
@@ -62,6 +62,17 @@ MapDesignerWindow::MapDesignerWindow()
 
 MapDesignerWindow::~MapDesignerWindow()
 {
+    delete layout;
+    delete graphicsView;
+    delete addCityButton;
+    delete changeRegionColorButton;
+    delete addConnectionButton;
+    delete exportXML;
+    delete statusBar;
+    delete regionColor;
+    delete regionColorLabel;
+    delete hLayout;
+    delete centralWidget;
 }
 
 void MapDesignerWindow::OnDisplayMessage(QString message) const

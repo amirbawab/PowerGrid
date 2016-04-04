@@ -7,18 +7,20 @@ class MapDesignerWindow : public QMainWindow
 {
     Q_OBJECT
 
-    QWidget * centralWidget;
-    QGridLayout * layout;
+    QWidget       * centralWidget;
+    QGridLayout   * layout;
     QGraphicsView * graphicsView;
-    QPushButton * addCityButton;
-    QPushButton * changeRegionColorButton;
-    QPushButton * addConnectionButton;
-    QPushButton * exportXML;
-    QStatusBar * statusBar;
-    QLabel * regionColor;
+    QPushButton   * addCityButton;
+    QPushButton   * changeRegionColorButton;
+    QPushButton   * addConnectionButton;
+    QPushButton   * exportXML;
+    QStatusBar    * statusBar;
+    QLabel        * regionColor;
+    QLabel        * regionColorLabel;
+    QHBoxLayout   * hLayout;
 
-    int mouseX = 0;
-    int mouseY = 0;
+    const int WIDTH  = 1700;
+    const int HEIGHT = 900;
 
 public:
     MapDesignerWindow();
