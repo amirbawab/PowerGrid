@@ -5,5 +5,5 @@ HouseColor::HouseColor(string name, string image) :
 { }
 
 HouseColor::~HouseColor() {
-	// Nothing
+    // Nothing
 }

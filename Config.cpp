@@ -89,15 +89,15 @@ bool Config::LoadCards(pugi::xml_document& xml) const
     {
         auto priceAttribute = stoi(standardCardNode.node().attribute("price").value());
         auto resourcesAttribute = stoi(standardCardNode.node().attribute("resources").value());
-		auto powerAttribute = stoi(standardCardNode.node().attribute("power").value());
-		auto ignoreFirstAttribute = ToLower(standardCardNode.node().attribute("ignore_first").value());
-		auto positionAttribute = ToLower(standardCardNode.node().attribute("position").value());
-		//TODO: FARZAD also add the image path to the card
+        auto powerAttribute = stoi(standardCardNode.node().attribute("power").value());
+        auto ignoreFirstAttribute = ToLower(standardCardNode.node().attribute("ignore_first").value());
+        auto positionAttribute = ToLower(standardCardNode.node().attribute("position").value());
         string imageAttribute = standardCardNode.node().attribute("image").value();
 
         auto powerPlantCard = make_shared<PowerPlantCard>(priceAttribute, powerAttribute, resourcesAttribute);
-		powerPlantCard->SetIgnoreFirst(ignoreFirstAttribute != "no");
-		powerPlantCard->SetPosition(positionAttribute);
+        powerPlantCard->SetImagePath(imageAttribute);
+        powerPlantCard->SetIgnoreFirst(ignoreFirstAttribute != "no");
+        powerPlantCard->SetPosition(positionAttribute);
 
         for (auto resourceNode : standardCardNode.node().children("resource"))
         {
@@ -114,23 +114,23 @@ bool Config::LoadCards(pugi::xml_document& xml) const
         }
 
         game->GetAllCards().push_back(powerPlantCard);
-		game->GetCardStack().GetCards().push_back(powerPlantCard);
+        game->GetCardStack().GetCards().push_back(powerPlantCard);
     }
 
     for (auto stepCardNode : xml.select_nodes("//cards/stepCard"))
     {
         auto stepAttribute = stoi(stepCardNode.node().attribute("step").value());
-		auto ignoreFirstAttribute = ToLower(stepCardNode.node().attribute("ignore_first").value());
-		auto positionAttribute = ToLower(stepCardNode.node().attribute("position").value());
-		//TODO: FARZAD also add the image path to the card
+        auto ignoreFirstAttribute = ToLower(stepCardNode.node().attribute("ignore_first").value());
+        auto positionAttribute = ToLower(stepCardNode.node().attribute("position").value());
+        //TODO: FARZAD also add the image path to the card
         string imageAttribute = stepCardNode.node().attribute("image").value();
 
         auto stepCard = make_shared<StepCard>(stepAttribute);
-		stepCard->SetIgnoreFirst(ignoreFirstAttribute != "no");
-		stepCard->SetPosition(positionAttribute);
+        stepCard->SetIgnoreFirst(ignoreFirstAttribute != "no");
+        stepCard->SetPosition(positionAttribute);
 
         game->GetAllCards().push_back(stepCard);
-		game->GetCardStack().GetCards().push_back(stepCard);
+        game->GetCardStack().GetCards().push_back(stepCard);
     }
 
     return true;
