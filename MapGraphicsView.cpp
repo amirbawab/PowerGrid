@@ -11,6 +11,11 @@ MapGraphicsView::MapGraphicsView() {
 	// Set scene
 	setScene(graphicsScene.get());
 
+    // Configure scence
+    setRenderHints(QPainter::Antialiasing
+        | QPainter::SmoothPixmapTransform
+        | QPainter::TextAntialiasing);
+
     // Load cities and connections
     std::map<std::string, std::shared_ptr<City>> citiesMap = DataStore::getInstance().map->GetCities();
     std::vector<std::shared_ptr<Connection>> connections = DataStore::getInstance().map->GetConnections();
