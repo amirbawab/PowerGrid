@@ -17,6 +17,7 @@ public:
 	BoardCenterWidget();
 	~BoardCenterWidget();
 	void Refresh();
+    void DrawMap();
 private:
 	QGridLayout *gridLayout;
 	QStackedWidget *centerStackedWidget;

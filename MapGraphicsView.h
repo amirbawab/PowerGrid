@@ -15,6 +15,7 @@ public:
 	MapGraphicsView();
     ~MapGraphicsView() {}
     void Refresh();
+    void DrawMap();
 private:
     std::unique_ptr<QGraphicsScene> graphicsScene;
     int scaleSteps = 0;

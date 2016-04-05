@@ -11,7 +11,7 @@ public:
 	BoardWidget();
 	~BoardWidget();
 	void Refresh();
-
+    void DrawMap();
 private:
 	QGridLayout *gridLayout;
 	BoardTopWidget *boardTopWidget;

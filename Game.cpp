@@ -5,84 +5,97 @@ Game::Game() {
 	// Log
 	std::cout << "Game start!" << std::endl;
 
-	// Setup
-	Setup();
+    // Set game
+    DataStore::getInstance().game = this;
 
+    // TODO Remove this ?
+	// Save map
+	//if (map->SaveFile("SavedMap.xml"))
+	//	cout << "Map saved." << endl;
+}
+
+void Game::NewGame() {
+    
+    // New game message
+    cout << "New game selected" << endl;
+
+    // Initialize components
+    fullTurn = 1;
+    phase = 1;
+
+    // Resource market
+    rMarket = std::make_shared<ResourceMarket>();
+}
+
+void Game::ConfigNewGame(string map, int numberOfPlayers) {
+
+    // Log
+    cout << "Map selected: " << map << ". Number of players selected: " << numberOfPlayers << endl;
+
+    // Initialize game
+    GameStatus::GetInstance().Init(this, map, ":/PowerGrid/Resources/config/Config.xml");
+
+    // Add players to players vector
+    while (numberOfPlayers-- > 0)
+        players.push_back(std::make_shared<Player>("", nullptr, initElektro));
+    
+    // Prepate card stack
+    cardStack.Prepare(overview.GetRuleByNumOfPlayers(players.size()).randomeRemove);
+
+    // Configure players
+    for (auto player : players) {
+
+        // Adjust money value
+        player->SetElektro(initElektro);
+    }
+
+    // Add then shuffle
+    for (auto player : players) playerOrder.push_back(player);
+    std::random_shuffle(playerOrder.begin(), playerOrder.end());
+
+    // Set current player
+    currentPlayer = playerOrder[0];
+
+    // Update data store
+    UpdateDataStore();
+}
+
+void Game::UpdateDataStore() {
     // Set map
     DataStore::getInstance().map = GetMap();
 
-	// Save map
-	if (map->SaveFile("SavedMap.xml"))
-		cout << "Map saved." << endl;
+    // Set house colors
+    DataStore::getInstance().houseColors = GetHouseColor();
+
+    // Set players
+    DataStore::getInstance().players = players;
+
+    // Set players turn
+    DataStore::getInstance().playersTurn = playerOrder;
+
+    // Set current player
+    DataStore::getInstance().currentPlayer = currentPlayer;
+
+    // Set Market
+    DataStore::getInstance().resourceMarket = rMarket;
+
+    // Set visible power plants
+    DataStore::getInstance().marketPowerPlantCards = cardStack.GetVisibleCards();
+
+    // Set phase
+    DataStore::getInstance().phase = phase;
+
+    // Set step
+    DataStore::getInstance().step = playStep;
 }
+
 
 /// Sets up the game at the beginning
 void Game::Setup() {
 
-	// Welcome
-	cout << "Welcome to power grid. " << endl << "Type N for new game or L for load saved game: ";
-
-	string gameType;
-	cin >> gameType;
-
-	while (ToLower(gameType) != "n" && ToLower(gameType) != "l") {
-		cout << "Type N for new game or L for load saved game: ";
-		cin >> gameType;
-	}
-
-	bool cinNewGame = ToLower(gameType) == "n";
-
-	// Data from the user
-	// TODO Use cin for those data
-	std::string cinMap = "USA3";
-	int cinNumberOfPlayers = 2;
-	
-	// If new game
-	if (cinNewGame) {
-		
-		// Create players
-		std::shared_ptr<Player> p1 = std::make_shared<Player>("Player 1", std::make_shared<HouseColor>("Red", ""), initElektro);
-		std::shared_ptr<Player> p2 = std::make_shared<Player>("Player 2", std::make_shared<HouseColor>("Blue", ""), initElektro);
-
-		// New game message
-		cout << "New game selected for two players: " << *p1 << " and " << *p2 << endl;
-
-		// Initialize game
-		GameStatus::GetInstance().Init(this, cinMap, ":/test/Resources/config/Config.xml");
-
-		// Prepate card stack
-		cardStack.Prepare(overview.GetRuleByNumOfPlayers(cinNumberOfPlayers).randomeRemove);
-
-		// Display map
-		cout << "Displaying the map: " << endl;
-		// map->DisplayMap();
-
-		// Initialize components
-		fullTurn = 1;
-		phase = 1;
-
-		// Add players to players vector
-		players.push_back(p1);
-		players.push_back(p2);
-
-		// Configure players
-		for (auto player : players) {
-
-			// Adjust money value
-			player->SetElektro(initElektro);
-		}
-
-		// Add then shuffle
-		for (auto player : players) playerOrder.push_back(player);
-		std::random_shuffle(playerOrder.begin(), playerOrder.end());
-
-	} else {
 		// If loading saved game
 		GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",
 			"Resources/saved games/PG_2016-03-2/Players.xml");
-	}
-
-	
 }
 
 
@@ -290,7 +303,7 @@ void Game::Step3BuyingResources2() {
 	int amount = 0;  // GUI get: the amount of resources the player wants
 
 	// Buy resources and check if allowed to do so
-	bool allowed = currentPlayer->BuyResources(rMarket, currentPlayer->GetPowerPlants()[powerPlantIndex], resourceIdentity, amount);
+	bool allowed = currentPlayer->BuyResources(*rMarket, currentPlayer->GetPowerPlants()[powerPlantIndex], resourceIdentity, amount);
 	if (!allowed) {
 		// GUI Error: "Invalid amount of resources"
 		return Step3BuyingResources1();
@@ -723,7 +736,7 @@ void Game::BuyRawMaterials() {
 						amount = PG::INVALID;
 					}
 
-					allowed = currentPlayer->BuyResources(rMarket, plant, resource, amount);
+					allowed = currentPlayer->BuyResources(*rMarket, plant, resource, amount);
 
 					if (!allowed)
 						cout << "You cannot buy that amount. Try again." << endl;
@@ -1017,7 +1030,7 @@ void Game::Bureaucracy() {
 	// Restock raw materials
 	for (int i = 0; i < res::total; i++) {
 		Resource resource = static_cast<Resource>(COAL + i);
-		rMarket.AddResource(resource, overview.GetRuleByNumOfPlayers(players.size()).GetResourceAt(phase, resource));
+		rMarket->AddResource(resource, overview.GetRuleByNumOfPlayers(players.size()).GetResourceAt(phase, resource));
 	}
 }
 
@@ -1106,7 +1119,7 @@ void Game::PrintRemainingResources() {
 	std::map<Resource, int> total;
 
 	for (int i = 0; i < res::total; i++) {
-		total[static_cast<Resource>(i)] = rMarket.GetCapacityResource(static_cast<Resource>(i));
+		total[static_cast<Resource>(i)] = rMarket->GetCapacityResource(static_cast<Resource>(i));
 	}
 
 	for (int i = 0; i < res::total; i++) {
@@ -1117,7 +1130,7 @@ void Game::PrintRemainingResources() {
 	}
 
 	for (int i = 0; i < res::total; i++) {
-		total[static_cast<Resource>(i)] -= rMarket.GetNbResource(static_cast<Resource>(i));
+		total[static_cast<Resource>(i)] -= rMarket->GetNbResource(static_cast<Resource>(i));
 	}
 
 	cout << "\nRemaining resources:" << endl;

@@ -77,6 +77,10 @@ void BoardCenterWidget::Refresh() {
 	resourceMarketModeWidget->Refresh();
 }
 
+void BoardCenterWidget::DrawMap() {
+    mapModeWidget->DrawMap();
+}
+
 /**********
  * SLOTS
  **********/

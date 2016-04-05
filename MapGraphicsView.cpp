@@ -15,6 +15,34 @@ MapGraphicsView::MapGraphicsView() {
     setRenderHints(QPainter::Antialiasing
         | QPainter::SmoothPixmapTransform
         | QPainter::TextAntialiasing);
+}
+
+void MapGraphicsView::wheelEvent(QWheelEvent* event) {
+	// Don't zoom if nothing is in the scene
+	if (scene()->items().size() == 0)
+		return;
+
+	setTransformationAnchor(AnchorUnderMouse);
+	setDragMode(ScrollHandDrag);
+
+	if (event->delta() > 0) {
+		scaleSteps++;
+		scale(scaleFactor, scaleFactor);
+	}
+	else {
+		scaleSteps--;
+		scale(1 / scaleFactor, 1 / scaleFactor);
+	}
+}
+
+void MapGraphicsView::Refresh() {
+    
+    
+
+   
+}
+
+void MapGraphicsView::DrawMap() {
 
     // Load cities and connections
     std::map<std::string, std::shared_ptr<City>> citiesMap = DataStore::getInstance().map->GetCities();
@@ -22,7 +50,7 @@ MapGraphicsView::MapGraphicsView() {
 
     // Create cities items
     for (auto city : citiesMap) {
-        citiesItemsMap[city.first] = std::make_shared<CityItem>(QPoint(city.second->getX(), 
+        citiesItemsMap[city.first] = std::make_shared<CityItem>(QPoint(city.second->getX(),
             city.second->getY()), city.second->getWidth(), city.second->getHeight());
         citiesItemsMap[city.first]->SetName(city.first);
         citiesItemsMap[city.first]->SetCity(city.second.get());
@@ -59,29 +87,4 @@ MapGraphicsView::MapGraphicsView() {
         scene()->addItem(cityNameTextItem);
         scene()->addItem(citiesItemsMap[city.first].get());
     }
-}
-
-void MapGraphicsView::wheelEvent(QWheelEvent* event) {
-	// Don't zoom if nothing is in the scene
-	if (scene()->items().size() == 0)
-		return;
-
-	setTransformationAnchor(AnchorUnderMouse);
-	setDragMode(ScrollHandDrag);
-
-	if (event->delta() > 0) {
-		scaleSteps++;
-		scale(scaleFactor, scaleFactor);
-	}
-	else {
-		scaleSteps--;
-		scale(1 / scaleFactor, 1 / scaleFactor);
-	}
-}
-
-void MapGraphicsView::Refresh() {
-    
-    
-
-   
 }

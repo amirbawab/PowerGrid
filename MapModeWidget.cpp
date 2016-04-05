@@ -17,3 +17,7 @@ MapModeWidget::~MapModeWidget() {
 	delete mapGraphicsView;
 	delete gridLayout;
 }
+
+void MapModeWidget::DrawMap() {
+    mapGraphicsView->DrawMap();
+}

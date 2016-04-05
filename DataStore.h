@@ -5,6 +5,7 @@
 #include "HouseColor.h"
 #include <memory>
 #include "Map.h"
+#include "Game.h"
 
 class DataStore {
 private:
@@ -118,12 +119,13 @@ public:
 	std::vector<std::shared_ptr<Player>> players;
 	std::vector<std::shared_ptr<Player>> playersTurn;
 	std::shared_ptr<Player> currentPlayer;
-	std::vector<std::shared_ptr<PowerPlantCard>> marketPowerPlantCards;
+	std::vector<std::shared_ptr<Card>> marketPowerPlantCards;
 	std::shared_ptr<ResourceMarket> resourceMarket;
     std::shared_ptr<Map> map;
 	std::string messageText;
 	int step;
 	int phase;
+    Game *game;
 
 	static DataStore& getInstance() {
 		static DataStore instance;

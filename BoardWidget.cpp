@@ -36,3 +36,7 @@ void BoardWidget::Refresh() {
 	boardCenterWidget->Refresh();
 	boardBottomWidget->Refresh();
 }
+
+void BoardWidget::DrawMap() {
+    boardCenterWidget->DrawMap();
+}

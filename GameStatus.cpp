@@ -111,7 +111,7 @@ void GameStatus::PopulateResourceMarket(pugi::xml_node& gameXml) const
 
         // Set attributes values
         nameAttribute.set_value(GetResourceName(resource).c_str());
-        amountAttribute.set_value(game->GetResourceMarket().GetNbResource(resource));
+        amountAttribute.set_value(game->GetResourceMarket()->GetNbResource(resource));
     }
 }
 
@@ -453,7 +453,7 @@ bool GameStatus::LoadResourceMarket(pugi::xml_document& xml) const
     {
         string nameAttribute = resourceNode.node().attribute("name").value();
         auto amountAttribute = stoi(resourceNode.node().attribute("amount").value());
-        game->GetResourceMarket().AddResource(nameAttribute, amountAttribute);
+        game->GetResourceMarket()->AddResource(nameAttribute, amountAttribute);
     }
 
     return true;
