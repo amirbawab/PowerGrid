@@ -48,9 +48,6 @@ GameTurnWidget::GameTurnWidget() {
 
 	// Set layout
 	setLayout(gridLayout);
-
-	// Set players
-	playersTurn = DataStore::getInstance().playersTurn;
 }
 
 void GameTurnWidget::Refresh() {
@@ -63,12 +60,12 @@ void GameTurnWidget::Refresh() {
 	}
 
 	// Draw houses
-	for (int i = 0; i < playersTurn.size(); i++) {
+	for (int i = 0; i < DataStore::getInstance().playersTurn.size(); i++) {
 		QLabel *playerLabel = new QLabel();
-		playerLabel->setPixmap(QPixmap(playersTurn[i]->GetColor()->getImage().c_str()));
+		playerLabel->setPixmap(QPixmap(DataStore::getInstance().playersTurn[i]->GetColor()->getImage().c_str()));
 		gridLayout->addWidget(playerLabel, 0, i*2, Qt::AlignCenter);
 
-		QLabel *playerNameLabel = new QLabel(playersTurn[i]->GetInitials().c_str());
+		QLabel *playerNameLabel = new QLabel(DataStore::getInstance().playersTurn[i]->GetInitials().c_str());
 		playerNameLabel->setObjectName("turn_label");
 		gridLayout->addWidget(playerNameLabel, 0, i*2+1, Qt::AlignLeft);
 
@@ -128,9 +125,6 @@ ScoreWidget::ScoreWidget() {
 	
 	// Set layout
 	setLayout(gridLayout);
-
-	// Set players
-	players = DataStore::getInstance().players;
 }
 
 ScoreWidget::~ScoreWidget() {
@@ -147,12 +141,12 @@ void ScoreWidget::Refresh() {
 	}
 
 	// Draw houses
-	for (int i = 0; i < players.size(); i++) {
+	for (int i = 0; i < DataStore::getInstance().players.size(); i++) {
 		QLabel *playerLabel = new QLabel();
-		playerLabel->setPixmap(QPixmap(players[i]->GetColor()->getImage().c_str()));
+		playerLabel->setPixmap(QPixmap(DataStore::getInstance().players[i]->GetColor()->getImage().c_str()));
 		gridLayout->addWidget(playerLabel, 0, i * 2, Qt::AlignCenter);
 
-		QLabel *playerNameLabel = new QLabel((players[i]->GetInitials() + ":" + std::to_string(players[i]->GetHouses().size())).c_str());
+		QLabel *playerNameLabel = new QLabel((DataStore::getInstance().players[i]->GetInitials() + ":" + std::to_string(DataStore::getInstance().players[i]->GetHouses().size())).c_str());
 		playerNameLabel->setObjectName("turn_label");
 		gridLayout->addWidget(playerNameLabel, 0, i * 2 + 1, Qt::AlignLeft);
 

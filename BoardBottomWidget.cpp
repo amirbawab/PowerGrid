@@ -68,6 +68,7 @@ BoardProfileWidget::~BoardProfileWidget() {
 }
 
 void BoardProfileWidget::Refresh() {
+    std::shared_ptr<Player> player = DataStore::getInstance().currentPlayer;
 	playerNameLabel->setText(DataStore::getInstance().currentPlayer->GetName().c_str());
 	playerPictureLabel->setPixmap(QPixmap(DataStore::getInstance().currentPlayer->GetColor()->getImage().c_str()));
 	playerElektroLabel->setText((std::to_string(DataStore::getInstance().currentPlayer->GetElektro()) + " Elektro").c_str());

@@ -18,10 +18,6 @@ PlayerConfigWidget::PlayerConfigWidget() {
 	// Set layout
 	rowsWidget->setLayout(vBoxLayout);
 
-	// Dummy data
-	SetHouseColors(DataStore::getInstance().houseColors);
-	SetPlayers(DataStore::getInstance().players);
-
 	// Add components
 	centerLayout->addWidget(titleLabel, 0, 0, Qt::AlignCenter);
 	centerLayout->addWidget(rowsWidget, 1, 0, Qt::AlignCenter);
@@ -45,9 +41,9 @@ void PlayerConfigWidget::SetNumberOfPlayers(int num) {
 	// Add rows to the rows widget
 	for (int i = 0; i < num; i++) {
 		PlayerConfigRowWidget *row = new PlayerConfigRowWidget("Player " + std::to_string(i + 1));
-		row->SetHouseColors(houseColors);
-		row->SetPlayer(players[i]);
-		row->SetHouseColorIndex(i % houseColors.size());
+		row->SetHouseColors(DataStore::getInstance().houseColors);
+		row->SetPlayer(DataStore::getInstance().players[i]);
+		row->SetHouseColorIndex(i % DataStore::getInstance().houseColors.size());
 		rows.push_back(row);
 		vBoxLayout->addWidget(rows[i], i, Qt::AlignCenter);
 	}
