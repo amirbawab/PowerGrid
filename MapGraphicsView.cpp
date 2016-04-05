@@ -15,6 +15,8 @@ MapGraphicsView::MapGraphicsView() {
     setRenderHints(QPainter::Antialiasing
         | QPainter::SmoothPixmapTransform
         | QPainter::TextAntialiasing);
+    setTransformationAnchor(AnchorUnderMouse);
+    setDragMode(ScrollHandDrag);
 }
 
 void MapGraphicsView::wheelEvent(QWheelEvent* event) {
@@ -22,14 +24,11 @@ void MapGraphicsView::wheelEvent(QWheelEvent* event) {
 	if (scene()->items().size() == 0)
 		return;
 
-	setTransformationAnchor(AnchorUnderMouse);
-	setDragMode(ScrollHandDrag);
-
-	if (event->delta() > 0) {
+	if (event->delta() > 0 && scaleSteps < MAX_ZOOM) {
 		scaleSteps++;
 		scale(scaleFactor, scaleFactor);
 	}
-	else {
+	else if (event->delta() < 0 && scaleSteps > MIN_ZOOM) {
 		scaleSteps--;
 		scale(1 / scaleFactor, 1 / scaleFactor);
 	}
