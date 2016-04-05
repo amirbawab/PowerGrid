@@ -127,5 +127,8 @@ public:
 	void Step5UsingPlants1();
 	void Step5UsingPlants2();
 	void Step5End();
+
+	vector<std::shared_ptr<Player>> winners;
+	int numPoweredCities;
 };
 
