@@ -20,8 +20,8 @@ public:
 
 private:
     std::unique_ptr<QGraphicsScene> graphicsScene;
-    const int CITY_WIDTH  = 70;
-    const int CITY_HEIGHT = 70;
+    const int CITY_WIDTH  = 60;
+    const int CITY_HEIGHT = 60;
     QColor regionColor = DEFAULT_REGION_COLOR;
 
     int scaleSteps = 0;
