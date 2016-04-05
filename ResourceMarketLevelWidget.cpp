@@ -41,11 +41,8 @@ void ResourceMarketLevelWidget::CreateFullLevelMarket() {
 		button->setObjectName("resourceButton");
 		button->setIconSize(QSize(iconWidth, iconHeight));
 		coalButtons.push_back(button);
+        gridLayout->addWidget(coalButtons[i], 1, i, Qt::AlignCenter);
 	}
-
-	for (int i = 0; i < coalButtons.size(); i++)
-		gridLayout->addWidget(coalButtons[i], 1, i, Qt::AlignCenter);
-
 
 	// Add oil
 	for (int i = 0; i < 3; i++) {
@@ -53,10 +50,8 @@ void ResourceMarketLevelWidget::CreateFullLevelMarket() {
 		button->setObjectName("resourceButton");
 		button->setIconSize(QSize(iconWidth, iconHeight));
 		oilButtons.push_back(button);
+        gridLayout->addWidget(oilButtons[i], 2, i, Qt::AlignCenter);
 	}
-
-	for (int i = 0; i < oilButtons.size(); i++)
-		gridLayout->addWidget(oilButtons[i], 2, i, Qt::AlignCenter);
 
 	// Add garbage
 	for (int i = 0; i < 3; i++) {
@@ -64,22 +59,17 @@ void ResourceMarketLevelWidget::CreateFullLevelMarket() {
 		button->setObjectName("resourceButton");
 		button->setIconSize(QSize(iconWidth, iconHeight));
 		garbageButtons.push_back(button);
+        gridLayout->addWidget(garbageButtons[i], 3, i, Qt::AlignCenter);
 	}
-
-	for (int i = 0; i < garbageButtons.size(); i++)
-		gridLayout->addWidget(garbageButtons[i], 3, i, Qt::AlignCenter);
-
-
+    
 	// Add uranium
 	for (int i = 0; i < 1; i++) {
 		QPushButton *button = new QPushButton();
 		button->setObjectName("resourceButton");
 		button->setIconSize(QSize(iconWidth, iconHeight));
 		uraniumButtons.push_back(button);
+        gridLayout->addWidget(uraniumButtons[i], 4, 1, Qt::AlignCenter);
 	}
-
-	for (int i = 0; i < uraniumButtons.size(); i++)
-		gridLayout->addWidget(uraniumButtons[i], 4, 1, Qt::AlignCenter);
 }
 
 ResourceMarketLevelWidget::~ResourceMarketLevelWidget() {
@@ -119,7 +109,7 @@ void ResourceMarketLevelWidget::Refresh() {
 			oilButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/oil_bw.png"));
 		}
 		else {
-			coalButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/oil.png"));
+            oilButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/oil.png"));
 			totalOil--;
 		}
 	}
