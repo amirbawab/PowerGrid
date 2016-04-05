@@ -125,6 +125,14 @@ void Game::UpdatePlayOrder(bool reverse) {
 		std::sort(playerOrder.begin(), playerOrder.end(), [](std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
 }
 
+void Game::Step1Start() {
+	// GUI Message: "Step 1"
+
+	UpdatePlayOrder(true);
+
+	// Go to step 2
+	Step2Start();
+}
 
 void Game::Step2Start() {
 	// GUI Message: "Step 2"
@@ -465,7 +473,9 @@ void Game::Step5Start() {
 	currentPlayer = playerOrder[0];
 	powerPlantIndex = 0;
 	resourceIndex = 0;
-
+	numPoweredCities = 0;
+	winners.clear();
+	
 	// End of game cities
 	static int citiesEndOfGame = overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame;
 
@@ -480,18 +490,37 @@ void Game::Step5UsingPlants1() {
 }
 
 void Game::Step5UsingPlants2() {
-	shared_ptr<PowerPlantCard> pickedPlant;  // GUI get: player clicks on the plant they want to power
+	pickedPlant = nullptr;  // GUI get: player clicks on the plant they want to power
+
+	// If skip, get paid and go to next player
+	if (pickedPlant = nullptr) {
+
+		// Take min between number of houses that can be powered and the actual number of houses
+		int playerHouses = currentPlayer->GetHouses().size();
+		numPoweredCities = std::min(numPoweredCities, playerHouses);
+
+		// Get money
+		cout << *currentPlayer << " powered " << std::to_string(numPoweredCities) << " house(s), earning " << std::to_string(overview.GetPayment(numPoweredCities)) << " Elektro." << endl;
+		currentPlayer->SetElektro(currentPlayer->GetElektro() + overview.GetPayment(numPoweredCities));
+
+		// Go to next player
+		currentPlayer = playerOrder[GetNextPlayerIndex()];
+		return Step5UsingPlants1();
+	}
 
 	// If there is only one resource
 	if (pickedPlant->GetActiveResources().size() == 1) {
 		pickedPlant->ConsumeResources(*pickedPlant->GetActiveResources().begin(), pickedPlant->GetCapacity());
+		
 	}
 	else {
 		// If there is more than one resource, need to specify quantity of each
-		Step5ChoosingResource1();
+		return Step5ChoosingResource1();
 	}
 	
 
+
+	
 }
 
 void Game::Step5ChoosingResource1() {
@@ -501,10 +530,29 @@ void Game::Step5ChoosingResource1() {
 void Game::Step5ChoosingResource2() {
 	vector<int> resourceAmounts = {0, 0, 0, 0};  // GUI get: the amount of each resource to consume
 
+	int sum = 0;
+	for (int i : resourceAmounts)
+		sum += i;
+
+	// Check if not enough resources to be consumed
+	if (sum < pickedPlant->GetCapacity()) {
+		// GUI Error: "Not enough resources to use the plant" 
+		return Step5UsingPlants1();  // Go use other plants
+	}
+
+	// Consume resources
+	for (int i = 0; i < resourceAmounts.size(); ++i) {
+		pickedPlant->ConsumeResources(static_cast<Resource>(i), resourceAmounts[i]);
+	}
+
+	numPoweredCities += pickedPlant->GetPower();
+
+	// Go back to picking other plants to use
+	Step5UsingPlants1();
+	
 }
 
 void Game::Step5End() {
-
 
 	// Change the visible power plants
 	if (phase == 1 || phase == 2) {
