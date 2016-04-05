@@ -10,6 +10,7 @@
   <maps description="Available maps">
     <!-- <map file="USAMap.xml" description="USA map"/> -->
     <map file="USA2Map.xml" description="USA map"/>
+    <map file="USA3Map.xml" description="USA map"/>
   </maps>
 
   <market description="Resrouce market">

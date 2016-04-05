@@ -16,7 +16,7 @@ QPoint ConnectionItem::GetCostLocation(QFont font) const {
 }
 
 int ConnectionItem::GetCostCircleDiameter(QFont font) const {
-    auto diameterOffset = 10;
+    auto diameterOffset = 8;
 
     auto costSize = GetCostPixelSize(font);
     return std::max(costSize.width(), costSize.height()) + diameterOffset;

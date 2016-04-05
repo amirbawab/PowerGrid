@@ -34,7 +34,7 @@ void Game::Setup() {
 
 	// Data from the user
 	// TODO Use cin for those data
-	std::string cinMap = "USA2";
+	std::string cinMap = "USA3";
 	int cinNumberOfPlayers = 2;
 	
 	// If new game
@@ -55,7 +55,7 @@ void Game::Setup() {
 
 		// Display map
 		cout << "Displaying the map: " << endl;
-		map->DisplayMap();
+		// map->DisplayMap();
 
 		// Initialize components
 		fullTurn = 1;

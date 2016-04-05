@@ -79,7 +79,7 @@ public:
 	void PrintRemainingResources();
 	
 	// GUI integration
-	void notify() { return; }; // Dummy for now
+	void notify() { return; } // Dummy for now
 
 	// Step 2 Auctioning plants
 

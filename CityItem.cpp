@@ -16,7 +16,7 @@ void CityItem::SetRegionColor(QColor regionColor) {
 }
 
 QPoint CityItem::GetNameLocation(QFont font) const {
-    int nameOffset = 5;
+    int nameOffset = 2;
 
     QFontMetrics metrics(font);
     auto nameWidth = metrics.width(QString::fromStdString(name));
@@ -34,6 +34,7 @@ QGraphicsSimpleTextItem* CityItem::GetNameTextItem(QFont font) const {
     auto cityNameTextItem = new QGraphicsSimpleTextItem(name.c_str());
     cityNameTextItem->setPos(GetNameLocation(font));
     cityNameTextItem->setFont(font);
+    cityNameTextItem->setBrush(QBrush(Qt::white));
 
     return cityNameTextItem;
 }

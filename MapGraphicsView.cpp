@@ -30,8 +30,8 @@ MapGraphicsView::MapGraphicsView() {
     }
 
     // Create connections items
-    QFont connectionFont = QFont("Tahoma", 12, QFont::Bold);
-    QFont cityFont = QFont("Calibri", 12, QFont::Bold, true);
+    QFont connectionFont = QFont("Tahoma", 7, QFont::Bold);
+    QFont cityFont = QFont("Calibri", 9, QFont::Bold, true);
     for (auto connection : connections) {
         connectionItems.push_back(std::make_unique<ConnectionItem>());
 
