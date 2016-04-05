@@ -80,7 +80,7 @@ public:
 	// GUI integration
 	void notify() { return; }; // Dummy for now
 
-	// Step 2 bidding
+	// Step 2 Auctioning plants
 
 	int GetNextPlayerIndex();
 	void Step2Start();
@@ -89,7 +89,7 @@ public:
 	void Step2Bid1();
 	void Step2Bid2();
 	void Step2BidEnd();
-
+	void Step2End();
 
 	bool nowBidding;
 	int biddingPlayer;
@@ -100,8 +100,32 @@ public:
 	std::map<Player*, bool> canBuy;
 	std::shared_ptr<Player> highestBidder;
 
+	// Step 3 Buying Resources
+
 	void Step3Start();
 
+	void CheckPlant1();
+	void CheckPlant2();
 
+	void Step3BuyingResources1();
+	void Step3BuyingResources2();
+
+	void Step3End();
+
+	int resourceIndex;
+	Resource resourceIdentity;
+	int powerPlantIndex;
+
+	// Step 4 Buying Cities
+	void Step4Start();
+	void Step4BuyingCities1();
+	void Step4BuyingCities2();
+	void Step4End();
+
+	// Step 5 Bureaucracy
+	void Step5Start();
+	void Step5UsingPlants1();
+	void Step5UsingPlants2();
+	void Step5End();
 };
 

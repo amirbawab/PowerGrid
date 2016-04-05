@@ -319,7 +319,7 @@ void Game::AuctionPlants() {
 }
 
 int Game::GetNextPlayerIndex() {
-	return (std::distance(players.begin(), std::find(players.begin(), players.end(), currentPlayer)) + 1) % players.size();
+	return (std::distance(playerOrder.begin(), std::find(playerOrder.begin(), playerOrder.end(), currentPlayer)) + 1) % playerOrder.size();
 }
 
 void Game::Step2Start() {
@@ -431,11 +431,11 @@ void Game::Step2Bid2() {
 		}
 
 		// End the bidding phase
-		Step2BidEnd();
+		return Step2BidEnd();
 	}
 
 	// Bidding continues
-	Step2Bid1();
+	return Step2Bid1();
 }
 
 void Game::Step2BidEnd() {
@@ -451,16 +451,97 @@ void Game::Step2BidEnd() {
 
 	// If no one can buy anymore, end step 2
 	if (currentPlayer == nullptr) {
-		Step3Start();  // Go to step 3
+		Step2End();  // Go to step 3
 	}
 
 	// Else we go to the next player to pick a plant for auction
 	Step2PickPlant1();
 }
 
-void Game::Step3Start() {
+void Game::Step2End() {
 
+	// If we drew the step 3 card during any of the auction, only now do we adjust the size of the market and phase (at the end of all auctions)
+	if (cardStack.GetJustDrewStep() == 3) {
+		cardStack.AdjustForStep3();
+		phase = 3;
+	}
+
+	// Start step 3
+	Step3Start();
 }
+
+void Game::Step3Start() {
+	// GUI Message : "Step 3"
+
+	// Reorder players (worst starts)
+	UpdatePlayOrder(true);
+
+	// Reset attributes and start buying resources
+	currentPlayer = playerOrder[0];
+	resourceIndex = 0;
+	powerPlantIndex = 0;
+
+	vector<Resource> temp;
+	for (Resource r : currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources()) {
+		temp.push_back(r);
+	}
+	resourceIdentity = temp[resourceIndex];
+
+	Step3BuyingResources1();
+}
+
+void Game::Step3BuyingResources1() {
+	// GUI Display: Change to the current power plant and player
+	// GUI Message: "Player, for this power plant,"
+	// GUI Message: "How many 'resource' do you want to buy?" 
+}
+
+void Game::Step3BuyingResources2() {
+	int amount = 0;  // GUI get: the amount of resources the player wants
+
+	// Buy resources and check if allowed to do so
+	bool allowed = currentPlayer->BuyResources(rMarket, currentPlayer->GetPowerPlants()[powerPlantIndex], resourceIdentity, amount);
+	if (!allowed) {
+		// GUI Error: "Invalid amount of resources"
+		return Step3BuyingResources1();
+	}
+
+	// Find next playing step
+	// Check if there are other resources to iterate through
+	vector<Resource> temp;
+	for (Resource r : currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources()) {
+		temp.push_back(r);
+	}
+	resourceIndex++;
+	
+	if (resourceIndex > temp.size()) {
+		// If no more resources, go to next power plant
+		powerPlantIndex++;
+		resourceIndex = 0;
+
+		if (powerPlantIndex > currentPlayer->GetPowerPlants().size()) {
+			// If no more power plants, go to next player
+			currentPlayer = playerOrder[GetNextPlayerIndex()];
+			powerPlantIndex = 0;
+
+			if (currentPlayer.get() == playerOrder[0].get()) {
+				// If we returned to the first player, then go to step 4
+				return Step4Start();
+			}
+
+		}
+	}
+
+	// Get next resource to use
+	temp.clear();
+	for (Resource r : currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources()) {
+		temp.push_back(r);
+	}
+	resourceIdentity = temp[resourceIndex];
+
+	return Step3BuyingResources1();
+}
+
 
 /// Plays out step 3, buying raw materials
 void Game::BuyRawMaterials() {
@@ -509,6 +590,89 @@ void Game::BuyRawMaterials() {
 			}
 		}
 	}
+}
+
+
+void Game::Step4Start() {
+	// GUI Message: "Step 4" 
+
+	// Reorder players (worst starts)
+	UpdatePlayOrder(true);
+	currentPlayer = playerOrder[0];
+
+	Step4BuyingCities1();
+}
+
+void Game::Step4BuyingCities1() {
+	// GUI Message: "Player, pick a city to buy:"
+
+}
+
+void Game::Step4BuyingCities2() {
+	shared_ptr<City> pickedCity = nullptr;  // GUI get: the pointer to the picked city
+
+	if (pickedCity == nullptr) {
+		// Player skipped, go to next player
+		currentPlayer = playerOrder[GetNextPlayerIndex()];
+
+		if (currentPlayer.get() == playerOrder[0].get()) {
+			Step4End();
+		}
+
+		return Step4BuyingCities1();
+	}
+
+	// Check if city is full
+	if (pickedCity->GetNumberOfHouses() == phase) {
+		cout << "Cannot buy a house. " << pickedCity->GetName() << " is already saturated for this phase.";
+		return Step4BuyingCities1();
+	}
+
+	// Find the cost of connecting to that city
+	int cost;
+	if (currentPlayer->GetHouses().empty())
+		cost = pickedCity->GetHousePrice();
+	else
+		cost = pickedCity->GetHousePrice() + map->GetShortestPath(currentPlayer, pickedCity->GetName());
+
+	// Check if you have enough money
+	if (!currentPlayer->HasElektro(cost)) {
+		cout << "Not enough money to buy " << pickedCity->GetName() << " for a total cost of " << std::to_string(cost) << " Elektro." << endl;
+		return Step4BuyingCities1();
+	}
+
+	// Buy the city
+	shared_ptr<House> newHouse = std::make_shared<House>(pickedCity);
+	currentPlayer->BuyHouse(newHouse);
+	cout << *currentPlayer << " has bought a house at " << pickedCity << " for a total cost of " << std::to_string(cost) << " Elektro." << endl;
+
+	// Go back to buy another one
+	return Step4BuyingCities1();
+}
+
+
+void Game::Step4End() {
+
+	// Replace power plants in the market if they have a price less or equal to the highest number of cities owned by a player
+	int maxHouses = 0;
+	for (shared_ptr<Player> p : players) {
+		if (p->GetHouses().size() > maxHouses)
+			maxHouses = p->GetHouses().size();
+	}
+	while (cardStack.GetPlant(0)->GetPrice() <= maxHouses) {
+		cardStack.RemoveLowestVisible();
+		cardStack.DrawPlant();
+	}
+	// Check if we drew the step 3 card
+	if (cardStack.GetJustDrewStep() == 3) {
+		cardStack.AdjustForStep3();
+		cardStack.ShuffleStack();
+		phase = 3;
+
+		cout << "Entering phase 3." << endl;
+	}
+
+	Step5Start();
 }
 
 /// Step 4, buying cities
@@ -591,6 +755,20 @@ void Game::BuyCities() {
 
 		cout << "Entering phase 3." << endl;
 	}
+
+}
+
+
+
+void Game::Step5Start() {
+
+}
+
+void Game::Step5UsingPlants1() {
+
+}
+
+void Game::Step5UsingPlants2() {
 
 }
 
