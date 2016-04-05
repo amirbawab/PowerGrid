@@ -64,10 +64,19 @@ public:
 	StepOnePanel();
 	~StepOnePanel();
 private:
-	QGridLayout *gridLayout;
-	QPushButton *okButton;
-	QPushButton *skipButton;
-	CounterWidget *counterWidget;
+    QGridLayout *gridLayout;
+    QPushButton *okButton;
+};
+
+class StepTwoPanel : public QWidget {
+public:
+    StepTwoPanel();
+    ~StepTwoPanel();
+private:
+    QGridLayout *gridLayout;
+    QPushButton *okButton;
+    QPushButton *skipButton;
+    CounterWidget *counterWidget;
 };
 
 class BoardMessageWidget : public QWidget {

@@ -73,6 +73,7 @@ BoardCenterWidget::~BoardCenterWidget() {
 }
 
 void BoardCenterWidget::Refresh() {
+    mapModeWidget->Refresh();
 	powerPlantModeWidget->Refresh();
 	resourceMarketModeWidget->Refresh();
 }

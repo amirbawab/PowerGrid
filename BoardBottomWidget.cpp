@@ -234,6 +234,29 @@ void BoardMessageWidget::Refresh() {
 // StepOneButtons class
 
 StepOnePanel::StepOnePanel() {
+
+    // Init components
+    gridLayout = new QGridLayout();
+    okButton = new QPushButton("OK");
+    
+    // Set id
+    okButton->setObjectName("player_button");
+    
+    // Set layout
+    setLayout(gridLayout);
+
+    // Add components
+    gridLayout->addWidget(okButton, 0, 0, Qt::AlignCenter);
+}
+
+StepOnePanel::~StepOnePanel() {
+    delete okButton;
+    delete gridLayout;
+}
+
+// StepTwoButtons class
+
+StepTwoPanel::StepTwoPanel() {
 	
 	// Init components
 	gridLayout = new QGridLayout();
@@ -254,7 +277,7 @@ StepOnePanel::StepOnePanel() {
 	gridLayout->addWidget(okButton, 1, 1, Qt::AlignCenter);
 }
 
-StepOnePanel::~StepOnePanel() {
+StepTwoPanel::~StepTwoPanel() {
 	delete okButton;
 	delete skipButton;
 	delete gridLayout;

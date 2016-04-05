@@ -47,7 +47,7 @@ public:
 	Game();
 	~Game() {};
 
-	void Setup();
+	void LoadGame();
 	void PlayGame();
 
 	// Getters

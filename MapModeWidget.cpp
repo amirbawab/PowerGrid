@@ -21,3 +21,7 @@ MapModeWidget::~MapModeWidget() {
 void MapModeWidget::DrawMap() {
     mapGraphicsView->DrawMap();
 }
+
+void MapModeWidget::Refresh() {
+    mapGraphicsView->Refresh();
+}
