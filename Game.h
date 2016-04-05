@@ -81,8 +81,10 @@ public:
 	// GUI integration
 	void notify() { return; } // Dummy for now
 
-	// Step 2 Auctioning plants
+	// Step 1 Ordering players
+	void Step1Start();
 
+	// Step 2 Auctioning plants
 	int GetNextPlayerIndex();
 	void Step2Start();
 	void Step2PickPlant1();
@@ -132,8 +134,11 @@ public:
 
 	void Step5End();
 
+	shared_ptr<PowerPlantCard> pickedPlant;
 	vector<std::shared_ptr<Player>> winners;
 	int numPoweredCities;
+
+
 
     // Integration
     void NewGame();
