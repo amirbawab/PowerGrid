@@ -13,11 +13,11 @@ private:
 	// Constructor
 	DataStore() {
 
+		/*
 		// Step and phase number
-		step = 1;
-		phase = 1;
 		messageText = "Question goes here";
-
+        step = 1;
+		phase = 1;
 		// Houses
 		std::shared_ptr<HouseColor> house1 = std::make_shared<HouseColor>("black", ":/PowerGrid/Resources/houses/black.png");
 		std::shared_ptr<HouseColor> house2 = std::make_shared<HouseColor>("purple", ":/PowerGrid/Resources/houses/purple.png");
@@ -109,6 +109,7 @@ private:
 
 		// Add resources to resource market
 		resourceMarket->AddResource(COAL, 3);
+        */
 	}
 
 	DataStore(DataStore const&) = delete;

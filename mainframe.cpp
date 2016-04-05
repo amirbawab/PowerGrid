@@ -62,11 +62,12 @@ void MainFrame::onMapBack() {
 
 void MainFrame::onMapNext() {
 	qDebug("Next from map selection screen");
-	centerStackWidget->setCurrentIndex(playerConfigWidgetIndex);
-	playerConfigWidget->SetNumberOfPlayers(mapWidget->GetNumberOfPlayers());
     
     // TODO change USA to be read from gui
     DataStore::getInstance().game->ConfigNewGame("USA", mapWidget->GetNumberOfPlayers());
+    
+    centerStackWidget->setCurrentIndex(playerConfigWidgetIndex);
+	playerConfigWidget->SetNumberOfPlayers(mapWidget->GetNumberOfPlayers());
     boardWidget->DrawMap();
 }
 
