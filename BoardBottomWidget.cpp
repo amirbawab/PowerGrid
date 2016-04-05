@@ -207,6 +207,21 @@ BoardMessageWidget::BoardMessageWidget() {
 	gridLayout = new QGridLayout();
 	questionLabel = new QLabel();
 	stepOnePanel = new StepOnePanel();
+    stepTwoPanel = new StepTwoPanel();
+    stepThreePanel = new StepThreePanel();
+    stepFourPanel = new StepFourPanel();
+    stepFivePanel = new StepFivePanel();
+    stepsWidget = new QStackedWidget();
+
+    // Add steps to stack
+    stepsWidget->addWidget(stepOnePanel);
+    stepsWidget->addWidget(stepTwoPanel);
+    stepsWidget->addWidget(stepThreePanel);
+    stepsWidget->addWidget(stepFourPanel);
+    stepsWidget->addWidget(stepFivePanel);
+
+    // Set active stack
+    stepsWidget->setCurrentWidget(stepOnePanel);
 
 	// Set layout
 	setLayout(gridLayout);
@@ -216,7 +231,7 @@ BoardMessageWidget::BoardMessageWidget() {
 
 	// Add components
 	gridLayout->addWidget(questionLabel, 0, 0, Qt::AlignLeft);
-	gridLayout->addWidget(stepOnePanel, 1, 0, Qt::AlignCenter);
+    gridLayout->addWidget(stepsWidget, 1, 0, Qt::AlignCenter);
 
 	// Configure spacing
 	gridLayout->setRowStretch(0, 1);
@@ -229,6 +244,26 @@ BoardMessageWidget::~BoardMessageWidget() {
 
 void BoardMessageWidget::Refresh() {
 	questionLabel->setText(QString::fromStdString(DataStore::getInstance().messageText));
+
+    switch (DataStore::getInstance().step) {
+    case 1:
+        stepsWidget->setCurrentWidget(stepOnePanel);
+        break;
+    case 2:
+        stepsWidget->setCurrentWidget(stepTwoPanel);
+        break;
+    case 3:
+        stepsWidget->setCurrentWidget(stepThreePanel);
+        break;
+    case 4:
+        stepsWidget->setCurrentWidget(stepFourPanel);
+        break;
+    case 5:
+        stepsWidget->setCurrentWidget(stepFivePanel);
+        break;
+    default:
+        break;
+    }
 }
 
 // StepOneButtons class
@@ -281,6 +316,85 @@ StepTwoPanel::~StepTwoPanel() {
 	delete okButton;
 	delete skipButton;
 	delete gridLayout;
+}
+
+// StepThreeButtons class
+
+StepThreePanel::StepThreePanel() {
+
+    // Init components
+    gridLayout = new QGridLayout();
+    okButton = new QPushButton("OK");
+    skipButton = new QPushButton("SKIP");
+    counterWidget = new CounterWidget();
+
+    // Set id
+    okButton->setObjectName("player_button");
+    skipButton->setObjectName("player_button");
+
+    // Set layout
+    setLayout(gridLayout);
+
+    // Add components
+    gridLayout->addWidget(counterWidget, 0, 0, 1, 2, Qt::AlignCenter);
+    gridLayout->addWidget(skipButton, 1, 0, Qt::AlignCenter);
+    gridLayout->addWidget(okButton, 1, 1, Qt::AlignCenter);
+}
+
+StepThreePanel::~StepThreePanel() {
+    delete okButton;
+    delete skipButton;
+    delete gridLayout;
+}
+
+// StepFourButtons class
+
+StepFourPanel::StepFourPanel() {
+
+    // Init components
+    gridLayout = new QGridLayout();
+    okButton = new QPushButton("OK");
+    skipButton = new QPushButton("SKIP");
+    
+    // Set id
+    okButton->setObjectName("player_button");
+    skipButton->setObjectName("player_button");
+
+    // Set layout
+    setLayout(gridLayout);
+
+    // Add components
+    gridLayout->addWidget(skipButton, 1, 0, Qt::AlignCenter);
+    gridLayout->addWidget(okButton, 1, 1, Qt::AlignCenter);
+}
+
+StepFourPanel::~StepFourPanel() {
+    delete okButton;
+    delete skipButton;
+    delete gridLayout;
+}
+
+// StepFiveButtons class
+
+StepFivePanel::StepFivePanel() {
+
+    // Init components
+    gridLayout = new QGridLayout();
+    okButton = new QPushButton("OK");
+
+    // Set id
+    okButton->setObjectName("player_button");
+
+    // Set layout
+    setLayout(gridLayout);
+
+    // Add components
+    gridLayout->addWidget(okButton, 0, 0, Qt::AlignCenter);
+}
+
+StepFivePanel::~StepFivePanel() {
+    delete okButton;
+    delete gridLayout;
 }
 
 // CounterWidget class

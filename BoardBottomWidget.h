@@ -8,6 +8,7 @@
 #include "DataStore.h"
 #include <QPainter>
 #include <QStyleOption>
+#include <QStackedWidget>
 
 class BoardProfileWidget : public QWidget {
 public:
@@ -79,6 +80,36 @@ private:
     CounterWidget *counterWidget;
 };
 
+class StepThreePanel : public QWidget {
+public:
+    StepThreePanel();
+    ~StepThreePanel();
+private:
+    QGridLayout *gridLayout;
+    QPushButton *okButton;
+    QPushButton *skipButton;
+    CounterWidget *counterWidget;
+};
+
+class StepFourPanel : public QWidget {
+public:
+    StepFourPanel();
+    ~StepFourPanel();
+private:
+    QGridLayout *gridLayout;
+    QPushButton *okButton;
+    QPushButton *skipButton;
+};
+
+class StepFivePanel : public QWidget {
+public:
+    StepFivePanel();
+    ~StepFivePanel();
+private:
+    QGridLayout *gridLayout;
+    QPushButton *okButton;
+};
+
 class BoardMessageWidget : public QWidget {
 public:
 	BoardMessageWidget();
@@ -88,6 +119,11 @@ private:
 	QGridLayout *gridLayout;
 	QLabel *questionLabel;
 	StepOnePanel *stepOnePanel;
+    StepTwoPanel *stepTwoPanel;
+    StepThreePanel *stepThreePanel;
+    StepFourPanel *stepFourPanel;
+    StepFivePanel *stepFivePanel;
+    QStackedWidget *stepsWidget;
 };
 
 class BoardBottomWidget : public QWidget {
