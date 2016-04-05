@@ -10,5 +10,5 @@ To use the project:
 6. Search for 'qt'
 7. Install the 'Qt5Package' plugin
 8. After Visual Studio has been restarted, open Qt5/Qt Options, then click Add
-9. Give an arbitrary 'Version Name' and the path should be 'C:\Qt\Qt5.6.0\5.6\msvc2015'
+9. Give **5.6** for version number and the path should be 'C:\Qt\Qt5.6.0\5.6\msvc2015'
 10. Clone the repository and enjoy what Amir has done!!! ;)

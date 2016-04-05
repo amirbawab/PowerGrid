@@ -9,6 +9,7 @@ public:
 	MapModeWidget();
 	~MapModeWidget();
     void DrawMap();
+    void Refresh();
 private:
 	MapGraphicsView *mapGraphicsView;
 	QGridLayout *gridLayout;

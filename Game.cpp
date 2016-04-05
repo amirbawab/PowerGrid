@@ -91,8 +91,8 @@ void Game::UpdateDataStore() {
 }
 
 
-/// Sets up the game at the beginning
-void Game::Setup() {
+// Load game
+void Game::LoadGame() {
 
 		// If loading saved game
 		GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",
