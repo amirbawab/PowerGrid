@@ -106,13 +106,8 @@ public:
 	// Step 3 Buying Resources
 
 	void Step3Start();
-
-	void CheckPlant1();
-	void CheckPlant2();
-
 	void Step3BuyingResources1();
 	void Step3BuyingResources2();
-
 	void Step3End();
 
 	int resourceIndex;
@@ -131,15 +126,14 @@ public:
 	void Step5UsingPlants2();
 	void Step5ChoosingResource1();
 	void Step5ChoosingResource2();
-
 	void Step5End();
 
 	shared_ptr<PowerPlantCard> pickedPlant;
 	vector<std::shared_ptr<Player>> winners;
 	int numPoweredCities;
 
-
-
+	void GameEnd();
+	
     // Integration
     void NewGame();
     void ConfigNewGame(string map, int numberOfPlayers);

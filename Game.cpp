@@ -127,6 +127,7 @@ void Game::UpdatePlayOrder(bool reverse) {
 
 void Game::Step1Start() {
 	// GUI Message: "Step 1"
+	playStep = 1;
 
 	UpdatePlayOrder(true);
 
@@ -356,6 +357,11 @@ void Game::Step3BuyingResources2() {
 	return Step3BuyingResources1();
 }
 
+void Game::Step3End() {
+
+}
+
+
 void Game::Step4Start() {
 	// GUI Message: "Step 4" 
 	playStep = 4;
@@ -476,11 +482,6 @@ void Game::Step5Start() {
 	numPoweredCities = 0;
 	winners.clear();
 	
-	// End of game cities
-	static int citiesEndOfGame = overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame;
-
-
-
 	Step5UsingPlants1();
 }
 
@@ -503,8 +504,18 @@ void Game::Step5UsingPlants2() {
 		cout << *currentPlayer << " powered " << std::to_string(numPoweredCities) << " house(s), earning " << std::to_string(overview.GetPayment(numPoweredCities)) << " Elektro." << endl;
 		currentPlayer->SetElektro(currentPlayer->GetElektro() + overview.GetPayment(numPoweredCities));
 
+		// If game over
+		if (overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame <= numPoweredCities) {
+			gameOver = true;
+			winners.push_back(currentPlayer);
+		}
+
 		// Go to next player
 		currentPlayer = playerOrder[GetNextPlayerIndex()];
+		if (currentPlayer.get() == playerOrder[0].get()) {
+			// If no more players, go the end of step 5
+			return Step5End();
+		}
 		return Step5UsingPlants1();
 	}
 
@@ -517,10 +528,9 @@ void Game::Step5UsingPlants2() {
 		// If there is more than one resource, need to specify quantity of each
 		return Step5ChoosingResource1();
 	}
-	
 
-
-	
+	// Pick another plant to use
+	return Step5UsingPlants1();
 }
 
 void Game::Step5ChoosingResource1() {
@@ -545,6 +555,7 @@ void Game::Step5ChoosingResource2() {
 		pickedPlant->ConsumeResources(static_cast<Resource>(i), resourceAmounts[i]);
 	}
 
+	// Increase number of cities powered
 	numPoweredCities += pickedPlant->GetPower();
 
 	// Go back to picking other plants to use
@@ -553,6 +564,49 @@ void Game::Step5ChoosingResource2() {
 }
 
 void Game::Step5End() {
+	// Check if game is over
+	if (gameOver) {
+		// If single winner
+		if (winners.size() == 1)
+			winner = winners[0];
+
+		// If more than one winner
+		else if (winners.size() > 1) {
+
+			// Get max
+			int maxMoney = winners[0]->GetElektro();
+			for (int i = 1; i < winners.size(); i++) {
+				if (winners[i]->GetElektro() > maxMoney)
+					maxMoney = winners[i]->GetElektro();
+			}
+
+			// Take the max only
+			for (int i = 0; i < winners.size(); i++)
+				if (winners[i]->GetElektro() != maxMoney)
+					winners.erase(winners.begin() + i);
+
+			// If only one winner
+			if (winners.size() == 1) {
+				winner = winners[0];
+
+			// If more than one winner
+			}
+			else if (winners.size() > 1) {
+
+				int maxCitiesIndex = 0;
+				for (int i = 1; i < winners.size(); i++) {
+					if (winners[i]->GetHouses().size() > winners[maxCitiesIndex]->GetHouses().size())
+						maxCitiesIndex = i;
+				}
+				winner = winners[maxCitiesIndex];
+			}
+			
+			// End the game
+			GameEnd();
+		}
+	}
+	// If not, reset gameOver
+	gameOver = false;
 
 	// Change the visible power plants
 	if (phase == 1 || phase == 2) {
@@ -575,7 +629,6 @@ void Game::Step5End() {
 		cout << "Entering phase 3." << endl;
 	}
 
-
 	// Restock raw materials
 	for (int i = 0; i < res::total; i++) {
 		Resource resource = static_cast<Resource>(COAL + i);
@@ -583,6 +636,9 @@ void Game::Step5End() {
 	}
 }
 
+void Game::GameEnd() {
+	// GUI Message: "Game is over! The winner is " + winner 
+}
 
 int Game::GetNextPlayerIndex() {
 	return (std::distance(playerOrder.begin(), std::find(playerOrder.begin(), playerOrder.end(), currentPlayer)) + 1) % playerOrder.size();
