@@ -127,6 +127,9 @@ public:
 	void Step5Start();
 	void Step5UsingPlants1();
 	void Step5UsingPlants2();
+	void Step5ChoosingResource1();
+	void Step5ChoosingResource2();
+
 	void Step5End();
 
 	vector<std::shared_ptr<Player>> winners;
