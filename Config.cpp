@@ -179,7 +179,7 @@ bool Config::LoadColors(pugi::xml_document& xml) const
     for (auto houseColorElement : xml.select_nodes("//colors/color"))
     {
         string nameAttribute = houseColorElement.node().attribute("name").value();
-        string imageAttribute = houseColorElement.node().attribute("color").value();
+        string imageAttribute = houseColorElement.node().attribute("image").value();
         shared_ptr<HouseColor> houseColor = make_shared<HouseColor>(nameAttribute, imageAttribute);
         game->GetHouseColor().push_back(houseColor);
     }
