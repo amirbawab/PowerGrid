@@ -5,6 +5,8 @@ TemplateNextBackWidget::TemplateNextBackWidget() {
 	// Init components
 	gridLayout = new QGridLayout(this);
 	buttonsWidget = new ButtonsWidget();
+	centerWidget = new QWidget;
+	centerLayout = new QGridLayout;
 
 	// Set ID
 	setObjectName("templateLogoWidget");
@@ -14,8 +16,10 @@ TemplateNextBackWidget::TemplateNextBackWidget() {
 
 	// Set layout
 	setLayout(gridLayout);
+	centerWidget->setLayout(centerLayout);
 
 	// Add component to template
+	gridLayout->addWidget(centerWidget, 0, 0, 0);
 	gridLayout->addWidget(buttonsWidget, 1, 0, 0);
 
 	// Adjust stretch
@@ -24,6 +28,8 @@ TemplateNextBackWidget::TemplateNextBackWidget() {
 
 TemplateNextBackWidget::~TemplateNextBackWidget() {
 	delete gridLayout;
+	delete centerLayout;
+	delete centerWidget;
 	delete buttonsWidget;
 }
 

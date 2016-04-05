@@ -17,4 +17,5 @@ public:
 	void SetPosition(std::string position) { this->position = position; }
 	bool GetIgnoreFirst() { return ignoreFirst; }
 	void SetIgnoreFirst(bool ignoreFirst) { this->ignoreFirst = ignoreFirst; }
+	void SetImagePath(std::string imagePath) { this->imagePath = imagePath; }
 };

@@ -1,13 +1,9 @@
-#include "Player.h"
-#include "Resource.h"
-#include "PowerPlantCard.h"
+#include <qfile.h>
+#include <qstring.h>
 
-#include <iostream>
-#include <string>
-#include <memory>
+#include "mainframe.h"
+#include "application.h"
 
-#include "GameStatus.h"
-#include "Config.h"
 #include "Game.h"
 
 int main(int argc, char *argv[]) {
@@ -16,22 +12,23 @@ int main(int argc, char *argv[]) {
 	Game game;
 
 	// Play
-	game.PlayGame();
+	// game.PlayGame();
 
-	/*
-	USER DRIVEN MAP CREATION
-	Map m;
-	std::shared_ptr<City> city = std::make_shared<City>("Montreal");
-	city->SetRegion(nullptr);
-	std::shared_ptr<City> city2 = std::make_shared<City>("Toronto");
-	city2->SetRegion(nullptr);
+	// Application
+	Application application(argc, argv);
 
-	m.AddCity(city);
-	m.AddCity(city2);
+	// Load css
+	QFile File(":/PowerGrid/Resources/stylesheet.qss");
+	File.open(QFile::ReadOnly);
+	QString StyleSheet = QLatin1String(File.readAll());
 
-	m.AddConnection(city, city2, 2);
+	// Main frame
+	// Should this be a pointer or passing the address works ?
+	MainFrame mainframe("Power Grid", &application);
 
-	m.DisplayMap();*/
+	// Apply css
+	application.setStyleSheet(StyleSheet);
 
-	return 0;
+	// Return
+	return application.exec();
 }

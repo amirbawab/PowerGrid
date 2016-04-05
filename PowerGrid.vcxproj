@@ -49,15 +49,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BoardBottomWidget.cpp" />
+    <ClCompile Include="BoardCenterWidget.cpp" />
+    <ClCompile Include="BoardTopWidget.cpp" />
+    <ClCompile Include="BoardWidget.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardStack.cpp" />
     <ClCompile Include="City.cpp" />
+    <ClCompile Include="CityItem.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="ConnectionItem.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStatus.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_BoardBottomWidget.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_BoardCenterWidget.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_MainFrame.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_MapWidget.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigRowWidget.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigWidget.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_WelcomeMenuWidget.cpp" />
     <ClCompile Include="GeneratedFiles\qrc_powergrid.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -68,15 +78,22 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapGraphicsView.cpp" />
+    <ClCompile Include="MapModeWidget.cpp" />
     <ClCompile Include="MapWidget.cpp" />
     <ClCompile Include="Overview.cpp" />
+    <ClCompile Include="OverviewModeWidget.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerConfigRowWidget.cpp" />
     <ClCompile Include="PlayerConfigWidget.cpp" />
     <ClCompile Include="PlayerTest.cpp" />
     <ClCompile Include="PowerPlantCard.cpp" />
+    <ClCompile Include="PowerPlantModeWidget.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="ResourceMarket.cpp" />
     <ClCompile Include="ResourceMarketLevel.cpp" />
+    <ClCompile Include="ResourceMarketLevelWidget.cpp" />
+    <ClCompile Include="ResourceMarketModeWidget.cpp" />
     <ClCompile Include="StepCard.cpp" />
     <ClCompile Include="TemplateLogoWidget.cpp" />
     <ClCompile Include="TemplateNextBackWidget.cpp" />
@@ -85,15 +102,42 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <CustomBuild Include="BoardBottomWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing BoardBottomWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(ProjectDir)include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="BoardCenterWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing BoardCenterWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(ProjectDir)include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
+    <ClInclude Include="BoardTopWidget.h" />
+    <ClInclude Include="BoardWidget.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardStack.h" />
     <ClInclude Include="City.h" />
+    <ClInclude Include="CityItem.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Connection.h" />
+    <ClInclude Include="ConnectionItem.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStatus.h" />
     <ClInclude Include="GenericTest.h" />
+    <ClInclude Include="DataStore.h" />
+    <ClInclude Include="MapGraphicsView.h" />
+    <ClInclude Include="MapModeWidget.h" />
+    <ClInclude Include="OverviewModeWidget.h" />
+    <CustomBuild Include="PlayerConfigRowWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing PlayerConfigRowWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(ProjectDir)include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
     <ClInclude Include="PlayerTest.h" />
+    <ClInclude Include="PowerPlantModeWidget.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="House.h" />
@@ -105,6 +149,8 @@
     <ClInclude Include="Region.h" />
     <ClInclude Include="ResourceMarket.h" />
     <ClInclude Include="ResourceMarketLevel.h" />
+    <ClInclude Include="ResourceMarketLevelWidget.h" />
+    <ClInclude Include="ResourceMarketModeWidget.h" />
     <ClInclude Include="StepCard.h" />
     <ClInclude Include="WelcomeWidget.h" />
     <CustomBuild Include="MainFrame.h">
@@ -119,7 +165,12 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(ProjectDir)include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
-    <ClInclude Include="PlayerConfigWidget.h" />
+    <CustomBuild Include="PlayerConfigWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing PlayerConfigWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(ProjectDir)include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
     <ClInclude Include="TemplateLogoWidget.h" />
     <CustomBuild Include="WelcomeMenuWidget.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing WelcomeMenuWidget.h...</Message>
