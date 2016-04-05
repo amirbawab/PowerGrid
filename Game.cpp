@@ -22,6 +22,7 @@ void Game::NewGame() {
     // Initialize components
     fullTurn = 1;
     phase = 1;
+    playStep = 1;
 
     // Resource market
     rMarket = std::make_shared<ResourceMarket>();

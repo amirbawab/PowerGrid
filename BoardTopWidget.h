@@ -15,7 +15,6 @@ public:
 	void Refresh();
 private:
 	QGridLayout *gridLayout;
-	std::vector<std::shared_ptr<Player>> playersTurn;
 	std::vector<QLabel*> playersTurnLabels;
 };
 
@@ -37,7 +36,6 @@ public:
 	void Refresh();
 private:
 	QGridLayout *gridLayout;
-	std::vector<std::shared_ptr<Player>> players;
 	std::vector<QLabel*> playersScoreLabels;
 };
 
