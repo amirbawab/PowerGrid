@@ -128,6 +128,7 @@ void Game::UpdatePlayOrder(bool reverse) {
 
 void Game::Step2Start() {
 	// GUI Message: "Step 2"
+	playStep = 2;
 	UpdatePlayOrder(true);
 
 	// nowBidding is false when picking a plant and true when bidding on a plant
@@ -276,6 +277,7 @@ void Game::Step2End() {
 
 void Game::Step3Start() {
 	// GUI Message : "Step 3"
+	playStep = 3;
 
 	// Reorder players (worst starts)
 	UpdatePlayOrder(true);
@@ -348,6 +350,7 @@ void Game::Step3BuyingResources2() {
 
 void Game::Step4Start() {
 	// GUI Message: "Step 4" 
+	playStep = 4;
 
 	// Reorder players (worst starts)
 	UpdatePlayOrder(true);
@@ -432,6 +435,9 @@ void Game::Step4End() {
 
 
 void Game::Step5Start() {
+	// GUI Message: "Step 5"
+	playStep = 5;
+
 	// Check if we enter phase 2
 	if (phase == 1) {
 		int step2Cities = overview.GetRuleByNumOfPlayers(players.size()).step2Cities;
@@ -463,23 +469,70 @@ void Game::Step5Start() {
 	// End of game cities
 	static int citiesEndOfGame = overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame;
 
+
+
+	Step5UsingPlants1();
 }
 
 void Game::Step5UsingPlants1() {
-	// GUI Message: "Player, do you want to use this power plant?"
+	// GUI Message: "Player, which power plants do you want to use?"
+
 }
 
 void Game::Step5UsingPlants2() {
-	bool usePlant = false;  // GUI get: true if player wants to use the plant
+	shared_ptr<PowerPlantCard> pickedPlant;  // GUI get: player clicks on the plant they want to power
+
+	// If there is only one resource
+	if (pickedPlant->GetActiveResources().size() == 1) {
+		pickedPlant->ConsumeResources(*pickedPlant->GetActiveResources().begin(), pickedPlant->GetCapacity());
+	}
+	else {
+		// If there is more than one resource, need to specify quantity of each
+		Step5ChoosingResource1();
+	}
+	
 
 }
 
 void Game::Step5ChoosingResource1() {
-
+	// GUI Message: "Enter the number of each resource to use" 
 }
 
 void Game::Step5ChoosingResource2() {
+	vector<int> resourceAmounts = {0, 0, 0, 0};  // GUI get: the amount of each resource to consume
 
+}
+
+void Game::Step5End() {
+
+
+	// Change the visible power plants
+	if (phase == 1 || phase == 2) {
+		// Place highest plant under stack 
+		cardStack.PlaceHighestVisibleAtEndOfStack();
+		cardStack.DrawPlant();
+	}
+	else if (phase == 3) {
+		// Remove lowest plant from the game
+		cardStack.RemoveLowestVisible();
+		cardStack.DrawPlant();
+	}
+
+	// Check if we drew the step 3 card
+	if (cardStack.GetJustDrewStep() == 3) {
+		cardStack.AdjustForStep3();
+		cardStack.ShuffleStack();
+		phase = 3;
+
+		cout << "Entering phase 3." << endl;
+	}
+
+
+	// Restock raw materials
+	for (int i = 0; i < res::total; i++) {
+		Resource resource = static_cast<Resource>(COAL + i);
+		rMarket->AddResource(resource, overview.GetRuleByNumOfPlayers(players.size()).GetResourceAt(phase, resource));
+	}
 }
 
 
