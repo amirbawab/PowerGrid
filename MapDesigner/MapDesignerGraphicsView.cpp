@@ -160,6 +160,36 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
         UpdateScene();
     }
 
+    if (deleteCity)
+    {
+        // If no city contains this point
+        auto cityName = GetCityByPoint(point);
+        if (cityName == "")
+            return;
+
+        auto reply = QMessageBox::question(this, "Confirm Deletion",
+                                           QString("Are you sure you want to ")
+                                           .append("delete city '").append(cityName.c_str())
+                                           .append("'"), QMessageBox::Yes | QMessageBox::No,
+                                           QMessageBox::No);
+        if (reply == QMessageBox::No)
+            return;
+
+        cities.erase(cityName);
+        for (int i = 0; i < connections.size(); i++)
+        {
+            if (connections[i]->GetFirstCity()->GetName() == cityName ||
+                connections[i]->GetSecondCity()->GetName() == cityName)
+
+                connections.erase(connections.begin() + i);
+        }
+
+        deleteCity = false;
+        emit ClearMessage();
+
+        UpdateScene();
+    }
+
     if (addConnectionFirstCity)
     {
         // If no city contains this point
@@ -313,6 +343,20 @@ void MapDesignerGraphicsView::OnAddCity()
     emit DisplayMessage("Please select the center of the city ...");
 }
 
+void MapDesignerGraphicsView::OnDeleteCity()
+{
+    if (cities.size() == 0)
+    {
+        emit DisplayMessage("There are no cities on the map!");
+        return;
+    }
+
+    emit ClearMessage();
+    deleteCity = true;
+    viewport()->setCursor(Qt::ArrowCursor);
+    emit DisplayMessage("Please select the city to delete ...");
+}
+
 void MapDesignerGraphicsView::OnAddConnection()
 {
     if (cities.size() < 2)
@@ -330,6 +374,7 @@ void MapDesignerGraphicsView::OnAddConnection()
 void MapDesignerGraphicsView::OnCancelOperation()
 {
     addCity = false;
+    deleteCity = false;
     addConnectionFirstCity = addConnectionSecondCity = false;
     emit ClearMessage();
 }

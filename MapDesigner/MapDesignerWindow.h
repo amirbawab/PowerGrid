@@ -11,6 +11,7 @@ class MapDesignerWindow : public QMainWindow
     QGridLayout   * layout;
     QGraphicsView * graphicsView;
     QPushButton   * addCityButton;
+    QPushButton   * deleteCityButton;
     QPushButton   * changeRegionColorButton;
     QPushButton   * addConnectionButton;
     QPushButton   * exportXML;
@@ -31,4 +32,3 @@ private slots:
     void OnClearMessage() const;
     void OnChangeRegionColor() const;
 };
-

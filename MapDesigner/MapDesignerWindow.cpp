@@ -15,6 +15,7 @@ MapDesignerWindow::MapDesignerWindow()
     graphicsView = new MapDesignerGraphicsView();
 
     addCityButton = new QPushButton("Add City");
+    deleteCityButton = new QPushButton("Delete City");
     changeRegionColorButton = new QPushButton("Change Region Color ...");
 
     addConnectionButton = new QPushButton("Add Connection");
@@ -24,6 +25,8 @@ MapDesignerWindow::MapDesignerWindow()
 
     hLayout = new QHBoxLayout();
     hLayout->addWidget(addCityButton);
+    hLayout->addWidget(deleteCityButton);
+    hLayout->addSpacerItem(new QSpacerItem(50, 0));
     hLayout->addWidget(addConnectionButton);
     hLayout->addSpacerItem(new QSpacerItem(100, 0));
 
@@ -48,6 +51,7 @@ MapDesignerWindow::MapDesignerWindow()
     setStatusBar(statusBar);
 
     connect(addCityButton          , SIGNAL(clicked()), graphicsView, SLOT(OnAddCity()));
+    connect(deleteCityButton       , SIGNAL(clicked()), graphicsView, SLOT(OnDeleteCity()));
     connect(addConnectionButton    , SIGNAL(clicked()), graphicsView, SLOT(OnAddConnection()));
     connect(graphicsView           , SIGNAL(DisplayMessage(QString)), this, SLOT(OnDisplayMessage(QString)));
     connect(graphicsView           , SIGNAL(ClearMessage()), this, SLOT(OnClearMessage()));

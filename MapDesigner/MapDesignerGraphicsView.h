@@ -28,6 +28,7 @@ private:
     float scaleFactor = 1.15f;
 
     bool addCity = false;
+    bool deleteCity = false;
     bool addConnectionFirstCity = false;
     bool addConnectionSecondCity = false;
 
@@ -60,6 +61,7 @@ signals:
 
 public slots:
     void OnAddCity();
+    void OnDeleteCity();
     void OnAddConnection();
     void OnCancelOperation();
     void OnExportXml();
