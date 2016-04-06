@@ -19,12 +19,14 @@
 #include "PlayerConfigWidget.h"
 #include "BoardWidget.h"
 #include <QMessageBox>
+#include "Observer.h"
 
-class MainFrame : public QMainWindow {
+class MainFrame : public QMainWindow,  public Observer {
 	Q_OBJECT
 public:
-	MainFrame(char*, Application*);
+	MainFrame(string title);
 	~MainFrame();
+	void Update();
 private:
 	QStackedWidget *centerStackWidget;
 	WelcomeWidget *welcomeWidget;

@@ -129,6 +129,7 @@
     <ClInclude Include="DataStore.h" />
     <ClInclude Include="MapGraphicsView.h" />
     <ClInclude Include="MapModeWidget.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="OverviewModeWidget.h" />
     <CustomBuild Include="PlayerConfigRowWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -152,6 +153,7 @@
     <ClInclude Include="ResourceMarketLevelWidget.h" />
     <ClInclude Include="ResourceMarketModeWidget.h" />
     <ClInclude Include="StepCard.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="WelcomeWidget.h" />
     <CustomBuild Include="MainFrame.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing MainFrame.h...</Message>

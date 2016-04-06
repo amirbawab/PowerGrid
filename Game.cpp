@@ -126,13 +126,12 @@ void Game::UpdatePlayOrder(bool reverse) {
 }
 
 void Game::Step1Start() {
-	// GUI Message: "Step 1"
+
+	DataStore::getInstance().messageText = "Player order updated. Press `OK` to continue ...";
 	playStep = 1;
 
-	UpdatePlayOrder(true);
-
-	// Go to step 2
-	Step2Start();
+	// Notify GUI
+	Notify();
 }
 
 void Game::Step2Start() {

@@ -1,10 +1,10 @@
 #include "MainFrame.h"
 
 
-MainFrame::MainFrame(char* title, Application* application) : QMainWindow() {
+MainFrame::MainFrame(string title) : QMainWindow() {
 
 	// Set title
-	setWindowTitle(title);
+	setWindowTitle(title.c_str());
 
 	// Init widgets
 	centerStackWidget = new QStackedWidget();
@@ -82,6 +82,7 @@ void MainFrame::onPlayerConfigNext() {
 	// If no errors, go to next page
 	if (!playerConfigWidget->HasError()) {
 		playerConfigWidget->UpdatePlayersInfo();
+		DataStore::getInstance().game->Step1Start();
 		boardWidget->Refresh();
 		centerStackWidget->setCurrentIndex(boardWidgetIndex);
 	} else {
@@ -90,6 +91,9 @@ void MainFrame::onPlayerConfigNext() {
 	}
 }
 
+void MainFrame::Update() {
+	boardWidget->Refresh();
+}
 
 /// This method is required when Q_OBJECT is added
 /// Without this method, the CSS will not be applied

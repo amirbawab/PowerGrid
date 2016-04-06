@@ -484,6 +484,12 @@
     <ClInclude Include="ConnectionItem.h">
       <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
     </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\bg.jpg">

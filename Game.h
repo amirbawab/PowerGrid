@@ -14,6 +14,7 @@
 #include "Overview.h"
 #include "GameStatus.h"
 #include "DataStore.h"
+#include "Subject.h"
 
 using std::vector;
 using std::shared_ptr;
@@ -21,7 +22,7 @@ using std::cout;
 using std::endl;
 using std::cin;
 
-class Game {
+class Game : public Subject {
 private:
 
 	// General attributes
@@ -77,9 +78,6 @@ public:
 
 	void PrintScore();
 	void PrintRemainingResources();
-	
-	// GUI integration
-	void notify() { return; } // Dummy for now
 
 	// Step 1 Ordering players
 	void Step1Start();
