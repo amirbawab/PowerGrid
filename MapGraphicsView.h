@@ -12,7 +12,7 @@
 
 class MapGraphicsView : public QGraphicsView {
 public:
-	MapGraphicsView();
+    MapGraphicsView();
     ~MapGraphicsView() {}
     void Refresh();
     void DrawMap();
@@ -21,10 +21,10 @@ private:
     int scaleSteps = 0;
     const int MAX_ZOOM = 10;
     const int MIN_ZOOM = -10;
-	float scaleFactor = 1.15f;
+    float scaleFactor = 1.15f;
     std::map<string, std::shared_ptr<CityItem>> citiesItemsMap;
     std::vector<std::unique_ptr<ConnectionItem>> connectionItems;
 protected:
-	void wheelEvent(QWheelEvent* event) override;
+    void wheelEvent(QWheelEvent* event) override;
 };
 

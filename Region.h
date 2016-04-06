@@ -15,6 +15,9 @@ public:
     std::string GetName() const { return name; }
     void SetName(std::string name) { this->name = name; }
 
+    void SetEnabled(bool enabled) { this->enabled = enabled; }
+    bool IsEnabled() const { return enabled; }
+
     bool operator==(const Region& other) const { return this->name == other.name; }
     bool operator==(const std::string& regionName) const { return this->name == regionName; }
     friend bool operator==(const std::shared_ptr<Region>& first,
@@ -26,4 +29,5 @@ public:
 
 private:
     std::string name = "";
+    bool enabled = true;
 };

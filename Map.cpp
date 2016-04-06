@@ -5,6 +5,7 @@
 #include <limits>
 #include <queue>
 #include <stack>
+#include <time.h>
 
 using std::string;
 using std::cout;
@@ -157,6 +158,19 @@ bool Map::AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> secon
     connections.push_back(connection);
 
     return true;
+}
+
+void Map::SelectRegions(int count)
+{
+    auto numberOfDisabledRegions = regions.size() - count;
+    std::set<int> disabledRegions;
+    while (disabledRegions.size() < numberOfDisabledRegions)
+    {
+        srand(time(nullptr));
+        int random = rand() % regions.size();
+        disabledRegions.insert(random);
+        regions[random]->SetEnabled(false);
+    }
 }
 
 int Map::GetRegionIndex(const string regionName) const

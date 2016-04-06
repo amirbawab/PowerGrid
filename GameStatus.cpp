@@ -361,20 +361,20 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
 
         auto player = make_shared<Player>(playerNameAttribute, color, elektro);
 
-		for (auto houseNode : playerNode.node().child("houses").children("house")) {
-			auto cityAttribute = houseNode.attribute("city").value();
-			auto priceAttribute = stoi(houseNode.attribute("price").value());
+        for (auto houseNode : playerNode.node().child("houses").children("house")) {
+            auto cityAttribute = houseNode.attribute("city").value();
+            auto priceAttribute = stoi(houseNode.attribute("price").value());
 
-			shared_ptr<House> newHouse = make_shared<House>();
-			newHouse->SetCity(game->GetMap()->GetCityByName(cityAttribute));
-			newHouse->SetPrice(priceAttribute);
+            shared_ptr<House> newHouse = make_shared<House>();
+            newHouse->SetCity(game->GetMap()->GetCityByName(cityAttribute));
+            newHouse->SetPrice(priceAttribute);
 
-			player->GetHouses().push_back(newHouse);
-			game->GetMap()->GetCityByName(cityAttribute)->AddHouse();
-		}
+            player->GetHouses().push_back(newHouse);
+            game->GetMap()->GetCityByName(cityAttribute)->AddHouse();
+        }
 
         // Read power plants and add them
-		for (auto powerPlantNode : playerNode.node().child("powerplants").children("powerplant"))
+        for (auto powerPlantNode : playerNode.node().child("powerplants").children("powerplant"))
         {
             auto priceAttribute = stoi(powerPlantNode.attribute("price").value());
 
@@ -532,7 +532,7 @@ bool GameStatus::LoadVisibleCards(pugi::xml_document& xml) const
         }
     }
 
-	return true;
+    return true;
 }
 
 bool GameStatus::LoadCardDeck(pugi::xml_document& xml) const
@@ -719,15 +719,15 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
-	if (!LoadPlayers(playersXml)) {
-		Error("Could not read player data from players file\n");
-		return false;
-	}
+    if (!LoadPlayers(playersXml)) {
+        Error("Could not read player data from players file\n");
+        return false;
+    }
 
-	if (!LoadOrderedPlayers(gameXml)) {
-		Error("Could not read oredered players from the game file\n");
-		return false;
-	}
+    if (!LoadOrderedPlayers(gameXml)) {
+        Error("Could not read oredered players from the game file\n");
+        return false;
+    }
 
     if (!LoadFullTurn(gameXml))
     {

@@ -6,12 +6,12 @@
 
 class MapModeWidget : public QWidget {
 public:
-	MapModeWidget();
-	~MapModeWidget();
+    MapModeWidget();
+    ~MapModeWidget();
     void DrawMap();
     void Refresh();
 private:
-	MapGraphicsView *mapGraphicsView;
-	QGridLayout *gridLayout;
+    MapGraphicsView *mapGraphicsView;
+    QGridLayout *gridLayout;
 };
 

@@ -8,14 +8,14 @@
 
 class BoardWidget : public QWidget {
 public:
-	BoardWidget();
-	~BoardWidget();
-	void Refresh();
+    BoardWidget();
+    ~BoardWidget();
+    void Refresh();
     void DrawMap();
 private:
-	QGridLayout *gridLayout;
-	BoardTopWidget *boardTopWidget;
-	BoardBottomWidget *boardBottomWidget;
-	BoardCenterWidget *boardCenterWidget;
+    QGridLayout *gridLayout;
+    BoardTopWidget *boardTopWidget;
+    BoardBottomWidget *boardBottomWidget;
+    BoardCenterWidget *boardCenterWidget;
 };
 

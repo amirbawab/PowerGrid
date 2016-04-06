@@ -18,7 +18,7 @@ public:
 
     static const int INVALID_VALUE = -1;
 
-    std::vector<std::shared_ptr<Region>> const GetRegions() const { return regions; }
+    std::vector<std::shared_ptr<Region>>& GetRegions() { return regions; }
     std::map<std::string, std::shared_ptr<City>> const& GetCities() const { return cities; }
     std::vector<std::shared_ptr<Connection>> const& GetConnections() const { return connections; }
     std::string GetFileName() const { return fileName; }
@@ -34,6 +34,10 @@ public:
     std::shared_ptr<City> GetCityByName(std::string cityName);
     bool AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> second, int cost);
     void AddCity(std::shared_ptr<City> city) { cities[city->GetName()] = city; }
+
+    // Randomly disable specified amount of regions
+    void SelectRegions(int count);
+
 private:
     std::string fileName;
     std::string name;

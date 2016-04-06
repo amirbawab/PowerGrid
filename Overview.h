@@ -13,7 +13,7 @@ class Overview
 {
 public:
 
-	// Overview step
+    // Overview step
     class OverviewStep
     {
     private:
@@ -27,55 +27,55 @@ public:
         void AddInfo(std::string infoString) { info.push_back(infoString); }
         std::vector<std::string> const& GetInfo() const { return info; }
 
-		// To string
-		friend std::ostream& operator<<(std::ostream& stream, const OverviewStep& step) {
-			stream << "=======================================================" << std::endl;
-			stream << "Step " << step.GetStep() << ": " << step.GetTitle() << std::endl;
-			for (auto info : step.GetInfo())
-				stream << "\t" << info << std::endl;
-			return stream;
-		}
+        // To string
+        friend std::ostream& operator<<(std::ostream& stream, const OverviewStep& step) {
+            stream << "=======================================================" << std::endl;
+            stream << "Step " << step.GetStep() << ": " << step.GetTitle() << std::endl;
+            for (auto info : step.GetInfo())
+                stream << "\t" << info << std::endl;
+            return stream;
+        }
 
     };
 
-	// Overview rules
-	struct OverviewRule {
-	public:
-		// Constructor
-		OverviewRule() : resourceStep(NB_STEPS) {}
+    // Overview rules
+    struct OverviewRule {
+    public:
+        // Constructor
+        OverviewRule() : resourceStep(NB_STEPS) {}
 
-		// Table 1
-		int region;
-		int randomeRemove;
-		int maxPowerPlant;
-		int step2Cities;
-		int citiesEndOfGame;
-		int GetResourceAt(int phase, Resource resource) { return resourceStep[phase - 1][resource]; }
-	private:
-		// Table 2
-		vector<map<Resource, int>> resourceStep;
-		friend class Overview;
-	};
+        // Table 1
+        int region;
+        int randomeRemove;
+        int maxPowerPlant;
+        int step2Cities;
+        int citiesEndOfGame;
+        int GetResourceAt(int phase, Resource resource) { return resourceStep[phase - 1][resource]; }
+    private:
+        // Table 2
+        vector<map<Resource, int>> resourceStep;
+        friend class Overview;
+    };
 
-	// Methods
+    // Methods
     Overview();
     ~Overview();
 
     std::vector<std::shared_ptr<OverviewStep>> const& GetSteps() const { return steps; }
-	std::shared_ptr<OverviewStep> AddStep(int step, std::string title);
-	int GetPayment(int numCities) { return payments[numCities]; }
-	OverviewRule GetRuleByNumOfPlayers(int numberOfPlayer) { return overviewRules[numberOfPlayer-2]; }
+    std::shared_ptr<OverviewStep> AddStep(int step, std::string title);
+    int GetPayment(int numCities) { return payments[numCities]; }
+    OverviewRule GetRuleByNumOfPlayers(int numberOfPlayer) { return overviewRules[numberOfPlayer-2]; }
 
-	void Setup();
+    void Setup();
 
 private:
     std::vector<std::shared_ptr<OverviewStep>> steps;
-	static const int MAX_NB_PLAYERS = 6;
-	static const int NB_STEPS = 3;
+    static const int MAX_NB_PLAYERS = 6;
+    static const int NB_STEPS = 3;
 
-	// Get money
-	const vector<int> payments{ 10, 22, 33, 44, 54, 64, 73, 82, 90, 98, 105, 112, 118, 124, 129, 134, 138, 142, 145, 148, 150 };
+    // Get money
+    const vector<int> payments{ 10, 22, 33, 44, 54, 64, 73, 82, 90, 98, 105, 112, 118, 124, 129, 134, 138, 142, 145, 148, 150 };
 
-	// Rules
-	vector<OverviewRule> overviewRules;
+    // Rules
+    vector<OverviewRule> overviewRules;
 };
