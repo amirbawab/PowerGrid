@@ -33,6 +33,11 @@ void PowerPlantModeWidget::Refresh() {
 		card->setIcon(QIcon(marketCards[i]->GetImagePath().c_str()));
 		card->setIconSize(QSize(200, 200));
 		cards.push_back(card);
+
+        // Connect
+        connect(cards[i], &QPushButton::clicked, [=]() {
+            qDebug(string("Card " + std::to_string(i) + " clicked!").c_str());
+        });
 	}
 
 	// Add components

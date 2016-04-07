@@ -6,6 +6,7 @@
 #include <QGridLayout>
 #include <memory>
 #include "DataStore.h"
+#include <string>
 
 class PowerPlantModeWidget : public QWidget {
 public:
