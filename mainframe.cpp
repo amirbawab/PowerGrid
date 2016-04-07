@@ -82,6 +82,7 @@ void MainFrame::onPlayerConfigNext() {
     // If no errors, go to next page
     if (!playerConfigWidget->HasError()) {
         playerConfigWidget->UpdatePlayersInfo();
+		Game::getInstance().StartGame();
         Game::getInstance().Step1Start();
         boardWidget->Refresh();
         centerStackWidget->setCurrentIndex(boardWidgetIndex);

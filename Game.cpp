@@ -33,13 +33,14 @@ void Game::ConfigNewGame(string map, int numberOfPlayers) {
     // Initialize game
     GameStatus::GetInstance().Init(this, map, ":/PowerGrid/Resources/config/Config.xml");
 
+	// Reset vector of players
+	players.clear();
+	playerOrder.clear();
+
     // Add players to players vector
     while (numberOfPlayers-- > 0)
         players.push_back(std::make_shared<Player>("", nullptr, initElektro));
     
-    // Prepate card stack
-    cardStack.Prepare(overview.GetRuleByNumOfPlayers(players.size()).randomeRemove);
-
     // Configure players
     for (auto player : players) {
 
@@ -56,6 +57,11 @@ void Game::ConfigNewGame(string map, int numberOfPlayers) {
     
     // Select regions to be used on the map
 //    this->map->SelectRegions(overview.GetRuleByNumOfPlayers(players.size()).region);
+}
+
+void Game::StartGame() {
+	// Prepate card stack
+	cardStack.Prepare(overview.GetRuleByNumOfPlayers(players.size()).randomeRemove);
 }
 
 // Load game

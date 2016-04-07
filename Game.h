@@ -153,6 +153,6 @@ public:
     // Integration
     void NewGame();
     void ConfigNewGame(string map, int numberOfPlayers);
-    void UpdateDataStore();
+	void StartGame();
 };
 
