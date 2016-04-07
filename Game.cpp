@@ -1271,19 +1271,3 @@ void Game::PrintRemainingResources() {
     }
     cout << endl;
 }
-
-void Game::ConfigureMap()
-{
-    // Get number of to-be-disabled regions and set the message
-    auto regions = overview.GetRuleByNumOfPlayers(players.size()).region;
-    messageText = "Select " + std::to_string(regions) +
-        " region(s) to be removed from the map";
-
-    // Update GUI
-    Notify();
-}
-
-void Game::DisableMapRegions(vector<shared_ptr<Region>>& regions) const
-{
-    this->map->DisableRegions(regions);
-}

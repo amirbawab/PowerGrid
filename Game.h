@@ -93,10 +93,6 @@ public:
     void PrintScore();
     void PrintRemainingResources();
 
-    // Pre-Step 1 configure map
-    void ConfigureMap();
-    void DisableMapRegions(vector<shared_ptr<Region>>& regions) const;
-
     // Step 1 Ordering players
     void Step1Start();
 

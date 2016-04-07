@@ -160,29 +160,6 @@ bool Map::AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> secon
     return true;
 }
 
-void Map::SelectRegions(int count)
-{
-    auto numberOfDisabledRegions = regions.size() - count;
-    std::set<int> disabledRegions;
-    while (disabledRegions.size() < numberOfDisabledRegions)
-    {
-        srand(time(nullptr));
-        int random = rand() % regions.size();
-        disabledRegions.insert(random);
-        regions[random]->SetEnabled(false);
-    }
-}
-
-void Map::DisableRegions(vector<shared_ptr<Region>> regions) const
-{
-    for (auto region : regions)
-    {
-        auto regionIt = find(regions.begin(), regions.end(), region);
-        if (regionIt != regions.end())
-            region->SetEnabled(false);
-    }
-}
-
 int Map::GetRegionIndex(const string regionName) const
 {
     auto region = find(regions.begin(), regions.end(), regionName);

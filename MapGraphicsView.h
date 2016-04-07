@@ -18,7 +18,6 @@ public:
     ~MapGraphicsView() {}
     void Refresh();
     void DrawMap();
-    void Reset();
 
 private:
     std::unique_ptr<QGraphicsScene> graphicsScene;
@@ -28,26 +27,13 @@ private:
     float scaleFactor = 1.15f;
     map<string, shared_ptr<CityItem>> citiesItemsMap;
     vector<std::unique_ptr<ConnectionItem>> connectionItems;
+    
+	std::shared_ptr<City> GetCityByPoint(QPoint point);
 
-    bool selectCity = false;
-    shared_ptr<City> selectedCity;
-
-    bool selectRegions = false;
-    int numberOfRegions = 0;
-    vector<shared_ptr<Region>> selectedRegions;
-
-    string GetCityByPoint(QPoint point);
+	void MarkCitiesToRemove(std::shared_ptr<City> city);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
-
-signals:
-    void CitySelected(shared_ptr<City> city);
-    void RegionsSelected(vector<shared_ptr<Region>>& regions);
-
-public slots:
-    void OnSelectCity();
-    void OnSelectRegions(int count);
 };
 

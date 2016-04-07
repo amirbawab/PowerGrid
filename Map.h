@@ -35,12 +35,6 @@ public:
     bool AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> second, int cost);
     void AddCity(std::shared_ptr<City> city) { cities[city->GetName()] = city; }
 
-    // Randomly disable specified amount of regions
-    void SelectRegions(int count);
-
-    // Disable specified regions
-    void DisableRegions(vector<shared_ptr<Region>> regions) const;
-
 private:
     std::string fileName;
     std::string name;

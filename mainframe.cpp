@@ -83,8 +83,12 @@ void MainFrame::onPlayerConfigNext() {
     if (!playerConfigWidget->HasError()) {
         playerConfigWidget->UpdatePlayersInfo();
 		Game::getInstance().StartGame();
-        Game::getInstance().DisplayRemoveRegions();
-        boardWidget->Refresh();
+        
+		// TODO Switch comment
+		// Game::getInstance().DisplayRemoveRegions();
+		Game::getInstance().Step1Start();
+		
+		boardWidget->Refresh();
         centerStackWidget->setCurrentIndex(boardWidgetIndex);
     } else {
         QMessageBox::critical(this, "Try again", "Players should have distinct house colors.", QMessageBox::Ok);
