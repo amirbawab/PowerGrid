@@ -133,6 +133,14 @@ QPushButton#powerPlantCardButton {
 	border-width: 0px;
 }
 
+QPushButton#powerPlantCardButton_highlight {
+	min-width: 43px;
+	min-height: 42px;
+	border-style: outset;
+	border-width: 1px;
+    border-color: white;
+}
+
 QPushButton#resourceButton {
 	min-width: 50px;
 	min-height: 50px;

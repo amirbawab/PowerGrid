@@ -13,6 +13,8 @@ public:
 	PowerPlantModeWidget();
 	~PowerPlantModeWidget();
 	void Refresh();
+    const int NONE = -1;
+    QPushButton *selectedCard = nullptr;
 private:
 	int per_row = 4;
 	std::vector<QPushButton*> cards;
