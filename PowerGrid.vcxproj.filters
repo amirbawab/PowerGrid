@@ -351,6 +351,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_MapGraphicsView.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PowerPlantModeWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -379,6 +382,9 @@
     </CustomBuild>
     <CustomBuild Include="MapGraphicsView.h">
       <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PowerPlantModeWidget.h">
+      <Filter>Header Files\gui\pages\board\components\mode</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -462,9 +468,6 @@
     </ClInclude>
     <ClInclude Include="BoardTopWidget.h">
       <Filter>Header Files\gui\pages\board\components</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerPlantModeWidget.h">
-      <Filter>Header Files\gui\pages\board\components\mode</Filter>
     </ClInclude>
     <ClInclude Include="ResourceMarketModeWidget.h">
       <Filter>Header Files\gui\pages\board\components\mode</Filter>

@@ -17,6 +17,20 @@ BoardWidget::BoardWidget() {
     // Set margin
     gridLayout->setContentsMargins(0, 0, 0, 0);
     
+    // Connect
+    connect(boardCenterWidget->GetPowerPlantModeWidget(), &PowerPlantModeWidget::CardSelected, [=](int index) {
+        qDebug("Updating counter");
+        
+        // Cast
+        auto powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(Game::getInstance().GetCardStack().GetVisibleCards()[index]);
+        
+        // If found
+        if (powerPlantCard) {
+            boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->
+                GetNumberLabel()->setText(std::to_string(powerPlantCard->GetPrice()).c_str());
+        }
+    });
+    
     // Add components
     gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);
     gridLayout->addWidget(boardCenterWidget, 1, 0);

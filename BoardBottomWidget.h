@@ -50,6 +50,7 @@ class CounterWidget : public QWidget {
 public:
 	CounterWidget();
 	~CounterWidget();
+    QLabel *GetNumberLabel() { return numberLabel; }
 private:
 	QGridLayout *gridLayout;
 	QPushButton *plusBtn, *minusBtn;
@@ -73,6 +74,7 @@ class StepTwoPanel : public QWidget {
 public:
     StepTwoPanel();
     ~StepTwoPanel();
+    CounterWidget *GetCounterWidget() { return counterWidget; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;
@@ -115,6 +117,11 @@ public:
 	BoardMessageWidget();
 	~BoardMessageWidget();
 	void Refresh();
+    StepOnePanel *GetStepOnePanel() { return stepOnePanel; }
+    StepTwoPanel *GetStepTwoPanel() { return stepTwoPanel; }
+    StepThreePanel*GetStepThreePanel() { return stepThreePanel; }
+    StepFourPanel *GetStepFourPanel() { return stepFourPanel; }
+    StepFivePanel *GetStepFivePanel() { return stepFivePanel; }
 private:
 	QGridLayout *gridLayout;
 	QLabel *questionLabel;
@@ -131,6 +138,7 @@ public:
 	BoardBottomWidget();
 	~BoardBottomWidget();
 	void Refresh();
+    BoardMessageWidget *GetBoardMessage() { return boardMessageWidget; }
 private:
 	QGridLayout *gridLayout;
 	BoardProfileWidget *boardProfileWidget;

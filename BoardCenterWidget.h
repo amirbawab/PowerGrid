@@ -18,6 +18,7 @@ public:
 	~BoardCenterWidget();
 	void Refresh();
     void DrawMap();
+    PowerPlantModeWidget *GetPowerPlantModeWidget() { return powerPlantModeWidget; }
 private:
 	QGridLayout *gridLayout;
 	QStackedWidget *centerStackedWidget;

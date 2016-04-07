@@ -9,15 +9,18 @@
 #include <string>
 
 class PowerPlantModeWidget : public QWidget {
+    Q_OBJECT
 public:
 	PowerPlantModeWidget();
 	~PowerPlantModeWidget();
 	void Refresh();
-    const int NONE = -1;
-    QPushButton *selectedCard = nullptr;
+    QPushButton *GetSelectedCard() { return selectedCard; }
 private:
-	int per_row = 4;
+    QPushButton *selectedCard = nullptr;
+    int per_row = 4;
 	std::vector<QPushButton*> cards;
 	QGridLayout *gridLayout;
+signals:
+    void CardSelected(int index);
 };
 
