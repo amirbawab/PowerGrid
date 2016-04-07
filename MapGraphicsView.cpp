@@ -101,7 +101,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
 
 void MapGraphicsView::OnSelectCity()
 {
-    selectedCity.reset();
+    selectedCity = nullptr;
     selectCity = true;
     viewport()->setCursor(Qt::ArrowCursor);
 }
@@ -183,10 +183,12 @@ void MapGraphicsView::DrawMap() {
         auto cityNameTextItem = cityItem.second->GetNameTextItem(cityFont);
         scene()->addItem(cityNameTextItem);
 
-        // Highlight city or region
-        if (selectCity && cityItem.second->GetCity() == selectedCity)
+        // Highlight selected city
+        if (selectedCity && cityItem.second->GetCity() == selectedCity)
             scene()->addRect(cityItem.second->rect(), QPen(Qt::white, 2));
-        else if (selectRegions)
+
+        // Highlight selected regions
+        if (selectedRegions.size() > 0)
         {
             auto regionIt = std::find(selectedRegions.begin(), selectedRegions.end(),
                                       cityItem.second->GetCity()->GetRegion());
@@ -196,4 +198,10 @@ void MapGraphicsView::DrawMap() {
 
         scene()->addItem(cityItem.second.get());
     }
+}
+
+void MapGraphicsView::Reset()
+{
+    selectedRegions = vector<shared_ptr<Region>>();
+    selectedCity = nullptr;
 }

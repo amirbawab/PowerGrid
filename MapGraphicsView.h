@@ -18,6 +18,7 @@ public:
     ~MapGraphicsView() {}
     void Refresh();
     void DrawMap();
+    void Reset();
 
 private:
     std::unique_ptr<QGraphicsScene> graphicsScene;
