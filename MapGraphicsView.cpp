@@ -19,6 +19,15 @@ MapGraphicsView::MapGraphicsView() {
     setDragMode(ScrollHandDrag);
 }
 
+string MapGraphicsView::GetCityByPoint(QPoint point)
+{
+    for (auto cityItem : citiesItemsMap)
+        if (cityItem.second->contains(point))
+            return cityItem.first;
+
+    return "";
+}
+
 void MapGraphicsView::wheelEvent(QWheelEvent* event) {
     // Don't zoom if nothing is in the scene
     if (scene()->items().size() == 0)
@@ -32,6 +41,77 @@ void MapGraphicsView::wheelEvent(QWheelEvent* event) {
         scaleSteps--;
         scale(1 / scaleFactor, 1 / scaleFactor);
     }
+}
+
+void MapGraphicsView::mousePressEvent(QMouseEvent* event)
+{
+    // If not selecting cities
+    if (!selectCity && !selectRegions)
+        QGraphicsView::mousePressEvent(event);
+
+    // Only process left clicks
+    if (event->button() != Qt::LeftButton)
+        return;
+
+    // 'mapToScene' returns QPointF; convert to QPoint
+    auto scenePoint = mapToScene(event->pos());
+    auto point = QPoint(scenePoint.x(), scenePoint.y());
+
+    if (selectCity)
+    {
+        // If no city contains this point
+        auto cityName = GetCityByPoint(point);
+        if (cityName == "")
+            return;
+
+        // Refresh map
+        selectedCity = citiesItemsMap[cityName]->GetCity();
+        DrawMap();
+
+        selectCity = false;
+        emit CitySelected(selectedCity);
+        return;
+    }
+
+    if (selectRegions)
+    {
+        // If no city contains this point
+        auto cityName = GetCityByPoint(point);
+        if (cityName == "")
+            return;
+
+        // Add city's region to the list if it's not already
+        auto cityRegion = citiesItemsMap[cityName]->GetCity()->GetRegion();
+        auto regionIt = std::find(selectedRegions.begin(), selectedRegions.end(), cityRegion);
+        if (regionIt == selectedRegions.end())
+            selectedRegions.push_back(citiesItemsMap[cityName]->GetCity()->GetRegion());
+
+        // Refresh map
+        DrawMap();
+
+        // If enough regions are selected, emit signal
+        if (selectedRegions.size() == numberOfRegions)
+        {
+            DrawMap();
+            selectRegions = false;
+            emit RegionsSelected(selectedRegions);
+        }
+    }
+}
+
+void MapGraphicsView::OnSelectCity()
+{
+    selectedCity.reset();
+    selectCity = true;
+    viewport()->setCursor(Qt::ArrowCursor);
+}
+
+void MapGraphicsView::OnSelectRegions(int count)
+{
+    selectRegions = true;
+    numberOfRegions = count;
+    selectedRegions = vector<shared_ptr<Region>>();
+    viewport()->setCursor(Qt::ArrowCursor);
 }
 
 void MapGraphicsView::Refresh() {
@@ -64,7 +144,7 @@ void MapGraphicsView::DrawMap() {
             citiesItemsMap[city.first] = std::make_shared<CityItem>(QPoint(city.second->getX(),
                                                                            city.second->getY()), city.second->getWidth(), city.second->getHeight());
             citiesItemsMap[city.first]->SetName(city.first);
-            citiesItemsMap[city.first]->SetCity(city.second.get());
+            citiesItemsMap[city.first]->SetCity(city.second);
             citiesItemsMap[city.first]->SetRegionColor(QColor(city.second->GetRegion()->GetName().c_str()));
         }
     }
@@ -99,9 +179,21 @@ void MapGraphicsView::DrawMap() {
     }
 
     // Ading cities
-    for (auto city : citiesItemsMap) {
-        auto cityNameTextItem = city.second->GetNameTextItem(cityFont);
+    for (auto cityItem : citiesItemsMap) {
+        auto cityNameTextItem = cityItem.second->GetNameTextItem(cityFont);
         scene()->addItem(cityNameTextItem);
-        scene()->addItem(city.second.get());
+
+        // Highlight city or region
+        if (selectCity && cityItem.second->GetCity() == selectedCity)
+            scene()->addRect(cityItem.second->rect(), QPen(Qt::white, 2));
+        else if (selectRegions)
+        {
+            auto regionIt = std::find(selectedRegions.begin(), selectedRegions.end(),
+                                      cityItem.second->GetCity()->GetRegion());
+            if (regionIt != selectedRegions.end())
+                scene()->addRect(cityItem.second->rect(), QPen(Qt::white, 2));
+        }
+
+        scene()->addItem(cityItem.second.get());
     }
 }

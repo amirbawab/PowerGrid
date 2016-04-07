@@ -65,6 +65,7 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_BoardBottomWidget.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_BoardCenterWidget.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_MainFrame.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_MapGraphicsView.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_MapWidget.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigRowWidget.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_PlayerConfigWidget.cpp" />
@@ -127,7 +128,12 @@
     <ClInclude Include="GameStatus.h" />
     <ClInclude Include="GenericTest.h" />
     <ClInclude Include="DataStore.h" />
-    <ClInclude Include="MapGraphicsView.h" />
+    <CustomBuild Include="MapGraphicsView.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing MapGraphicsView.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(ProjectDir)include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
     <ClInclude Include="MapModeWidget.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="OverviewModeWidget.h" />

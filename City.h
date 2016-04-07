@@ -19,13 +19,13 @@ public:
     void SetRegion(std::shared_ptr<Region> region) { this->region = region; }
 
     int GetNumberOfHouses() const { return houses; }
-	std::vector<std::shared_ptr<Connection>> const&  GetConnections() const { return connections; }
-	void AddConnection(std::shared_ptr<Connection> connection) { connections.push_back(connection); }
+    std::vector<std::shared_ptr<Connection>> const&  GetConnections() const { return connections; }
+    void AddConnection(std::shared_ptr<Connection> connection) { connections.push_back(connection); }
 
     int GetHousePrice() const;
     bool AddHouse();
-	bool IsFull();
-	bool IsConnectedTo(std::string cityName);
+    bool IsFull();
+    bool IsConnectedTo(std::string cityName);
 
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
@@ -49,9 +49,9 @@ private:
     int thirdHousePrice = 20;
     int houses = 0;
     int x, y, width, height;
-	static const int MAX_VALUE = 3;
+    static const int MAX_VALUE = 3;
     std::string name = "";
     std::shared_ptr<Region> region;
-	std::vector<std::shared_ptr<Connection>> connections;
+    std::vector<std::shared_ptr<Connection>> connections;
 };
 

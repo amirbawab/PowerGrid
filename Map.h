@@ -38,6 +38,9 @@ public:
     // Randomly disable specified amount of regions
     void SelectRegions(int count);
 
+    // Disable specified regions
+    void DisableRegions(vector<shared_ptr<Region>> regions) const;
+
 private:
     std::string fileName;
     std::string name;

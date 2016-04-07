@@ -173,6 +173,16 @@ void Map::SelectRegions(int count)
     }
 }
 
+void Map::DisableRegions(vector<shared_ptr<Region>> regions) const
+{
+    for (auto region : regions)
+    {
+        auto regionIt = find(regions.begin(), regions.end(), region);
+        if (regionIt != regions.end())
+            region->SetEnabled(false);
+    }
+}
+
 int Map::GetRegionIndex(const string regionName) const
 {
     auto region = find(regions.begin(), regions.end(), regionName);
