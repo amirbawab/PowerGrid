@@ -52,6 +52,8 @@ void MapGraphicsView::wheelEvent(QWheelEvent* event) {
 
 void MapGraphicsView::mousePressEvent(QMouseEvent* event)
 {
+    // Super
+    QGraphicsView::mousePressEvent(event);
 
     // Only process left clicks
     if (event->button() != Qt::LeftButton)
