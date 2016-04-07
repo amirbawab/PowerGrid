@@ -37,7 +37,7 @@ ResourceMarketModeWidget::~ResourceMarketModeWidget() {
 void ResourceMarketModeWidget::Refresh() {
 
 	// Load market
-	std::vector<std::shared_ptr<ResourceMarketLevel>> levels = DataStore::getInstance().resourceMarket->GetLevels();
+	std::vector<std::shared_ptr<ResourceMarketLevel>> levels = Game::getInstance().GetResourceMarket()->GetLevels();
 
 	// Refresh market
 	for (int i = 0; i < resourceMarketLevelwidgets.size(); i++) {

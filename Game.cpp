@@ -5,9 +5,6 @@ Game::Game() {
     // Log
     std::cout << "Game start!" << std::endl;
 
-    // Set game
-    DataStore::getInstance().game = this;
-
     // TODO Remove this ?
     // Save map
     //if (map->SaveFile("SavedMap.xml"))
@@ -59,40 +56,7 @@ void Game::ConfigNewGame(string map, int numberOfPlayers) {
     
     // Select regions to be used on the map
 //    this->map->SelectRegions(overview.GetRuleByNumOfPlayers(players.size()).region);
-
-    // Update data store
-    UpdateDataStore();
 }
-
-void Game::UpdateDataStore() {
-    // Set map
-    DataStore::getInstance().map = GetMap();
-
-    // Set house colors
-    DataStore::getInstance().houseColors = GetHouseColor();
-
-    // Set players
-    DataStore::getInstance().players = players;
-
-    // Set players turn
-    DataStore::getInstance().playersTurn = playerOrder;
-
-    // Set current player
-    DataStore::getInstance().currentPlayer = currentPlayer;
-
-    // Set Market
-    DataStore::getInstance().resourceMarket = rMarket;
-
-    // Set visible power plants
-    DataStore::getInstance().marketPowerPlantCards = cardStack.GetVisibleCards();
-
-    // Set phase
-    DataStore::getInstance().phase = phase;
-
-    // Set step
-    DataStore::getInstance().step = playStep;
-}
-
 
 // Load game
 void Game::LoadGame() {
@@ -130,7 +94,7 @@ void Game::UpdatePlayOrder(bool reverse) {
 
 void Game::Step1Start() {
 
-    DataStore::getInstance().messageText = "Player order updated. Press `OK` to continue ...";
+    messageText = "Player order updated. Press `OK` to continue ...";
     playStep = 1;
 
     // Notify GUI
@@ -1304,7 +1268,7 @@ void Game::ConfigureMap()
 {
     // Get number of to-be-disabled regions and set the message
     auto regions = overview.GetRuleByNumOfPlayers(players.size()).region;
-    DataStore::getInstance().messageText = "Select " + std::to_string(regions) +
+    messageText = "Select " + std::to_string(regions) +
         " region(s) to be removed from the map";
 
     // Update GUI

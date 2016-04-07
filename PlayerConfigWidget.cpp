@@ -41,9 +41,9 @@ void PlayerConfigWidget::SetNumberOfPlayers(int num) {
 	// Add rows to the rows widget
 	for (int i = 0; i < num; i++) {
 		PlayerConfigRowWidget *row = new PlayerConfigRowWidget("Player " + std::to_string(i + 1));
-		row->SetHouseColors(DataStore::getInstance().houseColors);
-		row->SetPlayer(DataStore::getInstance().players[i]);
-		row->SetHouseColorIndex(i % DataStore::getInstance().houseColors.size());
+		row->SetHouseColors(Game::getInstance().GetHouseColor());
+		row->SetPlayer(Game::getInstance().GetPlayers()[i]);
+		row->SetHouseColorIndex(i % Game::getInstance().GetHouseColor().size());
 		rows.push_back(row);
 		vBoxLayout->addWidget(rows[i], i, Qt::AlignCenter);
 	}

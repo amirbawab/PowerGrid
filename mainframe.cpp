@@ -52,7 +52,7 @@ MainFrame::~MainFrame() {
 void MainFrame::onNewGame() {
     qDebug("Starting a new game");
     centerStackWidget->setCurrentIndex(mapWidgetIndex);
-    DataStore::getInstance().game->NewGame();
+    Game::getInstance().NewGame();
 }
 
 void MainFrame::onMapBack() {
@@ -64,7 +64,7 @@ void MainFrame::onMapNext() {
     qDebug("Next from map selection screen");
     
     // TODO change USA to be read from gui
-    DataStore::getInstance().game->ConfigNewGame("USA", mapWidget->GetNumberOfPlayers());
+    Game::getInstance().ConfigNewGame("USA", mapWidget->GetNumberOfPlayers());
     
     centerStackWidget->setCurrentIndex(playerConfigWidgetIndex);
     playerConfigWidget->SetNumberOfPlayers(mapWidget->GetNumberOfPlayers());
@@ -82,7 +82,7 @@ void MainFrame::onPlayerConfigNext() {
     // If no errors, go to next page
     if (!playerConfigWidget->HasError()) {
         playerConfigWidget->UpdatePlayersInfo();
-        DataStore::getInstance().game->Step1Start();
+        Game::getInstance().Step1Start();
         boardWidget->Refresh();
         centerStackWidget->setCurrentIndex(boardWidgetIndex);
     } else {

@@ -17,7 +17,7 @@ PowerPlantModeWidget::~PowerPlantModeWidget() {
 void PowerPlantModeWidget::Refresh() {
 
 	// Load power plant cards
-	std::vector<std::shared_ptr<Card>> marketCards = DataStore::getInstance().marketPowerPlantCards;
+	std::vector<std::shared_ptr<Card>> marketCards = Game::getInstance().GetCardStack().GetVisibleCards();
 
 	// Clear old components
 	for (int i = 0; i < cards.size(); i++) {

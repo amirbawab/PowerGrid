@@ -60,12 +60,12 @@ void GameTurnWidget::Refresh() {
     }
 
     // Draw houses
-    for (int i = 0; i < DataStore::getInstance().playersTurn.size(); i++) {
+    for (int i = 0; i < Game::getInstance().GetPlayerOrder().size(); i++) {
         QLabel *playerLabel = new QLabel();
-        playerLabel->setPixmap(QPixmap(DataStore::getInstance().playersTurn[i]->GetColor()->getImage().c_str()));
+        playerLabel->setPixmap(QPixmap(Game::getInstance().GetPlayerOrder()[i]->GetColor()->getImage().c_str()));
         gridLayout->addWidget(playerLabel, 0, i*2, Qt::AlignCenter);
 
-        QLabel *playerNameLabel = new QLabel(DataStore::getInstance().playersTurn[i]->GetInitials().c_str());
+        QLabel *playerNameLabel = new QLabel(Game::getInstance().GetPlayerOrder()[i]->GetInitials().c_str());
         playerNameLabel->setObjectName("turn_label");
         gridLayout->addWidget(playerNameLabel, 0, i*2+1, Qt::AlignLeft);
 
@@ -112,8 +112,8 @@ StepPhaseWidget::~StepPhaseWidget() {
 }
 
 void StepPhaseWidget::Refresh() {
-    stepNumberLabel->setText(QString::fromStdString(std::to_string(DataStore::getInstance().step)));
-    phaseNumberLabel->setText(QString::fromStdString(std::to_string(DataStore::getInstance().phase)));
+    stepNumberLabel->setText(QString::fromStdString(std::to_string(Game::getInstance().GetStep())));
+    phaseNumberLabel->setText(QString::fromStdString(std::to_string(Game::getInstance().GetPhase())));
 }
 
 // ScoreWidget class
@@ -141,12 +141,12 @@ void ScoreWidget::Refresh() {
     }
 
     // Draw houses
-    for (int i = 0; i < DataStore::getInstance().players.size(); i++) {
+    for (int i = 0; i < Game::getInstance().GetPlayers().size(); i++) {
         QLabel *playerLabel = new QLabel();
-        playerLabel->setPixmap(QPixmap(DataStore::getInstance().players[i]->GetColor()->getImage().c_str()));
+        playerLabel->setPixmap(QPixmap(Game::getInstance().GetPlayers()[i]->GetColor()->getImage().c_str()));
         gridLayout->addWidget(playerLabel, 0, i * 2, Qt::AlignCenter);
 
-        QLabel *playerNameLabel = new QLabel((DataStore::getInstance().players[i]->GetInitials() + ":" + std::to_string(DataStore::getInstance().players[i]->GetHouses().size())).c_str());
+        QLabel *playerNameLabel = new QLabel((Game::getInstance().GetPlayers()[i]->GetInitials() + ":" + std::to_string(Game::getInstance().GetPlayers()[i]->GetHouses().size())).c_str());
         playerNameLabel->setObjectName("turn_label");
         gridLayout->addWidget(playerNameLabel, 0, i * 2 + 1, Qt::AlignLeft);
 

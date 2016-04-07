@@ -124,8 +124,8 @@ void MapGraphicsView::Refresh() {
 void MapGraphicsView::DrawMap() {
 
     // Load cities and connections
-    auto citiesMap = DataStore::getInstance().map->GetCities();
-    auto connections = DataStore::getInstance().map->GetConnections();
+    auto citiesMap = Game::getInstance().GetMap()->GetCities();
+    auto connections = Game::getInstance().GetMap()->GetConnections();
 
     // Reset maps
     citiesItemsMap = map<string, shared_ptr<CityItem>>();

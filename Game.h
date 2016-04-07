@@ -25,45 +25,59 @@ using std::cin;
 class Game : public Subject {
 private:
 
-    // General attributes
-    int fullTurn;  // the number of turns since the beginning
-    std::vector<std::shared_ptr<Player>> players;
-    std::shared_ptr<ResourceMarket> rMarket;
-    CardStack cardStack;
-    std::vector<std::shared_ptr<HouseColor>> houseColor;
-    std::vector<std::shared_ptr<Card>> allCards;
-    std::shared_ptr<Map> map;
-    std::vector<std::shared_ptr<Player>> playerOrder;  // players placed in the correct turn order
-    std::shared_ptr<Player> winner; 
-    int playStep = 0;  // current step of the turn
-    std::shared_ptr<Player> currentPlayer;  // pointer to the current player
-    int phase;  // phase of the game (1, 2 or 3)
-    bool gameOver = false;
+	// General attributes
+	int fullTurn;  // the number of turns since the beginning
+	std::vector<std::shared_ptr<Player>> players;
+	std::shared_ptr<ResourceMarket> rMarket;
+	CardStack cardStack;
+	std::vector<std::shared_ptr<HouseColor>> houseColor;
+	std::vector<std::shared_ptr<Card>> allCards;
+	std::shared_ptr<Map> map;
+	std::vector<std::shared_ptr<Player>> playerOrder;  // players placed in the correct turn order
+	std::shared_ptr<Player> winner;
+	int playStep = 0;  // current step of the turn
+	std::shared_ptr<Player> currentPlayer;  // pointer to the current player
+	int phase;  // phase of the game (1, 2 or 3)
+	bool gameOver = false;
+	string messageText;
 
-    Overview overview;
-    int initElektro;
+	Overview overview;
+	int initElektro;
+
+	// Singleton
+	Game(Game const&) = delete;
+	void operator=(Game const&) = delete;
 
 
 public:
-    Game();
-    ~Game() {};
+	Game();
+	~Game() {};
 
-    void LoadGame();
-    void PlayGame();
+	// Singleton
+	static Game& getInstance() {
+		static Game instance;
+		return instance;
+	}
 
-    // Getters
-    int GetFullTurn() const { return fullTurn; }
-    std::vector<std::shared_ptr<Player>>& GetPlayers() { return players; }
-    std::shared_ptr<ResourceMarket> GetResourceMarket() { return rMarket; }
-    CardStack& GetCardStack() { return cardStack; }
-    std::vector<std::shared_ptr<Card>>& GetAllCards() { return allCards; }
-    std::shared_ptr<Map>& GetMap() { return map; }
-    std::vector<std::shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
-    std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
-    int GetPhase() const { return phase; }
-    Overview& GetOverview() { return overview; }
-    int GetInitElektro() const { return initElektro; }
-    
+	void LoadGame();
+	void PlayGame();
+
+	// Getters
+	int GetFullTurn() const { return fullTurn; }
+	std::vector<std::shared_ptr<Player>>& GetPlayers() { return players; }
+	std::shared_ptr<ResourceMarket> GetResourceMarket() { return rMarket; }
+	CardStack& GetCardStack() { return cardStack; }
+	std::vector<std::shared_ptr<Card>>& GetAllCards() { return allCards; }
+	std::shared_ptr<Map>& GetMap() { return map; }
+	std::vector<std::shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
+	std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
+	int GetPhase() const { return phase; }
+	Overview& GetOverview() { return overview; }
+	int GetInitElektro() const { return initElektro; }
+	std::shared_ptr<Player> &GetCurrentPlayer() { return currentPlayer; }
+	string GetMessageText() const { return messageText; }
+	int GetStep() const { return playStep; }
+
     // Setters
     void SetMap(std::shared_ptr<Map>& map) { this->map = map; }
     void SetFullTurn(int fullTurn) { this->fullTurn = fullTurn; }

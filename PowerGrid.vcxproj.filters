@@ -378,7 +378,7 @@
       <Filter>Header Files\gui\pages\board\components</Filter>
     </CustomBuild>
     <CustomBuild Include="MapGraphicsView.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -471,9 +471,6 @@
     </ClInclude>
     <ClInclude Include="OverviewModeWidget.h">
       <Filter>Header Files\gui\pages\board\components\mode</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStore.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapModeWidget.h">
       <Filter>Header Files\gui\pages\board\components\mode</Filter>

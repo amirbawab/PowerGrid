@@ -127,7 +127,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStatus.h" />
     <ClInclude Include="GenericTest.h" />
-    <ClInclude Include="DataStore.h" />
     <CustomBuild Include="MapGraphicsView.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing MapGraphicsView.h...</Message>

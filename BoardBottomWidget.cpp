@@ -68,10 +68,10 @@ BoardProfileWidget::~BoardProfileWidget() {
 }
 
 void BoardProfileWidget::Refresh() {
-    std::shared_ptr<Player> player = DataStore::getInstance().currentPlayer;
-	playerNameLabel->setText(DataStore::getInstance().currentPlayer->GetName().c_str());
-	playerPictureLabel->setPixmap(QPixmap(DataStore::getInstance().currentPlayer->GetColor()->getImage().c_str()));
-	playerElektroLabel->setText((std::to_string(DataStore::getInstance().currentPlayer->GetElektro()) + " Elektro").c_str());
+    std::shared_ptr<Player> player = Game::getInstance().GetCurrentPlayer();
+	playerNameLabel->setText(Game::getInstance().GetCurrentPlayer()->GetName().c_str());
+	playerPictureLabel->setPixmap(QPixmap(Game::getInstance().GetCurrentPlayer()->GetColor()->getImage().c_str()));
+	playerElektroLabel->setText((std::to_string(Game::getInstance().GetCurrentPlayer()->GetElektro()) + " Elektro").c_str());
 }
 
 // BoardResourcePowerPlantWiget
@@ -185,7 +185,7 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 	}
 
 	// Get power plants
-	std::vector<std::shared_ptr<PowerPlantCard>> cards = DataStore::getInstance().currentPlayer->GetPowerPlants();
+	std::vector<std::shared_ptr<PowerPlantCard>> cards = Game::getInstance().GetCurrentPlayer()->GetPowerPlants();
 
 	// Add power plants
 	for (int i = 0; i < cards.size(); i++) {
@@ -243,9 +243,9 @@ BoardMessageWidget::~BoardMessageWidget() {
 }
 
 void BoardMessageWidget::Refresh() {
-	questionLabel->setText(QString::fromStdString(DataStore::getInstance().messageText));
+	questionLabel->setText(QString::fromStdString(Game::getInstance().GetMessageText()));
 
-    switch (DataStore::getInstance().step) {
+    switch (Game::getInstance().GetStep()) {
     case 1:
         stepsWidget->setCurrentWidget(stepOnePanel);
         break;
