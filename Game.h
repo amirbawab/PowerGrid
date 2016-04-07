@@ -24,6 +24,7 @@ using std::cin;
 
 class Game : public Subject {
 private:
+    Game();
 
 	// General attributes
 	int fullTurn;  // the number of turns since the beginning
@@ -50,7 +51,6 @@ private:
 
 
 public:
-	Game();
 	~Game() {};
 
 	// Singleton
