@@ -7,15 +7,15 @@
 class Subject
 {
 private:
-    std::vector<std::shared_ptr<Observer>> observers;
+    std::vector<Observer*> observers;
 
 public:
-    void Attach(std::shared_ptr<Observer> observer) {
+    void Attach(Observer *observer) {
         if (std::find(observers.begin(), observers.end(), observer) == observers.end())
             observers.push_back(observer);
     }
 
-    void Detach(std::shared_ptr<Observer> observer) {
+    void Detach(Observer *observer) {
         auto it = std::find(observers.begin(), observers.end(), observer);
         if (it != observers.end()) {
             observers.erase(it);	
