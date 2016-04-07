@@ -20,10 +20,10 @@ void PowerPlantModeWidget::Refresh() {
 	std::vector<std::shared_ptr<Card>> marketCards = Game::getInstance().GetCardStack().GetVisibleCards();
 
 	// Clear old components
-	for (int i = 0; i < cards.size(); i++) {
-		gridLayout->removeWidget(cards[i]);
-		delete cards[i];
-		cards.erase(cards.begin() + i);
+	while(cards.size() > 0) {
+		gridLayout->removeWidget(cards[0]);
+		delete cards[0];
+		cards.erase(cards.begin());
 	}
 
 	// Dummy cards

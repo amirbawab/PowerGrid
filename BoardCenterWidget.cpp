@@ -76,6 +76,26 @@ void BoardCenterWidget::Refresh() {
     mapModeWidget->Refresh();
 	powerPlantModeWidget->Refresh();
 	resourceMarketModeWidget->Refresh();
+
+    switch (Game::getInstance().GetStep()) {
+    case 1:
+        centerStackedWidget->setCurrentWidget(mapModeWidget);
+        break;
+    case 2:
+        centerStackedWidget->setCurrentWidget(powerPlantModeWidget);
+        break;
+    case 3:
+        centerStackedWidget->setCurrentWidget(resourceMarketModeWidget);
+        break;
+    case 4:
+        centerStackedWidget->setCurrentWidget(mapModeWidget);
+        break;
+    case 5:
+        centerStackedWidget->setCurrentWidget(overviewModeWidget);
+        break;
+    default:
+        break;
+    }
 }
 
 void BoardCenterWidget::DrawMap() {
