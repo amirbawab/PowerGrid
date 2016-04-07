@@ -101,7 +101,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
 
 void MapGraphicsView::OnSelectCity()
 {
-    selectedCity = nullptr;
+    selectedCity.reset();
     selectCity = true;
     viewport()->setCursor(Qt::ArrowCursor);
 }
@@ -203,5 +203,5 @@ void MapGraphicsView::DrawMap() {
 void MapGraphicsView::Reset()
 {
     selectedRegions = vector<shared_ptr<Region>>();
-    selectedCity = nullptr;
+    selectedCity.reset();
 }
