@@ -83,7 +83,7 @@ void MainFrame::onPlayerConfigNext() {
     if (!playerConfigWidget->HasError()) {
         playerConfigWidget->UpdatePlayersInfo();
 		Game::getInstance().StartGame();
-        Game::getInstance().Step1Start();
+        Game::getInstance().DisplayRemoveRegions();
         boardWidget->Refresh();
         centerStackWidget->setCurrentIndex(boardWidgetIndex);
     } else {

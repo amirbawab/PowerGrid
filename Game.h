@@ -154,5 +154,6 @@ public:
     void NewGame();
     void ConfigNewGame(string map, int numberOfPlayers);
 	void StartGame();
+	void DisplayRemoveRegions();
 };
 

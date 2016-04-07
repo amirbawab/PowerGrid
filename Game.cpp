@@ -18,7 +18,7 @@ void Game::NewGame() {
 
     // Initialize components
     fullTurn = 1;
-    phase = 1;
+    phase = 0;
     playStep = 1;
 
     // Resource market
@@ -54,9 +54,6 @@ void Game::ConfigNewGame(string map, int numberOfPlayers) {
 
     // Set current player
     currentPlayer = playerOrder[0];
-    
-    // Select regions to be used on the map
-//    this->map->SelectRegions(overview.GetRuleByNumOfPlayers(players.size()).region);
 }
 
 void Game::StartGame() {
@@ -96,6 +93,11 @@ void Game::UpdatePlayOrder(bool reverse) {
         std::sort(playerOrder.begin(), playerOrder.end(), comparePlayerPriority);
     else
         std::sort(playerOrder.begin(), playerOrder.end(), [](std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
+}
+
+void Game::DisplayRemoveRegions() {
+	messageText = "Click on the region(s) you want to remove then press `OK`";
+	Notify();
 }
 
 void Game::Step1Start() {
