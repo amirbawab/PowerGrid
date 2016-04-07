@@ -9,9 +9,6 @@
 
 int main(int argc, char *argv[]) {
 
-	// Create game
-	Game game;
-
 	// Application
 	Application application(argc, argv);
 
@@ -24,7 +21,7 @@ int main(int argc, char *argv[]) {
 	MainFrame mainframe("Power Grid");
 
 	// Attach observer
-	game.Attach(&mainframe);
+	Game::getInstance().Attach(&mainframe);
 
 	// Apply css
 	application.setStyleSheet(StyleSheet);

@@ -18,7 +18,7 @@ void Game::NewGame() {
 
     // Initialize components
     fullTurn = 1;
-    phase = 0;
+    phase = 1; // TODO Change this to 0
     playStep = 1;
 
     // Resource market
@@ -112,7 +112,7 @@ void Game::Step1Start() {
 void Game::Step2Start() {
     // GUI Message: "Step 2"
     playStep = 2;
-    UpdatePlayOrder(true);
+    UpdatePlayOrder(false); // TODO this should be true
 
     // nowBidding is false when picking a plant and true when bidding on a plant
     nowBidding = false;
@@ -124,10 +124,12 @@ void Game::Step2Start() {
 }
 
 void Game::Step2PickPlant1() {
-    // GUI Message: "Pick a plant to buy:"
-    // User can click on a plant and 'ok' to confirm 
-    // or click on 'skip' to pass (not available for turn 1)
-
+	if(fullTurn == 1) {
+		messageText = "Pick a power plant card to buy, then press `OK`";
+	} else {
+		messageText = "Pick a power plant card to buy, then press `OK`, or press `SKIP`";
+	}
+	Notify();
 }
 
 void Game::Step2PickPlant2() {

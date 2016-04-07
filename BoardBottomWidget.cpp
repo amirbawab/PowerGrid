@@ -280,6 +280,12 @@ StepOnePanel::StepOnePanel() {
     // Set layout
     setLayout(gridLayout);
 
+	// Connect
+	connect(okButton, &QPushButton::clicked, [=]() {
+		qDebug("Starting step 2");
+		Game::getInstance().Step2Start();
+	});
+
     // Add components
     gridLayout->addWidget(okButton, 0, 0, Qt::AlignCenter);
 }
