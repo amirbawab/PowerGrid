@@ -51,6 +51,7 @@ public:
 	CounterWidget();
 	~CounterWidget();
     QLabel *GetNumberLabel() { return numberLabel; }
+    int GetValueAsInt() { return std::stoi(numberLabel->text().toStdString()); }
 private:
 	QGridLayout *gridLayout;
 	QPushButton *plusBtn, *minusBtn;
@@ -75,6 +76,7 @@ public:
     StepTwoPanel();
     ~StepTwoPanel();
     CounterWidget *GetCounterWidget() { return counterWidget; }
+    QPushButton *GetOkButton() { return okButton; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;

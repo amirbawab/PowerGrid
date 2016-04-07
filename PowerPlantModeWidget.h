@@ -14,6 +14,7 @@ public:
 	PowerPlantModeWidget();
 	~PowerPlantModeWidget();
 	void Refresh();
+    int GetSelectedCardIndex();
     QPushButton *GetSelectedCard() { return selectedCard; }
 private:
     QPushButton *selectedCard = nullptr;

@@ -72,3 +72,13 @@ void PowerPlantModeWidget::Refresh() {
 		gridLayout->addWidget(cards[i], i / per_row, i%per_row, Qt::AlignCenter);
 	}
 }
+
+int PowerPlantModeWidget::GetSelectedCardIndex() {
+    if (selectedCard) {
+        for (int i = 0; i < cards.size(); i++) {
+            if (selectedCard == cards[i])
+                return i;
+        }
+    }
+    return -1;
+}

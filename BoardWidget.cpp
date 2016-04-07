@@ -1,4 +1,5 @@
 #include "BoardWidget.h"
+#include <QMessageBox>
 
 BoardWidget::BoardWidget() {
 
@@ -20,16 +21,40 @@ BoardWidget::BoardWidget() {
     // Connect
     connect(boardCenterWidget->GetPowerPlantModeWidget(), &PowerPlantModeWidget::CardSelected, [=](int index) {
         qDebug("Updating counter");
-        
+
         // Cast
         auto powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(Game::getInstance().GetCardStack().GetVisibleCards()[index]);
-        
+
         // If found
         if (powerPlantCard) {
             boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->
                 GetNumberLabel()->setText(std::to_string(powerPlantCard->GetPrice()).c_str());
         }
     });
+
+    connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetOkButton(), &QPushButton::clicked, [=]() {
+        qDebug("Ok clicked");
+
+        if (!boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCard()) {
+            QMessageBox::critical(this, "No Power Plant Selected!", "Please select a power plant");
+        
+        } else {
+            // Cast
+            auto powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(
+                Game::getInstance().GetCardStack().GetVisibleCards()[boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex()]);
+
+            // If found
+            if (powerPlantCard) {
+                if (boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt() < powerPlantCard->GetPrice()) {
+                    QMessageBox::critical(this, "Price Error", "Please select a price greater than or equal to the selected card");
+                }
+                else {
+                    // TODO Next player
+                }
+            }
+        }
+    });
+    
     
     // Add components
     gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);
