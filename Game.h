@@ -100,7 +100,7 @@ public:
     int GetNextPlayerIndex();
     void Step2Start();
     void Step2PickPlant1();
-    void Step2PickPlant2();
+    void Step2PickPlant2(int plantIndex, int price, bool skip);
     void Step2Bid1();
     void Step2Bid2();
     void Step2BidEnd();

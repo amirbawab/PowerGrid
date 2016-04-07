@@ -77,6 +77,7 @@ public:
     ~StepTwoPanel();
     CounterWidget *GetCounterWidget() { return counterWidget; }
     QPushButton *GetOkButton() { return okButton; }
+    QPushButton *GetSkipButton() { return skipButton; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;

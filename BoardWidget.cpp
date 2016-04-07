@@ -18,7 +18,7 @@ BoardWidget::BoardWidget() {
     // Set margin
     gridLayout->setContentsMargins(0, 0, 0, 0);
     
-    // Connect
+    // Connect card
     connect(boardCenterWidget->GetPowerPlantModeWidget(), &PowerPlantModeWidget::CardSelected, [=](int index) {
         qDebug("Updating counter");
 
@@ -32,6 +32,7 @@ BoardWidget::BoardWidget() {
         }
     });
 
+    // Connect ok
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetOkButton(), &QPushButton::clicked, [=]() {
         qDebug("Ok clicked");
 
@@ -49,12 +50,18 @@ BoardWidget::BoardWidget() {
                     QMessageBox::critical(this, "Price Error", "Please select a price greater than or equal to the selected card");
                 }
                 else {
-                    // TODO Next player
+                    Game::getInstance().Step2PickPlant2(boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex(), 
+                        boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt(), false);
                 }
             }
         }
     });
     
+    // Connect skip
+    connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetSkipButton(), &QPushButton::clicked, [=]() {
+        qDebug("Skip clicked");
+        Game::getInstance().Step2PickPlant2(-1, -1, true);
+    });
     
     // Add components
     gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);

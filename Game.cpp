@@ -132,10 +132,8 @@ void Game::Step2PickPlant1() {
 	Notify();
 }
 
-void Game::Step2PickPlant2() {
-    bool skip = false; // GUI get: Check if user wants to buy a plant 
-    plantIndex = -1; // GUI get: Index of plant to put on auction
-
+void Game::Step2PickPlant2(int plantIndex, int price, bool skip) {
+    
     if (skip) {
         canBuy[currentPlayer.get()] = false;
         // Go to next player
@@ -144,7 +142,7 @@ void Game::Step2PickPlant2() {
     }
 
     // Check that player can buy that plant
-    if (cardStack.GetPlant(plantIndex)->GetPrice() > currentPlayer->GetElektro()) {
+    if (price > currentPlayer->GetElektro()) {
         Step2PickPlant1();  // Pick another plant
     }
 
@@ -157,7 +155,7 @@ void Game::Step2PickPlant2() {
     }
 
     // Make initial bid
-    currentBid = cardStack.GetPlant(plantIndex)->GetPrice();
+    currentBid = price;
     highestBidder = currentPlayer;
     cout << *currentPlayer << " makes the initial bid." << endl;
 
