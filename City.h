@@ -20,7 +20,9 @@ public:
 
     int GetNumberOfHouses() const { return houses; }
     std::vector<std::shared_ptr<Connection>> const&  GetConnections() const { return connections; }
+
     void AddConnection(std::shared_ptr<Connection> connection) { connections.push_back(connection); }
+    void RemoveConnection(std::shared_ptr<Connection> connection);
 
     int GetHousePrice() const;
     bool AddHouse();

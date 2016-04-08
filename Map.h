@@ -13,35 +13,41 @@
 class Map
 {
 public:
-    explicit Map(std::string fileName);
+    explicit Map(string fileName);
     Map() {}
 
     static const int INVALID_VALUE = -1;
 
-    std::vector<std::shared_ptr<Region>>& GetRegions() { return regions; }
-    std::map<std::string, std::shared_ptr<City>> const& GetCities() const { return cities; }
-    std::vector<std::shared_ptr<Connection>> const& GetConnections() const { return connections; }
-    std::string GetFileName() const { return fileName; }
-    std::string GetName() const { return name; }
+    vector<shared_ptr<Region>>& GetRegions() { return regions; }
+    std::map<string, shared_ptr<City>> const& GetCities() const { return cities; }
+    vector<shared_ptr<Connection>> const& GetConnections() const { return connections; }
+    string GetFileName() const { return fileName; }
+    string GetName() const { return name; }
 
-    bool SaveFile(std::string fileName);
+    bool SaveFile(string fileName);
     void DisplayMap() const;
 
-    static std::shared_ptr<City> GetOppositeOf(const Connection& connection, std::string city);
-    int GetShortestPath(std::string fromCity, std::string toCity);
+    static shared_ptr<City> GetOppositeOf(const Connection& connection, string city);
+    int GetShortestPath(string fromCity, string toCity);
     int GetShortestPath(shared_ptr<Player>, string toCity);
 
-    std::shared_ptr<City> GetCityByName(std::string cityName);
-    bool AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> second, int cost);
-    void AddCity(std::shared_ptr<City> city) { cities[city->GetName()] = city; }
+    shared_ptr<City> GetCityByName(string cityName);
+
+    bool AddConnection(shared_ptr<City> first, shared_ptr<City> second, int cost);
+    void RemoveConnection(shared_ptr<Connection> connection);
+
+    void AddCity(shared_ptr<City> city) { cities[city->GetName()] = city; }
+
+    void RemoveRegionByCity(shared_ptr<City> city);
+    void RemoveRegion(shared_ptr<Region> region);
 
 private:
-    std::string fileName;
-    std::string name;
-    std::vector<std::shared_ptr<Region>> regions;
-    std::map<std::string, std::shared_ptr<City>> cities;
-    std::vector<std::shared_ptr<Connection>> connections;
-    int GetRegionIndex(const std::string regionName) const;
+    string fileName;
+    string name;
+    vector<shared_ptr<Region>> regions;
+    std::map<string, shared_ptr<City>> cities;
+    vector<shared_ptr<Connection>> connections;
+    int GetRegionIndex(const string regionName) const;
     bool LoadCities(pugi::xml_document& xml);
     bool LoadConnections(pugi::xml_document& xml);
     void PopulateCities(pugi::xml_node& map);

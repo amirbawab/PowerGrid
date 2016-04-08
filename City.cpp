@@ -1,4 +1,5 @@
 #include "City.h"
+#include <algorithm>
 #include <iostream>
 
 bool operator==(const std::shared_ptr<City>& first, const std::shared_ptr<City>& second)
@@ -14,6 +15,12 @@ bool operator==(const std::shared_ptr<City>& first, const City& other)
 bool operator==(const std::shared_ptr<City>& city, const std::string& cityName)
 {
     return city->name == cityName;
+}
+
+void City::RemoveConnection(std::shared_ptr<Connection> connection)
+{
+    using std::remove;
+    connections.erase(remove(connections.begin(), connections.end(), connection));
 }
 
 int City::GetHousePrice() const
@@ -41,12 +48,12 @@ bool City::AddHouse()
 }
 
 bool City::IsFull() {
-	return houses == MAX_VALUE;
+    return houses == MAX_VALUE;
 }
 
 bool City::IsConnectedTo(std::string cityName) {
-	for (auto connection = connections.begin(); connection != connections.end(); ++connection)
-		if ((*connection)->GetFirst()->GetName() == cityName || (*connection)->GetSecond()->GetName() == cityName)
-			return true;
-	return false;
+    for (auto connection = connections.begin(); connection != connections.end(); ++connection)
+        if ((*connection)->GetFirst()->GetName() == cityName || (*connection)->GetSecond()->GetName() == cityName)
+            return true;
+    return false;
 }

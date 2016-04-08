@@ -160,6 +160,49 @@ bool Map::AddConnection(std::shared_ptr<City> first, std::shared_ptr<City> secon
     return true;
 }
 
+void Map::RemoveConnection(shared_ptr<Connection> connection)
+{
+    using std::remove;
+
+    // Remove from map
+    connections.erase(remove(connections.begin(), connections.end(), connection));
+
+    // Remove from cities
+    connection->GetFirst()->RemoveConnection(connection);
+    connection->GetSecond()->RemoveConnection(connection);
+}
+
+void Map::RemoveRegionByCity(shared_ptr<City> city)
+{
+    RemoveRegion(city->GetRegion());
+}
+
+void Map::RemoveRegion(shared_ptr<Region> region)
+{
+    using std::remove_if;
+
+    // Remove the region
+    regions.erase(remove(regions.begin(), regions.end(), region), regions.end());
+
+    // Search the cities
+    for (auto it = cities.begin(), ite = cities.end(); it != ite;)
+    {
+        // If region is the same
+        if (it->second->GetRegion() == region)
+        {
+            // Remove the city itself
+            it = cities.erase(it);
+
+            // Remove connections for this city
+            for (auto connection : connections)
+                if (connection->GetFirst() == it->second || connection->GetSecond() == it->second)
+                    RemoveConnection(connection);
+        }
+        else
+            ++it;
+    }
+}
+
 int Map::GetRegionIndex(const string regionName) const
 {
     auto region = find(regions.begin(), regions.end(), regionName);
