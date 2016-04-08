@@ -71,6 +71,17 @@ void Game::LoadGame() {
 
 
 /// Used for determining the turn order
+
+
+// ISSUE Investigate why this is crashing when:
+//      - Player number -> 2
+//      - Next button
+//      - Back button
+//      - Next button
+//      - Next button
+//      - Finish step 1
+
+
 bool comparePlayerPriority(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) {
     
     // Priority: 1 - House

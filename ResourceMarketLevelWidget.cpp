@@ -1,4 +1,6 @@
 #include "ResourceMarketLevelWidget.h"
+#include <QGraphicsOpacityEffect>
+#include "Game.h"
 
 ResourceMarketLevelWidget::ResourceMarketLevelWidget() {
 
@@ -35,7 +37,7 @@ void ResourceMarketLevelWidget::CreateUraniumLevelMarket() {
 
 void ResourceMarketLevelWidget::CreateFullLevelMarket() {
 
-	// Add coil
+	// Add coal
 	for (int i = 0; i < 3; i++) {
 		QPushButton *button = new QPushButton();
 		button->setObjectName("resourceButton");
@@ -94,6 +96,14 @@ void ResourceMarketLevelWidget::Refresh() {
 	// Draw coal
 	int totalCoal = level->GetCounter(COAL);
 	for (int i = coalButtons.size()-1; i >= 0; i--) {
+        
+        // Fade resource in step 3
+        if (Game::getInstance().GetStep() == 3) {
+            QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
+            effect->setOpacity(0.55);
+            coalButtons[i]->setGraphicsEffect(effect);
+        }
+
 		if (totalCoal == 0) {
 			coalButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/coal_bw.png"));
 		} else {
@@ -105,7 +115,15 @@ void ResourceMarketLevelWidget::Refresh() {
 	// Draw oil
 	int totalOil = level->GetCounter(OIL);
 	for (int i = oilButtons.size() - 1; i >= 0; i--) {
-		if (totalOil == 0) {
+		
+        // Fade resource in step 3
+        if (Game::getInstance().GetStep() == 3) {
+            QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
+            effect->setOpacity(0.55);
+            oilButtons[i]->setGraphicsEffect(effect);
+        }
+        
+        if (totalOil == 0) {
 			oilButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/oil_bw.png"));
 		}
 		else {
@@ -117,7 +135,15 @@ void ResourceMarketLevelWidget::Refresh() {
 	// Draw garbage
 	int totalGarbage = level->GetCounter(GARBAGE);
 	for (int i = garbageButtons.size() - 1; i >= 0; i--) {
-		if (totalGarbage == 0) {
+		
+        // Fade resource in step 3
+        if (Game::getInstance().GetStep() == 3) {
+            QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
+            effect->setOpacity(0.55);
+            garbageButtons[i]->setGraphicsEffect(effect);
+        }
+        
+        if (totalGarbage == 0) {
 			garbageButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/garbage_bw.png"));
 		}
 		else {
@@ -129,7 +155,15 @@ void ResourceMarketLevelWidget::Refresh() {
 	// Draw uranium
 	int totalUranim = level->GetCounter(URANIUM);
 	for (int i = uraniumButtons.size() - 1; i >= 0; i--) {
-		if (totalUranim == 0) {
+		
+        // Fade resource in step 3
+        if (Game::getInstance().GetStep() == 3) {
+            QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
+            effect->setOpacity(0.55);
+            uraniumButtons[i]->setGraphicsEffect(effect);
+        }
+        
+        if (totalUranim == 0) {
 			uraniumButtons[i]->setIcon(QIcon(":/PowerGrid/Resources/resources/uranium_bw.png"));
 		}
 		else {
