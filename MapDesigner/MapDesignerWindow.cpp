@@ -8,7 +8,10 @@ using std::vector;
 
 MapDesignerWindow::MapDesignerWindow()
 {
-    setFixedSize(WIDTH, HEIGHT);
+    resize(QDesktopWidget().availableGeometry(this).size() * 0.9); // 90% of width
+    // Center on screen
+    setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter,
+                                    this->size(), QApplication::desktop()->availableGeometry()));
 
     centralWidget = new QWidget(this);
     layout = new QGridLayout(centralWidget);

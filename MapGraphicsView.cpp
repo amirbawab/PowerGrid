@@ -30,9 +30,9 @@ std::shared_ptr<City> MapGraphicsView::GetCityByPoint(QPoint point)
 
 void MapGraphicsView::MarkCitiesToRemove(std::shared_ptr<City> city)
 {
-	for (auto cityItem : citiesItemsMap) {
-		// TODO mark cities toRemove
-	}
+    for (auto cityItem : citiesItemsMap) {
+        // TODO mark cities toRemove
+    }
 }
 
 void MapGraphicsView::wheelEvent(QWheelEvent* event) {
@@ -66,15 +66,15 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     // If no city contains this point
     auto city = GetCityByPoint(point);
     if (!city)
-		return;
+        return;
 
-	// If starting game, select cities to remove
-	if (Game::getInstance().GetPhase() == 0) {
-		MarkCitiesToRemove(city);
-	}
-	else {
-	
-	}
+    // If starting game, select cities to remove
+    if (Game::getInstance().GetPhase() == 0) {
+        MarkCitiesToRemove(city);
+    }
+    else {
+    
+    }
 }
 
 void MapGraphicsView::Refresh() {
