@@ -1,4 +1,5 @@
 #include "BoardBottomWidget.h"
+#include <QGraphicsOpacityEffect>
 
 // BoardBottomWidget class
 
@@ -160,6 +161,12 @@ void BoardResourcePowerPlantWiget::paintEvent(QPaintEvent *e) {
 	QWidget::paintEvent(e);
 }
 
+void BoardResourcePowerPlantWiget::SetOpacity(float opacity) {
+    QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
+    effect->setOpacity(opacity);
+    setGraphicsEffect(effect);
+}
+
 // BoardPlayerPowerPlantsWidget class
 
 BoardPlayerPowerPlantsWidget::BoardPlayerPowerPlantsWidget() {
@@ -195,7 +202,12 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 		label->Refresh();
 
 		// Highlight if active power plant
-		
+        if (Game::getInstance().GetPowerPlantIndex() == i) {
+            label->setObjectName("powerPlantCardButton_highlight");
+        }
+        else {
+            label->SetOpacity(0.5);
+        }
 
 		playerPowerPlantsWidgets.push_back(label);
 		gridLayout->addWidget(label, 0, i, Qt::AlignCenter);

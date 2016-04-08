@@ -28,6 +28,7 @@ public:
 	~BoardResourcePowerPlantWiget();
 	void SetPowerPlantCard(std::shared_ptr<PowerPlantCard> powerPlantCard) { this->powerPlantCard = powerPlantCard; }
 	void Refresh();
+    void SetOpacity(float opacity);
 private:
 	std::shared_ptr<PowerPlantCard> powerPlantCard;
 	QGridLayout *gridLayout;

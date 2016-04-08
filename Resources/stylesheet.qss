@@ -141,6 +141,14 @@ QPushButton#powerPlantCardButton_highlight {
     border-color: white;
 }
 
+QPushButton#powerPlantCardButton_faded {
+	min-width: 43px;
+	min-height: 42px;
+	border-style: outset;
+	border-width: 1px;
+    border-color: white;
+}
+
 QPushButton#resourceButton {
 	min-width: 50px;
 	min-height: 50px;
@@ -299,4 +307,10 @@ QScrollArea#overviewScrollArea {
 
 QGraphicsView#mapGraphicsView {
 	background: transparent;
+}
+
+QWidget#powerPlantCardButton_highlight {
+	border-style: outset;
+	border-width: 5px;
+    border-color: #8E2800;
 }

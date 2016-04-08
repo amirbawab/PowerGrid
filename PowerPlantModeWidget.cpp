@@ -1,5 +1,6 @@
 #include "PowerPlantModeWidget.h"
 #include <QStyle>
+#include <QGraphicsOpacityEffect>
 
 PowerPlantModeWidget::PowerPlantModeWidget() {
 
@@ -38,6 +39,21 @@ void PowerPlantModeWidget::Refresh() {
 		card->setIconSize(QSize(200, 200));
 		cards.push_back(card);
 
+        // Fade the future market
+        if (i >= Game::getInstance().GetCardStack().futureMarketIndex) {
+            QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
+            effect->setOpacity(0.25);
+            card->setGraphicsEffect(effect);
+        
+        } else if (Game::getInstance().GetStep() == 2
+            && Game::getInstance().GetNowBidding()
+            && Game::getInstance().GetPlantIndex() != i) {
+        
+            QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
+            effect->setOpacity(0.55);
+            cards[i]->setGraphicsEffect(effect);
+        }
+
         // Only first row
         if (i < Game::getInstance().GetCardStack().futureMarketIndex) {
         
@@ -48,17 +64,17 @@ void PowerPlantModeWidget::Refresh() {
 				connect(cards[i], &QPushButton::clicked, [=]() {
 					qDebug(string("Card " + std::to_string(i) + " clicked!").c_str());
 
-					if (selectedCard) {
-						selectedCard->setObjectName("powerPlantCardButton");
-						style()->unpolish(selectedCard);
-						style()->polish(selectedCard);
-						selectedCard->repaint();
-					}
+                    // Make all other cards faded
+                    for (int j = 0; j < Game::getInstance().GetCardStack().futureMarketIndex; j++) {
+                        QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
+                        if(cards[j] != cards[i])
+                            effect->setOpacity(0.55);
+                        else
+                            effect->setOpacity(1);
+                        cards[j]->setGraphicsEffect(effect);
+                    }
 
 					selectedCard = cards[i];
-					card->setObjectName("powerPlantCardButton_highlight");
-					style()->unpolish(selectedCard);
-					style()->polish(selectedCard);
 					selectedCard->repaint();
 
 					emit CardSelected(i);

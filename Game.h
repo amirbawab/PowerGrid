@@ -86,7 +86,8 @@ public:
 	string GetInfoMessageText() { return infoMessageText; }
 	string GetInfoMessageTextTitle() { return infoMessageTextTitle; }
 	bool GetNowBidding() { return nowBidding; }
-	int GetPowerPlantIndex() { return powerPlantIndex; }
+	int GetPowerPlantIndex() { return powerPlantIndex; } // setp 3
+    int GetPlantIndex() { return plantIndex; }
 
     // Setters
     void SetMap(std::shared_ptr<Map>& map) { this->map = map; }
