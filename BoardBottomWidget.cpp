@@ -193,6 +193,10 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 		label->setMinimumSize(200, 200);
 		label->SetPowerPlantCard(cards[i]);
 		label->Refresh();
+
+		// Highlight if active power plant
+		
+
 		playerPowerPlantsWidgets.push_back(label);
 		gridLayout->addWidget(label, 0, i, Qt::AlignCenter);
 		label->repaint();

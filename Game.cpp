@@ -310,20 +310,16 @@ void Game::Step3Start() {
     resourceIndex = 0;
     powerPlantIndex = 0;
 
-    vector<Resource> temp;
-    for (Resource r : currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources()) {
-        temp.push_back(r);
-    }
+	std::set<Resource> rSet = currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources();
+    vector<Resource> temp(rSet.size());
+	std::copy(rSet.begin(), rSet.end(), std::back_inserter(temp));
     resourceIdentity = temp[resourceIndex];
 
     Step3BuyingResources1();
 }
 
 void Game::Step3BuyingResources1() {
-    // GUI Display: Change to the current power plant and player
-    // GUI Message: "Player, for this power plant,"
-    // GUI Message: "How many 'resource' do you want to buy?" 
-
+	messageText = "How many " + GetResourceName(resourceIdentity) + " would you like to buy for the selected power plant?";
 	Notify();
 }
 
