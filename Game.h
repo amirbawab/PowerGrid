@@ -43,6 +43,8 @@ private:
 	string messageText;
 	string errorMessageText;
 	string errorMessageTextTitle;
+	string infoMessageText;
+	string infoMessageTextTitle;
 
 	Overview overview;
 	int initElektro;
@@ -81,6 +83,8 @@ public:
 	int GetStep() const { return playStep; }
 	string GetErrorMessageText() { return errorMessageText; }
 	string GetErrorMessageTextTitle() { return errorMessageTextTitle; }
+	string GetInfoMessageText() { return infoMessageText; }
+	string GetInfoMessageTextTitle() { return infoMessageTextTitle; }
 	bool GetNowBidding() { return nowBidding; }
 
     // Setters
@@ -89,7 +93,8 @@ public:
     void SetPhase(int phase) { this->phase = phase; }
     void SetInitElektro(int initElektro) { this->initElektro = initElektro; }
 	void SetErrorMessageTextBox(string errorMessageTextTitle, string errorMessageText) { this->errorMessageTextTitle = errorMessageTextTitle; this->errorMessageText = errorMessageText; }
-	
+	void SetInfoMessageTextBox(string infoMessageTextTitle, string infoMessageText) { this->infoMessageTextTitle = infoMessageTextTitle; this->infoMessageText = infoMessageText; }
+
     void UpdatePlayOrder(bool); // step 1
     void AuctionPlants();  // step 2
     void BuyRawMaterials(); // step 3

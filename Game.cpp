@@ -257,6 +257,10 @@ void Game::Step2Bid2(int bid) {
 }
 
 void Game::Step2BidEnd() {
+
+	// Update info message in GUI
+	SetInfoMessageTextBox("Winner", highestBidder->GetName() + " won the bid for this round");
+
     // Figure out what the next part of the game is
     // Find who starts the next bidding war (best begins)
     currentPlayer = nullptr;
