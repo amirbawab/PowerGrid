@@ -138,12 +138,18 @@ void Game::Step2PickPlant2(int plantIndex, int price, bool skip) {
         canBuy[currentPlayer.get()] = false;
         // Go to next player
         currentPlayer = playerOrder[GetNextPlayerIndex()];
-        Step2PickPlant1(); // Next player picks a plant
+        return Step2PickPlant1(); // Next player picks a plant
     }
 
     // Check that player can buy that plant
     if (price > currentPlayer->GetElektro()) {
-        Step2PickPlant1();  // Pick another plant
+		if (fullTurn == 1) {
+			messageText = "Not enough money. Pick a power plant card to buy, then press `OK`";
+		} else {
+			messageText = "Not enough money. Pick a power plant card to buy, then press `OK`, or press `SKIP`";
+		}
+		Notify();
+		return;
     }
 
     // Reset bidding attribute to true for all players who can still buy
