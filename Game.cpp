@@ -112,7 +112,10 @@ void Game::Step1Start() {
 void Game::Step2Start() {
     // GUI Message: "Step 2"
     playStep = 2;
-    UpdatePlayOrder(false); // TODO this should be true
+
+	// Don't sort in the first turn
+	if(fullTurn > 1)
+		UpdatePlayOrder(true);
 
     // nowBidding is false when picking a plant and true when bidding on a plant
     nowBidding = false;
@@ -320,6 +323,8 @@ void Game::Step3BuyingResources1() {
     // GUI Display: Change to the current power plant and player
     // GUI Message: "Player, for this power plant,"
     // GUI Message: "How many 'resource' do you want to buy?" 
+
+	Notify();
 }
 
 void Game::Step3BuyingResources2() {
