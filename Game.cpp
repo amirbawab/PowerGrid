@@ -135,10 +135,18 @@ void Game::Step2PickPlant1() {
 void Game::Step2PickPlant2(int plantIndex, int price, bool skip) {
     
     if (skip) {
-        canBuy[currentPlayer.get()] = false;
-        // Go to next player
-        currentPlayer = playerOrder[GetNextPlayerIndex()];
-        return Step2PickPlant1(); // Next player picks a plant
+
+		// If first turn, don't allow skip
+		if (fullTurn == 1) {
+			SetErrorMessageTextBox("Skipping Error", "You are not allowed to skip in the first round");
+			return Step2PickPlant1();
+
+		} else {
+			canBuy[currentPlayer.get()] = false;
+			// Go to next player
+			currentPlayer = playerOrder[GetNextPlayerIndex()];
+			return Step2PickPlant1(); // Next player picks a plant
+		}
     }
 
     // Check that player can buy that plant
