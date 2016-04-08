@@ -41,6 +41,8 @@ private:
 	int phase;  // phase of the game (1, 2 or 3)
 	bool gameOver = false;
 	string messageText;
+	string errorMessageText;
+	string errorMessageTextTitle;
 
 	Overview overview;
 	int initElektro;
@@ -77,13 +79,16 @@ public:
 	std::shared_ptr<Player> &GetCurrentPlayer() { return currentPlayer; }
 	string GetMessageText() const { return messageText; }
 	int GetStep() const { return playStep; }
+	string GetErrorMessageText() { return errorMessageText; }
+	string GetErrorMessageTextTitle() { return errorMessageTextTitle; }
 
     // Setters
     void SetMap(std::shared_ptr<Map>& map) { this->map = map; }
     void SetFullTurn(int fullTurn) { this->fullTurn = fullTurn; }
     void SetPhase(int phase) { this->phase = phase; }
     void SetInitElektro(int initElektro) { this->initElektro = initElektro; }
-
+	void SetErrorMessageTextBox(string errorMessageTextTitle, string errorMessageText) { this->errorMessageTextTitle = errorMessageTextTitle; this->errorMessageText = errorMessageText; }
+	
     void UpdatePlayOrder(bool); // step 1
     void AuctionPlants();  // step 2
     void BuyRawMaterials(); // step 3

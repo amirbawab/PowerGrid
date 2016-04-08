@@ -143,13 +143,8 @@ void Game::Step2PickPlant2(int plantIndex, int price, bool skip) {
 
     // Check that player can buy that plant
     if (price > currentPlayer->GetElektro()) {
-		if (fullTurn == 1) {
-			messageText = "Not enough money. Pick a power plant card to buy, then press `OK`";
-		} else {
-			messageText = "Not enough money. Pick a power plant card to buy, then press `OK`, or press `SKIP`";
-		}
-		Notify();
-		return;
+		SetErrorMessageTextBox("Not Enough Money", "You don't have enough money to buy this power plant.");
+        return Step2PickPlant1();  // Pick another plant
     }
 
     // Reset bidding attribute to true for all players who can still buy

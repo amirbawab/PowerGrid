@@ -1,5 +1,5 @@
 #include "MainFrame.h"
-
+#include <QMessageBox>
 
 MainFrame::MainFrame(string title) : QMainWindow() {
 
@@ -98,6 +98,10 @@ void MainFrame::onPlayerConfigNext() {
 
 void MainFrame::Update() {
     boardWidget->Refresh();
+	if (Game::getInstance().GetErrorMessageText() != "") {
+		QMessageBox::critical(this, Game::getInstance().GetErrorMessageTextTitle().c_str(), Game::getInstance().GetErrorMessageText().c_str());
+		Game::getInstance().SetErrorMessageTextBox("", "");
+	}
 }
 
 /// This method is required when Q_OBJECT is added
