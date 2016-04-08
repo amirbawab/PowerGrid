@@ -202,10 +202,7 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 		label->Refresh();
 
 		// Highlight if active power plant
-        if (Game::getInstance().GetPowerPlantIndex() == i) {
-            label->setObjectName("powerPlantCardButton_highlight");
-        }
-        else {
+        if (Game::getInstance().GetPowerPlantIndex() != i) {
             label->SetOpacity(0.5);
         }
 
