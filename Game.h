@@ -81,6 +81,7 @@ public:
 	int GetStep() const { return playStep; }
 	string GetErrorMessageText() { return errorMessageText; }
 	string GetErrorMessageTextTitle() { return errorMessageTextTitle; }
+	bool GetNowBidding() { return nowBidding; }
 
     // Setters
     void SetMap(std::shared_ptr<Map>& map) { this->map = map; }
@@ -105,9 +106,9 @@ public:
     int GetNextPlayerIndex();
     void Step2Start();
     void Step2PickPlant1();
-    void Step2PickPlant2(int plantIndex, int price, bool skip);
+    void Step2PickPlant2(bool skip, int plantIndex=-1, int price=-1);
     void Step2Bid1();
-    void Step2Bid2();
+    void Step2Bid2(int bid=-1);
     void Step2BidEnd();
     void Step2End();
 

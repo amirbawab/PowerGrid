@@ -36,31 +36,45 @@ BoardWidget::BoardWidget() {
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetOkButton(), &QPushButton::clicked, [=]() {
         qDebug("Ok clicked");
 
-        if (!boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCard()) {
-            QMessageBox::critical(this, "No Power Plant Selected!", "Please select a power plant");
-        
-        } else {
-            // Cast
-            auto powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(
-                Game::getInstance().GetCardStack().GetVisibleCards()[boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex()]);
+		// If now bidding
+		if (Game::getInstance().GetNowBidding()) {
+			Game::getInstance().Step2Bid2(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt());
+		}
+		else {
+			if (!boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCard()) {
+				QMessageBox::critical(this, "No Power Plant Selected!", "Please select a power plant");
+			}
+			else {
+				// Cast
+				auto powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(
+					Game::getInstance().GetCardStack().GetVisibleCards()[boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex()]);
 
-            // If found
-            if (powerPlantCard) {
-                if (boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt() < powerPlantCard->GetPrice()) {
-                    QMessageBox::critical(this, "Price Error", "Please select a price greater than or equal to the selected card");
-                }
-                else {
-                    Game::getInstance().Step2PickPlant2(boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex(), 
-                        boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt(), false);
-                }
-            }
-        }
+				// If found
+				if (powerPlantCard) {
+					if (boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt() < powerPlantCard->GetPrice()) {
+						QMessageBox::critical(this, "Price Error", "Please select a price greater than or equal to the selected card");
+					}
+					else {
+						Game::getInstance().Step2PickPlant2(
+							false,
+							boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex(),
+							boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt());
+					}
+				}
+			}
+		}
     });
     
     // Connect skip
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetSkipButton(), &QPushButton::clicked, [=]() {
         qDebug("Skip clicked");
-        Game::getInstance().Step2PickPlant2(-1, -1, true);
+       
+		// If now bidding
+		if (Game::getInstance().GetNowBidding()) {
+			Game::getInstance().Step2Bid2();
+		} else {
+			Game::getInstance().Step2PickPlant2(true);
+		}
     });
     
     // Add components

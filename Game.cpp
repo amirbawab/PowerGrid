@@ -120,6 +120,11 @@ void Game::Step2Start() {
     // Find who starts the bidding war (best begins)
     currentPlayer = playerOrder[0];
 
+	// Reset can buy for all players
+	for (shared_ptr<Player> p : players) {
+		canBuy[p.get()] = true;
+	}
+
     Step2PickPlant1();
 }
 
@@ -132,7 +137,7 @@ void Game::Step2PickPlant1() {
 	Notify();
 }
 
-void Game::Step2PickPlant2(int plantIndex, int price, bool skip) {
+void Game::Step2PickPlant2(bool skip, int plantIndex, int price) {
     
     if (skip) {
 
@@ -175,23 +180,39 @@ void Game::Step2PickPlant2(int plantIndex, int price, bool skip) {
 }
 
 void Game::Step2Bid1() {
-    // GUI Message: "Player, Enter your bid amount for this power plant:"
+	messageText = "The highest bid is now " + std::to_string(currentBid) + ", enter your bid:";
+	Notify();
 }
 
-void Game::Step2Bid2() {
+void Game::Step2Bid2(int bid) {
     if (!initialBid) {
-        int bid = 0; // GUI get: bid amount
-
+        
         // Updates the current bid and highest bidder
-        if (bid > currentBid && currentPlayer->HasElektro(bid)) {
-            currentBid = bid;
-            highestBidder = currentPlayer;
-            cout << "The highest bid is now " << currentBid << endl;
+        if (bid > currentBid) {
+			
+			// If has enough money, proceed
+			if (currentPlayer->HasElektro(bid)) {
+				currentBid = bid;
+				highestBidder = currentPlayer;
+				cout << "The highest bid is now " << currentBid << endl;
+			}
+			else {
+				SetErrorMessageTextBox("Not Enough Money", "You don't enough money to bid this amount");
+				return Step2Bid1();
+			}
         }
-        else {
-            // Can't participate in current bidding round if you pass
-            canBid[currentPlayer.get()] = false;
-            cout << *currentPlayer << " passed." << endl;
+
+		// If skip
+		else if (bid < 0) {
+			// Can't participate in current bidding round if you pass
+			canBid[currentPlayer.get()] = false;
+			cout << *currentPlayer << " passed." << endl;
+		} 
+
+		// If between 0 and current bid inclusive
+		else {
+			SetErrorMessageTextBox("Bidding Error", "You cannot bid less than the current amount");
+			return Step2Bid1();
         }
     }
 
@@ -248,11 +269,14 @@ void Game::Step2BidEnd() {
 
     // If no one can buy anymore, end step 2
     if (currentPlayer == nullptr) {
-        Step2End();  // Go to step 3
+        return Step2End();  // Go to step 3
     }
 
+	// Reset now bidding
+	nowBidding = false;
+
     // Else we go to the next player to pick a plant for auction
-    Step2PickPlant1();
+    return Step2PickPlant1();
 }
 
 void Game::Step2End() {
