@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<map name="Canada">
+	<cities>
+		<city name="Abitibi " region="#0000ff" x="681" y="196" width="60" height="60" />
+		<city name="Arvial" region="#00007f" x="495" y="22" width="60" height="60" />
+		<city name="Baker Lake" region="#00007f" x="573" y="126" width="60" height="60" />
+		<city name="Bathust Inlet" region="#00007f" x="398" y="71" width="60" height="60" />
+		<city name="Brandon" region="#005500" x="127" y="373" width="60" height="60" />
+		<city name="Cabridge Bay" region="#00007f" x="385" y="-13" width="60" height="60" />
+		<city name="Catalina" region="#5500ff" x="1081" y="160" width="60" height="60" />
+		<city name="Churchill" region="#005500" x="259" y="36" width="60" height="60" />
+		<city name="Churchill Falls" region="#5500ff" x="820" y="116" width="60" height="60" />
+		<city name="Coral Harbor" region="#00007f" x="602" y="15" width="60" height="60" />
+		<city name="Cornwall" region="#ff0000" x="484" y="420" width="60" height="60" />
+		<city name="DrummondVille" region="#0000ff" x="884" y="386" width="60" height="60" />
+		<city name="Fleur de Lys" region="#5500ff" x="1009" y="121" width="60" height="60" />
+		<city name="Gillam" region="#005500" x="296" y="197" width="60" height="60" />
+		<city name="Goja Haven" region="#00007f" x="673" y="-10" width="60" height="60" />
+		<city name="Goose Bay" region="#5500ff" x="959" y="21" width="60" height="60" />
+		<city name="Grand Rapides" region="#005500" x="143" y="239" width="60" height="60" />
+		<city name="Key Mine Lake" region="#000000" x="-9" y="-3" width="60" height="60" />
+		<city name="Kingston" region="#ff0000" x="434" y="344" width="60" height="60" />
+		<city name="Labrador City" region="#5500ff" x="894" y="89" width="60" height="60" />
+		<city name="London" region="#ff0000" x="449" y="503" width="60" height="60" />
+		<city name="Meadow Lake" region="#000000" x="56" y="285" width="60" height="60" />
+		<city name="Montreal" region="#0000ff" x="796" y="436" width="60" height="60" />
+		<city name="Ottawa" region="#ff0000" x="579" y="426" width="60" height="60" />
+		<city name="Pine Dock" region="#005500" x="212" y="277" width="60" height="60" />
+		<city name="Prince Albert" region="#000000" x="37" y="95" width="60" height="60" />
+		<city name="Quebec City" region="#0000ff" x="796" y="277" width="60" height="60" />
+		<city name="Regina" region="#000000" x="-1" y="368" width="60" height="60" />
+		<city name="Saskatoon" region="#000000" x="-3" y="224" width="60" height="60" />
+		<city name="Sherbrooke" region="#0000ff" x="690" y="360" width="60" height="60" />
+		<city name="St Johns" region="#5500ff" x="1066" y="297" width="60" height="60" />
+		<city name="St-Sauveur" region="#0000ff" x="877" y="281" width="60" height="60" />
+		<city name="Stony Rapids" region="#000000" x="119" y="74" width="60" height="60" />
+		<city name="Sudbury" region="#ff0000" x="426" y="223" width="60" height="60" />
+		<city name="Toronto" region="#ff0000" x="391" y="413" width="60" height="60" />
+		<city name="Vaudreuil Dorion" region="#0000ff" x="881" y="462" width="60" height="60" />
+		<city name="Waterloo" region="#ff0000" x="317" y="406" width="60" height="60" />
+		<city name="Wnnipeg" region="#005500" x="214" y="379" width="60" height="60" />
+	</cities>
+	<connections>
+		<connection first="Montreal" second="Quebec City" cost="15" />
+		<connection first="Montreal" second="Sherbrooke" cost="12" />
+		<connection first="Abitibi " second="Quebec City" cost="15" />
+		<connection first="Montreal" second="DrummondVille" cost="10" />
+		<connection first="St-Sauveur" second="DrummondVille" cost="12" />
+		<connection first="DrummondVille" second="Vaudreuil Dorion" cost="9" />
+		<connection first="Ottawa" second="Montreal" cost="20" />
+		<connection first="Cornwall" second="Ottawa" cost="9" />
+		<connection first="Kingston" second="Cornwall" cost="15" />
+		<connection first="Kingston" second="Toronto" cost="14" />
+		<connection first="Waterloo" second="Toronto" cost="10" />
+		<connection first="Sudbury" second="Kingston" cost="13" />
+		<connection first="London" second="Cornwall" cost="12" />
+		<connection first="Wnnipeg" second="Waterloo" cost="18" />
+		<connection first="Brandon" second="Wnnipeg" cost="14" />
+		<connection first="Grand Rapides" second="Brandon" cost="12" />
+		<connection first="Pine Dock" second="Brandon" cost="16" />
+		<connection first="Churchill" second="Pine Dock" cost="18" />
+		<connection first="Gillam" second="Pine Dock" cost="13" />
+		<connection first="Regina" second="Brandon" cost="18" />
+		<connection first="Saskatoon" second="Regina" cost="15" />
+		<connection first="Prince Albert" second="Saskatoon" cost="13" />
+		<connection first="Stony Rapids" second="Prince Albert" cost="14" />
+		<connection first="Key Mine Lake" second="Prince Albert" cost="12" />
+		<connection first="Meadow Lake" second="Saskatoon" cost="10" />
+		<connection first="Baker Lake" second="Arvial" cost="15" />
+		<connection first="Bathust Inlet" second="Arvial" cost="16" />
+		<connection first="Sudbury" second="Baker Lake" cost="14" />
+		<connection first="Coral Harbor" second="Baker Lake" cost="12" />
+		<connection first="Cabridge Bay" second="Bathust Inlet" cost="11" />
+		<connection first="Cabridge Bay" second="Arvial" cost="12" />
+		<connection first="Goja Haven" second="Coral Harbor" cost="10" />
+		<connection first="Churchill Falls" second="Labrador City" cost="12" />
+		<connection first="Labrador City" second="Goose Bay" cost="15" />
+		<connection first="Goose Bay" second="Fleur de Lys" cost="11" />
+		<connection first="Fleur de Lys" second="Catalina" cost="13" />
+		<connection first="Catalina" second="St Johns" cost="16" />
+		<connection first="St-Sauveur" second="St Johns" cost="21" />
+		<connection first="Churchill" second="Cabridge Bay" cost="15" />
+		<connection first="Churchill Falls" second="Goja Haven" cost="16" />
+		<connection first="Grand Rapides" second="Pine Dock" cost="14" />
+		<connection first="Pine Dock" second="Wnnipeg" cost="13" />
+		<connection first="Meadow Lake" second="Regina" cost="11" />
+		<connection first="Meadow Lake" second="Stony Rapids" cost="16" />
+		<connection first="Labrador City" second="Fleur de Lys" cost="13" />
+		<connection first="St Johns" second="Churchill Falls" cost="16" />
+		<connection first="Abitibi " second="Baker Lake" cost="17" />
+		<connection first="Prince Albert" second="Meadow Lake" cost="16" />
+		<connection first="London" second="Toronto" cost="13" />
+		<connection first="Cornwall" second="Toronto" cost="11" />
+		<connection first="Stony Rapids" second="Churchill" cost="15" />
+		<connection first="Ottawa" second="Sudbury" cost="14" />
+		<connection first="Waterloo" second="Sudbury" cost="15" />
+		<connection first="Sherbrooke" second="Quebec City" cost="12" />
+		<connection first="Quebec City" second="St-Sauveur" cost="13" />
+		<connection first="DrummondVille" second="Quebec City" cost="15" />
+		<connection first="Montreal" second="Vaudreuil Dorion" cost="14" />
+	</connections>
+</map>

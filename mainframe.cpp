@@ -67,7 +67,7 @@ void MainFrame::onMapNext() {
     qDebug("Next from map selection screen");
     
     // TODO change USA to be read from gui
-    Game::getInstance().ConfigNewGame("USA", mapWidget->GetNumberOfPlayers());
+    Game::getInstance().ConfigNewGame("Canada", mapWidget->GetNumberOfPlayers());
     
     centerStackWidget->setCurrentIndex(playerConfigWidgetIndex);
     playerConfigWidget->SetNumberOfPlayers(mapWidget->GetNumberOfPlayers());

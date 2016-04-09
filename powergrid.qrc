@@ -39,5 +39,6 @@
         <file>Resources/buttons/player_symbol_button.png</file>
         <file>Resources/config/map/USAMap.xml</file>
         <file>Resources/config/Config.xml</file>
+        <file>Resources/config/map/CanadaMap.xml</file>
     </qresource>
 </RCC>
