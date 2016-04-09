@@ -154,6 +154,9 @@ void Game::Step2PickPlant1() {
 
 void Game::Step2PickPlant2(bool skip, int plantIndex, int price) {
     
+    // Set power plant index
+    this->plantIndex = plantIndex;
+
     if (skip) {
 
         // If first turn, don't allow skip
