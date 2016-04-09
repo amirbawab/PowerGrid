@@ -18,7 +18,7 @@ using std::make_unique;
 void MapDesignerGraphicsView::UpdateScene()
 {
     graphicsScene.release();
-    graphicsScene = make_unique<QGraphicsScene>();
+    graphicsScene = make_unique<QGraphicsScene>(this);
     setScene(graphicsScene.get());
 
     for (auto& connection : connections)
@@ -282,7 +282,7 @@ void MapDesignerGraphicsView::wheelEvent(QWheelEvent* event)
 
 MapDesignerGraphicsView::MapDesignerGraphicsView()
 {
-    graphicsScene = make_unique<QGraphicsScene>();
+    graphicsScene = make_unique<QGraphicsScene>(this);
     setScene(graphicsScene.get());
 
     cityFont = QFont("Calibri", 12, QFont::Bold, true);
