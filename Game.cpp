@@ -215,7 +215,7 @@ void Game::Step2Bid2(int bid) {
                 cout << "The highest bid is now " << currentBid << endl;
             }
             else {
-                SetErrorMessageTextBox("Not Enough Money", "You don't enough money to bid this amount");
+                SetErrorMessageTextBox("Not Enough Money", "You don't enough money to place a bid of this amount");
                 return Step2Bid1();
             }
         }
@@ -229,7 +229,7 @@ void Game::Step2Bid2(int bid) {
 
         // If between 0 and current bid inclusive
         else {
-            SetErrorMessageTextBox("Bidding Error", "You cannot bid less than the current amount");
+            SetErrorMessageTextBox("Bidding Error", "Your bid must be greater than the current bid");
             return Step2Bid1();
         }
     }
