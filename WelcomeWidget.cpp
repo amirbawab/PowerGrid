@@ -13,14 +13,14 @@ WelcomeWidget::~WelcomeWidget() {
 	delete welcomeMenuWidget;
 }
 
-void WelcomeWidget::setOnNewGame(const QObject *receiver, const char* slot) {
+void WelcomeWidget::setOnNewGame(const QObject *receiver, const char* slot) const {
 	welcomeMenuWidget->setOnNewGame(receiver, slot);
 }
 
-void WelcomeWidget::setOnLoadGame(const QObject *receiver, const char* slot) {
+void WelcomeWidget::setOnLoadGame(const QObject *receiver, const char* slot) const {
 	welcomeMenuWidget->setOnLoadGame(receiver, slot);
 }
 
-void WelcomeWidget::setOnExitGame(const QObject *receiver, const char* slot) {
+void WelcomeWidget::setOnExitGame(const QObject *receiver, const char* slot) const {
 	welcomeMenuWidget->setOnExitGame(receiver, slot);
 }

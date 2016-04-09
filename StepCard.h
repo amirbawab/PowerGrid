@@ -8,7 +8,7 @@ private:
 
 public:
 	StepCard() {}
-	~StepCard();
-	StepCard(int step) : step{ step } {}
+	~StepCard() {}
+	explicit StepCard(int step) : step{ step } {}
 	int GetStep() const { return step; }
 };

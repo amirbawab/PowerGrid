@@ -2,8 +2,6 @@
 
 #include <qwidget.h>
 #include <qgridlayout.h>
-#include <QHBoxLayout>
-#include <qlabel.h>
 #include <qpushbutton.h>
 
 class TemplateNextBackWidget : public QWidget {

@@ -19,9 +19,9 @@ private:
     string name;
     int elektro = 50;
     vector<shared_ptr<House>> houses;
-	vector<shared_ptr<PowerPlantCard>> powerPlants;
-	vector<int> resources;
-	shared_ptr<HouseColor> color;
+    vector<shared_ptr<PowerPlantCard>> powerPlants;
+    vector<int> resources;
+    shared_ptr<HouseColor> color;
 
 public:
     Player();
@@ -30,26 +30,26 @@ public:
 
     int GetElektro() const { return elektro; }
     void SetElektro(int elektro) { this->elektro = elektro; }
-	bool HasElektro(int elektro) { return (this->elektro >= elektro); }
+    bool HasElektro(int elektro) const { return (this->elektro >= elektro); }
 
     string GetName() const { return name; }
     void SetName(string name) { this->name = name; }
-	string GetInitials(int max=2);
+    string GetInitials(int max=2);
 
     shared_ptr<HouseColor> const& GetColor() const { return color; }
     void SetColor(shared_ptr<HouseColor> color) { this->color = color; }
 
-	vector<shared_ptr<House>>& GetHouses() { return houses; }
-	vector<shared_ptr<PowerPlantCard>> const& GetPowerPlants() const { return powerPlants; }
-	int GetResources(Resource resource) const { return resources[resource]; }
-	
-	int GetHighestPowerPlant();
-	bool AddPowerPlant(shared_ptr<PowerPlantCard> powerPlant);
-	void ReplacePowerPlant(shared_ptr<PowerPlantCard>, int);
-	bool BuyPowerPlant(CardStack&, int, int);
+    vector<shared_ptr<House>>& GetHouses() { return houses; }
+    vector<shared_ptr<PowerPlantCard>> const& GetPowerPlants() const { return powerPlants; }
+    int GetResources(Resource resource) const { return resources[resource]; }
+    
+    int GetHighestPowerPlant();
+    bool AddPowerPlant(shared_ptr<PowerPlantCard> powerPlant);
+    void ReplacePowerPlant(shared_ptr<PowerPlantCard>, int);
+    bool BuyPowerPlant(CardStack&, int, int);
 
-	bool BuyResources(ResourceMarket&, shared_ptr<PowerPlantCard>, Resource, int);
-	bool BuyResources(ResourceMarket&, shared_ptr<PowerPlantCard>, string, int);
+    bool BuyResources(ResourceMarket&, shared_ptr<PowerPlantCard>, Resource, int);
+    bool BuyResources(ResourceMarket&, shared_ptr<PowerPlantCard>, string, int);
 
     bool BuyHouse(shared_ptr<House> house);
 

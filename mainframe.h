@@ -1,24 +1,12 @@
-#ifndef MAINFRAME_H
-#define MAINFRAME_H
+#pragma once
 
 #include <QMainWindow>
-#include <QMenuBar>
-#include <QStyle>
-#include <Qt>
-#include <QApplication>
-#include <QDesktopWidget>
-#include <QToolBar>
-#include <QTextEdit>
-#include <QStyleOption>
-#include <QPainter>
 #include <QStackedWidget>
 
-#include "Application.h"
 #include "WelcomeWidget.h"
 #include "MapWidget.h"
 #include "PlayerConfigWidget.h"
 #include "BoardWidget.h"
-#include <QMessageBox>
 #include "Observer.h"
 
 class MainFrame : public QMainWindow,  public Observer {
@@ -26,14 +14,14 @@ class MainFrame : public QMainWindow,  public Observer {
 public:
 	MainFrame(string title);
 	~MainFrame();
-	void Update();
+	void Update() override;
 private:
 	QStackedWidget *centerStackWidget;
 	WelcomeWidget *welcomeWidget;
 	MapWidget *mapWidget;
 	PlayerConfigWidget *playerConfigWidget;
 	BoardWidget *boardWidget;
-	void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *) override;
 	int welcomeWidgetIndex, mapWidgetIndex, playerConfigWidgetIndex, boardWidgetIndex;
 private slots:
 	void onNewGame();
@@ -42,5 +30,3 @@ private slots:
 	void onPlayerConfigBack();
 	void onPlayerConfigNext();
 };
-
-#endif // MAINFRAME_H

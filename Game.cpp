@@ -1,9 +1,10 @@
 #include "Game.h"
+#include "GameStatus.h"
 
 Game::Game() {
 
     // Log
-    std::cout << "Game start!" << std::endl;
+    cout << "Game start!" << endl;
 
     // TODO Remove this ?
     // Save map
@@ -33,9 +34,9 @@ void Game::ConfigNewGame(string map, int numberOfPlayers) {
     // Initialize game
     GameStatus::GetInstance().Init(this, map, ":/PowerGrid/Resources/config/Config.xml");
 
-	// Reset vector of players
-	players.clear();
-	playerOrder.clear();
+    // Reset vector of players
+    players.clear();
+    playerOrder.clear();
 
     // Add players to players vector
     while (numberOfPlayers-- > 0)
@@ -50,15 +51,15 @@ void Game::ConfigNewGame(string map, int numberOfPlayers) {
 
     // Add then shuffle
     for (auto player : players) playerOrder.push_back(player);
-    std::random_shuffle(playerOrder.begin(), playerOrder.end());
+    random_shuffle(playerOrder.begin(), playerOrder.end());
 
     // Set current player
     currentPlayer = playerOrder[0];
 }
 
 void Game::StartGame() {
-	// Prepate card stack
-	cardStack.Prepare(overview.GetRuleByNumOfPlayers(players.size()).randomeRemove);
+    // Prepate card stack
+    cardStack.Prepare(overview.GetRuleByNumOfPlayers(players.size()).randomeRemove);
 }
 
 // Load game
@@ -82,7 +83,7 @@ void Game::LoadGame() {
 //      - Finish step 1
 
 
-bool comparePlayerPriority(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) {
+bool comparePlayerPriority(shared_ptr<Player> p1, shared_ptr<Player> p2) {
     
     // Priority: 1 - House
     if (p1->GetHouses().size() > p2->GetHouses().size())
@@ -101,14 +102,14 @@ bool comparePlayerPriority(std::shared_ptr<Player> p1, std::shared_ptr<Player> p
 /// Step 1, sets the players in the proper turn order
 void Game::UpdatePlayOrder(bool reverse) {
     if (!reverse)
-        std::sort(playerOrder.begin(), playerOrder.end(), comparePlayerPriority);
+        sort(playerOrder.begin(), playerOrder.end(), comparePlayerPriority);
     else
-        std::sort(playerOrder.begin(), playerOrder.end(), [](std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
+        std::sort(playerOrder.begin(), playerOrder.end(), [](shared_ptr<Player> p1, shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
 }
 
 void Game::DisplayRemoveRegions() {
-	messageText = "Click on the region(s) you want to remove then press `OK`";
-	Notify();
+    messageText = "Click on the region(s) you want to remove then press `OK`";
+    Notify();
 }
 
 void Game::Step1Start() {
@@ -124,9 +125,9 @@ void Game::Step2Start() {
     // GUI Message: "Step 2"
     playStep = 2;
 
-	// Don't sort in the first turn
-	if(fullTurn > 1)
-		UpdatePlayOrder(true);
+    // Don't sort in the first turn
+    if(fullTurn > 1)
+        UpdatePlayOrder(true);
 
     // nowBidding is false when picking a plant and true when bidding on a plant
     nowBidding = false;
@@ -134,43 +135,43 @@ void Game::Step2Start() {
     // Find who starts the bidding war (best begins)
     currentPlayer = playerOrder[0];
 
-	// Reset can buy for all players
-	for (shared_ptr<Player> p : players) {
-		canBuy[p.get()] = true;
-	}
+    // Reset can buy for all players
+    for (shared_ptr<Player> p : players) {
+        canBuy[p.get()] = true;
+    }
 
     Step2PickPlant1();
 }
 
 void Game::Step2PickPlant1() {
-	if(fullTurn == 1) {
-		messageText = "Pick a power plant card to buy, then press `OK`";
-	} else {
-		messageText = "Pick a power plant card to buy, then press `OK`, or press `SKIP`";
-	}
-	Notify();
+    if(fullTurn == 1) {
+        messageText = "Pick a power plant card to buy, then press `OK`";
+    } else {
+        messageText = "Pick a power plant card to buy, then press `OK`, or press `SKIP`";
+    }
+    Notify();
 }
 
 void Game::Step2PickPlant2(bool skip, int plantIndex, int price) {
     
     if (skip) {
 
-		// If first turn, don't allow skip
-		if (fullTurn == 1) {
-			SetErrorMessageTextBox("Skipping Error", "You are not allowed to skip in the first round");
-			return Step2PickPlant1();
+        // If first turn, don't allow skip
+        if (fullTurn == 1) {
+            SetErrorMessageTextBox("Skipping Error", "You are not allowed to skip in the first round");
+            return Step2PickPlant1();
 
-		} else {
-			canBuy[currentPlayer.get()] = false;
-			// Go to next player
-			currentPlayer = playerOrder[GetNextPlayerIndex()];
-			return Step2PickPlant1(); // Next player picks a plant
-		}
+        } else {
+            canBuy[currentPlayer.get()] = false;
+            // Go to next player
+            currentPlayer = playerOrder[GetNextPlayerIndex()];
+            return Step2PickPlant1(); // Next player picks a plant
+        }
     }
 
     // Check that player can buy that plant
     if (price > currentPlayer->GetElektro()) {
-		SetErrorMessageTextBox("Not Enough Money", "You don't have enough money to buy this power plant.");
+        SetErrorMessageTextBox("Not Enough Money", "You don't have enough money to buy this power plant.");
         return Step2PickPlant1();  // Pick another plant
     }
 
@@ -194,8 +195,8 @@ void Game::Step2PickPlant2(bool skip, int plantIndex, int price) {
 }
 
 void Game::Step2Bid1() {
-	messageText = "The highest bid is now " + std::to_string(currentBid) + ", enter your bid:";
-	Notify();
+    messageText = "The highest bid is now " + std::to_string(currentBid) + ", enter your bid:";
+    Notify();
 }
 
 void Game::Step2Bid2(int bid) {
@@ -203,30 +204,30 @@ void Game::Step2Bid2(int bid) {
         
         // Updates the current bid and highest bidder
         if (bid > currentBid) {
-			
-			// If has enough money, proceed
-			if (currentPlayer->HasElektro(bid)) {
-				currentBid = bid;
-				highestBidder = currentPlayer;
-				cout << "The highest bid is now " << currentBid << endl;
-			}
-			else {
-				SetErrorMessageTextBox("Not Enough Money", "You don't enough money to bid this amount");
-				return Step2Bid1();
-			}
+            
+            // If has enough money, proceed
+            if (currentPlayer->HasElektro(bid)) {
+                currentBid = bid;
+                highestBidder = currentPlayer;
+                cout << "The highest bid is now " << currentBid << endl;
+            }
+            else {
+                SetErrorMessageTextBox("Not Enough Money", "You don't enough money to bid this amount");
+                return Step2Bid1();
+            }
         }
 
-		// If skip
-		else if (bid < 0) {
-			// Can't participate in current bidding round if you pass
-			canBid[currentPlayer.get()] = false;
-			cout << *currentPlayer << " passed." << endl;
-		} 
+        // If skip
+        else if (bid < 0) {
+            // Can't participate in current bidding round if you pass
+            canBid[currentPlayer.get()] = false;
+            cout << *currentPlayer << " passed." << endl;
+        } 
 
-		// If between 0 and current bid inclusive
-		else {
-			SetErrorMessageTextBox("Bidding Error", "You cannot bid less than the current amount");
-			return Step2Bid1();
+        // If between 0 and current bid inclusive
+        else {
+            SetErrorMessageTextBox("Bidding Error", "You cannot bid less than the current amount");
+            return Step2Bid1();
         }
     }
 
@@ -235,7 +236,7 @@ void Game::Step2Bid2(int bid) {
 
     // Updates currentPlayer to be the next person to play
     // Get current player index
-    int nextIndex = (std::distance(players.begin(), std::find(players.begin(), players.end(), currentPlayer)) + 1) % players.size();
+    int nextIndex = (distance(players.begin(), find(players.begin(), players.end(), currentPlayer)) + 1) % players.size();
     // Loop on players till full turn
     while (players[nextIndex] != currentPlayer) {
         // If can bid
@@ -272,8 +273,8 @@ void Game::Step2Bid2(int bid) {
 
 void Game::Step2BidEnd() {
 
-	// Update info message in GUI
-	SetInfoMessageTextBox("Winner", highestBidder->GetName() + " won the bid for this round");
+    // Update info message in GUI
+    SetInfoMessageTextBox("Winner", highestBidder->GetName() + " won the bid for this round");
 
     // Figure out what the next part of the game is
     // Find who starts the next bidding war (best begins)
@@ -290,8 +291,8 @@ void Game::Step2BidEnd() {
         return Step2End();  // Go to step 3
     }
 
-	// Reset now bidding
-	nowBidding = false;
+    // Reset now bidding
+    nowBidding = false;
 
     // Else we go to the next player to pick a plant for auction
     return Step2PickPlant1();
@@ -321,17 +322,17 @@ void Game::Step3Start() {
     resourceIndex = 0;
     powerPlantIndex = 0;
 
-	std::set<Resource> rSet = currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources();
+    std::set<Resource> rSet = currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources();
     vector<Resource> temp(rSet.size());
-	std::copy(rSet.begin(), rSet.end(), std::back_inserter(temp));
+    copy(rSet.begin(), rSet.end(), back_inserter(temp));
     resourceIdentity = temp[resourceIndex];
 
     Step3BuyingResources1();
 }
 
 void Game::Step3BuyingResources1() {
-	messageText = "How many " + GetResourceName(resourceIdentity) + " would you like to buy for the selected power plant?";
-	Notify();
+    messageText = "How many " + GetResourceName(resourceIdentity) + " would you like to buy for the selected power plant?";
+    Notify();
 }
 
 void Game::Step3BuyingResources2() {
@@ -664,7 +665,7 @@ void Game::GameEnd() {
 }
 
 int Game::GetNextPlayerIndex() {
-    return (std::distance(playerOrder.begin(), std::find(playerOrder.begin(), playerOrder.end(), currentPlayer)) + 1) % playerOrder.size();
+    return (distance(playerOrder.begin(), find(playerOrder.begin(), playerOrder.end(), currentPlayer)) + 1) % playerOrder.size();
 }
 
 /// Plays out step 2, auctioning power plants
@@ -752,7 +753,7 @@ void Game::AuctionPlants() {
 
             // Pick a power plant
             int plantIndex;
-            std::shared_ptr<PowerPlantCard> selectedPlant;
+            shared_ptr<PowerPlantCard> selectedPlant;
             bool enoughMoney;
             do {
                 cout << *currentPlayer << ", pick a power plant (Enter the index): ";
@@ -852,7 +853,7 @@ void Game::AuctionPlants() {
                 }
 
                 // Get current player index
-                int nextIndex = (std::distance(players.begin(), std::find(players.begin(), players.end(), currentPlayer)) + 1) % players.size();
+                int nextIndex = (distance(players.begin(), find(players.begin(), players.end(), currentPlayer)) + 1) % players.size();
 
                 // Loop on players till full turn
                 while (players[nextIndex] != currentPlayer) {
@@ -889,6 +890,7 @@ void Game::BuyRawMaterials() {
         cout << *currentPlayer << ", it is your turn to buy resources." << endl;
 
         int amount;
+        // TODO: same variable but different type on line 910!
         int allowed;
         // Loop over every power plant the player owns
         for (shared_ptr<PowerPlantCard> plant : currentPlayer->GetPowerPlants()) {
@@ -1043,7 +1045,7 @@ void Game::Bureaucracy() {
     int citiesEndOfGame = overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame;
 
     // Winners
-    vector<std::shared_ptr<Player>> winners;
+    vector<shared_ptr<Player>> winners;
 
     // Count number of cities that can be powered and get money
     // TODO let players move resources around
@@ -1284,11 +1286,12 @@ void Game::PlayGame() {
     };
 }
 
-void Game::PrintScore() {
+void Game::PrintScore() const
+{
 
-    vector<std::shared_ptr<Player>> tmpPlayer = players;
+    vector<shared_ptr<Player>> tmpPlayer = players;
 
-    sort(tmpPlayer.begin(), tmpPlayer.end(), [](std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
+    sort(tmpPlayer.begin(), tmpPlayer.end(), [](shared_ptr<Player> p1, shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
 
     cout << endl << "Displaying the score track:" << endl;
     for (auto player : tmpPlayer)

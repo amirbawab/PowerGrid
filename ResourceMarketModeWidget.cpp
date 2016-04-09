@@ -1,4 +1,5 @@
 #include "ResourceMarketModeWidget.h"
+#include "Game.h"
 
 ResourceMarketModeWidget::ResourceMarketModeWidget() {
 	

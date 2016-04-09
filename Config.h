@@ -1,12 +1,9 @@
 #pragma once
 
 #include "Map.h"
-#include "Card.h"
 #include "Resource.h"
 #include <memory>
 #include <vector>
-#include "HouseColor.h"
-#include "Overview.h"
 
 class Game;
 
@@ -23,7 +20,7 @@ class Config
 
     Config() {}
 
-    std::vector<std::shared_ptr<Map>> maps;
+    vector<shared_ptr<Map>> maps;
     std::map<Resource, int> initialResource;
     std::map<IO, string> pathPrefix;
 
@@ -46,7 +43,7 @@ public:
     ~Config() { }
 
     string GetPathPrefix(IO io) { return pathPrefix[io]; }
-    std::vector<std::shared_ptr<Map>> const& GetMaps() const { return maps; }
+    vector<shared_ptr<Map>> const& GetMaps() const { return maps; }
 
     bool LoadFile(Game* game, string filePath);
 };

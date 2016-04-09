@@ -2,7 +2,6 @@
 
 #include <QWidget>
 #include <QGridLayout>
-#include <QLabel>
 #include <QScrollArea>
 
 class OverviewModeWidget : public QWidget {

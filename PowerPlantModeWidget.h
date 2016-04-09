@@ -4,23 +4,20 @@
 #include <QPushButton>
 #include <vector>
 #include <QGridLayout>
-#include <memory>
-#include "DataStore.h"
-#include <string>
 
 class PowerPlantModeWidget : public QWidget {
     Q_OBJECT
 public:
-	PowerPlantModeWidget();
-	~PowerPlantModeWidget();
-	void Refresh();
+    PowerPlantModeWidget();
+    ~PowerPlantModeWidget();
+    void Refresh();
     int GetSelectedCardIndex();
-    QPushButton *GetSelectedCard() { return selectedCard; }
+    QPushButton *GetSelectedCard() const { return selectedCard; }
 private:
     QPushButton *selectedCard = nullptr;
     int per_row = 4;
-	std::vector<QPushButton*> cards;
-	QGridLayout *gridLayout;
+    std::vector<QPushButton*> cards;
+    QGridLayout *gridLayout;
 signals:
     void CardSelected(int index);
 };

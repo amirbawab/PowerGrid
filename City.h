@@ -10,7 +10,7 @@ class City
 {
 public:
     City() {}
-    City(std::string name) : name(name) {}
+    explicit City(std::string name) : name(name) {}
 
     std::string GetName() const { return name; }
     void SetName(std::string name) { this->name = name; }
@@ -50,7 +50,7 @@ private:
     int secondHousePrice = 15;
     int thirdHousePrice = 20;
     int houses = 0;
-    int x, y, width, height;
+    int x = 0, y = 0, width = 0, height = 0;
     static const int MAX_VALUE = 3;
     std::string name = "";
     std::shared_ptr<Region> region;

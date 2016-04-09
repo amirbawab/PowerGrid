@@ -1,4 +1,5 @@
 #include "MapGraphicsView.h"
+#include "Game.h"
 
 MapGraphicsView::MapGraphicsView() {
     
@@ -19,7 +20,7 @@ MapGraphicsView::MapGraphicsView() {
     setDragMode(ScrollHandDrag);
 }
 
-std::shared_ptr<City> MapGraphicsView::GetCityByPoint(QPoint point)
+shared_ptr<City> MapGraphicsView::GetCityByPoint(QPoint point)
 {
     for (auto cityItem : citiesItemsMap)
         if (cityItem.second->contains(point))
@@ -28,7 +29,7 @@ std::shared_ptr<City> MapGraphicsView::GetCityByPoint(QPoint point)
     return nullptr;
 }
 
-void MapGraphicsView::MarkCitiesToRemove(std::shared_ptr<City> city)
+void MapGraphicsView::MarkCitiesToRemove(shared_ptr<City> city)
 {
     for (auto cityItem : citiesItemsMap) {
         // TODO mark cities toRemove

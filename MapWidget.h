@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QStyleOption>
-#include <QPainter>
+#include <QLabel>
 #include <string>
 
 #include "TemplateNextBackWidget.h"
@@ -31,7 +31,7 @@ private:
 
 	SelectMapWidget *selectMapWidget;
 	SelectNumberOfPlayerWidget *selectNumberOfPlayerWidget;
-	void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *) override;
 
 private slots:
 	void increment();
@@ -39,6 +39,6 @@ private slots:
 public:
 	MapWidget();
 	~MapWidget();
-	int GetNumberOfPlayers() { return std::stoi(selectNumberOfPlayerWidget->numberOfPlayersLabel->text().toStdString()); }
+	int GetNumberOfPlayers() const { return stoi(selectNumberOfPlayerWidget->numberOfPlayersLabel->text().toStdString()); }
 };
 

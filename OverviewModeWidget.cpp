@@ -1,4 +1,5 @@
 #include "OverviewModeWidget.h"
+#include <QLabel>
 
 OverviewModeWidget::OverviewModeWidget() {
 	

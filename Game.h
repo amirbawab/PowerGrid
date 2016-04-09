@@ -10,10 +10,7 @@
 #include "PowerPlantCard.h"
 #include "CardStack.h"
 #include "Map.h"
-#include "Config.h"
 #include "Overview.h"
-#include "GameStatus.h"
-#include "DataStore.h"
 #include "Subject.h"
 
 using std::vector;
@@ -26,76 +23,76 @@ class Game : public Subject {
 private:
     Game();
 
-	// General attributes
-	int fullTurn;  // the number of turns since the beginning
-	std::vector<std::shared_ptr<Player>> players;
-	std::shared_ptr<ResourceMarket> rMarket;
-	CardStack cardStack;
-	std::vector<std::shared_ptr<HouseColor>> houseColor;
-	std::vector<std::shared_ptr<Card>> allCards;
-	std::shared_ptr<Map> map;
-	std::vector<std::shared_ptr<Player>> playerOrder;  // players placed in the correct turn order
-	std::shared_ptr<Player> winner;
-	int playStep = 0;  // current step of the turn
-	std::shared_ptr<Player> currentPlayer;  // pointer to the current player
-	int phase;  // phase of the game (1, 2 or 3)
-	bool gameOver = false;
-	string messageText;
-	string errorMessageText;
-	string errorMessageTextTitle;
-	string infoMessageText;
-	string infoMessageTextTitle;
+    // General attributes
+    int fullTurn;  // the number of turns since the beginning
+    vector<shared_ptr<Player>> players;
+    shared_ptr<ResourceMarket> rMarket;
+    CardStack cardStack;
+    vector<shared_ptr<HouseColor>> houseColor;
+    vector<shared_ptr<Card>> allCards;
+    shared_ptr<Map> map;
+    vector<shared_ptr<Player>> playerOrder;  // players placed in the correct turn order
+    shared_ptr<Player> winner;
+    int playStep = 0;  // current step of the turn
+    shared_ptr<Player> currentPlayer;  // pointer to the current player
+    int phase;  // phase of the game (1, 2 or 3)
+    bool gameOver = false;
+    string messageText;
+    string errorMessageText;
+    string errorMessageTextTitle;
+    string infoMessageText;
+    string infoMessageTextTitle;
 
-	Overview overview;
-	int initElektro;
+    Overview overview;
+    int initElektro;
 
-	// Singleton
-	Game(Game const&) = delete;
-	void operator=(Game const&) = delete;
+    // Singleton
+    Game(Game const&) = delete;
+    void operator=(Game const&) = delete;
 
 
 public:
-	~Game() {};
+    ~Game() {};
 
-	// Singleton
-	static Game& getInstance() {
-		static Game instance;
-		return instance;
-	}
+    // Singleton
+    static Game& getInstance() {
+        static Game instance;
+        return instance;
+    }
 
-	void LoadGame();
-	void PlayGame();
+    void LoadGame();
+    void PlayGame();
 
-	// Getters
-	int GetFullTurn() const { return fullTurn; }
-	std::vector<std::shared_ptr<Player>>& GetPlayers() { return players; }
-	std::shared_ptr<ResourceMarket> GetResourceMarket() { return rMarket; }
-	CardStack& GetCardStack() { return cardStack; }
-	std::vector<std::shared_ptr<Card>>& GetAllCards() { return allCards; }
-	std::shared_ptr<Map>& GetMap() { return map; }
-	std::vector<std::shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
-	std::vector<std::shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
-	int GetPhase() const { return phase; }
-	Overview& GetOverview() { return overview; }
-	int GetInitElektro() const { return initElektro; }
-	std::shared_ptr<Player> &GetCurrentPlayer() { return currentPlayer; }
-	string GetMessageText() const { return messageText; }
-	int GetStep() const { return playStep; }
-	string GetErrorMessageText() { return errorMessageText; }
-	string GetErrorMessageTextTitle() { return errorMessageTextTitle; }
-	string GetInfoMessageText() { return infoMessageText; }
-	string GetInfoMessageTextTitle() { return infoMessageTextTitle; }
-	bool GetNowBidding() { return nowBidding; }
-	int GetPowerPlantIndex() { return powerPlantIndex; } // setp 3
-    int GetPlantIndex() { return plantIndex; }
+    // Getters
+    int GetFullTurn() const { return fullTurn; }
+    vector<shared_ptr<Player>>& GetPlayers() { return players; }
+    shared_ptr<ResourceMarket> GetResourceMarket() const { return rMarket; }
+    CardStack& GetCardStack() { return cardStack; }
+    vector<shared_ptr<Card>>& GetAllCards() { return allCards; }
+    shared_ptr<Map>& GetMap() { return map; }
+    vector<shared_ptr<Player>>& GetPlayerOrder() { return playerOrder; }
+    vector<shared_ptr<HouseColor>>& GetHouseColor() { return houseColor; }
+    int GetPhase() const { return phase; }
+    Overview& GetOverview() { return overview; }
+    int GetInitElektro() const { return initElektro; }
+    shared_ptr<Player> &GetCurrentPlayer() { return currentPlayer; }
+    string GetMessageText() const { return messageText; }
+    int GetStep() const { return playStep; }
+    string GetErrorMessageText() const { return errorMessageText; }
+    string GetErrorMessageTextTitle() const { return errorMessageTextTitle; }
+    string GetInfoMessageText() const { return infoMessageText; }
+    string GetInfoMessageTextTitle() const { return infoMessageTextTitle; }
+    bool GetNowBidding() const { return nowBidding; }
+    int GetPowerPlantIndex() const { return powerPlantIndex; } // setp 3
+    int GetPlantIndex() const { return plantIndex; }
 
     // Setters
-    void SetMap(std::shared_ptr<Map>& map) { this->map = map; }
+    void SetMap(shared_ptr<Map>& map) { this->map = map; }
     void SetFullTurn(int fullTurn) { this->fullTurn = fullTurn; }
     void SetPhase(int phase) { this->phase = phase; }
     void SetInitElektro(int initElektro) { this->initElektro = initElektro; }
-	void SetErrorMessageTextBox(string errorMessageTextTitle, string errorMessageText) { this->errorMessageTextTitle = errorMessageTextTitle; this->errorMessageText = errorMessageText; }
-	void SetInfoMessageTextBox(string infoMessageTextTitle, string infoMessageText) { this->infoMessageTextTitle = infoMessageTextTitle; this->infoMessageText = infoMessageText; }
+    void SetErrorMessageTextBox(string errorMessageTextTitle, string errorMessageText) { this->errorMessageTextTitle = errorMessageTextTitle; this->errorMessageText = errorMessageText; }
+    void SetInfoMessageTextBox(string infoMessageTextTitle, string infoMessageText) { this->infoMessageTextTitle = infoMessageTextTitle; this->infoMessageText = infoMessageText; }
 
     void UpdatePlayOrder(bool); // step 1
     void AuctionPlants();  // step 2
@@ -103,7 +100,7 @@ public:
     void BuyCities(); // step 4
     void Bureaucracy();  // step 5
 
-    void PrintScore();
+    void PrintScore() const;
     void PrintRemainingResources();
 
     // Step 1 Ordering players
@@ -126,7 +123,7 @@ public:
     int plantIndex;
     std::map<Player*, bool> canBid;
     std::map<Player*, bool> canBuy;
-    std::shared_ptr<Player> highestBidder;
+    shared_ptr<Player> highestBidder;
 
     // Step 3 Buying Resources
 
@@ -154,7 +151,7 @@ public:
     void Step5End();
 
     shared_ptr<PowerPlantCard> pickedPlant;
-    vector<std::shared_ptr<Player>> winners;
+    vector<shared_ptr<Player>> winners;
     int numPoweredCities;
 
     void GameEnd();
@@ -162,7 +159,6 @@ public:
     // Integration
     void NewGame();
     void ConfigNewGame(string map, int numberOfPlayers);
-	void StartGame();
-	void DisplayRemoveRegions();
+    void StartGame();
+    void DisplayRemoveRegions();
 };
-

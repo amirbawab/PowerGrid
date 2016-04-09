@@ -5,7 +5,6 @@
 #include <limits>
 #include <queue>
 #include <stack>
-#include <time.h>
 
 using std::string;
 using std::cout;

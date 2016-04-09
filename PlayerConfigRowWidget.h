@@ -6,39 +6,36 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <string>
-#include <QPushButton>
 #include <vector>
 #include <QPaintEvent>
-#include <QStyleOption>
-#include <QPainter>
 #include <memory>
+#include <QPushButton>
 
 using std::string;
 
 class PlayerConfigRowWidget : public QWidget {
-	Q_OBJECT
+    Q_OBJECT
 private:
-	QLineEdit *playerName;
-	QHBoxLayout *hBoxLayout;
-	QPushButton *houseButton;
-	std::vector<std::shared_ptr<HouseColor>> houseColors;
-	std::shared_ptr<Player> player;
-	int houseColorIndex;
-	void paintEvent(QPaintEvent *pe);
-	
+    QLineEdit *playerName;
+    QHBoxLayout *hBoxLayout;
+    QPushButton *houseButton;
+    vector<shared_ptr<HouseColor>> houseColors;
+    shared_ptr<Player> player;
+    int houseColorIndex;
+    void paintEvent(QPaintEvent *pe) override;
+    
 public:
-	PlayerConfigRowWidget(string name);
-	~PlayerConfigRowWidget();
-	void SetPlayerName(string name);
-	string GetPlayerName() const { return playerName->text().toStdString(); }
-	void SetHouseColors(std::vector<std::shared_ptr<HouseColor>> &houseColors) { this->houseColors = houseColors; }
-	void SetHouseColorIndex(int houseColorIndex);
-	void SetPlayer(std::shared_ptr<Player> player) { this->player = player; }
-	std::shared_ptr<Player> GetPlayer() { return player; }
-	std::shared_ptr<HouseColor> GetHouseColor() { return houseColors[houseColorIndex]; }
-	void UpdatePlayer();
+    explicit PlayerConfigRowWidget(string name);
+    ~PlayerConfigRowWidget();
+    string GetPlayerName() const { return playerName->text().toStdString(); }
+    void SetHouseColors(vector<shared_ptr<HouseColor>> &houseColors) { this->houseColors = houseColors; }
+    void SetHouseColorIndex(int houseColorIndex);
+    void SetPlayer(shared_ptr<Player> player) { this->player = player; }
+    shared_ptr<Player> GetPlayer() const { return player; }
+    shared_ptr<HouseColor> GetHouseColor() { return houseColors[houseColorIndex]; }
+    void UpdatePlayer();
 
 private slots:
-	void OnHouseClick();
+    void OnHouseClick();
 };
 

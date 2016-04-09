@@ -1,4 +1,7 @@
 #include "MainFrame.h"
+#include "Game.h"
+#include <QDesktopWidget>
+#include <QApplication>
 #include <QMessageBox>
 
 MainFrame::MainFrame(string title) : QMainWindow() {
@@ -97,17 +100,17 @@ void MainFrame::onPlayerConfigNext() {
 }
 
 void MainFrame::Update() {
-	// Display error message
-	if (Game::getInstance().GetErrorMessageText() != "") {
-		QMessageBox::critical(this, Game::getInstance().GetErrorMessageTextTitle().c_str(), Game::getInstance().GetErrorMessageText().c_str());
-		Game::getInstance().SetErrorMessageTextBox("", "");
-	}
+    // Display error message
+    if (Game::getInstance().GetErrorMessageText() != "") {
+        QMessageBox::critical(this, Game::getInstance().GetErrorMessageTextTitle().c_str(), Game::getInstance().GetErrorMessageText().c_str());
+        Game::getInstance().SetErrorMessageTextBox("", "");
+    }
 
-	// Display info message
-	if (Game::getInstance().GetInfoMessageText() != "") {
-		QMessageBox::information(this, Game::getInstance().GetInfoMessageTextTitle().c_str(), Game::getInstance().GetInfoMessageText().c_str());
-		Game::getInstance().SetInfoMessageTextBox("", "");
-	}
+    // Display info message
+    if (Game::getInstance().GetInfoMessageText() != "") {
+        QMessageBox::information(this, Game::getInstance().GetInfoMessageTextTitle().c_str(), Game::getInstance().GetInfoMessageText().c_str());
+        Game::getInstance().SetInfoMessageTextBox("", "");
+    }
 
     boardWidget->Refresh();
 }

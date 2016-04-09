@@ -1,10 +1,6 @@
 #include "CityItem.h"
-#include <QFont>
+#include <QBrush>
 #include <QFontMetrics>
-
-//#include <iostream>
-//using std::cout;
-//using std::endl;
 
 CityItem::CityItem(QPoint topLeft, int width, int height) {
     setRect(topLeft.x(), topLeft.y(), width, height);

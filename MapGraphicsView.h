@@ -2,9 +2,7 @@
 
 #include <QGraphicsView>
 #include <QWheelEvent>
-#include "DataStore.h"
 #include "City.h"
-#include "Connection.h"
 #include <memory>
 #include <map>
 #include "ConnectionItem.h"
@@ -25,12 +23,12 @@ private:
     const int MAX_ZOOM = 10;
     const int MIN_ZOOM = -10;
     float scaleFactor = 1.15f;
-    map<string, shared_ptr<CityItem>> citiesItemsMap;
+    std::map<string, shared_ptr<CityItem>> citiesItemsMap;
     vector<std::unique_ptr<ConnectionItem>> connectionItems;
     
-	std::shared_ptr<City> GetCityByPoint(QPoint point);
+    std::shared_ptr<City> GetCityByPoint(QPoint point);
 
-	void MarkCitiesToRemove(std::shared_ptr<City> city);
+    void MarkCitiesToRemove(std::shared_ptr<City> city);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;

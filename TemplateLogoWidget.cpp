@@ -1,4 +1,5 @@
 #include "TemplateLogoWidget.h"
+#include <QLabel>
 
 TemplateLogoWidget::TemplateLogoWidget() {
 

@@ -1,5 +1,6 @@
 #include "BoardWidget.h"
 #include <QMessageBox>
+#include "Game.h"
 
 BoardWidget::BoardWidget() {
 
@@ -8,6 +9,16 @@ BoardWidget::BoardWidget() {
     boardTopWidget = new BoardTopWidget();
     boardBottomWidget = new BoardBottomWidget();
     boardCenterWidget = new BoardCenterWidget();
+
+    // Initialize refresher threads
+    topRefresher = new TopWidgetRefresher(this, boardTopWidget);
+    bottomRefresher = new BottomWidgetRefresher(this, boardBottomWidget);
+    centerRefresher = new CenterWidgetRefresher(this, boardCenterWidget);
+
+    // Thread housekeeping
+    connect(topRefresher   , &TopWidgetRefresher::finished   , topRefresher   , &QObject::deleteLater);
+    connect(bottomRefresher, &BottomWidgetRefresher::finished, bottomRefresher, &QObject::deleteLater);
+    connect(centerRefresher, &CenterWidgetRefresher::finished, centerRefresher, &QObject::deleteLater);
 
     // Set layout
     setLayout(gridLayout);
@@ -36,45 +47,45 @@ BoardWidget::BoardWidget() {
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetOkButton(), &QPushButton::clicked, [=]() {
         qDebug("Ok clicked");
 
-		// If now bidding
-		if (Game::getInstance().GetNowBidding()) {
-			Game::getInstance().Step2Bid2(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt());
-		}
-		else {
-			if (!boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCard()) {
-				QMessageBox::critical(this, "No Power Plant Selected!", "Please select a power plant");
-			}
-			else {
-				// Cast
-				auto powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(
-					Game::getInstance().GetCardStack().GetVisibleCards()[boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex()]);
+        // If now bidding
+        if (Game::getInstance().GetNowBidding()) {
+            Game::getInstance().Step2Bid2(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt());
+        }
+        else {
+            if (!boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCard()) {
+                QMessageBox::critical(this, "No Power Plant Selected!", "Please select a power plant");
+            }
+            else {
+                // Cast
+                auto powerPlantCard = std::dynamic_pointer_cast<PowerPlantCard>(
+                    Game::getInstance().GetCardStack().GetVisibleCards()[boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex()]);
 
-				// If found
-				if (powerPlantCard) {
-					if (boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt() < powerPlantCard->GetPrice()) {
-						QMessageBox::critical(this, "Price Error", "Please select a price greater than or equal to the selected card");
-					}
-					else {
-						Game::getInstance().Step2PickPlant2(
-							false,
-							boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex(),
-							boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt());
-					}
-				}
-			}
-		}
+                // If found
+                if (powerPlantCard) {
+                    if (boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt() < powerPlantCard->GetPrice()) {
+                        QMessageBox::critical(this, "Price Error", "Please select a price greater than or equal to the selected card");
+                    }
+                    else {
+                        Game::getInstance().Step2PickPlant2(
+                            false,
+                            boardCenterWidget->GetPowerPlantModeWidget()->GetSelectedCardIndex(),
+                            boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt());
+                    }
+                }
+            }
+        }
     });
     
     // Connect skip
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetSkipButton(), &QPushButton::clicked, [=]() {
         qDebug("Skip clicked");
        
-		// If now bidding
-		if (Game::getInstance().GetNowBidding()) {
-			Game::getInstance().Step2Bid2();
-		} else {
-			Game::getInstance().Step2PickPlant2(true);
-		}
+        // If now bidding
+        if (Game::getInstance().GetNowBidding()) {
+            Game::getInstance().Step2Bid2();
+        } else {
+            Game::getInstance().Step2PickPlant2(true);
+        }
     });
     
     // Add components
@@ -92,11 +103,41 @@ BoardWidget::~BoardWidget() {
 void BoardWidget::Refresh() {
     
     // Refresh all widgets
-    boardTopWidget->Refresh();
-    boardCenterWidget->Refresh();
-    boardBottomWidget->Refresh();
+    topRefresher->run();
+    bottomRefresher->run();
+    centerRefresher->run();
+
 }
 
 void BoardWidget::DrawMap() {
     boardCenterWidget->DrawMap();
+}
+
+BoardWidget::TopWidgetRefresher::TopWidgetRefresher(
+    QObject* parent, BoardTopWidget* widget) : QThread(parent), widget{ widget }
+{ }
+
+void BoardWidget::TopWidgetRefresher::run()
+{
+    widget->Refresh();
+}
+
+BoardWidget::BottomWidgetRefresher::BottomWidgetRefresher(
+    QObject* parent, BoardBottomWidget* widget) :
+    QThread(parent), widget { widget }
+{}
+
+void BoardWidget::BottomWidgetRefresher::run()
+{
+    widget->Refresh();
+}
+
+BoardWidget::CenterWidgetRefresher::CenterWidgetRefresher(
+    QObject* parent, BoardCenterWidget* widget) :
+    QThread(parent), widget{ widget }
+{}
+
+void BoardWidget::CenterWidgetRefresher::run()
+{
+    widget->Refresh();
 }

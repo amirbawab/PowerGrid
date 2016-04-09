@@ -1,4 +1,5 @@
 #include "MapWidget.h"
+#include <QPainter>
 
 MapWidget::MapWidget() {
 	

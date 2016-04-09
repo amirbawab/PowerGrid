@@ -1,4 +1,5 @@
 #include "PlayerConfigWidget.h"
+#include "Game.h"
 #include <QStyleOption>
 #include <QPainter>
 

@@ -5,68 +5,66 @@
 #include <QLabel>
 #include "Player.h"
 #include <memory>
-#include "DataStore.h"
-#include <QPainter>
-#include <QStyleOption>
 #include <QStackedWidget>
+#include <QtWidgets/QPushButton>
 
 class BoardProfileWidget : public QWidget {
 public:
-	BoardProfileWidget();
-	~BoardProfileWidget();
-	void Refresh();
+    BoardProfileWidget();
+    ~BoardProfileWidget();
+    void Refresh() const;
 private:
-	QLabel *playerNameLabel;
-	QLabel *playerPictureLabel;
-	QLabel *playerElektroLabel;
-	QGridLayout *gridLayout;
+    QLabel *playerNameLabel;
+    QLabel *playerPictureLabel;
+    QLabel *playerElektroLabel;
+    QGridLayout *gridLayout;
 };
 
 class BoardResourcePowerPlantWiget : public QWidget {
 public:
-	BoardResourcePowerPlantWiget();
-	~BoardResourcePowerPlantWiget();
-	void SetPowerPlantCard(std::shared_ptr<PowerPlantCard> powerPlantCard) { this->powerPlantCard = powerPlantCard; }
-	void Refresh();
+    BoardResourcePowerPlantWiget();
+    ~BoardResourcePowerPlantWiget();
+    void SetPowerPlantCard(shared_ptr<PowerPlantCard> powerPlantCard) { this->powerPlantCard = powerPlantCard; }
+    void Refresh();
     void SetOpacity(float opacity);
 private:
-	std::shared_ptr<PowerPlantCard> powerPlantCard;
-	QGridLayout *gridLayout;
-	std::vector<QLabel*> resourceLables;
-	void paintEvent(QPaintEvent *e);
+    shared_ptr<PowerPlantCard> powerPlantCard;
+    QGridLayout *gridLayout;
+    vector<QLabel*> resourceLables;
+    void paintEvent(QPaintEvent *e) override;
 };
 
 class BoardPlayerPowerPlantsWidget : public QWidget {
 public:
-	BoardPlayerPowerPlantsWidget();
-	~BoardPlayerPowerPlantsWidget();
-	void Refresh();
+    BoardPlayerPowerPlantsWidget();
+    ~BoardPlayerPowerPlantsWidget();
+    void Refresh();
 private:
-	std::vector<BoardResourcePowerPlantWiget*> playerPowerPlantsWidgets;
-	QGridLayout *gridLayout;
+    vector<BoardResourcePowerPlantWiget*> playerPowerPlantsWidgets;
+    QGridLayout *gridLayout;
 };
 
 class CounterWidget : public QWidget {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	CounterWidget();
-	~CounterWidget();
-    QLabel *GetNumberLabel() { return numberLabel; }
-    int GetValueAsInt() { return std::stoi(numberLabel->text().toStdString()); }
+    CounterWidget();
+    ~CounterWidget();
+    QLabel *GetNumberLabel() const { return numberLabel; }
+    int GetValueAsInt() const { return stoi(numberLabel->text().toStdString()); }
 private:
-	QGridLayout *gridLayout;
-	QPushButton *plusBtn, *minusBtn;
-	QLabel *numberLabel;
-	void paintEvent(QPaintEvent *pe);
+    QGridLayout *gridLayout;
+    QPushButton *plusBtn, *minusBtn;
+    QLabel *numberLabel;
+    void paintEvent(QPaintEvent *pe) override;
 private slots:
-	void increment();
-	void decrement();
+    void increment() const;
+    void decrement() const;
 };
 
 class StepOnePanel : public QWidget {
 public:
-	StepOnePanel();
-	~StepOnePanel();
+    StepOnePanel();
+    ~StepOnePanel();
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;
@@ -118,18 +116,18 @@ private:
 
 class BoardMessageWidget : public QWidget {
 public:
-	BoardMessageWidget();
-	~BoardMessageWidget();
-	void Refresh();
+    BoardMessageWidget();
+    ~BoardMessageWidget();
+    void Refresh() const;
     StepOnePanel *GetStepOnePanel() { return stepOnePanel; }
     StepTwoPanel *GetStepTwoPanel() { return stepTwoPanel; }
     StepThreePanel*GetStepThreePanel() { return stepThreePanel; }
     StepFourPanel *GetStepFourPanel() { return stepFourPanel; }
     StepFivePanel *GetStepFivePanel() { return stepFivePanel; }
 private:
-	QGridLayout *gridLayout;
-	QLabel *questionLabel;
-	StepOnePanel *stepOnePanel;
+    QGridLayout *gridLayout;
+    QLabel *questionLabel;
+    StepOnePanel *stepOnePanel;
     StepTwoPanel *stepTwoPanel;
     StepThreePanel *stepThreePanel;
     StepFourPanel *stepFourPanel;
@@ -139,14 +137,14 @@ private:
 
 class BoardBottomWidget : public QWidget {
 public:
-	BoardBottomWidget();
-	~BoardBottomWidget();
-	void Refresh();
+    BoardBottomWidget();
+    ~BoardBottomWidget();
+    void Refresh() const;
     BoardMessageWidget *GetBoardMessage() { return boardMessageWidget; }
 private:
-	QGridLayout *gridLayout;
-	BoardProfileWidget *boardProfileWidget;
-	BoardPlayerPowerPlantsWidget *boardPlayerPowerPlantsWidget;
-	BoardMessageWidget *boardMessageWidget;
+    QGridLayout *gridLayout;
+    BoardProfileWidget *boardProfileWidget;
+    BoardPlayerPowerPlantsWidget *boardPlayerPowerPlantsWidget;
+    BoardMessageWidget *boardMessageWidget;
 };
 

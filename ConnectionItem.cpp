@@ -1,7 +1,7 @@
 #include "ConnectionItem.h"
+#include <QPen>
 #include <QFont>
 #include <QFontMetrics>
-#include <QPen>
 
 QPoint ConnectionItem::GetCostLocation(QFont font) const {
     int deltaY = first->GetCenter().y() - second->GetCenter().y();

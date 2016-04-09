@@ -2,7 +2,6 @@
 
 #include "Resource.h"
 #include "Card.h"
-#include <QPushButton>
 #include <set>
 #include <map>
 #include <string>

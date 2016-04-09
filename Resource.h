@@ -2,17 +2,17 @@
 #include "Helpers.h"
 
 enum Resource {
-	COAL,
-	OIL,
-	GARBAGE,
-	URANIUM
+    COAL,
+    OIL,
+    GARBAGE,
+    URANIUM
 };
 
 namespace res {
-	const int total = 4;
+    const int total = 4;
 }
 
-inline Resource GetResourceByName(std::string name)
+inline Resource GetResourceByName(string name)
 {
     // By default, it's 'COAL'!
     Resource resource = COAL;

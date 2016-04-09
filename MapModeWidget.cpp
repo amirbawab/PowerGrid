@@ -18,10 +18,12 @@ MapModeWidget::~MapModeWidget() {
     delete gridLayout;
 }
 
-void MapModeWidget::DrawMap() {
+void MapModeWidget::DrawMap() const
+{
     mapGraphicsView->DrawMap();
 }
 
-void MapModeWidget::Refresh() {
+void MapModeWidget::Refresh() const
+{
     mapGraphicsView->Refresh();
 }

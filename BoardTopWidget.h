@@ -3,9 +3,6 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <vector>
-#include "Player.h"
-#include "DataStore.h"
-#include <memory>
 #include <QLabel>
 
 class GameTurnWidget : public QWidget {
@@ -43,7 +40,7 @@ class BoardTopWidget : public QWidget {
 public:
 	BoardTopWidget();
 	~BoardTopWidget();
-	void Refresh();
+	void Refresh() const;
 	
 private:
 	QGridLayout *gridLayout;

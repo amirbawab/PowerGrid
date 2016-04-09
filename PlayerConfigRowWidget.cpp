@@ -1,4 +1,6 @@
 #include "PlayerConfigRowWidget.h"
+#include <QStyleOption>
+#include <QPainter>
 
 PlayerConfigRowWidget::PlayerConfigRowWidget(string name) {
 		

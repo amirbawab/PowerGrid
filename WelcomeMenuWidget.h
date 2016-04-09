@@ -15,6 +15,6 @@ public:
 private:
 	QVBoxLayout *vBoxLayout;
 	QPushButton *newGameBtn, *loadGameBtn, *exitBtn;
-	void paintEvent(QPaintEvent *pe);
+	void paintEvent(QPaintEvent *pe) override;
 };
 

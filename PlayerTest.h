@@ -1,7 +1,5 @@
 #pragma once
 #include "GenericTest.h"
-#include "Player.h"
-#include <string>
 
 class PlayerTest : public GenericTest {
 public:

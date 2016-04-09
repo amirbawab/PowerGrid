@@ -1,6 +1,5 @@
 #include "City.h"
 #include <algorithm>
-#include <iostream>
 
 bool operator==(const std::shared_ptr<City>& first, const std::shared_ptr<City>& second)
 {

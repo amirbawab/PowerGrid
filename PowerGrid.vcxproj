@@ -53,7 +53,6 @@
     <ClCompile Include="BoardCenterWidget.cpp" />
     <ClCompile Include="BoardTopWidget.cpp" />
     <ClCompile Include="BoardWidget.cpp" />
-    <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardStack.cpp" />
     <ClCompile Include="City.cpp" />
     <ClCompile Include="CityItem.cpp" />
@@ -96,7 +95,6 @@
     <ClCompile Include="ResourceMarketLevel.cpp" />
     <ClCompile Include="ResourceMarketLevelWidget.cpp" />
     <ClCompile Include="ResourceMarketModeWidget.cpp" />
-    <ClCompile Include="StepCard.cpp" />
     <ClCompile Include="TemplateLogoWidget.cpp" />
     <ClCompile Include="TemplateNextBackWidget.cpp" />
     <ClCompile Include="WelcomeMenuWidget.cpp" />
@@ -117,7 +115,14 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(ProjectDir)include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
     </CustomBuild>
     <ClInclude Include="BoardTopWidget.h" />
-    <ClInclude Include="BoardWidget.h" />
+    <CustomBuild Include="BoardWidget.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+    </CustomBuild>
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardStack.h" />
     <ClInclude Include="City.h" />

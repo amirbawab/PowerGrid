@@ -1,4 +1,5 @@
 #include "BoardTopWidget.h"
+#include "Game.h"
 
 // BoardTopWidget class
 
@@ -31,7 +32,8 @@ BoardTopWidget::~BoardTopWidget() {
     delete gridLayout;
 }
 
-void BoardTopWidget::Refresh() {
+void BoardTopWidget::Refresh() const
+{
     
     // Refresh widgets
     gameTurnWidget->Refresh();
@@ -60,7 +62,6 @@ void GameTurnWidget::Refresh() {
     }
 
     // Draw houses
-	Game &game = Game::getInstance();
     for (int i = 0; i < Game::getInstance().GetPlayerOrder().size(); i++) {
         QLabel *playerLabel = new QLabel();
         playerLabel->setPixmap(QPixmap(Game::getInstance().GetPlayerOrder()[i]->GetColor()->getImage().c_str()));

@@ -2,9 +2,7 @@
 
 #include <QWidget>
 #include <vector>
-#include "DataStore.h"
 #include "ResourceMarketLevelWidget.h"
-#include <QGridLayout>
 
 class ResourceMarketModeWidget : public QWidget {
 public:

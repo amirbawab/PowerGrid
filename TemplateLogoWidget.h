@@ -1,7 +1,6 @@
 #pragma once
 
 #include <qwidget.h>
-#include <qlabel.h>
 #include <qgridlayout.h>
 
 class TemplateLogoWidget : public QWidget {

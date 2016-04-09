@@ -1,137 +1,139 @@
 #include "PlayerTest.h"
+#include <string>
+#include "Player.h"
 
 /// Run all test in this class
 bool PlayerTest::run() {
-	
-	// Init success
-	bool success = true;
+    
+    // Init success
+    bool success = true;
 
-	// All test cases
-	success &= test_GetName();
-	success &= test_SetName();
-	success &= test_SetElektro();
-	success &= test_HasElektro();
-	success &= test_GetHouses();
-	success &= test_AddPowerPlant();
-	success &= test_GetPowerPlants();
-	// Return true if tests are successful
-	return success;
+    // All test cases
+    success &= test_GetName();
+    success &= test_SetName();
+    success &= test_SetElektro();
+    success &= test_HasElektro();
+    success &= test_GetHouses();
+    success &= test_AddPowerPlant();
+    success &= test_GetPowerPlants();
+    // Return true if tests are successful
+    return success;
 }
 
 /// Test get player name
 bool PlayerTest::test_GetName() {
-	
-	// Create test name
-	std::string name = "Bob";
-	
-	// Create player
-	Player pBob(name, nullptr, 0);
+    
+    // Create test name
+    string name = "Bob";
+    
+    // Create player
+    Player pBob(name, nullptr, 0);
 
-	// Check if get name return expected value
-	return pBob.GetName() == name;
+    // Check if get name return expected value
+    return pBob.GetName() == name;
 }
 
 /// Test set player name
 bool PlayerTest::test_SetName() {
 
-	// Create test name
-	std::string name = "Bob";
+    // Create test name
+    string name = "Bob";
 
-	// Create player
-	Player pBob("", nullptr, 0);
+    // Create player
+    Player pBob("", nullptr, 0);
 
-	// Set name
-	pBob.SetName(name);
+    // Set name
+    pBob.SetName(name);
 
-	// Check if get name return expected value
-	return pBob.GetName() == name;
+    // Check if get name return expected value
+    return pBob.GetName() == name;
 }
 
 bool PlayerTest::test_GetElektro() {
 
-	Player pBob("", nullptr, 0);
-	
-	pBob.SetElektro(20);
+    Player pBob("", nullptr, 0);
+    
+    pBob.SetElektro(20);
 
-		
-	
-	int test = pBob.GetElektro();
+        
+    
+    int test = pBob.GetElektro();
 
-	return pBob.GetElektro() == test;
+    return pBob.GetElektro() == test;
 
 
 }
 
 bool PlayerTest::test_GetColor()
 {
-	Player pBob("", nullptr, 0);
-	std::shared_ptr<HouseColor> testcolor = std::make_shared<HouseColor>("black", "");
-	pBob.SetColor(testcolor);
+    Player pBob("", nullptr, 0);
+    shared_ptr<HouseColor> testcolor = std::make_shared<HouseColor>("black", "");
+    pBob.SetColor(testcolor);
 
 
-	return testcolor == pBob.GetColor();
+    return testcolor == pBob.GetColor();
 
 }
 
 bool PlayerTest::test_SetElektro()
 {
-	Player pBob("", nullptr, 0);
+    Player pBob("", nullptr, 0);
     
-	int testelectro = 20;
+    int testelectro = 20;
 
-	pBob.SetElektro(testelectro);
+    pBob.SetElektro(testelectro);
 
-	return pBob.GetElektro() == testelectro;
+    return pBob.GetElektro() == testelectro;
 
 
 }
 
 bool PlayerTest::test_GetPowerPlants()
 {
-	std::vector<std::shared_ptr<PowerPlantCard>> test;
-	Player pBob("", nullptr, 0);
+    vector<shared_ptr<PowerPlantCard>> test;
+    Player pBob("", nullptr, 0);
 
 
-	return test == pBob.GetPowerPlants();
+    return test == pBob.GetPowerPlants();
 
 
 }
 
 bool PlayerTest::test_HasElektro()
 {
-	int testelektro = 20;
+    int testelektro = 20;
 
-	
-	Player pBob("", nullptr, 0);
-	pBob.SetElektro(20);
-	
-	return 	pBob.HasElektro(testelektro);
+    
+    Player pBob("", nullptr, 0);
+    pBob.SetElektro(20);
+    
+    return 	pBob.HasElektro(testelektro);
 
 }
 
 bool PlayerTest::test_GetHouses()
 
 {
-	Player pBob("", nullptr, 0);
-	std::vector<std::shared_ptr<House>> testhouse = pBob.GetHouses();
+    Player pBob("", nullptr, 0);
+    vector<shared_ptr<House>> testhouse = pBob.GetHouses();
 
-	return testhouse == pBob.GetHouses();
+    return testhouse == pBob.GetHouses();
 }
 
 bool PlayerTest::test_BuyHouse()
 {
-	Player pBob("", nullptr, 0);
+    Player pBob("", nullptr, 0);
 
-	std::shared_ptr<House> testhouse = std::make_shared<House>();
-	return pBob.BuyHouse(testhouse);
+    shared_ptr<House> testhouse = std::make_shared<House>();
+    return pBob.BuyHouse(testhouse);
 
 }
 
 bool PlayerTest::test_AddPowerPlant() {
 
-	Player pBob("", nullptr, 0);
-	std::shared_ptr<PowerPlantCard> test = std::make_shared<PowerPlantCard>();
-	return pBob.AddPowerPlant(test);
-	
+    Player pBob("", nullptr, 0);
+    shared_ptr<PowerPlantCard> test = std::make_shared<PowerPlantCard>();
+    return pBob.AddPowerPlant(test);
+    
 
 }

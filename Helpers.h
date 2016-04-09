@@ -19,18 +19,18 @@ inline void Warning(string message)
 
 inline string ToLower(string input)
 {
-    string result = input;
+    auto result = input;
     transform(result.begin(), result.end(), result.begin(), tolower);
     return result;
 }
 
 inline string ToUpper(string input)
 {
-    string result = input;
+    auto result = input;
     transform(result.begin(), result.end(), result.begin(), toupper);
     return result;
 }
 
 namespace PG {
-	const int INVALID = -1;
+    const int INVALID = -1;
 }

@@ -8,8 +8,8 @@ class MapModeWidget : public QWidget {
 public:
     MapModeWidget();
     ~MapModeWidget();
-    void DrawMap();
-    void Refresh();
+    void DrawMap() const;
+    void Refresh() const;
 private:
     MapGraphicsView *mapGraphicsView;
     QGridLayout *gridLayout;
