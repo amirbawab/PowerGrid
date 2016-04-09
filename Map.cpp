@@ -163,6 +163,10 @@ void Map::RemoveConnection(shared_ptr<Connection> connection)
 {
     using std::remove;
 
+    // Return if connection cannot be found
+    if (find(connections.begin(), connections.end(), connection) == connections.end())
+        return;
+
     // Remove from map
     connections.erase(remove(connections.begin(), connections.end(), connection));
 
@@ -180,6 +184,10 @@ void Map::RemoveRegion(shared_ptr<Region> region)
 {
     using std::remove_if;
 
+    // Return if region cannot be found
+    if (find(regions.begin(), regions.end(), region) == regions.end())
+        return;
+    
     // Remove the region
     regions.erase(remove(regions.begin(), regions.end(), region), regions.end());
 
