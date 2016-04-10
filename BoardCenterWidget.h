@@ -17,6 +17,7 @@ public:
     void Refresh() const;
     void DrawMap() const;
     PowerPlantModeWidget *GetPowerPlantModeWidget() const { return powerPlantModeWidget; }
+    ResourceMarketModeWidget *GetResourceMarketModeWidget() const { return resourceMarketModeWidget; }
 private:
     QGridLayout *gridLayout;
     QStackedWidget *centerStackedWidget;

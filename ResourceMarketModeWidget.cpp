@@ -46,3 +46,18 @@ void ResourceMarketModeWidget::Refresh() {
 		resourceMarketLevelwidgets[i]->Refresh();
 	}
 }
+
+void ResourceMarketModeWidget::ActivateResource(Resource resource, int amount) {
+    int levelIndex = 0;
+    std::vector<std::shared_ptr<ResourceMarketLevel>> levels = Game::getInstance().GetResourceMarket()->GetLevels();
+    while (levelIndex < levels.size()) {
+        int total = levels[levelIndex]->GetCounter(resource);
+        int value = 0;
+        if (amount >= total)
+            value = total;
+        else
+            value = std::max(0, amount);
+        resourceMarketLevelwidgets[levelIndex++]->ActivateResource(resource, value);
+        amount -= total;
+    }
+}

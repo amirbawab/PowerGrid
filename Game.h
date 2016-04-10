@@ -132,7 +132,7 @@ public:
 
     void Step3Start();
     void Step3BuyingResources1();
-    void Step3BuyingResources2();
+    void Step3BuyingResources2(int amount);
     void Step3End();
 
     int resourceIndex;

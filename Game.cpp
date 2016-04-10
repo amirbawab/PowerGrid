@@ -326,9 +326,8 @@ void Game::Step3BuyingResources1() {
     Notify();
 }
 
-void Game::Step3BuyingResources2() {
-    int amount = 0;  // GUI get: the amount of resources the player wants
-
+void Game::Step3BuyingResources2(int amount) {
+    
     // Buy resources and check if allowed to do so
     bool allowed = currentPlayer->BuyResources(*rMarket, currentPlayer->GetPowerPlants()[powerPlantIndex], resourceIdentity, amount);
     if (!allowed) {

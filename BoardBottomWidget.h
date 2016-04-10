@@ -50,15 +50,21 @@ public:
     CounterWidget();
     ~CounterWidget();
     QLabel *GetNumberLabel() const { return numberLabel; }
-    int GetValueAsInt() const { return stoi(numberLabel->text().toStdString()); }
+    int GetValueAsInt() { return stoi(numberLabel->text().toStdString()); }
+    QPushButton *GetPlusBtn() const { return plusBtn; }
+    QPushButton *GetMinusBtn() const{ return minusBtn; }
+
 private:
     QGridLayout *gridLayout;
     QPushButton *plusBtn, *minusBtn;
     QLabel *numberLabel;
     void paintEvent(QPaintEvent *pe) override;
 private slots:
-    void increment() const;
-    void decrement() const;
+    void increment();
+    void decrement();
+signals:
+    void plusPressed(int);
+    void minusPressed(int);
 };
 
 class StepOnePanel : public QWidget {
@@ -85,9 +91,11 @@ private:
 };
 
 class StepThreePanel : public QWidget {
+Q_OBJECT
 public:
     StepThreePanel();
     ~StepThreePanel();
+    CounterWidget *GetCounterWidget() const { return counterWidget; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;

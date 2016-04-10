@@ -18,6 +18,7 @@ public:
 	int iconHeight;
 	void Refresh();
 	void SetResourceMarketLevel(std::shared_ptr<ResourceMarketLevel> level) { this->level = level; }
+    void ActivateResource(Resource resource, int amount);
 private:
 	QGridLayout *gridLayout;
 	QLabel *costLabel;

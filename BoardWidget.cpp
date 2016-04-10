@@ -29,7 +29,7 @@ BoardWidget::BoardWidget() {
     // Set margin
     gridLayout->setContentsMargins(0, 0, 0, 0);
     
-    // Connect card
+    // Connect card for step 2
     connect(boardCenterWidget->GetPowerPlantModeWidget(), &PowerPlantModeWidget::CardSelected, [=](int index) {
         qDebug("Updating counter");
 
@@ -43,7 +43,7 @@ BoardWidget::BoardWidget() {
         }
     });
 
-    // Connect ok
+    // Connect ok for step 2
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetOkButton(), &QPushButton::clicked, [=]() {
         qDebug("Ok clicked");
 
@@ -76,7 +76,7 @@ BoardWidget::BoardWidget() {
         }
     });
     
-    // Connect skip
+    // Connect skip for step 2
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetSkipButton(), &QPushButton::clicked, [=]() {
         qDebug("Skip clicked");
        
@@ -88,6 +88,18 @@ BoardWidget::BoardWidget() {
         }
     });
     
+    // Connect plus for step 3
+    connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget(), &CounterWidget::plusPressed, [=](int value) {
+        qDebug("Plus clicked");
+        boardCenterWidget->GetResourceMarketModeWidget()->ActivateResource(Game::getInstance().resourceIdentity, value);
+    });
+
+    // Connect plus for step 3
+    connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget(), &CounterWidget::minusPressed, [=](int value) {
+        qDebug("Minus clicked");
+        boardCenterWidget->GetResourceMarketModeWidget()->ActivateResource(Game::getInstance().resourceIdentity, value);
+    });
+
     // Add components
     gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);
     gridLayout->addWidget(boardCenterWidget, 1, 0);

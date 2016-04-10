@@ -172,3 +172,70 @@ void ResourceMarketLevelWidget::Refresh() {
         }
     }
 }
+
+void ResourceMarketLevelWidget::ActivateResource(Resource resource, int amount)
+{
+    
+    switch (resource)
+    {
+    case COAL:
+        
+        for (int i = 0; i < level->GetCapacity(COAL); i++) {
+            if (i < level->GetCapacity(COAL) - amount) {
+                QGraphicsOpacityEffect * halfOpacity = new QGraphicsOpacityEffect(this);
+                halfOpacity->setOpacity(0.5);
+                coalButtons[level->GetCapacity(COAL) - i - 1]->setGraphicsEffect(halfOpacity);
+            }
+            else {
+                QGraphicsOpacityEffect * fullOpacity = new QGraphicsOpacityEffect(this); 
+                fullOpacity->setOpacity(1.0); 
+                coalButtons[level->GetCapacity(COAL) - i - 1]->setGraphicsEffect(fullOpacity);
+            }
+        }
+        break;
+    case OIL:
+        for (int i = 0; i < level->GetCapacity(OIL); i++) {
+            if (i < level->GetCapacity(OIL) - amount) {
+                QGraphicsOpacityEffect * halfOpacity = new QGraphicsOpacityEffect(this);
+                halfOpacity->setOpacity(0.5);
+                oilButtons[level->GetCapacity(OIL) - i - 1]->setGraphicsEffect(halfOpacity);
+            }
+            else {
+                QGraphicsOpacityEffect * fullOpacity = new QGraphicsOpacityEffect(this);
+                fullOpacity->setOpacity(1.0);
+                oilButtons[level->GetCapacity(OIL) - i - 1]->setGraphicsEffect(fullOpacity);
+            }
+        }
+        break;
+    case GARBAGE:
+        for (int i = 0; i < level->GetCapacity(GARBAGE); i++) {
+            if (i < level->GetCapacity(GARBAGE) - amount) {
+                QGraphicsOpacityEffect * halfOpacity = new QGraphicsOpacityEffect(this);
+                halfOpacity->setOpacity(0.5);
+                garbageButtons[level->GetCapacity(GARBAGE) - i - 1]->setGraphicsEffect(halfOpacity);
+            }
+            else {
+                QGraphicsOpacityEffect * fullOpacity = new QGraphicsOpacityEffect(this);
+                fullOpacity->setOpacity(1.0);
+                garbageButtons[level->GetCapacity(GARBAGE) - i - 1]->setGraphicsEffect(fullOpacity);
+            }
+        }
+        break;
+    case URANIUM:
+        for (int i = 0; i < level->GetCapacity(URANIUM); i++) {
+            if (i < level->GetCapacity(URANIUM) - amount) {
+                QGraphicsOpacityEffect * halfOpacity = new QGraphicsOpacityEffect(this);
+                halfOpacity->setOpacity(0.5);
+                uraniumButtons[level->GetCapacity(URANIUM) - i - 1]->setGraphicsEffect(halfOpacity);
+            }
+            else {
+                QGraphicsOpacityEffect * fullOpacity = new QGraphicsOpacityEffect(this);
+                fullOpacity->setOpacity(1.0);
+                uraniumButtons[level->GetCapacity(URANIUM) - i - 1]->setGraphicsEffect(fullOpacity);
+            }
+        }
+        break;
+    default:
+        break;
+    }
+}

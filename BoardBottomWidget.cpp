@@ -460,7 +460,7 @@ CounterWidget::~CounterWidget() {
 
 /// SLOTS ///
 
-void CounterWidget::increment() const
+void CounterWidget::increment()
 {
     // Get value as int
     int val = std::stoi(numberLabel->text().toStdString());
@@ -468,17 +468,23 @@ void CounterWidget::increment() const
     // MAX 500
     if (val < 500) val++;
 
+    // Emit
+    emit plusPressed(val);
+
     // Update
     numberLabel->setText(QString::fromStdString(std::to_string(val)));
 }
 
-void CounterWidget::decrement() const
+void CounterWidget::decrement()
 {
     // Get value as int
     int val = std::stoi(numberLabel->text().toStdString());
 
     // MIN 0
     if (val > 0) val--;
+
+    // Emit
+    emit minusPressed(val);
 
     // Update
     numberLabel->setText(QString::fromStdString(std::to_string(val)));
