@@ -10,22 +10,22 @@
 
 class ResourceMarketLevelWidget : public QWidget {
 public:
-	ResourceMarketLevelWidget();
-	~ResourceMarketLevelWidget();
-	void CreateFullLevelMarket();
-	void CreateUraniumLevelMarket();
-	int iconWidth;
-	int iconHeight;
-	void Refresh();
-	void SetResourceMarketLevel(std::shared_ptr<ResourceMarketLevel> level) { this->level = level; }
+    ResourceMarketLevelWidget();
+    ~ResourceMarketLevelWidget();
+    void CreateFullLevelMarket();
+    void CreateUraniumLevelMarket();
+    int iconWidth;
+    int iconHeight;
+    void Refresh();
+    void SetResourceMarketLevel(std::shared_ptr<ResourceMarketLevel> level) { this->level = level; }
     void ActivateResource(Resource resource, int amount);
 private:
-	QGridLayout *gridLayout;
-	QLabel *costLabel;
-	std::vector<QPushButton*> coalButtons;
-	std::vector<QPushButton*> oilButtons;
-	std::vector<QPushButton*> garbageButtons;
-	std::vector<QPushButton*> uraniumButtons;
-	std::shared_ptr<ResourceMarketLevel> level;
+    QGridLayout *gridLayout;
+    QLabel *costLabel;
+    std::vector<QPushButton*> coalButtons;
+    std::vector<QPushButton*> oilButtons;
+    std::vector<QPushButton*> garbageButtons;
+    std::vector<QPushButton*> uraniumButtons;
+    std::shared_ptr<ResourceMarketLevel> level;
 };
 

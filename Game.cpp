@@ -284,6 +284,7 @@ void Game::Step2BidEnd() {
 
     // Reset now bidding
     nowBidding = false;
+    currentBid = 0;
 
     // Else we go to the next player to pick a plant for auction
     return Step2PickPlant1();
@@ -313,8 +314,8 @@ void Game::Step3Start() {
     resourceIndex = 0;
     powerPlantIndex = 0;
 
-    std::set<Resource> rSet = currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources();
-    vector<Resource> temp(rSet.size());
+    auto rSet = currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources();
+    vector<Resource> temp;
     copy(rSet.begin(), rSet.end(), back_inserter(temp));
     resourceIdentity = temp[resourceIndex];
 
@@ -327,28 +328,30 @@ void Game::Step3BuyingResources1() {
 }
 
 void Game::Step3BuyingResources2(int amount) {
+    resourceAmount = amount;
     
     // Buy resources and check if allowed to do so
     bool allowed = currentPlayer->BuyResources(*rMarket, currentPlayer->GetPowerPlants()[powerPlantIndex], resourceIdentity, amount);
     if (!allowed) {
-        // GUI Error: "Invalid amount of resources"
+        SetErrorMessageTextBox("Amount Error", "You can't buy the amount of " + std::to_string(amount) + " " +
+                               GetResourceName(resourceIdentity) + "(s) for this power plant!");
         return Step3BuyingResources1();
     }
 
     // Find next playing step
     // Check if there are other resources to iterate through
     vector<Resource> temp;
-    for (Resource r : currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources()) {
-        temp.push_back(r);
-    }
+    auto rSet = currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources();
+    copy(rSet.begin(), rSet.end(), back_inserter(temp));
     resourceIndex++;
     
-    if (resourceIndex > temp.size()) {
+    if (resourceIndex >= temp.size()) {
         // If no more resources, go to next power plant
         powerPlantIndex++;
         resourceIndex = 0;
+        resourceAmount = 0;
 
-        if (powerPlantIndex > currentPlayer->GetPowerPlants().size()) {
+        if (powerPlantIndex >= currentPlayer->GetPowerPlants().size()) {
             // If no more power plants, go to next player
             currentPlayer = playerOrder[GetNextPlayerIndex()];
             powerPlantIndex = 0;
@@ -363,10 +366,10 @@ void Game::Step3BuyingResources2(int amount) {
 
     // Get next resource to use
     temp.clear();
-    for (Resource r : currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources()) {
-        temp.push_back(r);
-    }
+    rSet = currentPlayer->GetPowerPlants()[powerPlantIndex]->GetActiveResources();
+    copy(rSet.begin(), rSet.end(), back_inserter(temp));
     resourceIdentity = temp[resourceIndex];
+    resourceAmount = 0;
 
     return Step3BuyingResources1();
 }

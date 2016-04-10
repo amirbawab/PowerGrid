@@ -81,21 +81,20 @@ int ResourceMarket::GetPrice(Resource resource, int amount) {
     if (GetNbResource(resource) < amount) {
         return PG::INVALID;
     }
-    else {
-        // Find the price
-        for (int i = 0; i < levels.size(); i++) {
-            quantityInLevel = levels[i]->GetCounter(resource);
-            if (quantityLeft > quantityInLevel) {
-                totalPrice += quantityInLevel * levels[i]->GetCost();
-                quantityLeft -= quantityInLevel;
-            }
-            else {
-                totalPrice += quantityLeft * levels[i]->GetCost();
-                quantityLeft -= quantityLeft;
-            }
+
+    // Find the price
+    for (int i = 0; i < levels.size(); i++) {
+        quantityInLevel = levels[i]->GetCounter(resource);
+        if (quantityLeft > quantityInLevel) {
+            totalPrice += quantityInLevel * levels[i]->GetCost();
+            quantityLeft -= quantityInLevel;
         }
-        return totalPrice;
+        else {
+            totalPrice += quantityLeft * levels[i]->GetCost();
+            quantityLeft -= quantityLeft;
+        }
     }
+    return totalPrice;
 }
 
 int ResourceMarket::GetPrice(string resourceName, int amount)

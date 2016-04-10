@@ -50,10 +50,10 @@ public:
     CounterWidget();
     ~CounterWidget();
     QLabel *GetNumberLabel() const { return numberLabel; }
-    int GetValueAsInt() { return stoi(numberLabel->text().toStdString()); }
+    int GetValueAsInt() const { return stoi(numberLabel->text().toStdString()); }
     QPushButton *GetPlusBtn() const { return plusBtn; }
     QPushButton *GetMinusBtn() const{ return minusBtn; }
-    void SetValue(string text) { numberLabel->setText(text.c_str()); }
+    void SetValue(string text) const { numberLabel->setText(text.c_str()); }
 
 private:
     QGridLayout *gridLayout;
@@ -81,9 +81,9 @@ class StepTwoPanel : public QWidget {
 public:
     StepTwoPanel();
     ~StepTwoPanel();
-    CounterWidget *GetCounterWidget() { return counterWidget; }
-    QPushButton *GetOkButton() { return okButton; }
-    QPushButton *GetSkipButton() { return skipButton; }
+    CounterWidget *GetCounterWidget() const { return counterWidget; }
+    QPushButton *GetOkButton() const { return okButton; }
+    QPushButton *GetSkipButton() const { return skipButton; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;
@@ -97,6 +97,8 @@ public:
     StepThreePanel();
     ~StepThreePanel();
     CounterWidget *GetCounterWidget() const { return counterWidget; }
+    QPushButton *GetOkButton() const { return okButton; }
+    QPushButton *GetSkipButton() const { return skipButton; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;
@@ -128,11 +130,11 @@ public:
     BoardMessageWidget();
     ~BoardMessageWidget();
     void Refresh() const;
-    StepOnePanel *GetStepOnePanel() { return stepOnePanel; }
-    StepTwoPanel *GetStepTwoPanel() { return stepTwoPanel; }
-    StepThreePanel*GetStepThreePanel() { return stepThreePanel; }
-    StepFourPanel *GetStepFourPanel() { return stepFourPanel; }
-    StepFivePanel *GetStepFivePanel() { return stepFivePanel; }
+    StepOnePanel   *GetStepOnePanel()   const { return stepOnePanel; }
+    StepTwoPanel   *GetStepTwoPanel()   const { return stepTwoPanel; }
+    StepThreePanel *GetStepThreePanel() const { return stepThreePanel; }
+    StepFourPanel  *GetStepFourPanel()  const { return stepFourPanel; }
+    StepFivePanel  *GetStepFivePanel()  const { return stepFivePanel; }
 private:
     QGridLayout *gridLayout;
     QLabel *questionLabel;
@@ -149,7 +151,7 @@ public:
     BoardBottomWidget();
     ~BoardBottomWidget();
     void Refresh() const;
-    BoardMessageWidget *GetBoardMessage() { return boardMessageWidget; }
+    BoardMessageWidget *GetBoardMessage() const { return boardMessageWidget; }
 private:
     QGridLayout *gridLayout;
     BoardProfileWidget *boardProfileWidget;

@@ -45,7 +45,7 @@ BoardWidget::BoardWidget() {
 
     // Connect ok for step 2
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetOkButton(), &QPushButton::clicked, [=]() {
-        qDebug("Ok clicked");
+        qDebug("Ok (step 2) clicked");
 
         // If now bidding
         if (Game::getInstance().GetNowBidding()) {
@@ -78,34 +78,43 @@ BoardWidget::BoardWidget() {
     
     // Connect skip for step 2
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetSkipButton(), &QPushButton::clicked, [=]() {
-        qDebug("Skip clicked");
+        qDebug("Skip (step 2) clicked");
        
         // If now bidding
-        if (Game::getInstance().GetNowBidding()) {
+        if (Game::getInstance().GetNowBidding())
             Game::getInstance().Step2Bid2();
-        } else {
+        else
             Game::getInstance().Step2PickPlant2(true);
-        }
     });
     
     // Connect plus for step 3
-    connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget(), &CounterWidget::plusPressed, [=](int value) {
+    connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget(),
+            &CounterWidget::plusPressed, [=](int value) {
         
         int available = Game::getInstance().GetResourceMarket()->GetNbResource(Game::getInstance().resourceIdentity);
         if (value > available) {
-            QMessageBox::critical(this, "Resource Market Error", string("You cannot select more than the available amount of " + GetResourceName(Game::getInstance().resourceIdentity)).c_str());
+            QMessageBox::critical(this, "Resource Market Error",
+                                  string("You cannot select more than the available amount of " +
+                                         GetResourceName(Game::getInstance().resourceIdentity)).c_str());
             boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget()->SetValue(std::to_string(available));
         }
-        else {
+        else
             boardCenterWidget->GetResourceMarketModeWidget()->ActivateResource(Game::getInstance().resourceIdentity, value);
-        }
-        
-        
     });
 
-    // Connect plus for step 3
-    connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget(), &CounterWidget::minusPressed, [=](int value) {
+    // Connect minus for step 3
+    connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget(),
+            &CounterWidget::minusPressed, [=](int value) {
+
         boardCenterWidget->GetResourceMarketModeWidget()->ActivateResource(Game::getInstance().resourceIdentity, value);
+    });
+
+    // Connect ok for step 3
+    connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetOkButton(), &QPushButton::clicked, [=]() {
+        qDebug("Ok (step 3) clicked");
+
+        Game::getInstance().Step3BuyingResources2(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->
+                                                  GetCounterWidget()->GetValueAsInt());
     });
 
     // Add components

@@ -6,12 +6,12 @@
 
 class ResourceMarketModeWidget : public QWidget {
 public:
-	ResourceMarketModeWidget();
-	~ResourceMarketModeWidget();
-	void Refresh();
+    ResourceMarketModeWidget();
+    ~ResourceMarketModeWidget();
+    void Refresh();
     void ActivateResource(Resource resource, int amount);
 private:
-	std::vector<ResourceMarketLevelWidget*> resourceMarketLevelwidgets;
-	QGridLayout *gridLayout;
+    std::vector<ResourceMarketLevelWidget*> resourceMarketLevelwidgets;
+    QGridLayout *gridLayout;
 };
 

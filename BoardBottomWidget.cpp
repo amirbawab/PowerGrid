@@ -265,6 +265,10 @@ void BoardMessageWidget::Refresh() const
 {
     questionLabel->setText(QString::fromStdString(Game::getInstance().GetMessageText()));
 
+    // Set the value for counter
+    stepTwoPanel->GetCounterWidget()->SetValue(std::to_string(Game::getInstance().currentBid));
+    stepThreePanel->GetCounterWidget()->SetValue(std::to_string(Game::getInstance().resourceAmount));
+
     switch (Game::getInstance().GetStep()) {
     case 1:
         stepsWidget->setCurrentWidget(stepOnePanel);

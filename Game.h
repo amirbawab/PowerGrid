@@ -129,7 +129,6 @@ public:
     shared_ptr<Player> highestBidder;
 
     // Step 3 Buying Resources
-
     void Step3Start();
     void Step3BuyingResources1();
     void Step3BuyingResources2(int amount);
@@ -138,6 +137,7 @@ public:
     int resourceIndex;
     Resource resourceIdentity;
     int powerPlantIndex;
+    int resourceAmount = 0;
 
     // Step 4 Buying Cities
     void Step4Start();
