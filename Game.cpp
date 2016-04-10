@@ -21,15 +21,14 @@ void Game::NewGame() {
     fullTurn = 1;
     phase = 1; // TODO Change this to 0
     playStep = 1;
-
-    // Resource market
-    rMarket = std::make_shared<ResourceMarket>();
 }
 
 void Game::ConfigNewGame(string map, int numberOfPlayers) {
 
     // Log
     cout << "Map selected: " << map << ". Number of players selected: " << numberOfPlayers << endl;
+
+    Reset();
 
     // Initialize game
     GameStatus::GetInstance().Init(this, map, ":/PowerGrid/Resources/config/Config.xml");
@@ -72,17 +71,6 @@ void Game::LoadGame() {
 
 
 /// Used for determining the turn order
-
-
-// ISSUE Investigate why this is crashing when:
-//      - Player number -> 2
-//      - Next button
-//      - Back button
-//      - Next button
-//      - Next button
-//      - Finish step 1
-
-
 bool comparePlayerPriority(shared_ptr<Player> p1, shared_ptr<Player> p2) {
     
     // Priority: 1 - House
@@ -101,10 +89,10 @@ bool comparePlayerPriority(shared_ptr<Player> p1, shared_ptr<Player> p2) {
 
 /// Step 1, sets the players in the proper turn order
 void Game::UpdatePlayOrder(bool reverse) {
-    if (!reverse)
-        sort(playerOrder.begin(), playerOrder.end(), comparePlayerPriority);
-    else
-        std::sort(playerOrder.begin(), playerOrder.end(), [](shared_ptr<Player> p1, shared_ptr<Player> p2) { return !comparePlayerPriority(p1, p2); });
+    sort(playerOrder.begin(), playerOrder.end(), comparePlayerPriority);
+
+    if (reverse)
+        std::reverse(playerOrder.begin(), playerOrder.end());
 }
 
 void Game::DisplayRemoveRegions() {
@@ -1287,6 +1275,17 @@ void Game::PlayGame() {
         // Increase turn
         fullTurn++;
     };
+}
+
+void Game::Reset()
+{
+    allCards = vector<shared_ptr<Card>>();
+    players = vector<shared_ptr<Player>>();
+    houseColor = vector<shared_ptr<HouseColor>>();
+    playerOrder = vector<shared_ptr<Player>>();
+    rMarket = std::make_shared<ResourceMarket>();
+    cardStack.ResetCards();
+    cardStack.ResetVisiblePlants();
 }
 
 void Game::PrintScore() const

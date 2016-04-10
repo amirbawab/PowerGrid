@@ -22,6 +22,10 @@ public:
     CardStack() {}
     ~CardStack();
 
+    // Reset methods
+    void ResetCards() { cards = std::vector<std::shared_ptr<Card>>(); }
+    void ResetVisiblePlants() { visiblePlants = std::vector<std::shared_ptr<Card>>(); }
+
     void SetCards(std::vector<std::shared_ptr<Card>> cards) { this->cards = cards; };
     std::vector<std::shared_ptr<Card>>& GetCards() { return cards; }
     std::vector<std::shared_ptr<Card>>& GetVisibleCards() { return visiblePlants; }

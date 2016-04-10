@@ -620,6 +620,9 @@ bool GameStatus::LoadOverview(pugi::xml_document& xml) const
 
 bool GameStatus::Init(Game* game, string mapName, string configFilePath) const
 {
+    // Reset game values
+    game->Reset();
+
     if (!Config::GetInstance().LoadFile(game, configFilePath))
         return false;
 

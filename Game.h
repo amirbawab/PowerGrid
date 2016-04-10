@@ -63,6 +63,9 @@ public:
     void LoadGame();
     void PlayGame();
 
+    // Reset everything
+    void Reset();
+
     // Getters
     int GetFullTurn() const { return fullTurn; }
     vector<shared_ptr<Player>>& GetPlayers() { return players; }
