@@ -117,6 +117,13 @@ BoardWidget::BoardWidget() {
                                                   GetCounterWidget()->GetValueAsInt());
     });
 
+    // Connect skip for step 3
+    connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetSkipButton(), &QPushButton::clicked, [=]() {
+        qDebug("Skip (step 3) clicked");
+
+        Game::getInstance().Step3BuyingResources2(0);
+    });
+
     // Add components
     gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);
     gridLayout->addWidget(boardCenterWidget, 1, 0);
