@@ -468,11 +468,11 @@ void CounterWidget::increment()
     // MAX 500
     if (val < 500) val++;
 
-    // Emit
-    emit plusPressed(val);
-
     // Update
     numberLabel->setText(QString::fromStdString(std::to_string(val)));
+
+    // Emit
+    emit plusPressed(val);
 }
 
 void CounterWidget::decrement()
@@ -483,11 +483,11 @@ void CounterWidget::decrement()
     // MIN 0
     if (val > 0) val--;
 
-    // Emit
-    emit minusPressed(val);
-
     // Update
     numberLabel->setText(QString::fromStdString(std::to_string(val)));
+
+    // Emit
+    emit minusPressed(val);
 }
 
 /// This method is required when Q_OBJECT is added

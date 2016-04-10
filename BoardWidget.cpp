@@ -90,13 +90,21 @@ BoardWidget::BoardWidget() {
     
     // Connect plus for step 3
     connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget(), &CounterWidget::plusPressed, [=](int value) {
-        qDebug("Plus clicked");
-        boardCenterWidget->GetResourceMarketModeWidget()->ActivateResource(Game::getInstance().resourceIdentity, value);
+        
+        int available = Game::getInstance().GetResourceMarket()->GetNbResource(Game::getInstance().resourceIdentity);
+        if (value > available) {
+            QMessageBox::critical(this, "Resource Market Error", string("You cannot select more than the available amount of " + GetResourceName(Game::getInstance().resourceIdentity)).c_str());
+            boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget()->SetValue(std::to_string(available));
+        }
+        else {
+            boardCenterWidget->GetResourceMarketModeWidget()->ActivateResource(Game::getInstance().resourceIdentity, value);
+        }
+        
+        
     });
 
     // Connect plus for step 3
     connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget(), &CounterWidget::minusPressed, [=](int value) {
-        qDebug("Minus clicked");
         boardCenterWidget->GetResourceMarketModeWidget()->ActivateResource(Game::getInstance().resourceIdentity, value);
     });
 

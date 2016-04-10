@@ -53,13 +53,14 @@ public:
     int GetValueAsInt() { return stoi(numberLabel->text().toStdString()); }
     QPushButton *GetPlusBtn() const { return plusBtn; }
     QPushButton *GetMinusBtn() const{ return minusBtn; }
+    void SetValue(string text) { numberLabel->setText(text.c_str()); }
 
 private:
     QGridLayout *gridLayout;
     QPushButton *plusBtn, *minusBtn;
     QLabel *numberLabel;
     void paintEvent(QPaintEvent *pe) override;
-private slots:
+public slots:
     void increment();
     void decrement();
 signals:
