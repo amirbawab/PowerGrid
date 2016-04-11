@@ -61,7 +61,6 @@ public:
     }
 
     void LoadGame();
-    void PlayGame();
 
     // Reset everything
     void Reset();
@@ -98,10 +97,6 @@ public:
     void SetInfoMessageTextBox(string infoMessageTextTitle, string infoMessageText) { this->infoMessageTextTitle = infoMessageTextTitle; this->infoMessageText = infoMessageText; }
 
     void UpdatePlayOrder(bool); // step 1
-    void AuctionPlants();  // step 2
-    void BuyRawMaterials(); // step 3
-    void BuyCities(); // step 4
-    void Bureaucracy();  // step 5
 
     void PrintScore() const;
     void PrintRemainingResources();
