@@ -32,6 +32,7 @@ private:
     // Used to highlight selected city or region
     shared_ptr<City> selectedCity;
     shared_ptr<Region> selectedRegion;
+    int scrollBarValue = 0;
 
     shared_ptr<City> GetCityByPoint(QPoint point);
 

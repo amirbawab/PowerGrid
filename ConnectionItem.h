@@ -13,7 +13,7 @@ class ConnectionItem : public QGraphicsLineItem {
     shared_ptr<CityItem> second;
 
 public:
-    ConnectionItem() {}
+    explicit ConnectionItem(QGraphicsItem* parent = nullptr) : QGraphicsLineItem(parent) {}
 
     QPoint GetCostLocation(QFont font) const;
     int GetCostCircleDiameter(QFont font) const;

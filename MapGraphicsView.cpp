@@ -1,5 +1,6 @@
 #include "MapGraphicsView.h"
 #include "Game.h"
+#include <QScrollBar>
 
 MapGraphicsView::MapGraphicsView() {
     
@@ -76,6 +77,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     // Store selected city/region
     if (Game::getInstance().selectCity)
     {
+        scrollBarValue = verticalScrollBar()->value();
         selectedCity = city;
         selectedRegion.reset();
         DrawMap();
@@ -83,6 +85,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     // Otherwise, selectRegion must be true
     else
     {
+        scrollBarValue = verticalScrollBar()->value();
         selectedCity.reset();
         selectedRegion = city->GetRegion();
         DrawMap();
@@ -135,8 +138,9 @@ void MapGraphicsView::DrawMap() {
     // Create cities items
     for (auto city : citiesMap) {
 
-        cityItemsMap[city.first] = std::make_shared<CityItem>(QPoint(city.second->getX(),
-                                                                        city.second->getY()), city.second->getWidth(), city.second->getHeight());
+        cityItemsMap[city.first] = std::make_shared<CityItem>(
+            QPoint(city.second->getX(), city.second->getY()), city.second->getWidth(), city.second->getHeight());
+
         cityItemsMap[city.first]->SetName(city.first);
         cityItemsMap[city.first]->SetCity(city.second);
         cityItemsMap[city.first]->SetRegionColor(QColor(city.second->GetRegion()->GetName().c_str()));
@@ -151,7 +155,7 @@ void MapGraphicsView::DrawMap() {
         connectionItems.push_back(std::make_unique<ConnectionItem>());
 
         // Set cities
-        auto connectionItem = connectionItems[connectionItems.size() - 1].get();
+        auto& connectionItem = connectionItems[connectionItems.size() - 1];
         connectionItem->SetFirstCity(cityItemsMap[connection->GetFirst()->GetName()]);
         connectionItem->SetSecondCity(cityItemsMap[connection->GetSecond()->GetName()]);
 
@@ -163,23 +167,20 @@ void MapGraphicsView::DrawMap() {
         auto costEllipseItem = connectionItem->GetCostEllipseItem(connectionFont);
 
         // Adding components
-        scene()->addItem(connectionItem);
+        scene()->addItem(connectionItem.get());
         scene()->addItem(costEllipseItem);
         scene()->addItem(costTextItem);
     }
 
     // Ading cities
-    for (auto cityItem : cityItemsMap) {
+    for (auto& cityItem : cityItemsMap) {
         auto cityNameTextItem = cityItem.second->GetNameTextItem(cityFont);
         scene()->addItem(cityNameTextItem);
         scene()->addItem(cityItem.second.get());
 
         // Highlight
         if (selectedCity && cityItem.second->GetCity() == selectedCity)
-        {
             scene()->addRect(cityItem.second->rect(), QPen(Qt::white, 2));
-            centerOn(cityItem.second.get());
-        }
         if (selectedRegion && cityItem.second->GetCity()->GetRegion() == selectedRegion)
             scene()->addRect(cityItem.second->rect(), QPen(Qt::white, 2));
 
@@ -203,6 +204,10 @@ void MapGraphicsView::DrawMap() {
             scene()->addItem(houseItem.get());
         }
     }
+
+    // This line is necessary for the view to change its view!!!!!!!!!!!!?????????????
+    cout << "sceneRect() = " << sceneRect().x() << ", " << sceneRect().y() << ", " << sceneRect().width() << ", " << sceneRect().height() << endl;
+    verticalScrollBar()->setValue(scrollBarValue);
 }
 
 void MapGraphicsView::ResetSelected()
