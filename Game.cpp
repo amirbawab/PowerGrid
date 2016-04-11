@@ -479,7 +479,7 @@ void Game::Step4End() {
 
 void Game::Step5Start() {
     // GUI Message: "Step 5"
-    cout << "Starting step 5 ...";
+    cout << "Starting step 5 ..." << endl;
     playStep = 5;
 
     // Check if we enter phase 2

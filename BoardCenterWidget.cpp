@@ -79,6 +79,7 @@ void BoardCenterWidget::Refresh() const
     mapModeWidget->Refresh();
     powerPlantModeWidget->Refresh();
     resourceMarketModeWidget->Refresh();
+    DrawMap();
 
     switch (Game::getInstance().GetStep()) {
     case 1:

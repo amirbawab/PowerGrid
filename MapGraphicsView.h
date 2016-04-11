@@ -7,6 +7,7 @@
 #include <map>
 #include "ConnectionItem.h"
 #include "CityItem.h"
+#include "HouseItem.h"
 
 class MapGraphicsView : public QGraphicsView {
     Q_OBJECT
@@ -23,8 +24,9 @@ private:
     const int MAX_ZOOM = 10;
     const int MIN_ZOOM = -10;
     float scaleFactor = 1.15f;
-    std::map<string, shared_ptr<CityItem>> citiesItemsMap;
+    std::map<string, shared_ptr<CityItem>> cityItemsMap;
     vector<std::unique_ptr<ConnectionItem>> connectionItems;
+    vector<std::unique_ptr<HouseItem>> houseItems;
     
     std::shared_ptr<City> GetCityByPoint(QPoint point);
 

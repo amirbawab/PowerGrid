@@ -24,7 +24,7 @@ public:
     QPoint GetCenter() const;
     QGraphicsSimpleTextItem* GetNameTextItem(QFont font) const;
 
-    QPoint GetHousePosition(int index) const;
+    QPoint GetHousePosition(int index, QGraphicsPixmapItem* houseItem) const;
     void SetCity(shared_ptr<City> city) { this->city = city; }
     shared_ptr<City> GetCity() const { return city; }
     void SetToRemove(bool toRemove) { this->toRemove = toRemove; }

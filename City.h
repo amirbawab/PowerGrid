@@ -19,6 +19,7 @@ public:
     std::shared_ptr<Region> GetRegion() const { return region; }
     void SetRegion(std::shared_ptr<Region> region) { this->region = region; }
 
+    std::vector<House*>& GetHouses() { return houses; }
     int GetNumberOfHouses() const { return houses.size(); }
     std::vector<std::shared_ptr<Connection>> const&  GetConnections() const { return connections; }
 

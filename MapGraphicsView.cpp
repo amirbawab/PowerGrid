@@ -7,7 +7,7 @@ MapGraphicsView::MapGraphicsView() {
     setObjectName("mapGraphicsView");
 
     // Init components
-    graphicsScene = std::make_unique<QGraphicsScene>();
+    graphicsScene = std::make_unique<QGraphicsScene>(this);
 
     // Set scene
     setScene(graphicsScene.get());
@@ -22,7 +22,7 @@ MapGraphicsView::MapGraphicsView() {
 
 shared_ptr<City> MapGraphicsView::GetCityByPoint(QPoint point)
 {
-    for (auto cityItem : citiesItemsMap)
+    for (auto cityItem : cityItemsMap)
         if (cityItem.second->contains(point))
             return cityItem.second->GetCity();
 
@@ -31,7 +31,7 @@ shared_ptr<City> MapGraphicsView::GetCityByPoint(QPoint point)
 
 void MapGraphicsView::MarkCitiesToRemove(shared_ptr<City> city)
 {
-    for (auto cityItem : citiesItemsMap) {
+    for (auto cityItem : cityItemsMap) {
         // TODO mark cities toRemove
     }
 }
@@ -109,21 +109,22 @@ void MapGraphicsView::DrawMap() {
     auto connections = Game::getInstance().GetMap()->GetConnections();
 
     // Reset maps
-    citiesItemsMap = map<string, shared_ptr<CityItem>>();
+    cityItemsMap = map<string, shared_ptr<CityItem>>();
     connectionItems = vector<std::unique_ptr<ConnectionItem>>();
+    houseItems = vector<std::unique_ptr<HouseItem>>();
 
     // Reset scene
-    graphicsScene = std::make_unique<QGraphicsScene>();
+    graphicsScene = std::make_unique<QGraphicsScene>(this);
     setScene(graphicsScene.get());
 
     // Create cities items
     for (auto city : citiesMap) {
 
-        citiesItemsMap[city.first] = std::make_shared<CityItem>(QPoint(city.second->getX(),
+        cityItemsMap[city.first] = std::make_shared<CityItem>(QPoint(city.second->getX(),
                                                                         city.second->getY()), city.second->getWidth(), city.second->getHeight());
-        citiesItemsMap[city.first]->SetName(city.first);
-        citiesItemsMap[city.first]->SetCity(city.second);
-        citiesItemsMap[city.first]->SetRegionColor(QColor(city.second->GetRegion()->GetName().c_str()));
+        cityItemsMap[city.first]->SetName(city.first);
+        cityItemsMap[city.first]->SetCity(city.second);
+        cityItemsMap[city.first]->SetRegionColor(QColor(city.second->GetRegion()->GetName().c_str()));
     }
 
     // Create connections items
@@ -136,8 +137,8 @@ void MapGraphicsView::DrawMap() {
 
         // Set cities
         auto connectionItem = connectionItems[connectionItems.size() - 1].get();
-        connectionItem->SetFirstCity(citiesItemsMap[connection->GetFirst()->GetName()]);
-        connectionItem->SetSecondCity(citiesItemsMap[connection->GetSecond()->GetName()]);
+        connectionItem->SetFirstCity(cityItemsMap[connection->GetFirst()->GetName()]);
+        connectionItem->SetSecondCity(cityItemsMap[connection->GetSecond()->GetName()]);
 
         // Set connection
         connectionItem->SetConnection(connection);
@@ -153,10 +154,29 @@ void MapGraphicsView::DrawMap() {
     }
 
     // Ading cities
-    for (auto cityItem : citiesItemsMap) {
+    for (auto cityItem : cityItemsMap) {
         auto cityNameTextItem = cityItem.second->GetNameTextItem(cityFont);
         scene()->addItem(cityNameTextItem);
-
         scene()->addItem(cityItem.second.get());
+
+        // Add house(s)
+        auto& houses = cityItem.second->GetCity()->GetHouses();
+        int numberOfHouses = houses.size();
+        for (auto i = 0; i < numberOfHouses; i++)
+        {
+            // Create house item
+            houseItems.push_back(std::make_unique<HouseItem>());
+            auto& houseItem = houseItems[houseItems.size() - 1];
+
+            // Create image
+            QImage houseImage(houses[i]->GetColor()->getImage().c_str());
+            
+            // Set pixmap properties
+            houseItem->setPixmap(QPixmap::fromImage(houseImage));
+            houseItem->setOffset(cityItem.second->GetHousePosition(i, houseItem.get()));
+
+            // Add to the scene
+            scene()->addItem(houseItem.get());
+        }
     }
 }

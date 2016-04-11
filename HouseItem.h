@@ -15,5 +15,7 @@ public:
         QGraphicsPixmapItem(pixmap, parent) {}
 
     ~HouseItem();
+
+    std::shared_ptr<House> GetHouse() const { return house; }
 };
 
