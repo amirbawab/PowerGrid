@@ -25,9 +25,13 @@ public:
     friend bool operator==(const std::shared_ptr<Connection>& first,
                            const Connection& second);
 
+    void SetToRemove(bool toRemove) { this->toRemove = toRemove; }
+    bool GetToRemove() const { return toRemove; }
+
 private:
     std::shared_ptr<City> first;
     std::shared_ptr<City> second;
     int cost = 0;
+    bool toRemove = false;
 };
 

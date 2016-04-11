@@ -40,5 +40,6 @@
         <file>Resources/config/map/USAMap.xml</file>
         <file>Resources/config/Config.xml</file>
         <file>Resources/config/map/CanadaMap.xml</file>
+        <file>Resources/config/map/TestMap.xml</file>
     </qresource>
 </RCC>

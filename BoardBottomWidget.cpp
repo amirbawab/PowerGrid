@@ -225,6 +225,7 @@ BoardMessageWidget::BoardMessageWidget() {
     // Init components
     gridLayout = new QGridLayout();
     questionLabel = new QLabel();
+    phase0Panel = new Phase0Panel();
     stepOnePanel = new StepOnePanel();
     stepTwoPanel = new StepTwoPanel();
     stepThreePanel = new StepThreePanel();
@@ -233,6 +234,7 @@ BoardMessageWidget::BoardMessageWidget() {
     stepsWidget = new QStackedWidget();
 
     // Add steps to stack
+    stepsWidget->addWidget(phase0Panel);
     stepsWidget->addWidget(stepOnePanel);
     stepsWidget->addWidget(stepTwoPanel);
     stepsWidget->addWidget(stepThreePanel);
@@ -288,6 +290,33 @@ void BoardMessageWidget::Refresh() const
     default:
         break;
     }
+
+    // If phase 0, use phase0 panel
+    if (Game::getInstance().GetPhase() == 0)
+        stepsWidget->setCurrentWidget(phase0Panel);
+}
+
+// Phase0Panel class
+Phase0Panel::Phase0Panel()
+{
+    // Init components
+    gridLayout = new QGridLayout();
+    okButton = new QPushButton("OK");
+    
+    // Set id
+    okButton->setObjectName("player_button");
+    
+    // Set layout
+    setLayout(gridLayout);
+
+    // Add components
+    gridLayout->addWidget(okButton, 0, 0, Qt::AlignCenter);
+}
+
+Phase0Panel::~Phase0Panel()
+{
+    delete okButton;
+    delete gridLayout;
 }
 
 // StepOneButtons class
@@ -303,11 +332,6 @@ StepOnePanel::StepOnePanel() {
     
     // Set layout
     setLayout(gridLayout);
-
-    // Connect
-    connect(okButton, &QPushButton::clicked, [=]() {
-        Game::getInstance().Step2Start();
-    });
 
     // Add components
     gridLayout->addWidget(okButton, 0, 0, Qt::AlignCenter);

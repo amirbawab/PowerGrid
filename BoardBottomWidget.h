@@ -68,10 +68,21 @@ signals:
     void minusPressed(int);
 };
 
+class Phase0Panel : public QWidget {
+public:
+    Phase0Panel();
+    ~Phase0Panel();
+    QPushButton *GetOkButton() const { return okButton; }
+private:
+    QGridLayout *gridLayout;
+    QPushButton *okButton;
+};
+
 class StepOnePanel : public QWidget {
 public:
     StepOnePanel();
     ~StepOnePanel();
+    QPushButton *GetOkButton() const { return okButton; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;
@@ -134,6 +145,7 @@ public:
     void Refresh() const;
 
     QLabel         *GetQuestionLabel()  const { return questionLabel; }
+    Phase0Panel    *GetPhase0Panel() const { return phase0Panel; }
     StepOnePanel   *GetStepOnePanel()   const { return stepOnePanel; }
     StepTwoPanel   *GetStepTwoPanel()   const { return stepTwoPanel; }
     StepThreePanel *GetStepThreePanel() const { return stepThreePanel; }
@@ -142,6 +154,7 @@ public:
 private:
     QGridLayout *gridLayout;
     QLabel *questionLabel;
+    Phase0Panel *phase0Panel;
     StepOnePanel *stepOnePanel;
     StepTwoPanel *stepTwoPanel;
     StepThreePanel *stepThreePanel;

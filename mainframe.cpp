@@ -88,8 +88,8 @@ void MainFrame::onPlayerConfigNext() {
         Game::getInstance().StartGame();
         
         // TODO Switch comment
-        // Game::getInstance().DisplayRemoveRegions();
-        Game::getInstance().Step1Start();
+        Game::getInstance().Phase0Start();
+//        Game::getInstance().Step1Start();
         
         boardWidget->Refresh();
         centerStackWidget->setCurrentIndex(boardWidgetIndex);

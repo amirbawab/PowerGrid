@@ -74,24 +74,32 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     if (!city)
         return;
 
-    // Store selected city/region
+    // Keep current scroll position
+    scrollBarValue = verticalScrollBar()->value();
+
+    // If selecting a city
     if (Game::getInstance().selectCity)
     {
-        scrollBarValue = verticalScrollBar()->value();
+        // Store selected city and reset region
         selectedCity = city;
         selectedRegion.reset();
-        DrawMap();
+
+        // Emit the signal
+        emit CitySelected(city);
+
     }
     // Otherwise, selectRegion must be true
     else
     {
-        scrollBarValue = verticalScrollBar()->value();
+        // Store selected region and reset city
         selectedCity.reset();
         selectedRegion = city->GetRegion();
-        DrawMap();
+
+        emit RegionSelected(selectedRegion);
     }
 
-    emit CitySelected(city);
+    // Redraw the map
+    DrawMap();
 
     // If starting game, select cities to remove
     if (Game::getInstance().GetPhase() == 0) {

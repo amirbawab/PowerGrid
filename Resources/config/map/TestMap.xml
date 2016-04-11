@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<map name="Test">
+	<cities>
+		<city name="City 1" region="#ffaa00" x="384" y="241" width="60" height="60" />
+		<city name="City 2" region="#ffaa00" x="589" y="375" width="60" height="60" />
+		<city name="City 4" region="#55aa00" x="802" y="193" width="60" height="60" />
+		<city name="City 5" region="#55aa00" x="867" y="379" width="60" height="60" />
+		<city name="City 6" region="#00557f" x="357" y="456" width="60" height="60" />
+		<city name="City 7" region="#00557f" x="551" y="561" width="60" height="60" />
+	</cities>
+	<connections>
+		<connection first="City 1" second="City 2" cost="1" />
+		<connection first="City 1" second="City 4" cost="2" />
+		<connection first="City 2" second="City 4" cost="3" />
+		<connection first="City 2" second="City 5" cost="4" />
+		<connection first="City 2" second="City 6" cost="5" />
+		<connection first="City 2" second="City 7" cost="6" />
+		<connection first="City 5" second="City 7" cost="7" />
+	</connections>
+</map>

@@ -29,7 +29,35 @@ BoardWidget::BoardWidget() {
 
     // Set margin
     gridLayout->setContentsMargins(0, 0, 0, 0);
+
+    // Connect region for phase 0
+    connect(boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView(), &MapGraphicsView::RegionSelected,
+            [=](shared_ptr<Region> region)
+    {
+        qDebug() << "Selected region: " << region->GetName().c_str();
+
+        // Set the region to remove in the game
+        Game::getInstance().pickedRegion = region;
+    });
+
+    // Connect ok for phase 0
+    connect(boardBottomWidget->GetBoardMessage()->GetPhase0Panel()->GetOkButton(), &QPushButton::clicked, [=]()
+    {
+        qDebug() << "OK (phase 0) clicked";
+
+        // Reset selected in the map view
+        boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView()->ResetSelected();
+
+        Game::getInstance().Phase0RemoveRegions2();
+    });
     
+    // Connect ok for step 1
+    connect(boardBottomWidget->GetBoardMessage()->GetStepOnePanel()->GetOkButton(), &QPushButton::clicked, []()
+    {
+        qDebug() << "OK (step 1) clicked";
+        Game::getInstance().Step2Start();
+    });
+
     // Connect card for step 2
     connect(boardCenterWidget->GetPowerPlantModeWidget(), &PowerPlantModeWidget::CardSelected, [=](int index) {
         qDebug("Updating counter");

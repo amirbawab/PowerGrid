@@ -34,7 +34,7 @@ public:
     shared_ptr<City> GetCityByName(string cityName);
 
     bool AddConnection(shared_ptr<City> first, shared_ptr<City> second, int cost);
-    void RemoveConnection(shared_ptr<Connection> connection);
+    void RemoveConnectionByCity(shared_ptr<City> city);
 
     void AddCity(shared_ptr<City> city) { cities[city->GetName()] = city; }
 

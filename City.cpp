@@ -11,7 +11,7 @@ bool operator==(const std::shared_ptr<City>& first, const City& other)
     return first->name == other.name;
 }
 
-bool operator==(const std::shared_ptr<City>& city, const std::string& cityName)
+bool operator==(const std::shared_ptr<City>& city, const string& cityName)
 {
     return city->name == cityName;
 }
@@ -19,7 +19,10 @@ bool operator==(const std::shared_ptr<City>& city, const std::string& cityName)
 void City::RemoveConnection(std::shared_ptr<Connection> connection)
 {
     using std::remove;
-    connections.erase(remove(connections.begin(), connections.end(), connection));
+
+    // Make sure connection exists before trying to remove it
+    if (find(connections.begin(), connections.end(), connection) != connections.end())
+        connections.erase(remove(connections.begin(), connections.end(), connection));
 }
 
 bool City::AddHouse(House* house)
@@ -51,7 +54,7 @@ bool City::IsFull() const
     return houses.size() == MAXIMUM_HOUSES;
 }
 
-bool City::IsConnectedTo(std::string cityName) {
+bool City::IsConnectedTo(string cityName) {
     for (auto connection = connections.begin(); connection != connections.end(); ++connection)
         if ((*connection)->GetFirst()->GetName() == cityName || (*connection)->GetSecond()->GetName() == cityName)
             return true;

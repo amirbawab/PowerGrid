@@ -106,8 +106,13 @@ public:
     void PrintScore() const;
     void PrintRemainingResources();
 
-    // Step 0 Removing regions
+    // Phase 0 Removing regions
     bool selectRegion = false;
+    int regionsToRemove = 0;
+    shared_ptr<Region> pickedRegion;
+    void Phase0Start();
+    void Phase0RemoveRegions1();
+    void Phase0RemoveRegions2();
 
     // Step 1 Ordering players
     void Step1Start();
@@ -168,5 +173,4 @@ public:
     void NewGame();
     void ConfigNewGame(string map, int numberOfPlayers);
     void StartGame();
-    void DisplayRemoveRegions();
 };

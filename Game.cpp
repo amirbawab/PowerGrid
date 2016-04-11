@@ -19,7 +19,7 @@ void Game::NewGame() {
 
     // Initialize components
     fullTurn = 1;
-    phase = 1; // TODO Change this to 0
+    phase = 0;
     playStep = 1;
 }
 
@@ -86,6 +86,42 @@ bool comparePlayerPriority(shared_ptr<Player> p1, shared_ptr<Player> p2) {
 
     return false;
 }
+/// Phase 0, remove regions from the map
+void Game::Phase0Start()
+{
+    regionsToRemove = map->GetRegions().size() - overview.GetRuleByNumOfPlayers(players.size()).region;
+    Phase0RemoveRegions1();
+}
+
+void Game::Phase0RemoveRegions1()
+{
+    // Enable selecting regions
+    selectRegion = true;
+
+    messageText = "Click on the region you want to remove, then press 'OK'" +
+        string("<br />(remaining region(s): <font color='red'><b>") +
+        std::to_string(regionsToRemove) + "</b></font>)";
+
+    Notify();
+}
+
+void Game::Phase0RemoveRegions2()
+{
+    if (!pickedRegion)
+        return Phase0RemoveRegions1();
+
+    map->RemoveRegion(pickedRegion);
+    pickedRegion.reset();
+
+    // If more regions to remove
+    if (--regionsToRemove > 0)
+        return Phase0RemoveRegions1();
+
+    // Reset selectRegion
+    selectRegion = false;
+
+    Step1Start();
+}
 
 /// Step 1, sets the players in the proper turn order
 void Game::UpdatePlayOrder(bool reverse) {
@@ -95,12 +131,9 @@ void Game::UpdatePlayOrder(bool reverse) {
         std::reverse(playerOrder.begin(), playerOrder.end());
 }
 
-void Game::DisplayRemoveRegions() {
-    messageText = "Click on the region(s) you want to remove then press `OK`";
-    Notify();
-}
-
 void Game::Step1Start() {
+    // Phase is now 1
+    phase = 1;
 
     cout << "Starting step 1 ..." << endl;
     messageText = "Player order updated. Press `OK` to continue ...";
@@ -1340,3 +1373,4 @@ void Game::PrintRemainingResources() {
     }
     cout << endl;
 }
+

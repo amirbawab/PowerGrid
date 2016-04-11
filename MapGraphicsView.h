@@ -36,7 +36,7 @@ private:
 
     shared_ptr<City> GetCityByPoint(QPoint point);
 
-    void MarkCitiesToRemove(std::shared_ptr<City> city);
+    void MarkCitiesToRemove(shared_ptr<City> city);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;
@@ -44,6 +44,7 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
 
 signals:
-    void CitySelected(std::shared_ptr<City> city);
+    void CitySelected(shared_ptr<City> city);
+    void RegionSelected(shared_ptr<Region> region);
 };
 

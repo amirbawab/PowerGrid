@@ -9,7 +9,6 @@ class CityItem : public QGraphicsEllipseItem {
     string name;
     QColor regionColor;
     shared_ptr<City> city;
-    bool toRemove = false;
 
 public:
     CityItem(QPoint topLeft, int width, int height);
@@ -27,7 +26,5 @@ public:
     QPoint GetHousePosition(int index, QGraphicsPixmapItem* houseItem) const;
     void SetCity(shared_ptr<City> city) { this->city = city; }
     shared_ptr<City> GetCity() const { return city; }
-    void SetToRemove(bool toRemove) { this->toRemove = toRemove; }
-    bool GetToRemove() const { return toRemove; }
 };
 
