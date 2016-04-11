@@ -17,6 +17,7 @@ public:
     ~MapGraphicsView() {}
     void Refresh();
     void DrawMap();
+    void ResetSelected();
 
 private:
     std::unique_ptr<QGraphicsScene> graphicsScene;
@@ -28,7 +29,11 @@ private:
     vector<std::unique_ptr<ConnectionItem>> connectionItems;
     vector<std::unique_ptr<HouseItem>> houseItems;
     
-    std::shared_ptr<City> GetCityByPoint(QPoint point);
+    // Used to highlight selected city or region
+    shared_ptr<City> selectedCity;
+    shared_ptr<Region> selectedRegion;
+
+    shared_ptr<City> GetCityByPoint(QPoint point);
 
     void MarkCitiesToRemove(std::shared_ptr<City> city);
 

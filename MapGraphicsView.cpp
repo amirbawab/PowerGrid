@@ -73,6 +73,21 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     if (!city)
         return;
 
+    // Store selected city/region
+    if (Game::getInstance().selectCity)
+    {
+        selectedCity = city;
+        selectedRegion.reset();
+        DrawMap();
+    }
+    // Otherwise, selectRegion must be true
+    else
+    {
+        selectedCity.reset();
+        selectedRegion = city->GetRegion();
+        DrawMap();
+    }
+
     emit CitySelected(city);
 
     // If starting game, select cities to remove
@@ -159,6 +174,15 @@ void MapGraphicsView::DrawMap() {
         scene()->addItem(cityNameTextItem);
         scene()->addItem(cityItem.second.get());
 
+        // Highlight
+        if (selectedCity && cityItem.second->GetCity() == selectedCity)
+        {
+            scene()->addRect(cityItem.second->rect(), QPen(Qt::white, 2));
+            centerOn(cityItem.second.get());
+        }
+        if (selectedRegion && cityItem.second->GetCity()->GetRegion() == selectedRegion)
+            scene()->addRect(cityItem.second->rect(), QPen(Qt::white, 2));
+
         // Add house(s)
         auto& houses = cityItem.second->GetCity()->GetHouses();
         int numberOfHouses = houses.size();
@@ -179,4 +203,10 @@ void MapGraphicsView::DrawMap() {
             scene()->addItem(houseItem.get());
         }
     }
+}
+
+void MapGraphicsView::ResetSelected()
+{
+    selectedCity.reset();
+    selectedRegion.reset();
 }

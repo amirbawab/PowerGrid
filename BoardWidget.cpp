@@ -144,6 +144,9 @@ BoardWidget::BoardWidget() {
     {
         qDebug("OK (step 4) clicked");
 
+        // Reset selected in the map view
+        boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView()->ResetSelected();
+
         // Try to buy a house in the city
         Game::getInstance().Step4BuyingCities2();
     });
@@ -153,6 +156,9 @@ BoardWidget::BoardWidget() {
     {
         qDebug("OK (step 4) clicked");
         
+        // Reset selected in the map view
+        boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView()->ResetSelected();
+
         // Reset the value in the game and continue
         Game::getInstance().pickedCity.reset();
         Game::getInstance().Step4BuyingCities2();
