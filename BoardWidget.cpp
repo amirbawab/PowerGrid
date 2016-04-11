@@ -130,12 +130,32 @@ BoardWidget::BoardWidget() {
             [=](shared_ptr<City> city)
     {
         qDebug() << "Selected city: " << city->GetName().c_str();
+
+        // Display the city in the question label
+        boardBottomWidget->GetBoardMessage()->GetQuestionLabel()->setText(
+            QString("Selected city: <b>").append(city->GetName().c_str()).append("</b>"));
+
+        // Set the city in the game
+        Game::getInstance().pickedCity = city;
     });
 
     // Connect ok for step 4
     connect(boardBottomWidget->GetBoardMessage()->GetStepFourPanel()->GetOkButton(), &QPushButton::clicked, [=]()
     {
         qDebug("OK (step 4) clicked");
+
+        // Try to buy a house in the city
+        Game::getInstance().Step4BuyingCities2();
+    });
+
+    // Connect skip for step 4
+    connect(boardBottomWidget->GetBoardMessage()->GetStepFourPanel()->GetSkipButton(), &QPushButton::clicked, [=]()
+    {
+        qDebug("OK (step 4) clicked");
+        
+        // Reset the value in the game and continue
+        Game::getInstance().pickedCity.reset();
+        Game::getInstance().Step4BuyingCities2();
     });
 
     // Add components

@@ -106,6 +106,9 @@ public:
     void PrintScore() const;
     void PrintRemainingResources();
 
+    // Step 0 Removing regions
+    bool selectRegion = false;
+
     // Step 1 Ordering players
     void Step1Start();
 
@@ -141,9 +144,10 @@ public:
 
     // Step 4 Buying Cities
     bool selectCity = false;
+    shared_ptr<City> pickedCity = nullptr;
     void Step4Start();
     void Step4BuyingCities1();
-    void Step4BuyingCities2(shared_ptr<City> pickedCity);
+    void Step4BuyingCities2();
     void Step4End();
 
     // Step 5 Bureaucracy

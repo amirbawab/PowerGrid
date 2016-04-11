@@ -102,6 +102,7 @@ void Game::DisplayRemoveRegions() {
 
 void Game::Step1Start() {
 
+    cout << "Starting step 1 ..." << endl;
     messageText = "Player order updated. Press `OK` to continue ...";
     playStep = 1;
 
@@ -111,6 +112,7 @@ void Game::Step1Start() {
 
 void Game::Step2Start() {
     // GUI Message: "Step 2"
+    cout << "Starting step 2 ..." << endl;
     playStep = 2;
 
     // Don't sort in the first turn
@@ -186,7 +188,8 @@ void Game::Step2PickPlant2(bool skip, int plantIndex, int price) {
 }
 
 void Game::Step2Bid1() {
-    messageText = "The highest bid is now " + std::to_string(currentBid) + ", enter your bid:";
+    messageText = "The highest bid is now <font color='red'><b>" +
+        std::to_string(currentBid) + "</b></font>, enter your bid:";
     Notify();
 }
 
@@ -265,7 +268,7 @@ void Game::Step2Bid2(int bid) {
 void Game::Step2BidEnd() {
 
     // Update info message in GUI
-    SetInfoMessageTextBox("Winner", highestBidder->GetName() + " won the bid for this round");
+    SetInfoMessageTextBox("Winner", "<b>" + highestBidder->GetName() + "</b> won the bid for this round");
 
     // Figure out what the next part of the game is
     // Find who starts the next bidding war (best begins)
@@ -304,6 +307,7 @@ void Game::Step2End() {
 
 void Game::Step3Start() {
     // GUI Message : "Step 3"
+    cout << "Starting step 3 ..." << endl;
     playStep = 3;
 
     // Reorder players (worst starts)
@@ -323,7 +327,8 @@ void Game::Step3Start() {
 }
 
 void Game::Step3BuyingResources1() {
-    messageText = "How many " + GetResourceName(resourceIdentity) + " would you like to buy for the selected power plant?";
+    messageText = "How many <b>" + GetResourceName(resourceIdentity) +
+        "</b> would you like to buy for the selected power plant?";
     Notify();
 }
 
@@ -333,8 +338,8 @@ void Game::Step3BuyingResources2(int amount) {
     // Buy resources and check if allowed to do so
     bool allowed = currentPlayer->BuyResources(*rMarket, currentPlayer->GetPowerPlants()[powerPlantIndex], resourceIdentity, amount);
     if (!allowed) {
-        SetErrorMessageTextBox("Amount Error", "You can't buy the amount of " + std::to_string(amount) + " " +
-                               GetResourceName(resourceIdentity) + "(s) for this power plant!");
+        SetErrorMessageTextBox("Amount Error", "You can't buy the amount of <b>" + std::to_string(amount) + " " +
+                               GetResourceName(resourceIdentity) + "(s)</b> for this power plant!");
         return Step3BuyingResources1();
     }
 
@@ -381,6 +386,7 @@ void Game::Step3End() {
 
 void Game::Step4Start() {
     // GUI Message: "Step 4" 
+    cout << "Starting step 4 ..." << endl;
     playStep = 4;
 
     // Reorder players (worst starts)
@@ -396,9 +402,9 @@ void Game::Step4BuyingCities1() {
     Notify();
 }
 
-void Game::Step4BuyingCities2(shared_ptr<City> pickedCity) {
+void Game::Step4BuyingCities2() {
 
-    if (pickedCity == nullptr) {
+    if (!pickedCity) {
         // Player skipped, go to next player
         currentPlayer = playerOrder[GetNextPlayerIndex()];
 
@@ -411,7 +417,9 @@ void Game::Step4BuyingCities2(shared_ptr<City> pickedCity) {
 
     // Check if city is full
     if (pickedCity->GetNumberOfHouses() == phase) {
-        cout << "Cannot buy a house. " << pickedCity->GetName() << " is already saturated for this phase.";
+        SetErrorMessageTextBox("Buying City Error",
+                               "Cannot buy a house. <b>" + pickedCity->GetName() +
+                               "</b> is already saturated for this phase.");
         return Step4BuyingCities1();
     }
 
@@ -424,14 +432,18 @@ void Game::Step4BuyingCities2(shared_ptr<City> pickedCity) {
 
     // Check if you have enough money
     if (!currentPlayer->HasElektro(cost)) {
-        cout << "Not enough money to buy " << pickedCity->GetName() << " for a total cost of " << std::to_string(cost) << " Elektro." << endl;
+        SetErrorMessageTextBox("Not Enough Money", "Not enough money to buy <b>" +
+                               pickedCity->GetName() + "</b> for a total cost of <b>" +
+                               std::to_string(cost) + "</b> Elektro.");
         return Step4BuyingCities1();
     }
 
     // Buy the city
     shared_ptr<House> newHouse = std::make_shared<House>(pickedCity);
     currentPlayer->BuyHouse(newHouse);
-    cout << *currentPlayer << " has bought a house at " << pickedCity << " for a total cost of " << std::to_string(cost) << " Elektro." << endl;
+    SetInfoMessageTextBox("Buying City Success", "<b>" + currentPlayer->GetName() +
+                          "</b> has bought a house at <b>" + pickedCity->GetName() +
+                          "</b> for a total cost of <b>" + std::to_string(cost) + "</b> Elektro.");
 
     // Go back to buy another one
     return Step4BuyingCities1();
@@ -459,14 +471,15 @@ void Game::Step4End() {
         cout << "Entering phase 3." << endl;
     }
 
+    // Reset selectCity
+    selectCity = false;
+
     Step5Start();
 }
 
-
-
-
 void Game::Step5Start() {
     // GUI Message: "Step 5"
+    cout << "Starting step 5 ...";
     playStep = 5;
 
     // Check if we enter phase 2

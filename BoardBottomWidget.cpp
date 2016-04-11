@@ -306,7 +306,6 @@ StepOnePanel::StepOnePanel() {
 
     // Connect
     connect(okButton, &QPushButton::clicked, [=]() {
-        qDebug("Starting step 2");
         Game::getInstance().Step2Start();
     });
 

@@ -56,9 +56,13 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     // Super
     QGraphicsView::mousePressEvent(event);
 
-    // Only process left clicks
-    if (event->button() != Qt::LeftButton || !Game::getInstance().selectCity)
+    // Only process left clicks, and only proceed if we need to select a city or a region
+    if (event->button() != Qt::LeftButton ||
+        !Game::getInstance().selectCity && !Game::getInstance().selectRegion)
         return;
+
+    // Set the cursor
+    viewport()->setCursor(Qt::ArrowCursor);
 
     // 'mapToScene' returns QPointF; convert to QPoint
     auto scenePoint = mapToScene(event->pos());
@@ -78,6 +82,17 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     else {
     
     }
+}
+
+void MapGraphicsView::mouseMoveEvent(QMouseEvent* event)
+{
+    // Let the parent handle the event first
+    QGraphicsView::mouseMoveEvent(event);
+
+    if (Game::getInstance().selectCity || Game::getInstance().selectRegion)
+        viewport()->setCursor(Qt::ArrowCursor);
+    else
+        viewport()->setCursor(Qt::OpenHandCursor);
 }
 
 void MapGraphicsView::Refresh() {

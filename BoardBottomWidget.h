@@ -132,6 +132,8 @@ public:
     BoardMessageWidget();
     ~BoardMessageWidget();
     void Refresh() const;
+
+    QLabel         *GetQuestionLabel()  const { return questionLabel; }
     StepOnePanel   *GetStepOnePanel()   const { return stepOnePanel; }
     StepTwoPanel   *GetStepTwoPanel()   const { return stepTwoPanel; }
     StepThreePanel *GetStepThreePanel() const { return stepThreePanel; }
