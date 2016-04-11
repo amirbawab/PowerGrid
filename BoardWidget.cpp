@@ -1,6 +1,7 @@
 #include "BoardWidget.h"
 #include <QMessageBox>
 #include "Game.h"
+#include <QDebug>
 
 BoardWidget::BoardWidget() {
 
@@ -122,6 +123,19 @@ BoardWidget::BoardWidget() {
         qDebug("Skip (step 3) clicked");
 
         Game::getInstance().Step3BuyingResources2(0);
+    });
+
+    // Connect city for step 4
+    connect(boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView(), &MapGraphicsView::CitySelected,
+            [=](shared_ptr<City> city)
+    {
+        qDebug() << "Selected city: " << city->GetName().c_str();
+    });
+
+    // Connect ok for step 4
+    connect(boardBottomWidget->GetBoardMessage()->GetStepFourPanel()->GetOkButton(), &QPushButton::clicked, [=]()
+    {
+        qDebug("OK (step 4) clicked");
     });
 
     // Add components

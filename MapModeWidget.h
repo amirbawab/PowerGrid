@@ -10,6 +10,9 @@ public:
     ~MapModeWidget();
     void DrawMap() const;
     void Refresh() const;
+
+    MapGraphicsView* GetMapGraphicsView() const { return mapGraphicsView; }
+
 private:
     MapGraphicsView *mapGraphicsView;
     QGridLayout *gridLayout;

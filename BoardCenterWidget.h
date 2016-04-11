@@ -18,6 +18,8 @@ public:
     void DrawMap() const;
     PowerPlantModeWidget *GetPowerPlantModeWidget() const { return powerPlantModeWidget; }
     ResourceMarketModeWidget *GetResourceMarketModeWidget() const { return resourceMarketModeWidget; }
+    MapModeWidget* GetMapModeWidget() const { return mapModeWidget; }
+
 private:
     QGridLayout *gridLayout;
     QStackedWidget *centerStackedWidget;
@@ -30,6 +32,7 @@ private:
     MapModeWidget* mapModeWidget;
     int powerPlantModeWidgetIndex, resourceMarketModeWidgetIndex, overviewModeWidgetIndex, mapModeWidgetIndex;
     void paintEvent(QPaintEvent *pe) override;
+
 private slots:
     void onMapMode() const;
     void onPowerPlantMode() const;

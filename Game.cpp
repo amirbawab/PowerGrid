@@ -391,12 +391,12 @@ void Game::Step4Start() {
 }
 
 void Game::Step4BuyingCities1() {
-    // GUI Message: "Player, pick a city to buy:"
-
+    messageText = "Select a city to buy, and press OK";
+    selectCity = true;
+    Notify();
 }
 
-void Game::Step4BuyingCities2() {
-    shared_ptr<City> pickedCity = nullptr;  // GUI get: the pointer to the picked city
+void Game::Step4BuyingCities2(shared_ptr<City> pickedCity) {
 
     if (pickedCity == nullptr) {
         // Player skipped, go to next player

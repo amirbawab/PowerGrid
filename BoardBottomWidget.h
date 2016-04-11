@@ -110,6 +110,8 @@ class StepFourPanel : public QWidget {
 public:
     StepFourPanel();
     ~StepFourPanel();
+    QPushButton *GetOkButton() const { return okButton; }
+    QPushButton *GetSkipButton() const { return skipButton; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;

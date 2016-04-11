@@ -57,7 +57,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     QGraphicsView::mousePressEvent(event);
 
     // Only process left clicks
-    if (event->button() != Qt::LeftButton)
+    if (event->button() != Qt::LeftButton || !Game::getInstance().selectCity)
         return;
 
     // 'mapToScene' returns QPointF; convert to QPoint
@@ -68,6 +68,8 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     auto city = GetCityByPoint(point);
     if (!city)
         return;
+
+    emit CitySelected(city);
 
     // If starting game, select cities to remove
     if (Game::getInstance().GetPhase() == 0) {

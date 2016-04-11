@@ -140,9 +140,10 @@ public:
     int resourceAmount = 0;
 
     // Step 4 Buying Cities
+    bool selectCity = false;
     void Step4Start();
     void Step4BuyingCities1();
-    void Step4BuyingCities2();
+    void Step4BuyingCities2(shared_ptr<City> pickedCity);
     void Step4End();
 
     // Step 5 Bureaucracy
