@@ -348,6 +348,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_PowerPlantModeWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="HouseItem.cpp">
+      <Filter>Source Files\gui\pages\board\components\mode\components\map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -486,6 +489,9 @@
     </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="HouseItem.h">
+      <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
