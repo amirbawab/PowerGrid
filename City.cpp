@@ -22,9 +22,18 @@ void City::RemoveConnection(std::shared_ptr<Connection> connection)
     connections.erase(remove(connections.begin(), connections.end(), connection));
 }
 
+bool City::AddHouse(House* house)
+{
+    if (houses.size() == MAXIMUM_HOUSES)
+        return false;
+
+    houses.push_back(house);
+    return true;
+}
+
 int City::GetHousePrice() const
 {
-    switch (houses)
+    switch (houses.size())
     {
         case 0:
             return firstHousePrice;
@@ -37,17 +46,9 @@ int City::GetHousePrice() const
     }
 }
 
-bool City::AddHouse()
+bool City::IsFull() const
 {
-    if (houses == MAX_VALUE)
-        return false;
-
-    houses++;
-    return true;
-}
-
-bool City::IsFull() {
-    return houses == MAX_VALUE;
+    return houses.size() == MAXIMUM_HOUSES;
 }
 
 bool City::IsConnectedTo(std::string cityName) {

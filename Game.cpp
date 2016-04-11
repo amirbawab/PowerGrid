@@ -439,7 +439,7 @@ void Game::Step4BuyingCities2() {
     }
 
     // Buy the city
-    shared_ptr<House> newHouse = std::make_shared<House>(pickedCity);
+    auto newHouse = std::make_shared<House>(pickedCity, currentPlayer->GetColor());
     currentPlayer->BuyHouse(newHouse);
     SetInfoMessageTextBox("Buying City Success", "<b>" + currentPlayer->GetName() +
                           "</b> has bought a house at <b>" + pickedCity->GetName() +
@@ -990,8 +990,8 @@ void Game::BuyCities() {
                 }
                 else {
                     // Buy the city
-                    shared_ptr<House> newHouse = std::make_shared<House>(city);
-                    currentPlayer->BuyHouse(newHouse);
+//                    shared_ptr<House> newHouse = std::make_shared<House>(city);
+//                    currentPlayer->BuyHouse(newHouse);
                     cout << *currentPlayer << " has bought a house at " << temp << " for a total cost of " << std::to_string(cost) << " Elektro." << endl;
                 }
             }

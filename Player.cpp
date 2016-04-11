@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <iostream>
 #include "Helpers.h"
+#include "City.h"
 
 using std::cout;
 using std::endl;
@@ -39,7 +40,7 @@ bool Player::BuyHouse(shared_ptr<House> house)
             return false;
 
     // If can't add (City saturated)
-    if (!house->GetCity()->AddHouse())
+    if (!house->GetCity()->AddHouse(house.get()))
         return false;
 
     elektro -= housePrice;

@@ -1,12 +1,9 @@
 #include "House.h"
+#include "City.h"
 
-House::House()
+House::House(std::shared_ptr<City> city, std::shared_ptr<HouseColor> color) :
+    city{ city }, color{ color }
 {
-}
-
-House::House(std::shared_ptr<City> city)
-{
-    this->city = city;
     price = city->GetHousePrice();
 }
 

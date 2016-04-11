@@ -365,12 +365,12 @@ bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
             auto cityAttribute = houseNode.attribute("city").value();
             auto priceAttribute = stoi(houseNode.attribute("price").value());
 
-            shared_ptr<House> newHouse = make_shared<House>();
-            newHouse->SetCity(game->GetMap()->GetCityByName(cityAttribute));
+            shared_ptr<House> newHouse = make_shared<House>(
+                game->GetMap()->GetCityByName(cityAttribute), player->GetColor());
             newHouse->SetPrice(priceAttribute);
 
             player->GetHouses().push_back(newHouse);
-            game->GetMap()->GetCityByName(cityAttribute)->AddHouse();
+            game->GetMap()->GetCityByName(cityAttribute)->AddHouse(newHouse.get());
         }
 
         // Read power plants and add them
