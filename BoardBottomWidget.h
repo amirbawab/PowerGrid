@@ -20,7 +20,7 @@ private:
     QGridLayout *gridLayout;
 };
 
-class BoardResourcePowerPlantWiget : public QWidget {
+class BoardResourcePowerPlantWiget : public QPushButton {
 public:
     BoardResourcePowerPlantWiget();
     ~BoardResourcePowerPlantWiget();
@@ -133,9 +133,12 @@ class StepFivePanel : public QWidget {
 public:
     StepFivePanel();
     ~StepFivePanel();
+    QPushButton *GetOkButton() const { return okButton; }
+    QPushButton *GetSkipButton() const { return skipButton; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;
+    QPushButton *skipButton;
 };
 
 class BoardMessageWidget : public QWidget {

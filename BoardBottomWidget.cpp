@@ -349,7 +349,7 @@ StepTwoPanel::StepTwoPanel() {
     // Init components
     gridLayout = new QGridLayout();
     okButton = new QPushButton("OK");
-    skipButton = new QPushButton("SKIP");
+    skipButton = new QPushButton("PASS");
     counterWidget = new CounterWidget();
 
     // Set id
@@ -407,7 +407,7 @@ StepFourPanel::StepFourPanel() {
     // Init components
     gridLayout = new QGridLayout();
     okButton = new QPushButton("OK");
-    skipButton = new QPushButton("SKIP");
+    skipButton = new QPushButton("END");
     
     // Set id
     okButton->setObjectName("player_button");
@@ -434,9 +434,11 @@ StepFivePanel::StepFivePanel() {
     // Init components
     gridLayout = new QGridLayout();
     okButton = new QPushButton("OK");
+    skipButton = new QPushButton("END");
 
     // Set id
     okButton->setObjectName("player_button");
+    skipButton->setObjectName("player_button");
 
     // Set layout
     setLayout(gridLayout);

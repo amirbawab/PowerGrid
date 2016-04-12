@@ -549,7 +549,7 @@ void Game::Step5UsingPlants2() {
     pickedPlant = nullptr;  // GUI get: player clicks on the plant they want to power
 
     // If skip, get paid and go to next player
-    if (pickedPlant = nullptr) {
+    if (!pickedPlant) {
 
         // Take min between number of houses that can be powered and the actual number of houses
         int playerHouses = currentPlayer->GetHouses().size();
