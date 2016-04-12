@@ -183,7 +183,7 @@ bool Player::BuyResources(ResourceMarket& rMarket, shared_ptr<PowerPlantCard> pl
         (plant->GetActiveResources().find(resource) != plant->GetActiveResources().end())) {
 
         plant->PlaceResource(resource, amount);
-        SetElektro(GetElektro() - amount);
+        SetElektro(GetElektro() - price);
         rMarket.RemoveResource(resource, amount);
         return true;
     }

@@ -83,7 +83,7 @@ int ResourceMarket::GetPrice(Resource resource, int amount) {
     }
 
     // Find the price
-    for (int i = 0; i < levels.size(); i++) {
+    for (int i = 0; i < levels.size(), quantityLeft > 0; i++) {
         quantityInLevel = levels[i]->GetCounter(resource);
         if (quantityLeft > quantityInLevel) {
             totalPrice += quantityInLevel * levels[i]->GetCost();
