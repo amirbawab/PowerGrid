@@ -273,7 +273,7 @@ QPushButton#left_arrow {
 
  QLabel#counter_lable {
     color: #fff;
-    font-size: 35px;
+    font-size: 25px;
  }
 
  /*******************

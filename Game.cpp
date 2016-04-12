@@ -95,9 +95,6 @@ void Game::Phase0Start()
 
 void Game::Phase0RemoveRegions1()
 {
-    // Enable selecting regions
-    selectRegion = true;
-
     messageText = "Click on the region you want to remove, then press 'OK'" +
         string("<br />(remaining region(s): <font color='red'><b>") +
         std::to_string(regionsToRemove) + "</b></font>)";
@@ -116,9 +113,6 @@ void Game::Phase0RemoveRegions2()
     // If more regions to remove
     if (--regionsToRemove > 0)
         return Phase0RemoveRegions1();
-
-    // Reset selectRegion
-    selectRegion = false;
 
     Step1Start();
 }
@@ -431,7 +425,6 @@ void Game::Step4Start() {
 
 void Game::Step4BuyingCities1() {
     messageText = "Select a city to buy, and press OK";
-    selectCity = true;
     Notify();
 }
 
@@ -473,6 +466,7 @@ void Game::Step4BuyingCities2() {
 
     // Buy the city
     auto newHouse = std::make_shared<House>(pickedCity, currentPlayer->GetColor());
+    newHouse->SetPrice(cost);
     currentPlayer->BuyHouse(newHouse);
     SetInfoMessageTextBox("Buying City Success", "<b>" + currentPlayer->GetName() +
                           "</b> has bought a house at <b>" + pickedCity->GetName() +
@@ -503,9 +497,6 @@ void Game::Step4End() {
 
         cout << "Entering phase 3." << endl;
     }
-
-    // Reset selectCity
-    selectCity = false;
 
     Step5Start();
 }
@@ -550,7 +541,8 @@ void Game::Step5Start() {
 
 void Game::Step5UsingPlants1() {
     // GUI Message: "Player, which power plants do you want to use?"
-
+    messageText = "Which power plants do you want to use?";
+    Notify();
 }
 
 void Game::Step5UsingPlants2() {

@@ -102,7 +102,6 @@ public:
     void PrintRemainingResources();
 
     // Phase 0 Removing regions
-    bool selectRegion = false;
     int regionsToRemove = 0;
     shared_ptr<Region> pickedRegion;
     void Phase0Start();
@@ -143,7 +142,6 @@ public:
     int resourceAmount = 0;
 
     // Step 4 Buying Cities
-    bool selectCity = false;
     shared_ptr<City> pickedCity = nullptr;
     void Step4Start();
     void Step4BuyingCities1();

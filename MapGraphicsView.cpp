@@ -58,8 +58,9 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     QGraphicsView::mousePressEvent(event);
 
     // Only process left clicks, and only proceed if we need to select a city or a region
+    auto& game = Game::getInstance();
     if (event->button() != Qt::LeftButton ||
-        !Game::getInstance().selectCity && !Game::getInstance().selectRegion)
+        Game::getInstance().GetStep() != 4 && Game::getInstance().GetPhase() != 0)
         return;
 
     // Set the cursor
@@ -78,7 +79,7 @@ void MapGraphicsView::mousePressEvent(QMouseEvent* event)
     scrollBarValue = verticalScrollBar()->value();
 
     // If selecting a city
-    if (Game::getInstance().selectCity)
+    if (Game::getInstance().GetStep() == 4)
     {
         // Store selected city and reset region
         selectedCity = city;
@@ -115,7 +116,7 @@ void MapGraphicsView::mouseMoveEvent(QMouseEvent* event)
     // Let the parent handle the event first
     QGraphicsView::mouseMoveEvent(event);
 
-    if (Game::getInstance().selectCity || Game::getInstance().selectRegion)
+    if (Game::getInstance().GetStep() == 4 || Game::getInstance().GetPhase() == 0)
         viewport()->setCursor(Qt::ArrowCursor);
     else
         viewport()->setCursor(Qt::OpenHandCursor);
