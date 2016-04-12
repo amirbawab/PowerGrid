@@ -41,5 +41,47 @@
         <file>Resources/config/Config.xml</file>
         <file>Resources/config/map/CanadaMap.xml</file>
         <file>Resources/config/map/TestMap.xml</file>
+        <file>Resources/powerplants/3.png</file>
+        <file>Resources/powerplants/4.png</file>
+        <file>Resources/powerplants/5.png</file>
+        <file>Resources/powerplants/6.png</file>
+        <file>Resources/powerplants/7.png</file>
+        <file>Resources/powerplants/8.png</file>
+        <file>Resources/powerplants/9.png</file>
+        <file>Resources/powerplants/10.png</file>
+        <file>Resources/powerplants/11.png</file>
+        <file>Resources/powerplants/12.png</file>
+        <file>Resources/powerplants/13.png</file>
+        <file>Resources/powerplants/14.png</file>
+        <file>Resources/powerplants/15.png</file>
+        <file>Resources/powerplants/16.png</file>
+        <file>Resources/powerplants/17.png</file>
+        <file>Resources/powerplants/18.png</file>
+        <file>Resources/powerplants/19.png</file>
+        <file>Resources/powerplants/20.png</file>
+        <file>Resources/powerplants/21.png</file>
+        <file>Resources/powerplants/22.png</file>
+        <file>Resources/powerplants/23.png</file>
+        <file>Resources/powerplants/24.png</file>
+        <file>Resources/powerplants/25.png</file>
+        <file>Resources/powerplants/26.png</file>
+        <file>Resources/powerplants/27.png</file>
+        <file>Resources/powerplants/28.png</file>
+        <file>Resources/powerplants/29.png</file>
+        <file>Resources/powerplants/30.png</file>
+        <file>Resources/powerplants/31.png</file>
+        <file>Resources/powerplants/32.png</file>
+        <file>Resources/powerplants/33.png</file>
+        <file>Resources/powerplants/34.png</file>
+        <file>Resources/powerplants/35.png</file>
+        <file>Resources/powerplants/36.png</file>
+        <file>Resources/powerplants/37.png</file>
+        <file>Resources/powerplants/38.png</file>
+        <file>Resources/powerplants/39.png</file>
+        <file>Resources/powerplants/40.png</file>
+        <file>Resources/powerplants/42.png</file>
+        <file>Resources/powerplants/44.png</file>
+        <file>Resources/powerplants/46.png</file>
+        <file>Resources/powerplants/50.png</file>
     </qresource>
 </RCC>
