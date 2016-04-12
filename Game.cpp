@@ -361,7 +361,7 @@ void Game::Step3Start() {
 
 void Game::Step3BuyingResources1() {
     messageText = "How many <font color='red'><b>" + GetResourceName(resourceIdentity) +
-        "</b></font> would you like to buy for the selected power plant?";
+        "</b></font> would you like to buy for the selected<br />power plant?";
     Notify();
 }
 
