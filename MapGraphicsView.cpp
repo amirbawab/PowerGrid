@@ -213,8 +213,11 @@ void MapGraphicsView::DrawMap() {
         }
     }
 
-    // This line is necessary for the view to change its view!!!!!!!!!!!!?????????????
-    cout << "sceneRect() = " << sceneRect().x() << ", " << sceneRect().y() << ", " << sceneRect().width() << ", " << sceneRect().height() << endl;
+    // These two lines are necessary for the view to change its view!!!!!!!!!!!!?????????????
+    std::ostream temp(nullptr);
+    temp << "sceneRect() = " << sceneRect().x() << ", " << sceneRect().y() << ", " << sceneRect().width() << ", " << sceneRect().height() << endl;
+
+    // Restore vertical scroll position
     verticalScrollBar()->setValue(scrollBarValue);
 }
 
