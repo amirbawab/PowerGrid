@@ -444,7 +444,9 @@ StepFivePanel::StepFivePanel() {
     setLayout(gridLayout);
 
     // Add components
-    gridLayout->addWidget(okButton, 0, 0, Qt::AlignCenter);
+    gridLayout->addWidget(skipButton, 0, 0, Qt::AlignCenter);
+    gridLayout->addWidget(okButton, 0, 1, Qt::AlignCenter);
+    
 }
 
 StepFivePanel::~StepFivePanel() {
