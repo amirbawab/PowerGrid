@@ -145,7 +145,7 @@ public:
     void Refresh() const;
 
     QLabel         *GetQuestionLabel()  const { return questionLabel; }
-    Phase0Panel    *GetPhase0Panel() const { return phase0Panel; }
+    Phase0Panel    *GetPhase0Panel()    const { return phase0Panel; }
     StepOnePanel   *GetStepOnePanel()   const { return stepOnePanel; }
     StepTwoPanel   *GetStepTwoPanel()   const { return stepTwoPanel; }
     StepThreePanel *GetStepThreePanel() const { return stepThreePanel; }
