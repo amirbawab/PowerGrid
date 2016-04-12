@@ -435,7 +435,7 @@ void Game::Step4BuyingCities2() {
         currentPlayer = playerOrder[GetNextPlayerIndex()];
 
         if (currentPlayer.get() == playerOrder[0].get()) {
-            Step4End();
+            return Step4End();
         }
 
         return Step4BuyingCities1();
