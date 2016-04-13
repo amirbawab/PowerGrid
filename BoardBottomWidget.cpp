@@ -269,15 +269,15 @@ BoardPlayerPowerPlantsWidget::~BoardPlayerPowerPlantsWidget() {
 
 void BoardPlayerPowerPlantsWidget::Refresh() {
     
+    // Reset selected card
+    selectedCard = nullptr;
+
     // Clear old components
     for (int i = 0; i < playerPowerPlantsWidgets.size(); i++) {
         gridLayout->removeWidget(playerPowerPlantsWidgets[i]);
         delete playerPowerPlantsWidgets[i];
         playerPowerPlantsWidgets.erase(playerPowerPlantsWidgets.begin() + i);
     }
-
-    // Reset selected card
-    selectedCard = nullptr;
 
     // Get power plants
     std::vector<std::shared_ptr<PowerPlantCard>> cards = Game::getInstance().GetCurrentPlayer()->GetPowerPlants();
@@ -288,6 +288,10 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
         BoardResourcePowerPlantWidget *label = new BoardResourcePowerPlantWidget();
         label->setObjectName("powerPlantCardButton");
         
+        // If second screen in hybrid and the selected widget id match, update selected widget
+        if (i == selectedWidgetIndex && Game::getInstance().step5SelectResource)
+            selectedWidget = label;
+
         if (i < cards.size()) {
             label->SetPowerPlantCard(cards[i]);
             label->setIcon(QIcon(cards[i]->GetImagePath().c_str()));
@@ -296,22 +300,12 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
             // Connect
             connect(label, &QPushButton::clicked, [=]() {
             
-                // If step 5
-                if (Game::getInstance().GetStep() == 5) {
+                // If step 5 and not hybrid second screen
+                if (Game::getInstance().GetStep() == 5 && !Game::getInstance().step5SelectResource) {
                     qDebug(("Powerplant " + std::to_string(i)).c_str());
                     selectedCard = cards[i];
+                    selectedWidgetIndex = i;
                     selectedWidget = playerPowerPlantsWidgets[i];
-
-                    // Fade all of them
-                    /*for (int j = 0; j < cards.size(); j++) {
-                        QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect();
-                        effect->setOpacity(1);
-                        playerPowerPlantsWidgets[j]->setGraphicsEffect(effect);
-                    }
-
-                    QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect();
-                    effect->setOpacity(1);
-                    playerPowerPlantsWidgets[i]->setGraphicsEffect(effect);*/
                 }
             });
         }
@@ -324,13 +318,6 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
             label->SetPowerPlantCard(noCard);
         }
         label->Refresh();
-
-        // Highlight if active power plant
-        /*if (Game::getInstance().GetPowerPlantIndex() != i && Game::getInstance().GetStep() == 5) {
-            QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect();
-            effect->setOpacity(0.55);
-            label->setGraphicsEffect(effect);
-        }*/
 
         playerPowerPlantsWidgets.push_back(label);
         gridLayout->addWidget(label, 0, i, Qt::AlignCenter);
