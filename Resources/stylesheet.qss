@@ -206,6 +206,40 @@ QPushButton#faded_resource_powerplant {
     border-color: white;
 }
 
+QPushButton#mapButton {
+    background: none;
+    min-width: 320px;
+    min-height: 50px;
+    color: #fff;
+    font-size: 30px;
+    border-style: inset;
+    border-width: 3px;
+}
+
+QPushButton#mapButton:pressed {
+    color: #000;
+    border-width: 1px;
+}
+
+QCheckBox#mapButton:indicator {
+    width: 50px;
+    height: 50px;
+    image: url(:/PowerGrid/Resources/buttons/checkbox_unchecked.png);
+    color: #fff;
+    font-size: 30px;
+}
+
+QCheckBox#mapButton:indicator:checked {
+    width: 50px;
+    height: 50px;
+    image: url(:/PowerGrid/Resources/buttons/checkbox_checked.png);
+}
+
+QLabel#mapButton {
+    color: #fff;
+    font-size: 30px;
+}
+
 /****************************
  *
  *		ARROWS

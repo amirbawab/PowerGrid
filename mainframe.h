@@ -10,24 +10,24 @@
 #include "Observer.h"
 
 class MainFrame : public QMainWindow,  public Observer {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	MainFrame(string title);
-	~MainFrame();
-	void Update() override;
+    MainFrame(string title);
+    ~MainFrame();
+    void Update() override;
 private:
-	QStackedWidget *centerStackWidget;
-	WelcomeWidget *welcomeWidget;
-	MapWidget *mapWidget;
-	PlayerConfigWidget *playerConfigWidget;
-	BoardWidget *boardWidget;
-	void paintEvent(QPaintEvent *) override;
-	int welcomeWidgetIndex, mapWidgetIndex, playerConfigWidgetIndex, boardWidgetIndex;
+    QStackedWidget *centerStackWidget;
+    WelcomeWidget *welcomeWidget;
+    MapWidget *mapWidget;
+    PlayerConfigWidget *playerConfigWidget;
+    BoardWidget *boardWidget;
+    void paintEvent(QPaintEvent *) override;
+    int welcomeWidgetIndex, mapWidgetIndex, playerConfigWidgetIndex, boardWidgetIndex;
 private slots:
     void onNewGame();
     void onLoadGame();
-	void onMapBack();
-	void onMapNext();
-	void onPlayerConfigBack();
-	void onPlayerConfigNext();
+    void onMapBack();
+    void onMapNext();
+    void onPlayerConfigBack();
+    void onPlayerConfigNext();
 };
