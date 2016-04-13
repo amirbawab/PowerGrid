@@ -61,8 +61,33 @@ void MainFrame::onNewGame() {
 }
 
 void MainFrame::onLoadGame() {
-    centerStackWidget->setCurrentIndex(mapWidgetIndex);
-    Game::getInstance().LoadGame();
+    auto fileName = QFileDialog::getOpenFileName(this, "Save Game Location",
+                                                 "Please Specify Save Game Location", "XML Files (*.xml)");
+    if (fileName.isEmpty())
+        return;
+
+    Game::getInstance().LoadGame(fileName.toStdString());
+    switch (Game::getInstance().GetStep())
+    {
+        case 1:
+            Game::getInstance().Step1Start();
+            break;
+        case 2:
+            Game::getInstance().Step2Start();
+            break;
+        case 3:
+            Game::getInstance().Step3Start();
+            break;
+        case 4:
+            Game::getInstance().Step4Start();
+            break;
+        default:
+            Game::getInstance().Step5Start();
+            break;
+    }
+    Game::getInstance().Step1Start();
+    boardWidget->Refresh();
+    centerStackWidget->setCurrentIndex(boardWidgetIndex);
 }
 
 void MainFrame::onMapBack() {
@@ -102,10 +127,7 @@ void MainFrame::onPlayerConfigNext() {
     if (!playerConfigWidget->HasError()) {
         playerConfigWidget->UpdatePlayersInfo();
         Game::getInstance().StartGame();
-        
-        // TODO Switch comment
         Game::getInstance().Phase0Start();
-//        Game::getInstance().Step1Start();
         
         boardWidget->Refresh();
         centerStackWidget->setCurrentIndex(boardWidgetIndex);

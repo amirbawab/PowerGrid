@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Overview.h"
 #include "Subject.h"
+#include <set>
 
 using std::vector;
 using std::shared_ptr;
@@ -60,7 +61,7 @@ public:
         return instance;
     }
 
-    void LoadGame();
+    void LoadGame(string fileName);
 
     // Reset everything
     void Reset();
@@ -88,11 +89,13 @@ public:
     int GetPowerPlantIndex() const { return powerPlantIndex; } // setp 3
     int GetPlantIndex() const { return plantIndex; }
     bool step5SelectResource = false;
+    std::set<shared_ptr<PowerPlantCard>> step5UsedPlants;
 
     // Setters
     void SetMap(shared_ptr<Map>& map) { this->map = map; }
     void SetFullTurn(int fullTurn) { this->fullTurn = fullTurn; }
     void SetPhase(int phase) { this->phase = phase; }
+    void SetStep(int playStep) { this->playStep = playStep; }
     void SetInitElektro(int initElektro) { this->initElektro = initElektro; }
     void SetErrorMessageTextBox(string errorMessageTextTitle, string errorMessageText) { this->errorMessageTextTitle = errorMessageTextTitle; this->errorMessageText = errorMessageText; }
     void SetInfoMessageTextBox(string infoMessageTextTitle, string infoMessageText) { this->infoMessageTextTitle = infoMessageTextTitle; this->infoMessageText = infoMessageText; }

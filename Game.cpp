@@ -62,14 +62,17 @@ void Game::StartGame() {
 }
 
 // Load game
-void Game::LoadGame() {
+void Game::LoadGame(string fileName) {
 
     Reset();
 
-        // If loading saved game
-        GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",
-            "Resources/saved games/PG_2016-03-2/Players.xml");
-        Notify();
+    // If loading saved game
+    GameStatus::GetInstance().LoadFile(this, fileName);
+
+    // Set the current player
+    currentPlayer = playerOrder[0];
+
+    Notify();
 }
 
 
@@ -190,8 +193,13 @@ void Game::Step2PickPlant2(bool skip, int plantIndex, int price) {
         } else {
             canBuy[currentPlayer.get()] = false;
             // Go to next player
-            currentPlayer = playerOrder[GetNextPlayerIndex()];
-            return Step2PickPlant1(); // Next player picks a plant
+            for (auto player : playerOrder) {
+                if (canBuy[currentPlayer.get()]) {
+                    currentPlayer = player;
+                    return Step2PickPlant1();
+                }
+            }
+            return Step3Start();
         }
     }
 
@@ -567,9 +575,22 @@ void Game::Step5UsingPlants1() {
     Notify();
 }
 
-void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant2) {
+void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlantArg) {
     
-    pickedPlant = pickedPlant2;
+    // If not skip
+    if (pickedPlantArg) {
+        // If plants already used
+        if (find(step5UsedPlants.begin(), step5UsedPlants.end(), pickedPlantArg) != step5UsedPlants.end()) {
+            SetErrorMessageTextBox("Power Plant Error", "The selected power plant was already used");
+            return Step5UsingPlants1();
+        }
+
+        // Use it
+        step5UsedPlants.insert(pickedPlantArg);
+    }
+    
+    // Update picked plant
+    pickedPlant = pickedPlantArg;
 
     // If skip, get paid and go to next player
     if (!pickedPlant) {
@@ -594,7 +615,11 @@ void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant2) {
             // If no more players, go the end of step 5
             return Step5End();
         }
-            return Step5UsingPlants1();
+
+        // Reset used power plants
+        step5UsedPlants.clear();
+
+        return Step5UsingPlants1();
     }
 
     // If there is only one resource
@@ -631,7 +656,8 @@ void Game::Step5ChoosingResource2(vector<int> resourceAmounts) {
 
     // Check if not enough resources to be consumed
     if (sum < pickedPlant->GetCapacity()) {
-        // GUI Error: "Not enough resources to use the plant" 
+        SetErrorMessageTextBox("Power Plant Error", "Not enough resources to use the plant");
+        step5UsedPlants.erase(find(step5UsedPlants.begin(), step5UsedPlants.end(), pickedPlant));
         return Step5UsingPlants1();  // Go use other plants
     }
 

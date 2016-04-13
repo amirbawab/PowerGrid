@@ -47,6 +47,7 @@ public:
     BoardResourcePowerPlantWidget* selectedWidget;
 private:
     std::shared_ptr<PowerPlantCard> selectedCard;
+    int selectedWidgetIndex;
     vector<BoardResourcePowerPlantWidget*> playerPowerPlantsWidgets;
     QGridLayout *gridLayout;
 };
