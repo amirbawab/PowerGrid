@@ -21,6 +21,7 @@ class GameStatus
     bool LoadColors(pugi::xml_document& xml) const;
     bool LoadFullTurn(pugi::xml_document& xml) const;
     bool LoadPhase(pugi::xml_document& xml) const;
+    bool LoadStep(pugi::xml_document& xml) const;
 
     bool SaveGameFile(string gameFilePath) const;
     void PopulateMap(pugi::xml_node& gameXml) const;

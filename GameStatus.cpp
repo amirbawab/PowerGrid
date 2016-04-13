@@ -66,16 +66,37 @@ bool GameStatus::LoadPhase(pugi::xml_document& xml) const
     return true;
 }
 
+bool GameStatus::LoadStep(pugi::xml_document& xml) const
+{
+    auto stepAttribute = xml.child("game").attribute("step");
+    if (!stepAttribute)
+        return false;
+
+    auto step = stoi(stepAttribute.value());
+    game->SetStep(step);
+
+    return true;
+}
+
 bool GameStatus::SaveGameFile(string gameFilePath) const
 {
     pugi::xml_document document;
-    auto game = document.append_child("game");
-    PopulateMap(game);
-    PopulatePlayers(game);
-    PopulateOrderedPlayers(game);
-    PopulateResourceMarket(game);
-    PopulateCardDeck(game);
-    PopulateColors(game);
+    auto gameNode = document.append_child("game");
+
+    // Add the attributes
+    auto fullTurnAttribute = gameNode.append_attribute("full_turn");
+    auto phaseAttribute = gameNode.append_attribute("phase");
+    auto stepAttribute = gameNode.append_attribute("step");
+    fullTurnAttribute.set_value(game->GetFullTurn());
+    phaseAttribute.set_value(game->GetPhase());
+    stepAttribute.set_value(game->GetStep());
+
+    PopulateMap(gameNode);
+    PopulatePlayers(gameNode);
+    PopulateOrderedPlayers(gameNode);
+    PopulateResourceMarket(gameNode);
+    PopulateCardDeck(gameNode);
+    PopulateColors(gameNode);
     return document.save_file(gameFilePath.c_str());
 }
 
@@ -728,6 +749,12 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath)
     if (!LoadPhase(gameXml))
     {
         Error("Could not read phase value from the game file\n");
+        return false;
+    }
+
+    if (!LoadStep(gameXml))
+    {
+        Error("Could not read step value from the game file\n");
         return false;
     }
 

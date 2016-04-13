@@ -93,6 +93,7 @@ public:
     void SetMap(shared_ptr<Map>& map) { this->map = map; }
     void SetFullTurn(int fullTurn) { this->fullTurn = fullTurn; }
     void SetPhase(int phase) { this->phase = phase; }
+    void SetStep(int playStep) { this->playStep = playStep; }
     void SetInitElektro(int initElektro) { this->initElektro = initElektro; }
     void SetErrorMessageTextBox(string errorMessageTextTitle, string errorMessageText) { this->errorMessageTextTitle = errorMessageTextTitle; this->errorMessageText = errorMessageText; }
     void SetInfoMessageTextBox(string infoMessageTextTitle, string infoMessageText) { this->infoMessageTextTitle = infoMessageTextTitle; this->infoMessageText = infoMessageText; }
