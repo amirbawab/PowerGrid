@@ -473,9 +473,8 @@ bool GameStatus::LoadAllCards(pugi::xml_document& xml) const
             string imageAttribute = cardNode.attribute("image").value();
             auto resourcesAttribute = stoi(cardNode.attribute("resources").value());
             auto powerAttribute = stoi(cardNode.attribute("power").value());
-            // TODO: FARZAD add image attribute to the card
-            auto card = make_shared<PowerPlantCard>(priceAttribute,
-                                                                powerAttribute, resourcesAttribute);
+            auto card = make_shared<PowerPlantCard>(priceAttribute, powerAttribute, resourcesAttribute);
+            card->SetImagePath(imageAttribute);
 
             for (auto resourceNode : cardNode.children("resource"))
             {

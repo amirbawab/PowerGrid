@@ -61,8 +61,10 @@ void MainFrame::onNewGame() {
 }
 
 void MainFrame::onLoadGame() {
-    centerStackWidget->setCurrentIndex(mapWidgetIndex);
     Game::getInstance().LoadGame();
+    Game::getInstance().Step1Start();
+    boardWidget->Refresh();
+    centerStackWidget->setCurrentIndex(boardWidgetIndex);
 }
 
 void MainFrame::onMapBack() {
@@ -102,10 +104,7 @@ void MainFrame::onPlayerConfigNext() {
     if (!playerConfigWidget->HasError()) {
         playerConfigWidget->UpdatePlayersInfo();
         Game::getInstance().StartGame();
-        
-        // TODO Switch comment
         Game::getInstance().Phase0Start();
-//        Game::getInstance().Step1Start();
         
         boardWidget->Refresh();
         centerStackWidget->setCurrentIndex(boardWidgetIndex);
