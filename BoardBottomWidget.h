@@ -20,10 +20,10 @@ private:
     QGridLayout *gridLayout;
 };
 
-class BoardResourcePowerPlantWiget : public QWidget {
+class BoardResourcePowerPlantWidget : public QPushButton {
 public:
-    BoardResourcePowerPlantWiget();
-    ~BoardResourcePowerPlantWiget();
+    BoardResourcePowerPlantWidget();
+    ~BoardResourcePowerPlantWidget();
     void SetPowerPlantCard(shared_ptr<PowerPlantCard> powerPlantCard) { this->powerPlantCard = powerPlantCard; }
     void Refresh();
     void SetOpacity(float opacity);
@@ -40,7 +40,7 @@ public:
     ~BoardPlayerPowerPlantsWidget();
     void Refresh();
 private:
-    vector<BoardResourcePowerPlantWiget*> playerPowerPlantsWidgets;
+    vector<BoardResourcePowerPlantWidget*> playerPowerPlantsWidgets;
     QGridLayout *gridLayout;
 };
 
@@ -133,9 +133,12 @@ class StepFivePanel : public QWidget {
 public:
     StepFivePanel();
     ~StepFivePanel();
+    QPushButton *GetOkButton() const { return okButton; }
+    QPushButton *GetSkipButton() const { return skipButton; }
 private:
     QGridLayout *gridLayout;
     QPushButton *okButton;
+    QPushButton *skipButton;
 };
 
 class BoardMessageWidget : public QWidget {

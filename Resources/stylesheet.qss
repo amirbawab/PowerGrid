@@ -271,7 +271,7 @@ QPushButton#left_arrow {
     qproperty-alignment: 'AlignCenter';
  }
 
- QLabel#counter_lable {
+ QLabel#counter_label {
     color: #fff;
     font-size: 25px;
  }

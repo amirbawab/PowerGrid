@@ -99,6 +99,7 @@ void Game::Phase0RemoveRegions1()
         string("<br />(remaining region(s): <font color='red'><b>") +
         std::to_string(regionsToRemove) + "</b></font>)";
 
+    pickedRegion.reset();
     Notify();
 }
 
@@ -108,7 +109,6 @@ void Game::Phase0RemoveRegions2()
         return Phase0RemoveRegions1();
 
     map->RemoveRegion(pickedRegion);
-    pickedRegion.reset();
 
     // If more regions to remove
     if (--regionsToRemove > 0)
@@ -425,6 +425,7 @@ void Game::Step4Start() {
 
 void Game::Step4BuyingCities1() {
     messageText = "Select a city to buy, and press OK";
+    pickedCity.reset();
     Notify();
 }
 
@@ -540,8 +541,7 @@ void Game::Step5Start() {
 }
 
 void Game::Step5UsingPlants1() {
-    // GUI Message: "Player, which power plants do you want to use?"
-    messageText = "Which power plants do you want to use?";
+    messageText = "Which power plant do you want to use?";
     Notify();
 }
 
@@ -549,7 +549,7 @@ void Game::Step5UsingPlants2() {
     pickedPlant = nullptr;  // GUI get: player clicks on the plant they want to power
 
     // If skip, get paid and go to next player
-    if (pickedPlant = nullptr) {
+    if (!pickedPlant) {
 
         // Take min between number of houses that can be powered and the actual number of houses
         int playerHouses = currentPlayer->GetHouses().size();

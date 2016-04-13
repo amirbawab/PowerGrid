@@ -83,7 +83,7 @@ void BoardProfileWidget::Refresh() const
 
 // BoardResourcePowerPlantWiget
 
-BoardResourcePowerPlantWiget::BoardResourcePowerPlantWiget() {
+BoardResourcePowerPlantWidget::BoardResourcePowerPlantWidget() {
     
     // Init components
     gridLayout = new QGridLayout();
@@ -96,11 +96,11 @@ BoardResourcePowerPlantWiget::BoardResourcePowerPlantWiget() {
     setLayout(gridLayout);
 }
 
-BoardResourcePowerPlantWiget::~BoardResourcePowerPlantWiget() {
+BoardResourcePowerPlantWidget::~BoardResourcePowerPlantWidget() {
     delete gridLayout;
 }
 
-void BoardResourcePowerPlantWiget::Refresh() {
+void BoardResourcePowerPlantWidget::Refresh() {
     
     // Clear old components
     for (int i = 0; i < resourceLables.size(); i++) {
@@ -161,13 +161,13 @@ void BoardResourcePowerPlantWiget::Refresh() {
     }
 }
 
-void BoardResourcePowerPlantWiget::paintEvent(QPaintEvent *e) {
+void BoardResourcePowerPlantWidget::paintEvent(QPaintEvent *e) {
     QPainter painter(this);
     painter.drawPixmap(0, 0, QPixmap(powerPlantCard->GetImagePath().c_str()).scaled(size()));
     QWidget::paintEvent(e);
 }
 
-void BoardResourcePowerPlantWiget::SetOpacity(float opacity) {
+void BoardResourcePowerPlantWidget::SetOpacity(float opacity) {
     QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
     effect->setOpacity(opacity);
     setGraphicsEffect(effect);
@@ -202,7 +202,7 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 
     // Add power plants
     for (int i = 0; i < cards.size(); i++) {
-        BoardResourcePowerPlantWiget *label = new BoardResourcePowerPlantWiget();
+        BoardResourcePowerPlantWidget *label = new BoardResourcePowerPlantWidget();
         label->setMinimumSize(200, 200);
         label->SetPowerPlantCard(cards[i]);
         label->Refresh();
@@ -349,7 +349,7 @@ StepTwoPanel::StepTwoPanel() {
     // Init components
     gridLayout = new QGridLayout();
     okButton = new QPushButton("OK");
-    skipButton = new QPushButton("SKIP");
+    skipButton = new QPushButton("PASS");
     counterWidget = new CounterWidget();
 
     // Set id
@@ -407,7 +407,7 @@ StepFourPanel::StepFourPanel() {
     // Init components
     gridLayout = new QGridLayout();
     okButton = new QPushButton("OK");
-    skipButton = new QPushButton("SKIP");
+    skipButton = new QPushButton("END");
     
     // Set id
     okButton->setObjectName("player_button");
@@ -434,19 +434,24 @@ StepFivePanel::StepFivePanel() {
     // Init components
     gridLayout = new QGridLayout();
     okButton = new QPushButton("OK");
+    skipButton = new QPushButton("END");
 
     // Set id
     okButton->setObjectName("player_button");
+    skipButton->setObjectName("player_button");
 
     // Set layout
     setLayout(gridLayout);
 
     // Add components
-    gridLayout->addWidget(okButton, 0, 0, Qt::AlignCenter);
+    gridLayout->addWidget(skipButton, 0, 0, Qt::AlignCenter);
+    gridLayout->addWidget(okButton, 0, 1, Qt::AlignCenter);
+    
 }
 
 StepFivePanel::~StepFivePanel() {
     delete okButton;
+    delete skipButton;
     delete gridLayout;
 }
 
@@ -463,7 +468,7 @@ CounterWidget::CounterWidget() {
     // Set id
     minusBtn->setObjectName("counter_symbol");
     plusBtn->setObjectName("counter_symbol");
-    numberLabel->setObjectName("counter_lable");
+    numberLabel->setObjectName("counter_label");
 
     // Connect
     connect(plusBtn, SIGNAL(clicked()), this, SLOT(increment()));
