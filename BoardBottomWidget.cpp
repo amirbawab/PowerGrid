@@ -207,6 +207,12 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 
         if (i < cards.size()) {
             label->SetPowerPlantCard(cards[i]);
+            
+            // Connect
+            connect(label, &QPushButton::clicked, [=]() {
+                qDebug(("Powerplant " + std::to_string(i)).c_str());
+                emit label->CardSelected(i);
+            });
         }
         else {
             std::shared_ptr<PowerPlantCard> noCard = std::make_shared<PowerPlantCard>();

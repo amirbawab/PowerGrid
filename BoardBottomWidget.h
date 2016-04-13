@@ -21,6 +21,7 @@ private:
 };
 
 class BoardResourcePowerPlantWidget : public QPushButton {
+    Q_OBJECT
 public:
     BoardResourcePowerPlantWidget();
     ~BoardResourcePowerPlantWidget();
@@ -32,6 +33,8 @@ private:
     QGridLayout *gridLayout;
     vector<QLabel*> resourceLables;
     void paintEvent(QPaintEvent *e) override;
+signals:
+    void CardSelected(int index);
 };
 
 class BoardPlayerPowerPlantsWidget : public QWidget {

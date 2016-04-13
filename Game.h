@@ -151,7 +151,7 @@ public:
     // Step 5 Bureaucracy
     void Step5Start();
     void Step5UsingPlants1();
-    void Step5UsingPlants2();
+    void Step5UsingPlants2(int powerPlantIndex);
     void Step5ChoosingResource1();
     void Step5ChoosingResource2();
     void Step5End();
