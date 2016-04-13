@@ -332,10 +332,10 @@ void GameStatus::PopulatePlayers(pugi::xml_node& playersNode) const
 
 bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
 {
-    if (!xml.child("players").child("player"))
+    if (!xml.child("game").child("players"))
         return false;
 
-    for (auto playerNode : xml.select_nodes("//player"))
+    for (auto playerNode : xml.select_nodes("//players/player"))
     {
         string playerNameAttribute = playerNode.node().attribute("name").value();
         string playerColorAttribute = playerNode.node().attribute("color").value();
@@ -647,16 +647,13 @@ bool GameStatus::Init(Game* game, string mapName, string configFilePath, bool cu
     return true;
 }
 
-bool GameStatus::LoadFile(Game* game, string gameFilePath,
-                          string playersFilePath)
+bool GameStatus::LoadFile(Game* game, string gameFilePath)
 {
     this->game = game;
 
     pugi::xml_document gameXml;
-    pugi::xml_document playersXml;
 
     QFile gameXmlFile(gameFilePath.c_str());
-    QFile playersXmlFile(playersFilePath.c_str());
 
     if (!gameXmlFile.open(QFile::ReadOnly))
     {
@@ -664,29 +661,13 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
-    if (!playersXmlFile.open(QFile::ReadOnly))
-    {
-        Error("Could not open file: " + playersFilePath);
-        return false;
-    }
-
     QString gameXmlContent = gameXmlFile.readAll();
-    QString playersXmlContent = playersXmlFile.readAll();
 
     // Read game content from file
     auto result = gameXml.load_string(gameXmlContent.toStdString().c_str());
     if (result.status != pugi::status_ok)
     {
         Error("Could not read XML content for saved game");
-        Error("Reason: " + string(result.description()) + "\n");
-        return false;
-    }
-
-    // Read players content from file
-    result = playersXml.load_string(playersXmlContent.toStdString().c_str());
-    if (result.status != pugi::status_ok)
-    {
-        Error("Could not read XML content for players");
         Error("Reason: " + string(result.description()) + "\n");
         return false;
     }
@@ -733,7 +714,7 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
-    if (!LoadPlayers(playersXml)) {
+    if (!LoadPlayers(gameXml)) {
         Error("Could not read player data from players file\n");
         return false;
     }

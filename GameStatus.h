@@ -45,6 +45,6 @@ public:
     ~GameStatus() {}
 
     bool Init(Game* game, string mapName, string configFilePath, bool customMap = false) const;
-    bool LoadFile(Game* game, string gameFilePath, string playersFilePath);
+    bool LoadFile(Game* game, string gameFilePath);
     bool SaveFile(Game* game, string gameFilePath, string playersFilePath);
 };
