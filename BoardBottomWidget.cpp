@@ -87,7 +87,7 @@ BoardResourcePowerPlantWidget::BoardResourcePowerPlantWidget(): resourceAmount(4
     // Init components
     gridLayout = new QGridLayout();
     textLabel = new QLabel();
-    textLabel->setStyleSheet("color: #fff; font-size: 13px;");
+    textLabel->setStyleSheet("color: #fff; font-size: 15px; font-weight: bold;");
     textLabel->setAlignment(Qt::AlignRight);
 
     // Configure components
@@ -141,10 +141,19 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && !resourceSelectedMap[label]) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource) {
                 qDebug("Adding coal");
-                resourceAmount[resourceMap[label]]++;
-                resourceSelectedMap[label] = true;
+
+                // Do
+                if (!resourceSelectedMap[label]) {
+                    resourceAmount[resourceMap[label]]++;
+                    resourceSelectedMap[label] = true;
+                }
+                // Undo
+                else {
+                    resourceAmount[resourceMap[label]]--;
+                    resourceSelectedMap[label] = false;
+                }
                 textLabel->setText("");
                 for (int i = 0; i < resourceAmount.size(); i++) {
                     if (resourceAmount[i] != 0) {
@@ -170,10 +179,18 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && !resourceSelectedMap[label]) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource) {
                 qDebug("Adding oil");
-                resourceAmount[resourceMap[label]]++;
-                resourceSelectedMap[label] = true;
+                // Do
+                if (!resourceSelectedMap[label]) {
+                    resourceAmount[resourceMap[label]]++;
+                    resourceSelectedMap[label] = true;
+                }
+                // Undo
+                else {
+                    resourceAmount[resourceMap[label]]--;
+                    resourceSelectedMap[label] = false;
+                }
                 textLabel->setText("");
                 for (int i = 0; i < resourceAmount.size(); i++) {
                     if (resourceAmount[i] != 0) {
@@ -199,10 +216,18 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && !resourceSelectedMap[label]) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource) {
                 qDebug("Adding garbage");
-                resourceAmount[resourceMap[label]]++;
-                resourceSelectedMap[label] = true;
+                // Do
+                if (!resourceSelectedMap[label]) {
+                    resourceAmount[resourceMap[label]]++;
+                    resourceSelectedMap[label] = true;
+                }
+                // Undo
+                else {
+                    resourceAmount[resourceMap[label]]--;
+                    resourceSelectedMap[label] = false;
+                }
                 textLabel->setText("");
                 for (int i = 0; i < resourceAmount.size(); i++) {
                     if (resourceAmount[i] != 0) {
@@ -228,10 +253,18 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && !resourceSelectedMap[label]) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource) {
                 qDebug("Adding uranium");
-                resourceAmount[resourceMap[label]]++;
-                resourceSelectedMap[label] = true;
+                // Do
+                if (!resourceSelectedMap[label]) {
+                    resourceAmount[resourceMap[label]]++;
+                    resourceSelectedMap[label] = true;
+                }
+                // Undo
+                else {
+                    resourceAmount[resourceMap[label]]--;
+                    resourceSelectedMap[label] = false;
+                }
                 textLabel->setText("");
                 for (int i = 0; i < resourceAmount.size(); i++) {
                     if (resourceAmount[i] != 0) {

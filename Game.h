@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Overview.h"
 #include "Subject.h"
+#include <set>
 
 using std::vector;
 using std::shared_ptr;
@@ -88,6 +89,7 @@ public:
     int GetPowerPlantIndex() const { return powerPlantIndex; } // setp 3
     int GetPlantIndex() const { return plantIndex; }
     bool step5SelectResource = false;
+    std::set<shared_ptr<PowerPlantCard>> step5UsedPlants;
 
     // Setters
     void SetMap(shared_ptr<Map>& map) { this->map = map; }
