@@ -11,6 +11,9 @@
     <map file="USAMap.xml" description="USA map"/>
     <map file="CanadaMap.xml" description="USA map"/>
     <map file="TestMap.xml" description="USA map"/>
+    <map file="Germanymap.xml" description="USA map"/>
+    <map file="Iranmap.xml" description="USA map"/>
+    <map file="LebanonMap.xml" description="USA map"/>
   </maps>
 
   <market description="Resrouce market">
