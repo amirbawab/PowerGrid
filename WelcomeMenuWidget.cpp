@@ -27,7 +27,7 @@ WelcomeMenuWidget::WelcomeMenuWidget() {
 
 	// Add components
 	vBoxLayout->addWidget(newGameBtn, 1, Qt::AlignCenter);
-	//vBoxLayout->addWidget(loadGameBtn, 1, Qt::AlignCenter);
+	vBoxLayout->addWidget(loadGameBtn, 1, Qt::AlignCenter);
 	vBoxLayout->addWidget(exitBtn, 1, Qt::AlignCenter);
 }
 
