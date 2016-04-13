@@ -32,6 +32,7 @@ public:
     vector<int> resourceAmount;
     std::map<QPushButton*, int> resourceMap;
     std::map<QPushButton*, bool> resourceSelectedMap;
+    bool enabled;
 private:
     shared_ptr<PowerPlantCard> powerPlantCard;
     QGridLayout *gridLayout;

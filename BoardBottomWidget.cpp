@@ -141,7 +141,7 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && enabled) {
                 qDebug("Adding coal");
 
                 // Do
@@ -179,7 +179,7 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && enabled) {
                 qDebug("Adding oil");
                 // Do
                 if (!resourceSelectedMap[label]) {
@@ -216,7 +216,7 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && enabled) {
                 qDebug("Adding garbage");
                 // Do
                 if (!resourceSelectedMap[label]) {
@@ -253,7 +253,7 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && enabled) {
                 qDebug("Adding uranium");
                 // Do
                 if (!resourceSelectedMap[label]) {
@@ -306,10 +306,10 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
     selectedCard = nullptr;
 
     // Clear old components
-    for (int i = 0; i < playerPowerPlantsWidgets.size(); i++) {
-        gridLayout->removeWidget(playerPowerPlantsWidgets[i]);
-        delete playerPowerPlantsWidgets[i];
-        playerPowerPlantsWidgets.erase(playerPowerPlantsWidgets.begin() + i);
+    while (playerPowerPlantsWidgets.size() > 0) {
+        gridLayout->removeWidget(playerPowerPlantsWidgets[0]);
+        delete playerPowerPlantsWidgets[0];
+        playerPowerPlantsWidgets.erase(playerPowerPlantsWidgets.begin());
     }
 
     // Get power plants
@@ -327,9 +327,13 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 
         if (i < cards.size()) {
             label->SetPowerPlantCard(cards[i]);
-            label->setIcon(QIcon(cards[i]->GetImagePath().c_str()));
-            label->setIconSize(QSize(200, 200));
 
+            // If step 5 and ( first screen or second screen and not the selected card )
+            if (Game::getInstance().GetStep() == 5 && (!Game::getInstance().step5SelectResource || Game::getInstance().step5SelectResource && i != selectedWidgetIndex)) {
+                label->SetOpacity(0.55);
+                label->enabled = false;
+            }
+            
             // Connect
             connect(label, &QPushButton::clicked, [=]() {
             
@@ -339,6 +343,18 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
                     selectedCard = cards[i];
                     selectedWidgetIndex = i;
                     selectedWidget = playerPowerPlantsWidgets[i];
+
+                    // Fade all others
+                    for (int j = 0; j < cards.size(); j++) {
+                        if (i == j) {
+                            playerPowerPlantsWidgets[j]->SetOpacity(1);
+                            playerPowerPlantsWidgets[j]->enabled = true;
+                        }
+                        else {
+                            playerPowerPlantsWidgets[j]->SetOpacity(0.55);
+                            playerPowerPlantsWidgets[j]->enabled = false;
+                        }
+                    }
                 }
             });
         }
@@ -346,14 +362,16 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
 
             std::shared_ptr<PowerPlantCard> noCard = std::make_shared<PowerPlantCard>();
             noCard->SetImagePath(":/PowerGrid/Resources/powerplants/no_card.png");
-            label->setIcon(QIcon(noCard->GetImagePath().c_str()));
-            label->setIconSize(QSize(200, 200));
             label->SetPowerPlantCard(noCard);
         }
+
         label->Refresh();
 
         playerPowerPlantsWidgets.push_back(label);
-        gridLayout->addWidget(label, 0, i, Qt::AlignCenter);
+    }
+
+    for (int i = 0; i < playerPowerPlantsWidgets.size(); i++) {
+        gridLayout->addWidget(playerPowerPlantsWidgets[i], 0, i, Qt::AlignCenter);
     }
 }
 

@@ -609,15 +609,15 @@ void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlantArg) {
             winners.push_back(currentPlayer);
         }
 
+        // Reset used power plants
+        step5UsedPlants.clear();
+
         // Go to next player
         currentPlayer = playerOrder[GetNextPlayerIndex()];
         if (currentPlayer.get() == playerOrder[0].get()) {
             // If no more players, go the end of step 5
             return Step5End();
         }
-
-        // Reset used power plants
-        step5UsedPlants.clear();
 
         return Step5UsingPlants1();
     }
