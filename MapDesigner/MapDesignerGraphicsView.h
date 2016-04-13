@@ -3,6 +3,7 @@
 #include <QGraphicsView>
 #include <Connection.h>
 #include "pugixml.hpp"
+#include "set"
 
 class MapDesignerGraphicsView : public QGraphicsView
 {
@@ -17,6 +18,8 @@ public:
     std::vector<QColor>& GetRegionColors() { return regionColors; }
     std::map<std::string, std::shared_ptr<City>>& GetCities() { return cities; }
     std::vector<std::unique_ptr<Connection>>& GetConnections() { return connections; }
+
+    void LoadXml(QString fileName);
 
 private:
     std::unique_ptr<QGraphicsScene> graphicsScene;
@@ -37,6 +40,7 @@ private:
     std::shared_ptr<City> connectionSecondCity;
 
     std::vector<QColor> regionColors;
+    std::set<QColor> loadedRegionColors;
     std::map<std::string, std::shared_ptr<City>> cities;
     std::vector<std::unique_ptr<Connection>> connections;
 
@@ -46,8 +50,12 @@ private:
     void UpdateScene();
     std::string GetCityByPoint(QPoint point);
     void ResetScale();
+
     void PopulateCities(pugi::xml_node& map);
     void PopulateConnections(pugi::xml_node& map);
+
+    bool LoadCities(pugi::xml_document& xml);
+    bool LoadConnections(pugi::xml_document& xml);
 
 protected:
     void resizeEvent(QResizeEvent* event) override;

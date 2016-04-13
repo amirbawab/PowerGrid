@@ -3,6 +3,7 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QMessageBox>
+#include <QFileDialog>
 
 MainFrame::MainFrame(string title) : QMainWindow() {
 
@@ -66,8 +67,17 @@ void MainFrame::onMapBack() {
 void MainFrame::onMapNext() {
     qDebug("Next from map selection screen");
     
+    // --- Uncomment these lines to display a dialog box to allow choosing a custom map (an XML file) --> there's one
+    //      in 'Resources/config/map/TestMap.xml'
+//    auto mapFileName = QFileDialog::getOpenFileName(this, "Map Location", "", "XML Files (*.xml)");
+//    if (mapFileName.isEmpty())
+//        return;
+
     // TODO change USA to be read from gui
     Game::getInstance().ConfigNewGame("Canada", mapWidget->GetNumberOfPlayers());
+
+    // --- Uncomment this line (and comment the line above) to load the custom map you selected above
+//    Game::getInstance().ConfigNewGame(mapFileName.toStdString(), mapWidget->GetNumberOfPlayers(), true);
     
     centerStackWidget->setCurrentIndex(playerConfigWidgetIndex);
     playerConfigWidget->SetNumberOfPlayers(mapWidget->GetNumberOfPlayers());

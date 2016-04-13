@@ -165,6 +165,6 @@ public:
     
     // Integration
     void NewGame();
-    void ConfigNewGame(string map, int numberOfPlayers);
+    void ConfigNewGame(string map, int numberOfPlayers, bool customMap = false);
     void StartGame();
 };

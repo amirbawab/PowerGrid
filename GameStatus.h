@@ -22,7 +22,7 @@ class GameStatus
     bool LoadFullTurn(pugi::xml_document& xml) const;
     bool LoadPhase(pugi::xml_document& xml) const;
 
-    bool SaveGameFile(std::string gameFilePath) const;
+    bool SaveGameFile(string gameFilePath) const;
     void PopulateMap(pugi::xml_node& gameXml) const;
     void PopulateOrderedPlayers(pugi::xml_node& gameXml) const;
     void PopulateResourceMarket(pugi::xml_node& gameXml) const;
@@ -31,7 +31,7 @@ class GameStatus
     void PopulateOverview(pugi::xml_node& gameXml) const;
     void PopulateColors(pugi::xml_node& gameXml) const;
 
-    bool SavePlayersFile(std::string playersFilePath) const;
+    bool SavePlayersFile(string playersFilePath) const;
     void PopulatePlayers(pugi::xml_node& playersNode) const;
 
 public:
@@ -44,7 +44,7 @@ public:
     GameStatus& operator=(GameStatus const&) = delete;
     ~GameStatus() {}
 
-    bool Init(Game* game, std::string mapName, std::string configFilePath) const;
-    bool LoadFile(Game* game, std::string gameFilePath, std::string playersFilePath);
-    bool SaveFile(Game* game, std::string gameFilePath, std::string playersFilePath);
+    bool Init(Game* game, string mapName, string configFilePath, bool customMap = false) const;
+    bool LoadFile(Game* game, string gameFilePath, string playersFilePath);
+    bool SaveFile(Game* game, string gameFilePath, string playersFilePath);
 };

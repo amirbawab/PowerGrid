@@ -618,7 +618,7 @@ bool GameStatus::LoadOverview(pugi::xml_document& xml) const
     return true;
 }
 
-bool GameStatus::Init(Game* game, string mapName, string configFilePath) const
+bool GameStatus::Init(Game* game, string mapName, string configFilePath, bool customMap) const
 {
     // Reset game values
     game->Reset();
@@ -626,12 +626,24 @@ bool GameStatus::Init(Game* game, string mapName, string configFilePath) const
     if (!Config::GetInstance().LoadFile(game, configFilePath))
         return false;
 
-    for (auto map : Config::GetInstance().GetMaps())
-        if (map->GetName() == mapName)
+    // Load from custom file
+    if (customMap)
+    {
+        auto map = make_shared<Map>(mapName);
+        game->SetMap(map);
+    }
+    // Get from the config file
+    else
+    {
+        for (auto map : Config::GetInstance().GetMaps())
         {
-            game->SetMap(map);
-            break;
+            if (map->GetName() == mapName)
+            {
+                game->SetMap(map);
+                break;
+            }
         }
+    }
 
     return true;
 }
