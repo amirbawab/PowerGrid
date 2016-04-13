@@ -24,7 +24,8 @@ private:
 	void paintEvent(QPaintEvent *) override;
 	int welcomeWidgetIndex, mapWidgetIndex, playerConfigWidgetIndex, boardWidgetIndex;
 private slots:
-	void onNewGame();
+    void onNewGame();
+    void onLoadGame();
 	void onMapBack();
 	void onMapNext();
 	void onPlayerConfigBack();

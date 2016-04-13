@@ -64,9 +64,12 @@ void Game::StartGame() {
 // Load game
 void Game::LoadGame() {
 
+    Reset();
+
         // If loading saved game
         GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",
             "Resources/saved games/PG_2016-03-2/Players.xml");
+        Notify();
 }
 
 

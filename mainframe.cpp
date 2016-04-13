@@ -20,6 +20,7 @@ MainFrame::MainFrame(string title) : QMainWindow() {
     // Configure welcome widget
     welcomeWidget->setOnExitGame(this, SLOT(close()));
     welcomeWidget->setOnNewGame(this, SLOT(onNewGame()));
+    welcomeWidget->setOnLoadGame(this, SLOT(onLoadGame()));
 
     // Configure map widget
     mapWidget->setOnBack(this, SLOT(onMapBack()));
@@ -57,6 +58,11 @@ void MainFrame::onNewGame() {
     qDebug("Starting a new game");
     centerStackWidget->setCurrentIndex(mapWidgetIndex);
     Game::getInstance().NewGame();
+}
+
+void MainFrame::onLoadGame() {
+    centerStackWidget->setCurrentIndex(mapWidgetIndex);
+    Game::getInstance().LoadGame();
 }
 
 void MainFrame::onMapBack() {
