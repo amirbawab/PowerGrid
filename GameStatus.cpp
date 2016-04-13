@@ -71,6 +71,7 @@ bool GameStatus::SaveGameFile(string gameFilePath) const
     pugi::xml_document document;
     auto game = document.append_child("game");
     PopulateMap(game);
+    PopulatePlayers(game);
     PopulateOrderedPlayers(game);
     PopulateResourceMarket(game);
     PopulateCardDeck(game);
@@ -260,16 +261,10 @@ void GameStatus::PopulateColors(pugi::xml_node& gameXml) const
     }
 }
 
-bool GameStatus::SavePlayersFile(string playersFilePath) const
+void GameStatus::PopulatePlayers(pugi::xml_node& gameXml) const
 {
-    pugi::xml_document document;
-    auto players = document.append_child("players");
-    PopulatePlayers(players);
-    return document.save_file(playersFilePath.c_str());
-}
+    auto playersNode = gameXml.append_child("players");
 
-void GameStatus::PopulatePlayers(pugi::xml_node& playersNode) const
-{
     for (auto player : game->GetPlayers())
     {
         // Append the node and the attributes
@@ -739,20 +734,13 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath)
     return true;
 }
 
-bool GameStatus::SaveFile(Game* game, string gameFilePath,
-                          string playersFilePath)
+bool GameStatus::SaveFile(Game* game, string gameFilePath)
 {
     this->game = game;
 
     if (!SaveGameFile(gameFilePath))
     {
         Error("Could not save game file to the path '" + gameFilePath + "'\n");
-        return false;
-    }
-
-    if (!SavePlayersFile(playersFilePath))
-    {
-        Error("Could not save players file to the path '" + playersFilePath + "'\n");
         return false;
     }
 

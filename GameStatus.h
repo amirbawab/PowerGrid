@@ -31,7 +31,6 @@ class GameStatus
     void PopulateOverview(pugi::xml_node& gameXml) const;
     void PopulateColors(pugi::xml_node& gameXml) const;
 
-    bool SavePlayersFile(string playersFilePath) const;
     void PopulatePlayers(pugi::xml_node& playersNode) const;
 
 public:
@@ -46,5 +45,5 @@ public:
 
     bool Init(Game* game, string mapName, string configFilePath, bool customMap = false) const;
     bool LoadFile(Game* game, string gameFilePath);
-    bool SaveFile(Game* game, string gameFilePath, string playersFilePath);
+    bool SaveFile(Game* game, string gameFilePath);
 };
