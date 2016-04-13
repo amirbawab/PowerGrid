@@ -7,6 +7,7 @@
 #include <memory>
 #include <QStackedWidget>
 #include <QPushButton>
+#include <map>
 
 class BoardProfileWidget : public QWidget {
 public:
@@ -27,6 +28,8 @@ public:
     void SetPowerPlantCard(shared_ptr<PowerPlantCard> powerPlantCard) { this->powerPlantCard = powerPlantCard; }
     void Refresh();
     void SetOpacity(float opacity);
+    vector<int> resourceAmount;
+    std::map<QPushButton*, int> resourceMap;
 private:
     shared_ptr<PowerPlantCard> powerPlantCard;
     QGridLayout *gridLayout;
