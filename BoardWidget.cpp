@@ -45,10 +45,15 @@ BoardWidget::BoardWidget() {
     {
         qDebug() << "OK (phase 0) clicked";
 
-        // Reset selected in the map view
-        boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView()->ResetSelected();
+        if (!Game::getInstance().pickedRegion)
+            QMessageBox::critical(this, "Region Error", "Please select a region, and press <b>OK</b>");
+        else
+        {
+            // Reset selected in the map view
+            boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView()->ResetSelected();
 
-        Game::getInstance().Phase0RemoveRegions2();
+            Game::getInstance().Phase0RemoveRegions2();
+        }
     });
     
     // Connect ok for step 1
@@ -142,8 +147,15 @@ BoardWidget::BoardWidget() {
     connect(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetOkButton(), &QPushButton::clicked, [=]() {
         qDebug("Ok (step 3) clicked");
 
-        Game::getInstance().Step3BuyingResources2(boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->
-                                                  GetCounterWidget()->GetValueAsInt());
+        // Get the value
+        int value = boardBottomWidget->GetBoardMessage()->GetStepThreePanel()->GetCounterWidget()->GetValueAsInt();
+
+        if (value == 0)
+            QMessageBox::critical(this, "Value Error",
+                                  QString("Please specify the amount of resource you want to buy, ")
+                                  .append("or press <b>SKIP</b>"));
+        else
+            Game::getInstance().Step3BuyingResources2(value);
     });
 
     // Connect skip for step 3
@@ -172,11 +184,18 @@ BoardWidget::BoardWidget() {
     {
         qDebug("OK (step 4) clicked");
 
-        // Reset selected in the map view
-        boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView()->ResetSelected();
+        // If no city is selected
+        if (!Game::getInstance().pickedCity)
+            QMessageBox::critical(this, "City Error", QString("Please select a city to buy, ")
+                                  .append("or press <b>END</b>"));
+        else
+        {
+            // Reset selected in the map view and the game
+            boardCenterWidget->GetMapModeWidget()->GetMapGraphicsView()->ResetSelected();
 
-        // Try to buy a house in the city
-        Game::getInstance().Step4BuyingCities2();
+            // Try to buy a house in the city
+            Game::getInstance().Step4BuyingCities2();
+        }
     });
 
     // Connect skip for step 4
