@@ -201,10 +201,19 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
     std::vector<std::shared_ptr<PowerPlantCard>> cards = Game::getInstance().GetCurrentPlayer()->GetPowerPlants();
 
     // Add power plants
-    for (int i = 0; i < cards.size(); i++) {
+    for (int i = 0; i < 3; i++) {
+
         BoardResourcePowerPlantWidget *label = new BoardResourcePowerPlantWidget();
         label->setMinimumSize(200, 200);
-        label->SetPowerPlantCard(cards[i]);
+
+        if (i < cards.size()) {
+            label->SetPowerPlantCard(cards[i]);
+        }
+        else {
+            std::shared_ptr<PowerPlantCard> noCard = std::make_shared<PowerPlantCard>();
+            noCard->SetImagePath(":/PowerGrid/Resources/powerplants/no_card.png");
+            label->SetPowerPlantCard(noCard);
+        }
         label->Refresh();
 
         // Highlight if active power plant

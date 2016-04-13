@@ -83,5 +83,6 @@
         <file>Resources/powerplants/44.png</file>
         <file>Resources/powerplants/46.png</file>
         <file>Resources/powerplants/50.png</file>
+        <file>Resources/powerplants/no_card.png</file>
     </qresource>
 </RCC>
