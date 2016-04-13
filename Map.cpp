@@ -183,7 +183,7 @@ void Map::RemoveRegionByCity(shared_ptr<City> city)
     RemoveRegion(city->GetRegion());
 }
 
-void Map::RemoveRegion(shared_ptr<Region> region)
+void Map::RemoveRegion(shared_ptr<Region> region, bool storeRegion)
 {
     // Return if region cannot be found
     if (find(regions.begin(), regions.end(), region) == regions.end())
@@ -212,8 +212,21 @@ void Map::RemoveRegion(shared_ptr<Region> region)
             ++it;
     }
 
+    // Keep track of deleted regions
+    if (storeRegion)
+        removedRegions.push_back(region);
+
     // Remove the region
     regions.erase(remove(regions.begin(), regions.end(), region), regions.end());
+}
+
+void Map::RemoveRegion(string regionName)
+{
+    auto regionIndex = GetRegionIndex(regionName);
+    if (regionIndex == -1)
+        return;
+
+    RemoveRegion(regions[regionIndex], false);
 }
 
 int Map::GetRegionIndex(const string regionName) const

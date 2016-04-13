@@ -20,8 +20,15 @@ bool GameStatus::LoadMap(pugi::xml_document& xml) const
 
     auto mapNode = xml.child("game").child("map");
     string fileAttribute = mapNode.attribute("file").value();
-    shared_ptr<Map> map = make_shared<Map>(fileAttribute);
+    auto map = make_shared<Map>(fileAttribute);
     game->SetMap(map);
+
+    // Remove the regions
+    for (auto regionNode : mapNode.child("removedRegions").children("region"))
+    {
+        string regionName = regionNode.attribute("name").value();
+        map->RemoveRegion(regionName);
+    }
 
     return true;
 }
@@ -108,6 +115,21 @@ void GameStatus::PopulateMap(pugi::xml_node& gameXml) const
     auto mapNode = gameXml.append_child("map");
     auto fileAttribute = mapNode.append_attribute("file");
     fileAttribute.set_value(game->GetMap()->GetFileName().c_str());
+
+    // Add removed regions (if any)
+    auto removedRegions = game->GetMap()->GetRemovedRegions();
+    if (removedRegions.size() == 0)
+        return;
+
+    auto removedRegionsNode = mapNode.append_child("removedRegions");
+    for (auto region : removedRegions)
+    {
+        auto regionNode = removedRegionsNode.append_child("region");
+        auto nameAttribute = regionNode.append_attribute("name");
+
+        // Set name
+        nameAttribute.set_value(region->GetName().c_str());
+    }
 }
 
 void GameStatus::PopulateOrderedPlayers(pugi::xml_node& gameXml) const

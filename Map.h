@@ -38,14 +38,20 @@ public:
     void AddCity(shared_ptr<City> city) { cities[city->GetName()] = city; }
 
     void RemoveRegionByCity(shared_ptr<City> city);
-    void RemoveRegion(shared_ptr<Region> region);
+    void RemoveRegion(shared_ptr<Region> region, bool storeRegion = true);
+    void RemoveRegion(string regionName);
+
+    vector<shared_ptr<Region>>& GetRemovedRegions() { return removedRegions; }
 
 private:
     string fileName;
     string name;
+
     vector<shared_ptr<Region>> regions;
+    vector<shared_ptr<Region>> removedRegions;
     std::map<string, shared_ptr<City>> cities;
     vector<shared_ptr<Connection>> connections;
+
     int GetRegionIndex(const string regionName) const;
     bool LoadCities(pugi::xml_document& xml);
     bool LoadConnections(pugi::xml_document& xml);
