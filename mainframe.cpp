@@ -61,7 +61,12 @@ void MainFrame::onNewGame() {
 }
 
 void MainFrame::onLoadGame() {
-    Game::getInstance().LoadGame();
+    auto fileName = QFileDialog::getOpenFileName(this, "Save Game Location",
+                                                 "Please Specify Save Game Location", "XML Files (*.xml)");
+    if (fileName.isEmpty())
+        return;
+
+    Game::getInstance().LoadGame(fileName.toStdString());
     Game::getInstance().Step1Start();
     boardWidget->Refresh();
     centerStackWidget->setCurrentIndex(boardWidgetIndex);

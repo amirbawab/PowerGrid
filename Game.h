@@ -60,7 +60,7 @@ public:
         return instance;
     }
 
-    void LoadGame();
+    void LoadGame(string fileName);
 
     // Reset everything
     void Reset();
