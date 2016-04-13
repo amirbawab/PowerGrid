@@ -592,7 +592,9 @@ void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant) {
 }
 
 void Game::Step5ChoosingResource1() {
-    // GUI Message: "Enter the number of each resource to use" 
+    // GUI 
+    messageText = "Enter the number of each resource to use";
+    Notify();
 }
 
 void Game::Step5ChoosingResource2() {

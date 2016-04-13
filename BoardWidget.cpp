@@ -211,7 +211,7 @@ BoardWidget::BoardWidget() {
         Game::getInstance().Step4BuyingCities2();
     });
 
-    // Connect skip for step 4
+    // Connect ok for step 5
     connect(boardBottomWidget->GetBoardMessage()->GetStepFivePanel()->GetOkButton(), &QPushButton::clicked, [=]() {
         qDebug("OK (step 5) clicked");
     
@@ -225,6 +225,12 @@ BoardWidget::BoardWidget() {
         else {
             Game::getInstance().Step5UsingPlants2(selectedCard);
         }
+    });
+
+    // Connect ok for step 5
+    connect(boardBottomWidget->GetBoardMessage()->GetStepFivePanel()->GetSkipButton(), &QPushButton::clicked, [=]() {
+        qDebug("SKIP (step 5) clicked");
+        Game::getInstance().Step5UsingPlants2(nullptr);
     });
 
     // Add components

@@ -30,7 +30,7 @@ public:
 private:
     shared_ptr<PowerPlantCard> powerPlantCard;
     QGridLayout *gridLayout;
-    vector<QLabel*> resourceLables;
+    vector<QPushButton*> resourceLables;
 };
 
 class BoardPlayerPowerPlantsWidget : public QWidget {

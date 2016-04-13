@@ -125,8 +125,10 @@ void BoardResourcePowerPlantWidget::Refresh() {
     
     // Add resources to widget
     for (int i = 0; i < coalNum; i++) {
-        QLabel *label = new QLabel();
-        label->setPixmap(QPixmap(":/PowerGrid/Resources/resources/coal.png"));
+        QPushButton *label = new QPushButton();
+        label->setIcon(QIcon(":/PowerGrid/Resources/resources/coal.png"));
+        label->setIconSize(QSize(50, 50));
+        label->setStyleSheet("border-style: outset; border-width: 0px;");
         resourceLables.push_back(label);
         gridLayout->addWidget(label, row, col, Qt::AlignCenter);
 
@@ -135,8 +137,10 @@ void BoardResourcePowerPlantWidget::Refresh() {
     }
 
     for (int i = 0; i < oilNum; i++) {
-        QLabel *label = new QLabel();
-        label->setPixmap(QPixmap(":/PowerGrid/Resources/resources/oil.png"));
+        QPushButton *label = new QPushButton();
+        label->setIcon(QIcon(":/PowerGrid/Resources/resources/oil.png"));
+        label->setIconSize(QSize(50, 50));
+        label->setStyleSheet("border-style: outset; border-width: 0px;");
         resourceLables.push_back(label);
         gridLayout->addWidget(label, row, col, Qt::AlignCenter);
 
@@ -145,8 +149,10 @@ void BoardResourcePowerPlantWidget::Refresh() {
     }
 
     for (int i = 0; i < garbageNum; i++) {
-        QLabel *label = new QLabel();
-        label->setPixmap(QPixmap(":/PowerGrid/Resources/resources/garbage.png"));
+        QPushButton *label = new QPushButton();
+        label->setIcon(QIcon(":/PowerGrid/Resources/resources/garbage.png"));
+        label->setIconSize(QSize(50, 50));
+        label->setStyleSheet("border-style: outset; border-width: 0px;");
         resourceLables.push_back(label);
         gridLayout->addWidget(label, row, col, Qt::AlignCenter);
 
@@ -155,8 +161,10 @@ void BoardResourcePowerPlantWidget::Refresh() {
     }
 
     for (int i = 0; i < uraniumNum; i++) {
-        QLabel *label = new QLabel();
-        label->setPixmap(QPixmap(":/PowerGrid/Resources/resources/uranium.png"));
+        QPushButton *label = new QPushButton();
+        label->setIcon(QIcon(":/PowerGrid/Resources/resources/uranium.png"));
+        label->setIconSize(QSize(50, 50));
+        label->setStyleSheet("border-style: outset; border-width: 0px;");
         resourceLables.push_back(label);
         gridLayout->addWidget(label, row, col, Qt::AlignCenter);
 
