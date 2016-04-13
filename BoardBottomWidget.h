@@ -6,7 +6,7 @@
 #include "Player.h"
 #include <memory>
 #include <QStackedWidget>
-#include <QtWidgets/QPushButton>
+#include <QPushButton>
 
 class BoardProfileWidget : public QWidget {
 public:

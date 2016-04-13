@@ -8,7 +8,6 @@
 #include <map>
 #include <pugixml.hpp>
 #include <memory>
-#include <string>
 
 class Map
 {

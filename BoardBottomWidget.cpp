@@ -3,7 +3,6 @@
 #include "Game.h"
 #include <QPainter>
 #include <QStyleOption>
-#include <QPushButton>
 
 // BoardBottomWidget class
 
