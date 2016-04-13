@@ -532,8 +532,6 @@ void Game::Step5Start() {
 
     // Reset attributes
     currentPlayer = playerOrder[0];
-    powerPlantIndex = 0;
-    resourceIndex = 0;
     numPoweredCities = 0;
     winners.clear();
     
@@ -560,7 +558,7 @@ void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant) {
         currentPlayer->SetElektro(currentPlayer->GetElektro() + overview.GetPayment(numPoweredCities));
 
         // If game over
-        if (overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame <= numPoweredCities) {
+        if (overview.GetRuleByNumOfPlayers(players.size()).citiesEndOfGame <= playerHouses) {
             gameOver = true;
             winners.push_back(currentPlayer);
         }
@@ -577,6 +575,7 @@ void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant) {
     // If there is only one resource
     if (pickedPlant->GetActiveResources().size() == 1) {
         if (pickedPlant->ConsumeResources(*pickedPlant->GetActiveResources().begin(), pickedPlant->GetCapacity())) {
+            numPoweredCities += pickedPlant->GetPower();
             SetInfoMessageTextBox("Resources Consumed", "Resources consumed for the selected power plant");
         }
         else {
