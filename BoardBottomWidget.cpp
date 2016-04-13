@@ -82,7 +82,7 @@ void BoardProfileWidget::Refresh() const
 
 // BoardResourcePowerPlantWiget
 
-BoardResourcePowerPlantWidget::BoardResourcePowerPlantWidget() {
+BoardResourcePowerPlantWidget::BoardResourcePowerPlantWidget(): resourceAmount(4) {
     
     // Init components
     gridLayout = new QGridLayout();
@@ -132,6 +132,16 @@ void BoardResourcePowerPlantWidget::Refresh() {
         resourceLables.push_back(label);
         gridLayout->addWidget(label, row, col, Qt::AlignCenter);
 
+        resourceMap[label] = COAL;
+
+        // Connect region for phase 0
+        connect(label, &QPushButton::clicked, [=]() {
+            if (Game::getInstance().GetStep() == 5) {
+                qDebug("Adding coal");
+                resourceAmount[resourceMap[label]]++;
+            }
+        });
+
         row += col == 2 ? 1 : 0;
         col = (col + 1) % 3;
     }
@@ -143,6 +153,16 @@ void BoardResourcePowerPlantWidget::Refresh() {
         label->setStyleSheet("border-style: outset; border-width: 0px;");
         resourceLables.push_back(label);
         gridLayout->addWidget(label, row, col, Qt::AlignCenter);
+
+        resourceMap[label] = OIL;
+
+        // Connect region for phase 0
+        connect(label, &QPushButton::clicked, [=]() {
+            if (Game::getInstance().GetStep() == 5) {
+                qDebug("Adding oil");
+                resourceAmount[resourceMap[label]]++;
+            }
+        });
 
         row += col == 2 ? 1 : 0;
         col = (col + 1) % 3;
@@ -156,6 +176,16 @@ void BoardResourcePowerPlantWidget::Refresh() {
         resourceLables.push_back(label);
         gridLayout->addWidget(label, row, col, Qt::AlignCenter);
 
+        resourceMap[label] = GARBAGE;
+
+        // Connect region for phase 0
+        connect(label, &QPushButton::clicked, [=]() {
+            if (Game::getInstance().GetStep() == 5) {
+                qDebug("Adding garbage");
+                resourceAmount[resourceMap[label]]++;
+            }
+        });
+
         row += col == 2 ? 1 : 0;
         col = (col + 1) % 3;
     }
@@ -167,6 +197,16 @@ void BoardResourcePowerPlantWidget::Refresh() {
         label->setStyleSheet("border-style: outset; border-width: 0px;");
         resourceLables.push_back(label);
         gridLayout->addWidget(label, row, col, Qt::AlignCenter);
+
+        resourceMap[label] = URANIUM;
+
+        // Connect region for phase 0
+        connect(label, &QPushButton::clicked, [=]() {
+            if (Game::getInstance().GetStep() == 5) {
+                qDebug("Adding uranium");
+                resourceAmount[resourceMap[label]]++;
+            }
+        });
 
         row += col == 2 ? 1 : 0;
         col = (col + 1) % 3;
