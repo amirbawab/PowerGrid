@@ -155,6 +155,7 @@ public:
     void Step5ChoosingResource1();
     void Step5ChoosingResource2();
     void Step5End();
+    int getUnusedResources(Resource);
 
     shared_ptr<PowerPlantCard> pickedPlant;
     vector<shared_ptr<Player>> winners;

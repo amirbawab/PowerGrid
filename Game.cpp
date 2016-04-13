@@ -687,12 +687,34 @@ void Game::Step5End() {
     // Restock raw materials
     for (int i = 0; i < res::total; i++) {
         Resource resource = static_cast<Resource>(COAL + i);
-        rMarket->AddResource(resource, overview.GetRuleByNumOfPlayers(players.size()).GetResourceAt(phase, resource));
+
+        int resourceAdded = overview.GetRuleByNumOfPlayers(players.size()).GetResourceAt(phase, resource);
+        // Check that there are enough unused resources to add
+        resourceAdded = std::min(resourceAdded, getUnusedResources(resource)); 
+        rMarket->AddResource(resource, resourceAdded);
     }
 }
 
+
+
 void Game::GameEnd() {
     // GUI Message: "Game is over! The winner is " + winner 
+}
+
+int Game::getUnusedResources(Resource resource) {
+    // This returns the number of resources that are not in the market or owned by players
+    // Find total number of used resources
+    int total = 0;
+
+    // Add players' resources
+    for (shared_ptr<Player> p : players) {
+        total += p->GetResources(resource);
+    }
+    // Add market resources
+    total += rMarket->GetNbResource(resource);
+
+    // Get unused resources
+    return rMarket->GetCapacityResource(resource) - total;
 }
 
 int Game::GetNextPlayerIndex() {
