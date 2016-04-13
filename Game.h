@@ -37,7 +37,6 @@ private:
     shared_ptr<Player> currentPlayer;  // pointer to the current player
     int phase;  // phase of the game (1, 2 or 3)
     bool gameOver = false;
-    string messageText;
     string errorMessageText;
     string errorMessageTextTitle;
     string infoMessageText;
@@ -52,6 +51,7 @@ private:
 
 
 public:
+    string messageText;
     ~Game() {};
 
     // Singleton
@@ -87,6 +87,7 @@ public:
     bool GetNowBidding() const { return nowBidding; }
     int GetPowerPlantIndex() const { return powerPlantIndex; } // setp 3
     int GetPlantIndex() const { return plantIndex; }
+    bool step5SelectResource = false;
 
     // Setters
     void SetMap(shared_ptr<Map>& map) { this->map = map; }
@@ -155,7 +156,7 @@ public:
     void Step5UsingPlants1();
     void Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant);
     void Step5ChoosingResource1();
-    void Step5ChoosingResource2();
+    void Step5ChoosingResource2(vector<int> resourceAmounts);
     void Step5End();
     int getUnusedResources(Resource);
 

@@ -114,7 +114,11 @@ void Game::Phase0RemoveRegions2()
     if (--regionsToRemove > 0)
         return Phase0RemoveRegions1();
 
+    // Phase is now 1
+    phase = 1;
+
     Step1Start();
+
 }
 
 /// Step 1, sets the players in the proper turn order
@@ -126,8 +130,7 @@ void Game::UpdatePlayOrder(bool reverse) {
 }
 
 void Game::Step1Start() {
-    // Phase is now 1
-    phase = 1;
+    
 
     cout << "Starting step 1 ..." << endl;
     messageText = "Player order updated. Press `OK` to continue ...";
@@ -557,11 +560,14 @@ void Game::Step5Start() {
 
 void Game::Step5UsingPlants1() {
     messageText = "Which power plant do you want to use?";
+    step5SelectResource = false;
     Notify();
 }
 
-void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant) {
+void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant2) {
     
+    pickedPlant = pickedPlant2;
+
     // If skip, get paid and go to next player
     if (!pickedPlant) {
 
@@ -585,7 +591,7 @@ void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant) {
             // If no more players, go the end of step 5
             return Step5End();
         }
-        return Step5UsingPlants1();
+            return Step5UsingPlants1();
     }
 
     // If there is only one resource
@@ -609,13 +615,13 @@ void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant) {
 
 void Game::Step5ChoosingResource1() {
     // GUI 
-    messageText = "Enter the number of each resource to use";
+    messageText = "Click on the resources of the selected power plant";
+    step5SelectResource = true;
     Notify();
 }
 
-void Game::Step5ChoosingResource2() {
-    vector<int> resourceAmounts = {0, 0, 0, 0};  // GUI get: the amount of each resource to consume
-
+void Game::Step5ChoosingResource2(vector<int> resourceAmounts) {
+    
     int sum = 0;
     for (int i : resourceAmounts)
         sum += i;
@@ -714,6 +720,8 @@ void Game::Step5End() {
         resourceAdded = std::min(resourceAdded, getUnusedResources(resource)); 
         rMarket->AddResource(resource, resourceAdded);
     }
+
+    Step1Start();
 }
 
 
