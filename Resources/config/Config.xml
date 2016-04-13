@@ -166,7 +166,7 @@
     </step>
   </overview>
 
-  <money amount="50" description="Initial amount of money per player"/>
+  <money amount="5000" description="Initial amount of money per player"/>
 
   <colors description="House colors">
     <color name="black" image=":/PowerGrid/Resources/houses/black.png"/>

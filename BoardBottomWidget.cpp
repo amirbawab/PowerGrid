@@ -668,6 +668,10 @@ CounterWidget::~CounterWidget() {
 
 void CounterWidget::increment()
 {
+
+    if (Game::getInstance().GetStep() == 2 && Game::getInstance().step2ReplacingPlant)
+        return;
+
     // Get value as int
     int val = std::stoi(numberLabel->text().toStdString());
 
@@ -683,6 +687,10 @@ void CounterWidget::increment()
 
 void CounterWidget::decrement()
 {
+    
+    if (Game::getInstance().GetStep() == 2 && Game::getInstance().step2ReplacingPlant)
+        return;
+    
     // Get value as int
     int val = std::stoi(numberLabel->text().toStdString());
 

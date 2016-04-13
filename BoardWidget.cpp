@@ -81,6 +81,9 @@ BoardWidget::BoardWidget() {
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetOkButton(), &QPushButton::clicked, [=]() {
         qDebug("Ok (step 2) clicked");
 
+        if (Game::getInstance().step2ReplacingPlant)
+            return;
+
         // If now bidding
         if (Game::getInstance().GetNowBidding()) {
             Game::getInstance().Step2Bid2(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetCounterWidget()->GetValueAsInt());
@@ -114,6 +117,9 @@ BoardWidget::BoardWidget() {
     connect(boardBottomWidget->GetBoardMessage()->GetStepTwoPanel()->GetSkipButton(), &QPushButton::clicked, [=]() {
         qDebug("Skip (step 2) clicked");
        
+        if (Game::getInstance().step2ReplacingPlant)
+            return;
+
         // If now bidding
         if (Game::getInstance().GetNowBidding())
             Game::getInstance().Step2Bid2();
