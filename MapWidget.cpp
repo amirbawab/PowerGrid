@@ -33,6 +33,8 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     // Add maps
     mapLabels.push_back("USA");
     mapLabels.push_back("Canada");
+	mapLabels.push_back("Germany");
+
 
     mapLabel->setText(mapLabels[currentMap].c_str());
     mapLabel->setObjectName("map_label");

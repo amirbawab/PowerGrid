@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<map name="Germany">
+	<cities>
+		<city name="Aachen" region="#55aa00" x="125" y="520" width="60" height="60" />
+		<city name="Augsbug" region="#55aaff" x="482" y="740" width="60" height="60" />
+		<city name="Berlin" region="#000000" x="1171" y="190" width="60" height="60" />
+		<city name="Bremen" region="#0055ff" x="460" y="194" width="60" height="60" />
+		<city name="Cuxhaven" region="#0055ff" x="496" y="73" width="60" height="60" />
+		<city name="Dortmund" region="#ff55ff" x="340" y="384" width="60" height="60" />
+		<city name="Dresden" region="#ffff00" x="1194" y="428" width="60" height="60" />
+		<city name="Duisburg" region="#ff55ff" x="142" y="358" width="60" height="60" />
+		<city name="Dusseldorf" region="#ff55ff" x="185" y="445" width="60" height="60" />
+		<city name="Erfurt" region="#ffff00" x="599" y="318" width="60" height="60" />
+		<city name="Essen" region="#ff55ff" x="212" y="379" width="60" height="60" />
+		<city name="Flensberg" region="#0055ff" x="656" y="6" width="60" height="60" />
+		<city name="Fluida" region="#ffff00" x="534" y="464" width="60" height="60" />
+		<city name="Frankfurt-M" region="#55aa00" x="409" y="510" width="60" height="60" />
+		<city name="Frankfurt-O" region="#000000" x="1239" y="303" width="60" height="60" />
+		<city name="Freibrurg" region="#55aaff" x="249" y="732" width="60" height="60" />
+		<city name="Halle" region="#ffff00" x="706" y="304" width="60" height="60" />
+		<city name="Hamberg" region="#0055ff" x="607" y="196" width="60" height="60" />
+		<city name="Hannover" region="#0055ff" x="478" y="255" width="60" height="60" />
+		<city name="Kassel" region="#ff55ff" x="428" y="347" width="60" height="60" />
+		<city name="Kiel" region="#0055ff" x="637" y="99" width="60" height="60" />
+		<city name="Koln" region="#55aa00" x="241" y="520" width="60" height="60" />
+		<city name="Konstanz" region="#55aaff" x="338" y="786" width="60" height="60" />
+		<city name="Leipzig" region="#ffff00" x="732" y="368" width="60" height="60" />
+		<city name="Lubeck" region="#000000" x="809" y="54" width="60" height="60" />
+		<city name="Magdeberg" region="#000000" x="1020" y="190" width="60" height="60" />
+		<city name="Muchen" region="#55aaff" x="601" y="748" width="60" height="60" />
+		<city name="Munster" region="#ff55ff" x="259" y="315" width="60" height="60" />
+		<city name="Nurnburg" region="#ffff00" x="651" y="503" width="60" height="60" />
+		<city name="Osnabruck" region="#ff55ff" x="309" y="215" width="60" height="60" />
+		<city name="Passau" region="#55aaff" x="673" y="643" width="60" height="60" />
+		<city name="Regensberg" region="#55aaff" x="549" y="631" width="60" height="60" />
+		<city name="Rostock" region="#000000" x="949" y="-11" width="60" height="60" />
+		<city name="Saarbrucken" region="#55aa00" x="312" y="622" width="60" height="60" />
+		<city name="Shwerin" region="#000000" x="921" y="107" width="60" height="60" />
+		<city name="Stuttgart" region="#55aaff" x="368" y="696" width="60" height="60" />
+		<city name="Torgelow" region="#000000" x="1173" y="53" width="60" height="60" />
+		<city name="Trier" region="#55aa00" x="195" y="606" width="60" height="60" />
+		<city name="Wiesbaden" region="#55aa00" x="346" y="522" width="60" height="60" />
+		<city name="Wilhelmshaven" region="#0055ff" x="351" y="82" width="60" height="60" />
+		<city name="Wurzburg" region="#ffff00" x="547" y="545" width="60" height="60" />
+	</cities>
+	<connections>
+		<connection first="Torgelow" second="Berlin" cost="15" />
+		<connection first="Berlin" second="Frankfurt-O" cost="6" />
+		<connection first="Frankfurt-O" second="Dresden" cost="16" />
+		<connection first="Berlin" second="Magdeberg" cost="10" />
+		<connection first="Magdeberg" second="Shwerin" cost="16" />
+		<connection first="Shwerin" second="Torgelow" cost="19" />
+		<connection first="Rostock" second="Shwerin" cost="6" />
+		<connection first="Lubeck" second="Shwerin" cost="6" />
+		<connection first="Flensberg" second="Kiel" cost="4" />
+		<connection first="Kiel" second="Lubeck" cost="4" />
+		<connection first="Kiel" second="Hamberg" cost="8" />
+		<connection first="Hamberg" second="Lubeck" cost="6" />
+		<connection first="Hamberg" second="Shwerin" cost="8" />
+		<connection first="Cuxhaven" second="Hamberg" cost="11" />
+		<connection first="Cuxhaven" second="Bremen" cost="8" />
+		<connection first="Wilhelmshaven" second="Bremen" cost="11" />
+		<connection first="Wilhelmshaven" second="Osnabruck" cost="14" />
+		<connection first="Osnabruck" second="Bremen" cost="11" />
+		<connection first="Bremen" second="Hamberg" cost="11" />
+		<connection first="Munster" second="Osnabruck" cost="7" />
+		<connection first="Essen" second="Munster" cost="6" />
+		<connection first="Essen" second="Dusseldorf" cost="2" />
+		<connection first="Aachen" second="Dusseldorf" cost="9" />
+		<connection first="Dusseldorf" second="Koln" cost="4" />
+		<connection first="Aachen" second="Koln" cost="7" />
+		<connection first="Munster" second="Dortmund" cost="2" />
+		<connection first="Essen" second="Dortmund" cost="4" />
+		<connection first="Aachen" second="Trier" cost="19" />
+		<connection first="Trier" second="Koln" cost="20" />
+		<connection first="Trier" second="Saarbrucken" cost="11" />
+		<connection first="Trier" second="Wiesbaden" cost="18" />
+		<connection first="Koln" second="Wiesbaden" cost="21" />
+		<connection first="Dortmund" second="Koln" cost="10" />
+		<connection first="Dortmund" second="Frankfurt-M" cost="20" />
+		<connection first="Osnabruck" second="Kassel" cost="20" />
+		<connection first="Dortmund" second="Kassel" cost="18" />
+		<connection first="Kassel" second="Fluida" cost="8" />
+		<connection first="Frankfurt-M" second="Fluida" cost="8" />
+		<connection first="Kassel" second="Frankfurt-M" cost="13" />
+		<connection first="Kassel" second="Erfurt" cost="15" />
+		<connection first="Fluida" second="Erfurt" cost="13" />
+		<connection first="Erfurt" second="Halle" cost="6" />
+		<connection first="Halle" second="Hamberg" cost="11" />
+		<connection first="Hannover" second="Bremen" cost="10" />
+		<connection first="Hannover" second="Osnabruck" cost="16" />
+		<connection first="Hannover" second="Kassel" cost="15" />
+		<connection first="Hannover" second="Erfurt" cost="19" />
+		<connection first="Wurzburg" second="Fluida" cost="11" />
+		<connection first="Frankfurt-M" second="Wurzburg" cost="13" />
+		<connection first="Saarbrucken" second="Wiesbaden" cost="10" />
+		<connection first="Saarbrucken" second="Stuttgart" cost="17" />
+		<connection first="Wiesbaden" second="Stuttgart" cost="6" />
+		<connection first="Freibrurg" second="Stuttgart" cost="16" />
+		<connection first="Freibrurg" second="Konstanz" cost="14" />
+		<connection first="Stuttgart" second="Konstanz" cost="16" />
+		<connection first="Stuttgart" second="Augsbug" cost="15" />
+		<connection first="Konstanz" second="Augsbug" cost="17" />
+		<connection first="Augsbug" second="Regensberg" cost="13" />
+		<connection first="Wurzburg" second="Augsbug" cost="18" />
+		<connection first="Fluida" second="Augsbug" cost="19" />
+		<connection first="Augsbug" second="Muchen" cost="6" />
+		<connection first="Regensberg" second="Muchen" cost="10" />
+		<connection first="Regensberg" second="Passau" cost="12" />
+		<connection first="Muchen" second="Passau" cost="14" />
+		<connection first="Erfurt" second="Dresden" cost="19" />
+		<connection first="Wurzburg" second="Nurnburg" cost="8" />
+		<connection first="Wurzburg" second="Stuttgart" cost="12" />
+		<connection first="Regensberg" second="Nurnburg" cost="12" />
+		<connection first="Erfurt" second="Nurnburg" cost="21" />
+	</connections>
+</map>

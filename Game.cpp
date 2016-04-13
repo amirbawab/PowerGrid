@@ -1,5 +1,8 @@
 #include "Game.h"
 #include "GameStatus.h"
+#include <sstream>
+#include <iomanip>
+#include <QDir>
 
 Game::Game() {
 
@@ -13,6 +16,16 @@ Game::Game() {
 }
 
 void Game::NewGame() {
+    // Create a file name for saving
+    auto t = time(nullptr);
+    auto tm = *localtime(&t);
+    std::stringstream ss;
+    ss << std::put_time(&tm, "%d-%m-%Y-%m-%d_%H-%M-%S");
+    string saveDirectory = "Resources/saved games";
+    QDir currentDirectory(".");
+    currentDirectory.mkdir(saveDirectory.c_str());
+    this->savedFileName = currentDirectory.absolutePath().toStdString() +
+        "/" + saveDirectory + "/PG-" + ss.str() + ".xml";
     
     // New game message
     cout << "New game selected" << endl;
@@ -63,6 +76,8 @@ void Game::StartGame() {
 
 // Load game
 void Game::LoadGame(string fileName) {
+
+    this->savedFileName = fileName;
 
     Reset();
 
@@ -359,6 +374,9 @@ void Game::Step2End() {
         phase = 3;
     }
 
+    // Save the game
+    GameStatus::GetInstance().SaveFile(this, savedFileName);
+
     // Start step 3
     Step3Start();
 }
@@ -529,6 +547,9 @@ void Game::Step4End() {
 
         cout << "Entering phase 3." << endl;
     }
+
+    // Save the game
+    GameStatus::GetInstance().SaveFile(this, savedFileName);
 
     Step5Start();
 }
@@ -751,6 +772,9 @@ void Game::Step5End() {
     }
 
     fullTurn++;
+
+    // Save the game
+    GameStatus::GetInstance().SaveFile(this, savedFileName);
 
     Step1Start();
 }

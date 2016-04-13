@@ -84,5 +84,6 @@
         <file>Resources/powerplants/46.png</file>
         <file>Resources/powerplants/50.png</file>
         <file>Resources/powerplants/no_card.png</file>
+        <file>Resources/config/map/Germanymap.xml</file>
     </qresource>
 </RCC>

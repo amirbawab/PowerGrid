@@ -95,7 +95,10 @@ bool GameStatus::SaveGameFile(string gameFilePath) const
     PopulatePlayers(gameNode);
     PopulateOrderedPlayers(gameNode);
     PopulateResourceMarket(gameNode);
+    PopulateVisibleCards(gameNode);
     PopulateCardDeck(gameNode);
+    PopulateAllCards(gameNode);
+    PopulateOverview(gameNode);
     PopulateColors(gameNode);
     return document.save_file(gameFilePath.c_str());
 }
@@ -137,6 +140,24 @@ void GameStatus::PopulateResourceMarket(pugi::xml_node& gameXml) const
     }
 }
 
+void GameStatus::PopulateVisibleCards(pugi::xml_node& gameXml) const
+{
+    auto visibleCardsNode = gameXml.append_child("visibleCards");
+
+    for (auto card : game->GetCardStack().GetVisibleCards())
+    {
+        // We only have power-plant cards in the visible cards
+        auto powerPlantCard = dynamic_pointer_cast<PowerPlantCard>(card);
+
+        // Append the node and the attributes
+        auto powerPlantCardNode = visibleCardsNode.append_child("powerPlantCard");
+        auto priceAttribute = powerPlantCardNode.append_attribute("price");
+
+        // Set attribute values
+        priceAttribute.set_value(powerPlantCard->GetPrice());
+    }
+}
+
 void GameStatus::PopulateCardDeck(pugi::xml_node& gameXml) const
 {
     auto cardDeckNode = gameXml.append_child("cardDeck");
@@ -154,25 +175,9 @@ void GameStatus::PopulateCardDeck(pugi::xml_node& gameXml) const
             // Append the node and the attributes
             auto powerPlantCardNode = cardDeckNode.append_child("powerPlantCard");
             auto priceAttribute = powerPlantCardNode.append_attribute("price");
-            auto imageAttribute = powerPlantCardNode.append_attribute("image");
-            auto resourcesAttribute = powerPlantCardNode.append_attribute("resources");
-            auto powerAttribute = powerPlantCardNode.append_attribute("power");
 
             // Set attribute values
             priceAttribute.set_value(powerPlantCard->GetPrice());
-            imageAttribute.set_value(powerPlantCard->GetImagePath().c_str());
-            resourcesAttribute.set_value(powerPlantCard->GetActiveResources().size());
-            powerAttribute.set_value(powerPlantCard->GetPower());
-
-            for (auto resource : powerPlantCard->GetActiveResources())
-            {
-                // Append the node and the attributes
-                auto resourceNode = powerPlantCardNode.append_child("resource");
-                auto resourceNameAttribute = resourceNode.append_attribute("name");
-
-                // Set attribute values
-                resourceNameAttribute.set_value(GetResourceName(resource).c_str());
-            }
         }
 
         // If we have a step card
@@ -181,11 +186,9 @@ void GameStatus::PopulateCardDeck(pugi::xml_node& gameXml) const
             // Append the node and the attributes
             auto stepCardNode = cardDeckNode.append_child("stepCard");
             auto stepAttribute = stepCardNode.append_attribute("step");
-            auto imageAttribute = stepCardNode.append_attribute("image");
 
             // Set attribute values
             stepAttribute.set_value(stepCard->GetStep());
-            imageAttribute.set_value(stepCard->GetImagePath().c_str());
         }
     }
 }
