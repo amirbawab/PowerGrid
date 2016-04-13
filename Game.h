@@ -90,6 +90,7 @@ public:
     int GetPowerPlantIndex() const { return powerPlantIndex; } // setp 3
     int GetPlantIndex() const { return plantIndex; }
     bool step5SelectResource = false;
+    bool step2ReplacingPlant = false;
     std::set<shared_ptr<PowerPlantCard>> step5UsedPlants;
 
     // Setters

@@ -336,6 +336,23 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
             
             // Connect
             connect(label, &QPushButton::clicked, [=]() {
+
+                // I step 2 and replacing plant
+                if (Game::getInstance().GetStep() == 2 && Game::getInstance().step2ReplacingPlant) {
+                    qDebug(("Powerplant " + std::to_string(i)).c_str());
+
+                    // Fade all others
+                    for (int j = 0; j < cards.size(); j++) {
+                        if (i == j) {
+                            playerPowerPlantsWidgets[j]->SetOpacity(1);
+                        }
+                        else {
+                            playerPowerPlantsWidgets[j]->SetOpacity(0.55);
+                        }
+                    }
+
+                    Game::getInstance().Step2ReplacePlant2(i);
+                }
             
                 // If step 5 and not hybrid second screen
                 if (Game::getInstance().GetStep() == 5 && !Game::getInstance().step5SelectResource) {

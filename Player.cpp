@@ -120,7 +120,7 @@ void Player::ReplacePowerPlant(shared_ptr<PowerPlantCard> plant, int indexToRepl
 
     // Transfer resources
     for (Resource r : plant->GetActiveResources()) {
-        plant->PlaceResource(r, std::min(temp->GetPlacedResource(r), plant->GetCapacity()));
+        plant->PlaceResource(r, std::min(temp->GetPlacedResource(r), plant->GetCapacity() * 2));
     }
 }
 

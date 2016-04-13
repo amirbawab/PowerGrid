@@ -8,11 +8,6 @@ Game::Game() {
 
     // Log
     cout << "Game start!" << endl;
-
-    // TODO Remove this ?
-    // Save map
-    //if (map->SaveFile("SavedMap.xml"))
-    //	cout << "Map saved." << endl;
 }
 
 void Game::NewGame() {
@@ -335,12 +330,14 @@ void Game::Step2Bid2(int bid) {
 }
 
 void Game::Step2ReplacePlant1() {
+    step2ReplacingPlant = true;
     messageText = "Choose a power plant to replace";
     Notify();
 }
 
 void Game::Step2ReplacePlant2(int plantToReplaceIndex) {
     currentPlayer->ReplacePowerPlant(cardStack.GetPlant(plantIndex), plantToReplaceIndex);
+    step2ReplacingPlant = false;
     Step2BidEnd();
 }
 
