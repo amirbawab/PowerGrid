@@ -211,6 +211,22 @@ BoardWidget::BoardWidget() {
         Game::getInstance().Step4BuyingCities2();
     });
 
+    // Connect skip for step 4
+    connect(boardBottomWidget->GetBoardMessage()->GetStepFivePanel()->GetOkButton(), &QPushButton::clicked, [=]() {
+        qDebug("OK (step 5) clicked");
+    
+        // Get selected power plant
+        std::shared_ptr<PowerPlantCard> selectedCard = boardBottomWidget->GetBoardPlayerPowerPlantsWidget()->GetSelectedCard();
+
+        // If nothing selected
+        if (!selectedCard) {
+            QMessageBox::critical(this, "No Power Plant Selected!", "Please select a power plant");
+        }
+        else {
+            
+        }
+    });
+
     // Add components
     gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);
     gridLayout->addWidget(boardCenterWidget, 1, 0);

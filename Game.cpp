@@ -541,7 +541,7 @@ void Game::Step5Start() {
 }
 
 void Game::Step5UsingPlants1() {
-    messageText = "Which power plant do you want to use?";
+    messageText = "Select the resources to power plant?";
     Notify();
 }
 

@@ -101,6 +101,11 @@ BoardResourcePowerPlantWidget::~BoardResourcePowerPlantWidget() {
 
 void BoardResourcePowerPlantWidget::Refresh() {
     
+    // Set Background
+    setObjectName("powerPlantCardButton");
+    setIcon(QIcon(powerPlantCard->GetImagePath().c_str()));
+    setIconSize(QSize(200, 200));
+
     // Clear old components
     for (int i = 0; i < resourceLables.size(); i++) {
         gridLayout->removeWidget(resourceLables[i]);
@@ -160,12 +165,6 @@ void BoardResourcePowerPlantWidget::Refresh() {
     }
 }
 
-void BoardResourcePowerPlantWidget::paintEvent(QPaintEvent *e) {
-    QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap(powerPlantCard->GetImagePath().c_str()).scaled(size()));
-    QWidget::paintEvent(e);
-}
-
 void BoardResourcePowerPlantWidget::SetOpacity(float opacity) {
     QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect(this);
     effect->setOpacity(opacity);
@@ -196,6 +195,9 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
         playerPowerPlantsWidgets.erase(playerPowerPlantsWidgets.begin() + i);
     }
 
+    // Reset selected card
+    selectedCard = 0;
+
     // Get power plants
     std::vector<std::shared_ptr<PowerPlantCard>> cards = Game::getInstance().GetCurrentPlayer()->GetPowerPlants();
 
@@ -203,32 +205,53 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
     for (int i = 0; i < 3; i++) {
 
         BoardResourcePowerPlantWidget *label = new BoardResourcePowerPlantWidget();
-        label->setMinimumSize(200, 200);
-
+        label->setObjectName("powerPlantCardButton");
+        
         if (i < cards.size()) {
             label->SetPowerPlantCard(cards[i]);
-            
+            label->setIcon(QIcon(cards[i]->GetImagePath().c_str()));
+            label->setIconSize(QSize(200, 200));
+
             // Connect
             connect(label, &QPushButton::clicked, [=]() {
-                qDebug(("Powerplant " + std::to_string(i)).c_str());
-                emit label->CardSelected(i);
+            
+                // If step 5
+                if (Game::getInstance().GetStep() == 5) {
+                    qDebug(("Powerplant " + std::to_string(i)).c_str());
+                    selectedCard = cards[i];
+
+                    // Fade all of them
+                    /*for (int j = 0; j < cards.size(); j++) {
+                        QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect();
+                        effect->setOpacity(1);
+                        playerPowerPlantsWidgets[j]->setGraphicsEffect(effect);
+                    }
+
+                    QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect();
+                    effect->setOpacity(1);
+                    playerPowerPlantsWidgets[i]->setGraphicsEffect(effect);*/
+                }
             });
         }
         else {
+
             std::shared_ptr<PowerPlantCard> noCard = std::make_shared<PowerPlantCard>();
             noCard->SetImagePath(":/PowerGrid/Resources/powerplants/no_card.png");
+            label->setIcon(QIcon(noCard->GetImagePath().c_str()));
+            label->setIconSize(QSize(200, 200));
             label->SetPowerPlantCard(noCard);
         }
         label->Refresh();
 
         // Highlight if active power plant
-        if (Game::getInstance().GetPowerPlantIndex() == i && Game::getInstance().GetStep() == 5) {
-            label->setObjectName("faded_resource_powerplant");
-        }
+        /*if (Game::getInstance().GetPowerPlantIndex() != i && Game::getInstance().GetStep() == 5) {
+            QGraphicsOpacityEffect * effect = new QGraphicsOpacityEffect();
+            effect->setOpacity(0.55);
+            label->setGraphicsEffect(effect);
+        }*/
 
         playerPowerPlantsWidgets.push_back(label);
         gridLayout->addWidget(label, 0, i, Qt::AlignCenter);
-        label->repaint();
     }
 }
 

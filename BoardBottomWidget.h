@@ -21,7 +21,6 @@ private:
 };
 
 class BoardResourcePowerPlantWidget : public QPushButton {
-    Q_OBJECT
 public:
     BoardResourcePowerPlantWidget();
     ~BoardResourcePowerPlantWidget();
@@ -32,18 +31,17 @@ private:
     shared_ptr<PowerPlantCard> powerPlantCard;
     QGridLayout *gridLayout;
     vector<QLabel*> resourceLables;
-    void paintEvent(QPaintEvent *e) override;
-signals:
-    void CardSelected(int index);
 };
 
 class BoardPlayerPowerPlantsWidget : public QWidget {
 public:
     BoardPlayerPowerPlantsWidget();
     ~BoardPlayerPowerPlantsWidget();
+    std::shared_ptr<PowerPlantCard> GetSelectedCard() { return selectedCard; }
     void Refresh();
 private:
-    vector<BoardResourcePowerPlantWidget*> playerPowerPlantsWidgets;
+    std::shared_ptr<PowerPlantCard> selectedCard;
+    vector<QPushButton*> playerPowerPlantsWidgets;
     QGridLayout *gridLayout;
 };
 
@@ -175,6 +173,7 @@ public:
     ~BoardBottomWidget();
     void Refresh() const;
     BoardMessageWidget *GetBoardMessage() const { return boardMessageWidget; }
+    BoardPlayerPowerPlantsWidget *GetBoardPlayerPowerPlantsWidget() { return boardPlayerPowerPlantsWidget; }
 private:
     QGridLayout *gridLayout;
     BoardProfileWidget *boardProfileWidget;
