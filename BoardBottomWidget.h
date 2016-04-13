@@ -20,10 +20,10 @@ private:
     QGridLayout *gridLayout;
 };
 
-class BoardResourcePowerPlantWiget : public QPushButton {
+class BoardResourcePowerPlantWidget : public QPushButton {
 public:
-    BoardResourcePowerPlantWiget();
-    ~BoardResourcePowerPlantWiget();
+    BoardResourcePowerPlantWidget();
+    ~BoardResourcePowerPlantWidget();
     void SetPowerPlantCard(shared_ptr<PowerPlantCard> powerPlantCard) { this->powerPlantCard = powerPlantCard; }
     void Refresh();
     void SetOpacity(float opacity);
@@ -40,7 +40,7 @@ public:
     ~BoardPlayerPowerPlantsWidget();
     void Refresh();
 private:
-    vector<BoardResourcePowerPlantWiget*> playerPowerPlantsWidgets;
+    vector<BoardResourcePowerPlantWidget*> playerPowerPlantsWidgets;
     QGridLayout *gridLayout;
 };
 
