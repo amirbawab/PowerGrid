@@ -724,6 +724,8 @@ void Game::Step5End() {
         rMarket->AddResource(resource, resourceAdded);
     }
 
+    fullTurn++;
+
     Step1Start();
 }
 
