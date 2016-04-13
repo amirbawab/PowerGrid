@@ -223,7 +223,7 @@ BoardWidget::BoardWidget() {
             QMessageBox::critical(this, "No Power Plant Selected!", "Please select a power plant");
         }
         else {
-            
+            Game::getInstance().Step5UsingPlants2(selectedCard);
         }
     });
 

@@ -545,9 +545,8 @@ void Game::Step5UsingPlants1() {
     Notify();
 }
 
-void Game::Step5UsingPlants2(int powerPlantIndex) {
-    pickedPlant = currentPlayer->GetPowerPlants()[powerPlantIndex];  // GUI get: player clicks on the plant they want to power
-
+void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant) {
+    
     // If skip, get paid and go to next player
     if (!pickedPlant) {
 
@@ -576,8 +575,12 @@ void Game::Step5UsingPlants2(int powerPlantIndex) {
 
     // If there is only one resource
     if (pickedPlant->GetActiveResources().size() == 1) {
-        pickedPlant->ConsumeResources(*pickedPlant->GetActiveResources().begin(), pickedPlant->GetCapacity());
-        
+        if (pickedPlant->ConsumeResources(*pickedPlant->GetActiveResources().begin(), pickedPlant->GetCapacity())) {
+            SetInfoMessageTextBox("Resources Consumed", "Resources consumed for the selected power plant");
+        }
+        else {
+            SetErrorMessageTextBox("Resources Not Consumed", "Not enough resources to power the selected power plant");
+        }
     }
     else {
         // If there is more than one resource, need to specify quantity of each
