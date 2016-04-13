@@ -212,8 +212,20 @@ void Map::RemoveRegion(shared_ptr<Region> region)
             ++it;
     }
 
+    // Keep track of deleted regions
+    removedRegions.insert(region);
+
     // Remove the region
     regions.erase(remove(regions.begin(), regions.end(), region), regions.end());
+}
+
+void Map::RemoveRegion(string regionName)
+{
+    auto regionIndex = GetRegionIndex(regionName);
+    if (regionIndex == -1)
+        return;
+
+    RemoveRegion(regions[regionIndex]);
 }
 
 int Map::GetRegionIndex(const string regionName) const

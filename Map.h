@@ -8,6 +8,7 @@
 #include <map>
 #include <pugixml.hpp>
 #include <memory>
+#include <set>
 
 class Map
 {
@@ -39,13 +40,19 @@ public:
 
     void RemoveRegionByCity(shared_ptr<City> city);
     void RemoveRegion(shared_ptr<Region> region);
+    void RemoveRegion(string regionName);
+
+    std::set<shared_ptr<Region>>& GetRemovedRegions() { return removedRegions; }
 
 private:
     string fileName;
     string name;
+
     vector<shared_ptr<Region>> regions;
+    std::set<shared_ptr<Region>> removedRegions;
     std::map<string, shared_ptr<City>> cities;
     vector<shared_ptr<Connection>> connections;
+
     int GetRegionIndex(const string regionName) const;
     bool LoadCities(pugi::xml_document& xml);
     bool LoadConnections(pugi::xml_document& xml);
