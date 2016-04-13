@@ -22,7 +22,8 @@ MapDesignerWindow::MapDesignerWindow()
     changeRegionColorButton = new QPushButton("Change Region Color ...");
 
     addConnectionButton = new QPushButton("Add Connection");
-    exportXML = new QPushButton("Export to XML ...");
+    exportXml = new QPushButton("Export to XML ...");
+    loadXml = new QPushButton("Load XML ...");
 
     layout->addWidget(graphicsView, 0, 0);
 
@@ -44,7 +45,9 @@ MapDesignerWindow::MapDesignerWindow()
     hLayout->addWidget(regionColor);
 
     hLayout->addSpacerItem(new QSpacerItem(200, 0));
-    hLayout->addWidget(exportXML);
+    hLayout->addWidget(loadXml);
+    hLayout->addSpacerItem(new QSpacerItem(50, 0));
+    hLayout->addWidget(exportXml);
 
     layout->addLayout(hLayout, 1, 0);
 
@@ -59,7 +62,16 @@ MapDesignerWindow::MapDesignerWindow()
     connect(graphicsView           , SIGNAL(DisplayMessage(QString)), this, SLOT(OnDisplayMessage(QString)));
     connect(graphicsView           , SIGNAL(ClearMessage()), this, SLOT(OnClearMessage()));
     connect(changeRegionColorButton, SIGNAL(clicked()), this, SLOT(OnChangeRegionColor()));
-    connect(exportXML              , SIGNAL(clicked()), graphicsView, SLOT(OnExportXml()));
+    connect(exportXml              , SIGNAL(clicked()), graphicsView, SLOT(OnExportXml()));
+    connect(loadXml                , &QPushButton::clicked, [=]()
+    {
+        auto inputFile = QFileDialog::getOpenFileName(this, "Map File Location", ".",
+                                                      "XML Files (*.xml)");
+        if (inputFile.isEmpty())
+            return;
+
+        graphicsView->LoadXml(inputFile);
+    });
 
     auto colorRegionPalette = palette();
     colorRegionPalette.setColor(QPalette::Background,
@@ -74,7 +86,7 @@ MapDesignerWindow::~MapDesignerWindow()
     delete addCityButton;
     delete changeRegionColorButton;
     delete addConnectionButton;
-    delete exportXML;
+    delete exportXml;
     delete statusBar;
     delete regionColor;
     delete regionColorLabel;

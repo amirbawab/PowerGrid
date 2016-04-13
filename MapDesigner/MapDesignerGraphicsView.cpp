@@ -14,6 +14,9 @@ using std::shared_ptr;
 using std::make_shared;
 using std::unique_ptr;
 using std::make_unique;
+using std::map;
+using std::stoi;
+using std::set;
 
 void MapDesignerGraphicsView::UpdateScene()
 {
@@ -411,6 +414,43 @@ void MapDesignerGraphicsView::OnExportXml()
         QMessageBox::critical(this, "Error", "Could not save the XML file!");
 }
 
+void MapDesignerGraphicsView::LoadXml(QString fileName)
+{
+    pugi::xml_document mapXml;
+    QFile mapXmlFile(fileName);
+
+    if (!mapXmlFile.open(QFile::ReadOnly)) {
+        QMessageBox::critical(this, "File Error", "Could not open file");
+        return;
+    }
+
+    QString mapXmlContent = mapXmlFile.readAll();
+
+    auto result = mapXml.load_string(mapXmlContent.toStdString().c_str());
+    if (result.status != pugi::status_ok) {
+        QMessageBox::critical(this, "XML Error",
+                              QString("Could not read XML content for map, Reason: ")
+                              .append(result.description()));
+        return;
+    }
+
+    if (!LoadCities(mapXml))
+    {
+        QMessageBox::critical(this, "City Input Error",
+                              "Could not read city data from file");
+        return;
+    }
+
+    if (!LoadConnections(mapXml))
+    {
+        QMessageBox::critical(this, "Connection Input Error",
+                              "Could not read connection data from file");
+        return;
+    }
+
+    UpdateScene();
+}
+
 void MapDesignerGraphicsView::PopulateCities(pugi::xml_node& map)
 {
     auto citiesNode = map.append_child("cities");
@@ -449,4 +489,69 @@ void MapDesignerGraphicsView::PopulateConnections(pugi::xml_node& map)
         connectionSecondAttribute.set_value(connection->GetSecondCity()->GetName().c_str());
         connectionCostAttribute.set_value(connection->GetCost());
     }
+}
+
+bool MapDesignerGraphicsView::LoadCities(pugi::xml_document& xml)
+{
+    cities = map<string, shared_ptr<City>>();
+    loadedRegionColors = set<QColor>();
+
+    auto mapNode = xml.child("map");
+    if (!mapNode)
+        return false;
+
+    for (auto cityNode : xml.select_nodes("/map/cities/city"))
+    {
+        string cityName = cityNode.node().attribute("name").value();
+        string regionColorName = cityNode.node().attribute("region").value();
+        auto cityX = stoi(cityNode.node().attribute("x").value());
+        auto cityY = stoi(cityNode.node().attribute("y").value());
+        auto cityWidth = stoi(cityNode.node().attribute("width").value());
+        auto cityHeight = stoi(cityNode.node().attribute("height").value());
+
+        auto cityCenterValue = QPoint(cityX + cityWidth / 2, cityY + cityHeight / 2);
+        QColor regionColor;
+        regionColor.setNamedColor(regionColorName.c_str());
+
+        auto city = make_shared<City>(cityCenterValue, cityWidth, cityHeight);
+        city->SetName(cityName);
+        city->SetRegionColor(regionColor);
+
+//        loadedRegionColors.insert(regionColor);
+
+        // Add city to map
+        cities[cityName] = city;
+    }
+
+    return true;
+}
+
+bool MapDesignerGraphicsView::LoadConnections(pugi::xml_document& xml)
+{
+    connections = vector<unique_ptr<Connection>>();
+
+    auto mapNode = xml.child("map");
+    if (!mapNode)
+        return false;
+
+    string firstCity, secondCity;
+    int cost;
+    for (auto connectionNode : xml.select_nodes("//connections/connection"))
+    {
+        firstCity = connectionNode.node().attribute("first").value();
+        secondCity = connectionNode.node().attribute("second").value();
+        cost = stoi(connectionNode.node().attribute("cost").value());
+
+        auto first = cities[firstCity];
+        auto second = cities[secondCity];
+
+        auto connection = make_unique<Connection>();
+        connection->SetFirstCity(cities[firstCity]);
+        connection->SetSecondCity(cities[secondCity]);
+        connection->SetCost(cost);
+
+        connections.push_back(std::move(connection));
+    }
+
+    return true;
 }

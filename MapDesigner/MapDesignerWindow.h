@@ -2,23 +2,25 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include "MapDesignerGraphicsView.h"
 
 class MapDesignerWindow : public QMainWindow
 {
     Q_OBJECT
 
-    QWidget       * centralWidget;
-    QGridLayout   * layout;
-    QGraphicsView * graphicsView;
-    QPushButton   * addCityButton;
-    QPushButton   * deleteCityButton;
-    QPushButton   * changeRegionColorButton;
-    QPushButton   * addConnectionButton;
-    QPushButton   * exportXML;
-    QStatusBar    * statusBar;
-    QLabel        * regionColor;
-    QLabel        * regionColorLabel;
-    QHBoxLayout   * hLayout;
+    QWidget                 * centralWidget;
+    QGridLayout             * layout;
+    MapDesignerGraphicsView * graphicsView;
+    QPushButton             * addCityButton;
+    QPushButton             * deleteCityButton;
+    QPushButton             * changeRegionColorButton;
+    QPushButton             * addConnectionButton;
+    QPushButton             * exportXml;
+    QPushButton             * loadXml;
+    QStatusBar              * statusBar;
+    QLabel                  * regionColor;
+    QLabel                  * regionColorLabel;
+    QHBoxLayout             * hLayout;
 
     const int WIDTH  = 1700;
     const int HEIGHT = 900;
