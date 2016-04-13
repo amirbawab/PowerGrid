@@ -451,6 +451,7 @@ StepFivePanel::StepFivePanel() {
 
 StepFivePanel::~StepFivePanel() {
     delete okButton;
+    delete skipButton;
     delete gridLayout;
 }
 
