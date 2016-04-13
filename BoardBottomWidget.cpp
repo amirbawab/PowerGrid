@@ -216,8 +216,8 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
         label->Refresh();
 
         // Highlight if active power plant
-        if (Game::getInstance().GetPowerPlantIndex() != i) {
-            label->SetOpacity(0.5);
+        if (Game::getInstance().GetPowerPlantIndex() == i && Game::getInstance().GetStep() == 5) {
+            label->setObjectName("faded_resource_powerplant");
         }
 
         playerPowerPlantsWidgets.push_back(label);

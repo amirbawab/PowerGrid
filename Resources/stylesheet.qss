@@ -191,6 +191,14 @@ QPushButton#counter_symbol:pressed {
     color:#000;
 }
 
+QPushButton#faded_resource_powerplant {
+    min-width: 212px;
+    min-height: 212px;
+    border-style: outset;
+    border-width: 5px;
+    border-color: white;
+}
+
 /****************************
  *
  *		ARROWS
