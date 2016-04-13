@@ -577,15 +577,18 @@ void Game::Step5UsingPlants1() {
 
 void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlantArg) {
     
-    // If plants already used
-    if (find(step5UsedPlants.begin(), step5UsedPlants.end(), pickedPlantArg) != step5UsedPlants.end()) {
-        SetErrorMessageTextBox("Power Plant Error", "The selected power plant was already used");
-        return Step5UsingPlants1();
+    // If not skip
+    if (pickedPlantArg) {
+        // If plants already used
+        if (find(step5UsedPlants.begin(), step5UsedPlants.end(), pickedPlantArg) != step5UsedPlants.end()) {
+            SetErrorMessageTextBox("Power Plant Error", "The selected power plant was already used");
+            return Step5UsingPlants1();
+        }
+
+        // Use it
+        step5UsedPlants.insert(pickedPlantArg);
     }
-
-    // Use it
-    step5UsedPlants.insert(pickedPlantArg);
-
+    
     // Update picked plant
     pickedPlant = pickedPlantArg;
 
