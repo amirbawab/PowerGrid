@@ -157,6 +157,9 @@ void Game::Step1Start() {
     messageText = "Player order updated. Press `OK` to continue ...";
     playStep = 1;
 
+    // Save the game
+    GameStatus::GetInstance().SaveFile(this, savedFileName);
+
     // Notify GUI
     Notify();
 }
@@ -165,6 +168,9 @@ void Game::Step2Start() {
     // GUI Message: "Step 2"
     cout << "Starting step 2 ..." << endl;
     playStep = 2;
+
+    // Save the game
+    GameStatus::GetInstance().SaveFile(this, savedFileName);
 
     // Don't sort in the first turn
     if(fullTurn > 1)
@@ -374,9 +380,6 @@ void Game::Step2End() {
         phase = 3;
     }
 
-    // Save the game
-    GameStatus::GetInstance().SaveFile(this, savedFileName);
-
     // Start step 3
     Step3Start();
 }
@@ -385,6 +388,9 @@ void Game::Step3Start() {
     // GUI Message : "Step 3"
     cout << "Starting step 3 ..." << endl;
     playStep = 3;
+
+    // Save the game
+    GameStatus::GetInstance().SaveFile(this, savedFileName);
 
     // Reorder players (worst starts)
     UpdatePlayOrder(true);
@@ -464,6 +470,9 @@ void Game::Step4Start() {
     // GUI Message: "Step 4" 
     cout << "Starting step 4 ..." << endl;
     playStep = 4;
+
+    // Save the game
+    GameStatus::GetInstance().SaveFile(this, savedFileName);
 
     // Reorder players (worst starts)
     UpdatePlayOrder(true);
@@ -548,9 +557,6 @@ void Game::Step4End() {
         cout << "Entering phase 3." << endl;
     }
 
-    // Save the game
-    GameStatus::GetInstance().SaveFile(this, savedFileName);
-
     Step5Start();
 }
 
@@ -558,6 +564,9 @@ void Game::Step5Start() {
     // GUI Message: "Step 5"
     cout << "Starting step 5 ..." << endl;
     playStep = 5;
+
+    // Save the game
+    GameStatus::GetInstance().SaveFile(this, savedFileName);
 
     // Check if we enter phase 2
     if (phase == 1) {
@@ -772,9 +781,6 @@ void Game::Step5End() {
     }
 
     fullTurn++;
-
-    // Save the game
-    GameStatus::GetInstance().SaveFile(this, savedFileName);
 
     Step1Start();
 }

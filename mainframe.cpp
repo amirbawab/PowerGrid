@@ -85,7 +85,7 @@ void MainFrame::onLoadGame() {
             Game::getInstance().Step5Start();
             break;
     }
-    Game::getInstance().Step1Start();
+    
     boardWidget->Refresh();
     centerStackWidget->setCurrentIndex(boardWidgetIndex);
 }
