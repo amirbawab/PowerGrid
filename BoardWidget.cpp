@@ -219,7 +219,11 @@ BoardWidget::BoardWidget() {
         std::shared_ptr<PowerPlantCard> selectedCard = boardBottomWidget->GetBoardPlayerPowerPlantsWidget()->GetSelectedCard();
 
         // If nothing selected
-        if (!selectedCard) {
+        
+        if (Game::getInstance().step5SelectResource) {
+            Game::getInstance().Step5ChoosingResource2(boardBottomWidget->GetBoardPlayerPowerPlantsWidget()->selectedWidget->resourceAmount);
+        
+        } else if (!selectedCard) {
             QMessageBox::critical(this, "No Power Plant Selected!", "Please select a power plant");
         }
         else {
@@ -227,10 +231,9 @@ BoardWidget::BoardWidget() {
             if (!Game::getInstance().step5SelectResource) {
                 Game::getInstance().Step5UsingPlants2(selectedCard);
             }
-            else {
-                Game::getInstance().Step5ChoosingResource2(boardBottomWidget->GetBoardPlayerPowerPlantsWidget()->selectedWidget->resourceAmount);
-            }
         }
+
+        
     });
 
     // Connect ok for step 5
@@ -238,6 +241,7 @@ BoardWidget::BoardWidget() {
         qDebug("SKIP (step 5) clicked");
         Game::getInstance().Step5UsingPlants2(nullptr);
     });
+
 
     // Add components
     gridLayout->addWidget(boardTopWidget, 0, 0, Qt::AlignTop);

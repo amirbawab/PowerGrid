@@ -28,8 +28,10 @@ public:
     void SetPowerPlantCard(shared_ptr<PowerPlantCard> powerPlantCard) { this->powerPlantCard = powerPlantCard; }
     void Refresh();
     void SetOpacity(float opacity);
+    QLabel *textLabel;
     vector<int> resourceAmount;
     std::map<QPushButton*, int> resourceMap;
+    std::map<QPushButton*, bool> resourceSelectedMap;
 private:
     shared_ptr<PowerPlantCard> powerPlantCard;
     QGridLayout *gridLayout;

@@ -86,6 +86,9 @@ BoardResourcePowerPlantWidget::BoardResourcePowerPlantWidget(): resourceAmount(4
     
     // Init components
     gridLayout = new QGridLayout();
+    textLabel = new QLabel();
+    textLabel->setStyleSheet("color: #fff; font-size: 13px;");
+    textLabel->setAlignment(Qt::AlignRight);
 
     // Configure components
     gridLayout->setContentsMargins(20, 40, 20, 40);
@@ -93,6 +96,8 @@ BoardResourcePowerPlantWidget::BoardResourcePowerPlantWidget(): resourceAmount(4
 
     // Set layout
     setLayout(gridLayout);
+
+    gridLayout->addWidget(textLabel, 0, 0, 1, 3);
 }
 
 BoardResourcePowerPlantWidget::~BoardResourcePowerPlantWidget() {
@@ -120,7 +125,7 @@ void BoardResourcePowerPlantWidget::Refresh() {
     int uraniumNum = powerPlantCard->GetPlacedResource(URANIUM);
 
     // Row col
-    int row = 0;
+    int row = 1;
     int col = 0;
     
     // Add resources to widget
@@ -136,20 +141,16 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && !resourceSelectedMap[label]) {
                 qDebug("Adding coal");
                 resourceAmount[resourceMap[label]]++;
-
+                resourceSelectedMap[label] = true;
+                textLabel->setText("");
                 for (int i = 0; i < resourceAmount.size(); i++) {
-                    Game::getInstance().messageText = "";
                     if (resourceAmount[i] != 0) {
-                        Game::getInstance().messageText += GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]);
-
-                        if (i != 0)
-                            Game::getInstance().messageText += ", ";
+                        textLabel->setText((textLabel->text().toStdString() + GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]) + "  ").c_str());
                     }
                 }
-                Game::getInstance().Notify();
             }
         });
 
@@ -169,20 +170,16 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && !resourceSelectedMap[label]) {
                 qDebug("Adding oil");
                 resourceAmount[resourceMap[label]]++;
-
+                resourceSelectedMap[label] = true;
+                textLabel->setText("");
                 for (int i = 0; i < resourceAmount.size(); i++) {
-                    Game::getInstance().messageText = "";
                     if (resourceAmount[i] != 0) {
-                        Game::getInstance().messageText += GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]);
-
-                        if (i != 0)
-                            Game::getInstance().messageText += ", ";
+                        textLabel->setText((textLabel->text().toStdString() + GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]) + "  ").c_str());
                     }
                 }
-                Game::getInstance().Notify();
             }
         });
 
@@ -202,20 +199,16 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && !resourceSelectedMap[label]) {
                 qDebug("Adding garbage");
                 resourceAmount[resourceMap[label]]++;
-
+                resourceSelectedMap[label] = true;
+                textLabel->setText("");
                 for (int i = 0; i < resourceAmount.size(); i++) {
-                    Game::getInstance().messageText = "";
                     if (resourceAmount[i] != 0) {
-                        Game::getInstance().messageText += GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]);
-
-                        if (i != 0)
-                            Game::getInstance().messageText += ", ";
+                        textLabel->setText((textLabel->text().toStdString() + GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]) + "  ").c_str());
                     }
                 }
-                Game::getInstance().Notify();
             }
         });
 
@@ -235,20 +228,16 @@ void BoardResourcePowerPlantWidget::Refresh() {
 
         // Connect region for phase 0
         connect(label, &QPushButton::clicked, [=]() {
-            if (Game::getInstance().GetStep() == 5) {
+            if (Game::getInstance().GetStep() == 5 && Game::getInstance().step5SelectResource && !resourceSelectedMap[label]) {
                 qDebug("Adding uranium");
                 resourceAmount[resourceMap[label]]++;
-
+                resourceSelectedMap[label] = true;
+                textLabel->setText("");
                 for (int i = 0; i < resourceAmount.size(); i++) {
-                    Game::getInstance().messageText = "";
                     if (resourceAmount[i] != 0) {
-                        Game::getInstance().messageText += GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]);
-
-                        if (i != 0)
-                            Game::getInstance().messageText += ", ";
+                        textLabel->setText((textLabel->text().toStdString() + GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]) + "  ").c_str());
                     }
                 }
-                Game::getInstance().Notify();
             }
         });
 
