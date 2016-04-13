@@ -42,9 +42,10 @@ public:
     ~BoardPlayerPowerPlantsWidget();
     std::shared_ptr<PowerPlantCard> GetSelectedCard() { return selectedCard; }
     void Refresh();
+    BoardResourcePowerPlantWidget* selectedWidget;
 private:
     std::shared_ptr<PowerPlantCard> selectedCard;
-    vector<QPushButton*> playerPowerPlantsWidgets;
+    vector<BoardResourcePowerPlantWidget*> playerPowerPlantsWidgets;
     QGridLayout *gridLayout;
 };
 

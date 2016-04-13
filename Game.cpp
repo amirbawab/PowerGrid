@@ -542,6 +542,7 @@ void Game::Step5Start() {
 
 void Game::Step5UsingPlants1() {
     messageText = "Which power plant do you want to use?";
+    step5SelectResource = false;
     Notify();
 }
 
@@ -593,13 +594,13 @@ void Game::Step5UsingPlants2(std::shared_ptr<PowerPlantCard> pickedPlant) {
 
 void Game::Step5ChoosingResource1() {
     // GUI 
-    messageText = "Enter the number of each resource to use";
+    messageText = "Click on the resources of the selected power plant";
+    step5SelectResource = true;
     Notify();
 }
 
-void Game::Step5ChoosingResource2() {
-    vector<int> resourceAmounts = {0, 0, 0, 0};  // GUI get: the amount of each resource to consume
-
+void Game::Step5ChoosingResource2(vector<int> resourceAmounts) {
+    
     int sum = 0;
     for (int i : resourceAmounts)
         sum += i;

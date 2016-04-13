@@ -139,6 +139,17 @@ void BoardResourcePowerPlantWidget::Refresh() {
             if (Game::getInstance().GetStep() == 5) {
                 qDebug("Adding coal");
                 resourceAmount[resourceMap[label]]++;
+
+                for (int i = 0; i < resourceAmount.size(); i++) {
+                    Game::getInstance().messageText = "";
+                    if (resourceAmount[i] != 0) {
+                        Game::getInstance().messageText += GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]);
+
+                        if (i != 0)
+                            Game::getInstance().messageText += ", ";
+                    }
+                }
+                Game::getInstance().Notify();
             }
         });
 
@@ -161,6 +172,17 @@ void BoardResourcePowerPlantWidget::Refresh() {
             if (Game::getInstance().GetStep() == 5) {
                 qDebug("Adding oil");
                 resourceAmount[resourceMap[label]]++;
+
+                for (int i = 0; i < resourceAmount.size(); i++) {
+                    Game::getInstance().messageText = "";
+                    if (resourceAmount[i] != 0) {
+                        Game::getInstance().messageText += GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]);
+
+                        if (i != 0)
+                            Game::getInstance().messageText += ", ";
+                    }
+                }
+                Game::getInstance().Notify();
             }
         });
 
@@ -183,6 +205,17 @@ void BoardResourcePowerPlantWidget::Refresh() {
             if (Game::getInstance().GetStep() == 5) {
                 qDebug("Adding garbage");
                 resourceAmount[resourceMap[label]]++;
+
+                for (int i = 0; i < resourceAmount.size(); i++) {
+                    Game::getInstance().messageText = "";
+                    if (resourceAmount[i] != 0) {
+                        Game::getInstance().messageText += GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]);
+
+                        if (i != 0)
+                            Game::getInstance().messageText += ", ";
+                    }
+                }
+                Game::getInstance().Notify();
             }
         });
 
@@ -205,6 +238,17 @@ void BoardResourcePowerPlantWidget::Refresh() {
             if (Game::getInstance().GetStep() == 5) {
                 qDebug("Adding uranium");
                 resourceAmount[resourceMap[label]]++;
+
+                for (int i = 0; i < resourceAmount.size(); i++) {
+                    Game::getInstance().messageText = "";
+                    if (resourceAmount[i] != 0) {
+                        Game::getInstance().messageText += GetResourceName(static_cast<Resource>(i)) + ": " + std::to_string(resourceAmount[i]);
+
+                        if (i != 0)
+                            Game::getInstance().messageText += ", ";
+                    }
+                }
+                Game::getInstance().Notify();
             }
         });
 
@@ -244,7 +288,7 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
     }
 
     // Reset selected card
-    selectedCard = 0;
+    selectedCard = nullptr;
 
     // Get power plants
     std::vector<std::shared_ptr<PowerPlantCard>> cards = Game::getInstance().GetCurrentPlayer()->GetPowerPlants();
@@ -267,6 +311,7 @@ void BoardPlayerPowerPlantsWidget::Refresh() {
                 if (Game::getInstance().GetStep() == 5) {
                     qDebug(("Powerplant " + std::to_string(i)).c_str());
                     selectedCard = cards[i];
+                    selectedWidget = playerPowerPlantsWidgets[i];
 
                     // Fade all of them
                     /*for (int j = 0; j < cards.size(); j++) {
