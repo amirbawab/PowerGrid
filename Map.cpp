@@ -185,8 +185,6 @@ void Map::RemoveRegionByCity(shared_ptr<City> city)
 
 void Map::RemoveRegion(shared_ptr<Region> region)
 {
-    using std::remove_if;
-
     // Return if region cannot be found
     if (find(regions.begin(), regions.end(), region) == regions.end())
         return;

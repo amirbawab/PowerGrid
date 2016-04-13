@@ -3,7 +3,6 @@
 
 #include "mainframe.h"
 #include "application.h"
-#include <memory>
 
 #include "Game.h"
 
