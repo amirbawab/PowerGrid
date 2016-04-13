@@ -28,16 +28,33 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
 	nextMapBtn = new QPushButton();
 	previousMapBtn = new QPushButton();
 	titleLabel = new QLabel("Select map");
+	mapLabel = new QLabel();
+	
+    // Add maps
+    mapLabels.push_back("USA");
+    mapLabels.push_back("Canada");
 
-	// Add USA map
-	// This has to be loaded from files later
-	usaMapLabel = new QLabel();
-	usaMapLabel->setPixmap(QPixmap(":/PowerGrid/Resources/map/usa_map_prev.jpg"));
+    mapLabel->setText(mapLabels[currentMap].c_str());
+    mapLabel->setObjectName("map_label");
 
 	// Add id
 	titleLabel->setObjectName("global_h2");
 	nextMapBtn->setObjectName("right_arrow");
 	previousMapBtn->setObjectName("left_arrow");
+
+    // Connect buttons
+    connect(nextMapBtn, &QPushButton::clicked, [=]() {
+        currentMap = (++currentMap) % mapLabels.size();
+        qDebug(("Next map: " + std::to_string(currentMap)).c_str());
+        mapLabel->setText(mapLabels[currentMap].c_str());
+    });
+
+    // Connect buttons
+    connect(previousMapBtn, &QPushButton::clicked, [=]() {
+        currentMap == 0 ? currentMap = mapLabels.size() - 1 : --currentMap;
+        qDebug(("Previous map: " + std::to_string(currentMap)).c_str());
+        mapLabel->setText(mapLabels[currentMap].c_str());
+    });
 
 	// Set layout
 	setLayout(gridLayout);
@@ -45,7 +62,7 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
 	// Add components
 	gridLayout->addWidget(titleLabel, 0, 0, 1, 3, Qt::AlignCenter);
 	gridLayout->addWidget(previousMapBtn, 1, 0, Qt::AlignRight);
-	gridLayout->addWidget(usaMapLabel, 1, 1, Qt::AlignCenter);
+	gridLayout->addWidget(mapLabel, 1, 1, Qt::AlignCenter);
 	gridLayout->addWidget(nextMapBtn, 1, 2, Qt::AlignLeft);
 }
 
@@ -54,7 +71,7 @@ MapWidget::SelectMapWidget::~SelectMapWidget() {
 	delete previousMapBtn;
 	delete titleLabel;
 	delete gridLayout;
-	delete usaMapLabel;
+	delete mapLabel;
 }
 
 MapWidget::SelectNumberOfPlayerWidget::SelectNumberOfPlayerWidget() {

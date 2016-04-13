@@ -74,7 +74,7 @@ void MainFrame::onMapNext() {
 //        return;
 
     // TODO change USA to be read from gui
-    Game::getInstance().ConfigNewGame("Canada", mapWidget->GetNumberOfPlayers());
+    Game::getInstance().ConfigNewGame(mapWidget->GetSelectedMap(), mapWidget->GetNumberOfPlayers());
 
     // --- Uncomment this line (and comment the line above) to load the custom map you selected above
 //    Game::getInstance().ConfigNewGame(mapFileName.toStdString(), mapWidget->GetNumberOfPlayers(), true);

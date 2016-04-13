@@ -15,8 +15,11 @@ private:
 	public:
 		SelectMapWidget();
 		~SelectMapWidget();
-		QPushButton *nextMapBtn, *previousMapBtn;
-		QLabel *titleLabel, *usaMapLabel;
+        QPushButton *nextMapBtn, *previousMapBtn;
+		QLabel *titleLabel, *mapLabel;
+        std::vector<std::string> mapLabels;
+        int currentMap = 0;
+        std::string GetSelectedMap() { return mapLabels[currentMap]; }
 	};
 
 	class SelectNumberOfPlayerWidget : public QWidget {
@@ -39,6 +42,7 @@ private slots:
 public:
 	MapWidget();
 	~MapWidget();
+    std::string GetSelectedMap() { return selectMapWidget->GetSelectedMap(); }
 	int GetNumberOfPlayers() const { return stoi(selectNumberOfPlayerWidget->numberOfPlayersLabel->text().toStdString()); }
 };
 

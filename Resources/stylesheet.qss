@@ -32,6 +32,13 @@ QPushButton#global_h2_button:pressed {
     color: #000;
 }
 
+QLabel#map_label {
+    color: #fff;
+    font-size: 40px;
+    border-style: outset;
+    border-width: 0px;
+}
+
 /*******************
  *
  *		TEMPLATE
