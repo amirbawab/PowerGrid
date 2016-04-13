@@ -215,7 +215,7 @@ void Game::Step2PickPlant2(bool skip, int plantIndex, int price) {
             canBuy[currentPlayer.get()] = false;
             // Go to next player
             for (auto player : playerOrder) {
-                if (canBuy[currentPlayer.get()]) {
+                if (canBuy[player.get()]) {
                     currentPlayer = player;
                     return Step2PickPlant1();
                 }
