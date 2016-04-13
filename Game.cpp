@@ -23,7 +23,7 @@ void Game::NewGame() {
     playStep = 1;
 }
 
-void Game::ConfigNewGame(string map, int numberOfPlayers) {
+void Game::ConfigNewGame(string map, int numberOfPlayers, bool customMap) {
 
     // Log
     cout << "Map selected: " << map << ". Number of players selected: " << numberOfPlayers << endl;
@@ -31,7 +31,7 @@ void Game::ConfigNewGame(string map, int numberOfPlayers) {
     Reset();
 
     // Initialize game
-    GameStatus::GetInstance().Init(this, map, ":/PowerGrid/Resources/config/Config.xml");
+    GameStatus::GetInstance().Init(this, map, ":/PowerGrid/Resources/config/Config.xml", customMap);
 
     // Reset vector of players
     players.clear();
