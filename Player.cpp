@@ -110,10 +110,18 @@ bool Player::AddPowerPlant(std::shared_ptr<PowerPlantCard> powerPlant) {
 }
 
 /// Replaces a power plant by another
-void Player::ReplacePowerPlant(shared_ptr<PowerPlantCard> plant, int index) {
-    powerPlants[index] = plant;
+void Player::ReplacePowerPlant(shared_ptr<PowerPlantCard> plant, int indexToReplace) {
+    shared_ptr<PowerPlantCard> temp = powerPlants[indexToReplace];
+    powerPlants[indexToReplace] = plant;
+
     // Transfer resources
-    // to do
+    // to do for hybrid to hybrid replacement
+    // should also be able to move resources around first
+
+    // Transfer resources
+    for (Resource r : plant->GetActiveResources()) {
+        plant->PlaceResource(r, std::min(temp->GetPlacedResource(r), plant->GetCapacity()));
+    }
 }
 
 /// Buys a power plant from the available plants
@@ -123,22 +131,6 @@ bool Player::BuyPowerPlant(CardStack& cardStack, int index, int cost) {
         SetElektro(GetElektro() - cost);
         if (powerPlants.size() < 3)
             AddPowerPlant(cardStack.GetPlant(index));
-        else {
-            int i;
-            do {
-                cout << "Enter index of power plant to replace: " << endl;
-                cin >> i;
-                
-                // Check invalid value
-                if (!cin.good()) {
-                    i = PG::INVALID;
-                    cin.clear();
-                    cin.ignore(INT_MAX, '\n');
-                }
-
-            } while (!(i >= 0 && i <= 2));
-            ReplacePowerPlant(cardStack.GetPlant(index), i);
-        }
             
         cardStack.RemovePlant(index);
         cardStack.DrawPlant();
