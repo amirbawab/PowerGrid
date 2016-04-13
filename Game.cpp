@@ -277,9 +277,16 @@ void Game::Step2Bid2(int bid) {
 
     // Check if the current player won the bidding round
     if (currentPlayer.get() == highestBidder.get()) {
-        currentPlayer->BuyPowerPlant(cardStack, plantIndex, currentBid);
-        canBuy[currentPlayer.get()] = false;
         cout << *currentPlayer << " won this auction for " << currentBid << endl;
+        canBuy[currentPlayer.get()] = false;
+        
+        // Check if player already has 3 power plants
+        if (currentPlayer->GetPowerPlants().size() == 3) {
+            return Step2ReplacePlant1();
+        }
+        else {
+            currentPlayer->BuyPowerPlant(cardStack, plantIndex, currentBid);
+        }
 
         // Check if we drew the Step 3 card
         if (cardStack.GetJustDrewStep() == 3) {
@@ -296,6 +303,16 @@ void Game::Step2Bid2(int bid) {
 
     // Bidding continues
     return Step2Bid1();
+}
+
+void Game::Step2ReplacePlant1() {
+    messageText = "Choose a power plant to replace";
+    Notify();
+}
+
+void Game::Step2ReplacePlant2(int plantToReplaceIndex) {
+    currentPlayer->ReplacePowerPlant(cardStack.GetPlant(plantIndex), plantToReplaceIndex);
+    Step2BidEnd();
 }
 
 void Game::Step2BidEnd() {

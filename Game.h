@@ -119,6 +119,8 @@ public:
     void Step2PickPlant2(bool skip, int plantIndex=-1, int price=-1);
     void Step2Bid1();
     void Step2Bid2(int bid=-1);
+    void Step2ReplacePlant1();
+    void Step2ReplacePlant2(int plantToReplaceIndex);
     void Step2BidEnd();
     void Step2End();
 
