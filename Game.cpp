@@ -500,8 +500,8 @@ void Game::Step4BuyingCities2() {
     // Check if city is full
     if (pickedCity->GetNumberOfHouses() == phase) {
         SetErrorMessageTextBox("Buying City Error",
-                               "Cannot buy a house. <b>" + pickedCity->GetName() +
-                               "</b> is already saturated for this phase.");
+            "Cannot buy a house. <b>" + pickedCity->GetName() +
+            "</b> is already saturated for this phase.");
         return Step4BuyingCities1();
     }
 
@@ -515,14 +515,30 @@ void Game::Step4BuyingCities2() {
     // Check if you have enough money
     if (!currentPlayer->HasElektro(cost)) {
         SetErrorMessageTextBox("Not Enough Money", "Not enough money to buy <b>" +
-                               pickedCity->GetName() + "</b> for a total cost of <b>" +
-                               std::to_string(cost) + "</b> Elektro.");
+            pickedCity->GetName() + "</b> for a total cost of <b>" +
+            std::to_string(cost) + "</b> Elektro.");
         return Step4BuyingCities1();
     }
 
     // Buy the city
     auto newHouse = std::make_shared<House>(pickedCity, currentPlayer->GetColor());
     newHouse->SetPrice(cost);
+
+    // Check for enough money
+    if (!currentPlayer->HasElektro(newHouse->GetPrice()))
+    {
+        SetErrorMessageTextBox("House Error", "Not enough money to buy this house");
+        return Step4BuyingCities1();
+    }
+
+    // Check if already bought in this city
+    for (auto tmpHouse : currentPlayer->GetHouses()) {
+        if (tmpHouse->GetCity() == newHouse->GetCity()) {
+            SetErrorMessageTextBox("House Error", "Cannot buy in the same city twice");
+            return Step4BuyingCities1();
+        }
+    }
+
     currentPlayer->BuyHouse(newHouse);
     SetInfoMessageTextBox("Buying City Success", "<b>" + currentPlayer->GetName() +
                           "</b> has bought a house at <b>" + pickedCity->GetName() +
