@@ -41,6 +41,7 @@ private:
     string errorMessageTextTitle;
     string infoMessageText;
     string infoMessageTextTitle;
+    string savedFileName;
 
     Overview overview;
     int initElektro;
