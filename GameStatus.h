@@ -21,6 +21,7 @@ class GameStatus
     bool LoadColors(pugi::xml_document& xml) const;
     bool LoadFullTurn(pugi::xml_document& xml) const;
     bool LoadPhase(pugi::xml_document& xml) const;
+    bool LoadStep(pugi::xml_document& xml) const;
 
     bool SaveGameFile(string gameFilePath) const;
     void PopulateMap(pugi::xml_node& gameXml) const;
@@ -31,7 +32,6 @@ class GameStatus
     void PopulateOverview(pugi::xml_node& gameXml) const;
     void PopulateColors(pugi::xml_node& gameXml) const;
 
-    bool SavePlayersFile(string playersFilePath) const;
     void PopulatePlayers(pugi::xml_node& playersNode) const;
 
 public:
@@ -45,6 +45,6 @@ public:
     ~GameStatus() {}
 
     bool Init(Game* game, string mapName, string configFilePath, bool customMap = false) const;
-    bool LoadFile(Game* game, string gameFilePath, string playersFilePath);
-    bool SaveFile(Game* game, string gameFilePath, string playersFilePath);
+    bool LoadFile(Game* game, string gameFilePath);
+    bool SaveFile(Game* game, string gameFilePath);
 };

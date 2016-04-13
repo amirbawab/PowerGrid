@@ -66,15 +66,37 @@ bool GameStatus::LoadPhase(pugi::xml_document& xml) const
     return true;
 }
 
+bool GameStatus::LoadStep(pugi::xml_document& xml) const
+{
+    auto stepAttribute = xml.child("game").attribute("step");
+    if (!stepAttribute)
+        return false;
+
+    auto step = stoi(stepAttribute.value());
+    game->SetStep(step);
+
+    return true;
+}
+
 bool GameStatus::SaveGameFile(string gameFilePath) const
 {
     pugi::xml_document document;
-    auto game = document.append_child("game");
-    PopulateMap(game);
-    PopulateOrderedPlayers(game);
-    PopulateResourceMarket(game);
-    PopulateCardDeck(game);
-    PopulateColors(game);
+    auto gameNode = document.append_child("game");
+
+    // Add the attributes
+    auto fullTurnAttribute = gameNode.append_attribute("full_turn");
+    auto phaseAttribute = gameNode.append_attribute("phase");
+    auto stepAttribute = gameNode.append_attribute("step");
+    fullTurnAttribute.set_value(game->GetFullTurn());
+    phaseAttribute.set_value(game->GetPhase());
+    stepAttribute.set_value(game->GetStep());
+
+    PopulateMap(gameNode);
+    PopulatePlayers(gameNode);
+    PopulateOrderedPlayers(gameNode);
+    PopulateResourceMarket(gameNode);
+    PopulateCardDeck(gameNode);
+    PopulateColors(gameNode);
     return document.save_file(gameFilePath.c_str());
 }
 
@@ -260,16 +282,10 @@ void GameStatus::PopulateColors(pugi::xml_node& gameXml) const
     }
 }
 
-bool GameStatus::SavePlayersFile(string playersFilePath) const
+void GameStatus::PopulatePlayers(pugi::xml_node& gameXml) const
 {
-    pugi::xml_document document;
-    auto players = document.append_child("players");
-    PopulatePlayers(players);
-    return document.save_file(playersFilePath.c_str());
-}
+    auto playersNode = gameXml.append_child("players");
 
-void GameStatus::PopulatePlayers(pugi::xml_node& playersNode) const
-{
     for (auto player : game->GetPlayers())
     {
         // Append the node and the attributes
@@ -332,10 +348,10 @@ void GameStatus::PopulatePlayers(pugi::xml_node& playersNode) const
 
 bool GameStatus::LoadPlayers(pugi::xml_document& xml) const
 {
-    if (!xml.child("players").child("player"))
+    if (!xml.child("game").child("players"))
         return false;
 
-    for (auto playerNode : xml.select_nodes("//player"))
+    for (auto playerNode : xml.select_nodes("//players/player"))
     {
         string playerNameAttribute = playerNode.node().attribute("name").value();
         string playerColorAttribute = playerNode.node().attribute("color").value();
@@ -647,16 +663,13 @@ bool GameStatus::Init(Game* game, string mapName, string configFilePath, bool cu
     return true;
 }
 
-bool GameStatus::LoadFile(Game* game, string gameFilePath,
-                          string playersFilePath)
+bool GameStatus::LoadFile(Game* game, string gameFilePath)
 {
     this->game = game;
 
     pugi::xml_document gameXml;
-    pugi::xml_document playersXml;
 
     QFile gameXmlFile(gameFilePath.c_str());
-    QFile playersXmlFile(playersFilePath.c_str());
 
     if (!gameXmlFile.open(QFile::ReadOnly))
     {
@@ -664,29 +677,13 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
-    if (!playersXmlFile.open(QFile::ReadOnly))
-    {
-        Error("Could not open file: " + playersFilePath);
-        return false;
-    }
-
     QString gameXmlContent = gameXmlFile.readAll();
-    QString playersXmlContent = playersXmlFile.readAll();
 
     // Read game content from file
     auto result = gameXml.load_string(gameXmlContent.toStdString().c_str());
     if (result.status != pugi::status_ok)
     {
         Error("Could not read XML content for saved game");
-        Error("Reason: " + string(result.description()) + "\n");
-        return false;
-    }
-
-    // Read players content from file
-    result = playersXml.load_string(playersXmlContent.toStdString().c_str());
-    if (result.status != pugi::status_ok)
-    {
-        Error("Could not read XML content for players");
         Error("Reason: " + string(result.description()) + "\n");
         return false;
     }
@@ -733,7 +730,7 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
-    if (!LoadPlayers(playersXml)) {
+    if (!LoadPlayers(gameXml)) {
         Error("Could not read player data from players file\n");
         return false;
     }
@@ -755,23 +752,22 @@ bool GameStatus::LoadFile(Game* game, string gameFilePath,
         return false;
     }
 
+    if (!LoadStep(gameXml))
+    {
+        Error("Could not read step value from the game file\n");
+        return false;
+    }
+
     return true;
 }
 
-bool GameStatus::SaveFile(Game* game, string gameFilePath,
-                          string playersFilePath)
+bool GameStatus::SaveFile(Game* game, string gameFilePath)
 {
     this->game = game;
 
     if (!SaveGameFile(gameFilePath))
     {
         Error("Could not save game file to the path '" + gameFilePath + "'\n");
-        return false;
-    }
-
-    if (!SavePlayersFile(playersFilePath))
-    {
-        Error("Could not save players file to the path '" + playersFilePath + "'\n");
         return false;
     }
 

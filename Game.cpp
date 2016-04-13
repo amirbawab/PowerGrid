@@ -62,13 +62,12 @@ void Game::StartGame() {
 }
 
 // Load game
-void Game::LoadGame() {
+void Game::LoadGame(string fileName) {
 
     Reset();
 
     // If loading saved game
-    GameStatus::GetInstance().LoadFile(this, "Resources/saved games/PG_2016-03-2/Game.xml",
-                                       "Resources/saved games/PG_2016-03-2/Players.xml");
+    GameStatus::GetInstance().LoadFile(this, fileName);
 
     // Set the current player
     currentPlayer = playerOrder[0];
