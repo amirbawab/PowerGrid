@@ -67,7 +67,8 @@ void MainFrame::onMapBack() {
 void MainFrame::onMapNext() {
     qDebug("Next from map selection screen");
     
-    // --- Uncomment these lines to display a dialog box to allow choosing a custom map (an XML file)
+    // --- Uncomment these lines to display a dialog box to allow choosing a custom map (an XML file) --> there's one
+    //      in 'Resources/config/map/TestMap.xml'
 //    auto mapFileName = QFileDialog::getOpenFileName(this, "Map Location", "", "XML Files (*.xml)");
 //    if (mapFileName.isEmpty())
 //        return;
