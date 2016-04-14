@@ -4,12 +4,6 @@
 #include <iomanip>
 #include <QDir>
 
-Game::Game() {
-
-    // Log
-    cout << "Game start!" << endl;
-}
-
 void Game::NewGame() {
     // Create a file name for saving
     auto t = time(nullptr);

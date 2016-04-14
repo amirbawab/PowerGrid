@@ -33,12 +33,9 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     titleLabel = new QLabel("Select map");
     mapLabel = new QLabel();
     
-    using std::cout;
-    using std::endl;
     // Add maps
-    mapLabels.push_back("USA");
-    mapLabels.push_back("Canada");
-    mapLabels.push_back("Germany");
+    for (auto& map : Config::GetInstance().GetMaps())
+        mapLabels.push_back(map->GetName());
 
     mapLabel->setText(mapLabels[currentMap].c_str());
     mapLabel->setObjectName("map_label");

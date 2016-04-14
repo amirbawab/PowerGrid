@@ -24,7 +24,7 @@ const string CONFIG_FILE_PATH = ":/PowerGrid/Resources/config/Config.xml";
 
 class Game : public Subject {
 private:
-    Game();
+    Game() {}
 
     // General attributes
     int fullTurn;  // the number of turns since the beginning
