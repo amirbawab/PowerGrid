@@ -209,7 +209,9 @@ QPushButton#faded_resource_powerplant {
 QPushButton#mapButton {
     background: none;
     min-width: 320px;
+    max-width: 320px;
     min-height: 50px;
+    max-height: 50px;
     color: #fff;
     font-size: 30px;
     border-style: inset;
@@ -238,6 +240,13 @@ QCheckBox#mapButton:indicator:checked {
 QLabel#mapButton {
     color: #fff;
     font-size: 30px;
+}
+
+QLabel#mapFileLabel {
+    min-width: 320px;
+    max-width: 320px;
+    color: #fff;
+    font-size: 15px;
 }
 
 /****************************

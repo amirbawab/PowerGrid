@@ -9,9 +9,11 @@ using std::vector;
 MapDesignerWindow::MapDesignerWindow(QWidget* parent) : QMainWindow(parent)
 {
     resize(QDesktopWidget().availableGeometry(this).size() * 0.9); // 90% of width
+
     // Center on screen
     setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter,
                                     this->size(), QApplication::desktop()->availableGeometry()));
+    setWindowTitle("PG MapDesigner");
 
     centralWidget = new QWidget(this);
     layout = new QGridLayout(centralWidget);
@@ -65,8 +67,9 @@ MapDesignerWindow::MapDesignerWindow(QWidget* parent) : QMainWindow(parent)
     connect(exportXml              , SIGNAL(clicked()), graphicsView, SLOT(OnExportXml()));
     connect(loadXml                , &QPushButton::clicked, [=]()
     {
-        auto inputFile = QFileDialog::getOpenFileName(this, "Map File Location", ".",
-                                                      "XML Files (*.xml)");
+        auto inputFile = QFileDialog::getOpenFileName(
+            this, "Map File Location", "Resources/config/map", "XML Files (*.xml)");
+
         if (inputFile.isEmpty())
             return;
 

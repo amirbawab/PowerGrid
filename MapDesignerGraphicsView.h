@@ -10,6 +10,7 @@ class MapDesignerGraphicsView : public QGraphicsView
     Q_OBJECT
 
 public:
+    const std::string DESCRIPTION = "Created by PG MapDesigner";
     const QColor DEFAULT_REGION_COLOR = Qt::white;
 
     MapDesignerGraphicsView();

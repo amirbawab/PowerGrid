@@ -20,12 +20,15 @@ public:
     public:
         SelectMapWidget();
         ~SelectMapWidget();
-        QPushButton *nextMapBtn, *previousMapBtn;
+        QPushButton* nextMapBtn;
+        QPushButton* previousMapBtn;
         QPushButton* createMapButton;
         QPushButton* loadMapButton;
-        QCheckBox* useCustomMap;
-        QLabel* useCustomMapLabel;
-        QLabel *titleLabel, *mapLabel;
+        QCheckBox  * useCustomMap;
+        QLabel     * useCustomMapLabel;
+        QLabel     * titleLabel;
+        QLabel     * mapLabel;
+        QLabel     * selectedFileLabel;
         std::vector<std::string> mapLabels;
         int currentMap = 0;
         std::string GetSelectedMap() { return mapLabels[currentMap]; }

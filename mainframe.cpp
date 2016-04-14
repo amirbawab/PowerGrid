@@ -62,7 +62,7 @@ void MainFrame::onNewGame() {
 
 void MainFrame::onLoadGame() {
     auto fileName = QFileDialog::getOpenFileName(this, "Save Game Location",
-                                                 "Please Specify Save Game Location", "XML Files (*.xml)");
+                                                 "Resources/saved games", "XML Files (*.xml)");
     if (fileName.isEmpty())
         return;
 

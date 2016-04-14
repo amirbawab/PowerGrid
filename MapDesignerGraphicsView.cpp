@@ -405,6 +405,7 @@ void MapDesignerGraphicsView::OnExportXml()
     pugi::xml_document document;
     auto map = document.append_child("map");
     map.append_attribute("name").set_value(mapName.toStdString().c_str());
+    map.append_attribute("description").set_value(DESCRIPTION.c_str());
     PopulateCities(map);
     PopulateConnections(map);
 
@@ -434,6 +435,15 @@ void MapDesignerGraphicsView::LoadXml(QString fileName)
         return;
     }
 
+    auto mapNode = mapXml.child("map");
+    if (!mapNode || mapNode.attribute("description").value() != DESCRIPTION)
+    {
+        QMessageBox::critical(this, "Content Error", QString("This file doesn't appear")
+                              .append(" to be created using PG MapDesigner!"));
+        return;
+    }
+
+
     if (!LoadCities(mapXml))
     {
         QMessageBox::critical(this, "City Input Error",
@@ -459,19 +469,12 @@ void MapDesignerGraphicsView::PopulateCities(pugi::xml_node& map)
         auto city = cityMapItem.second;
 
         auto cityNode = citiesNode.append_child("city");
-        auto cityNameAttribute = cityNode.append_attribute("name");
-        auto cityRegionAttribute = cityNode.append_attribute("region");
-        auto cityXAttribute = cityNode.append_attribute("x");
-        auto cityYAttribute = cityNode.append_attribute("y");
-        auto cityWidthAttribute = cityNode.append_attribute("width");
-        auto cityHeightAttribute = cityNode.append_attribute("height");
-
-        cityNameAttribute.set_value(city->GetName().c_str());
-        cityRegionAttribute.set_value(city->GetRegionColor().name().toStdString().c_str());
-        cityXAttribute.set_value(city->rect().x());
-        cityYAttribute.set_value(city->rect().y());
-        cityWidthAttribute.set_value(city->rect().width());
-        cityHeightAttribute.set_value(city->rect().height());
+        cityNode.append_attribute("name").set_value(city->GetName().c_str());
+        cityNode.append_attribute("region").set_value(city->GetRegionColor().name().toStdString().c_str());
+        cityNode.append_attribute("x").set_value(city->rect().x());
+        cityNode.append_attribute("y").set_value(city->rect().y());
+        cityNode.append_attribute("width").set_value(city->rect().width());
+        cityNode.append_attribute("height").set_value(city->rect().height());
     }
 }
 
@@ -481,13 +484,9 @@ void MapDesignerGraphicsView::PopulateConnections(pugi::xml_node& map)
     for (auto& connection : connections)
     {
         auto connectionNode = connectionsNode.append_child("connection");
-        auto connectionFirstAttribute = connectionNode.append_attribute("first");
-        auto connectionSecondAttribute = connectionNode.append_attribute("second");
-        auto connectionCostAttribute = connectionNode.append_attribute("cost");
-
-        connectionFirstAttribute.set_value(connection->GetFirstCity()->GetName().c_str());
-        connectionSecondAttribute.set_value(connection->GetSecondCity()->GetName().c_str());
-        connectionCostAttribute.set_value(connection->GetCost());
+        connectionNode.append_attribute("first").set_value(connection->GetFirstCity()->GetName().c_str());
+        connectionNode.append_attribute("second").set_value(connection->GetSecondCity()->GetName().c_str());
+        connectionNode.append_attribute("cost").set_value(connection->GetCost());
     }
 }
 
@@ -495,10 +494,6 @@ bool MapDesignerGraphicsView::LoadCities(pugi::xml_document& xml)
 {
     cities = map<string, shared_ptr<MapDesignerCity>>();
     loadedRegionColors = set<QColor>();
-
-    auto mapNode = xml.child("map");
-    if (!mapNode)
-        return false;
 
     for (auto cityNode : xml.select_nodes("/map/cities/city"))
     {
@@ -529,10 +524,6 @@ bool MapDesignerGraphicsView::LoadCities(pugi::xml_document& xml)
 bool MapDesignerGraphicsView::LoadConnections(pugi::xml_document& xml)
 {
     connections = vector<unique_ptr<MapDesignerConnection>>();
-
-    auto mapNode = xml.child("map");
-    if (!mapNode)
-        return false;
 
     string firstCity, secondCity;
     int cost;

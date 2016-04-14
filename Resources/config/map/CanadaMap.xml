@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<map name="Canada">
+<map name="Canada" description="Created by PG MapDesigner">
 	<cities>
 		<city name="Abitibi " region="#0000ff" x="681" y="196" width="60" height="60" />
 		<city name="Arvial" region="#00007f" x="495" y="22" width="60" height="60" />

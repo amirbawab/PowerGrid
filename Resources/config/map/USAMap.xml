@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<map name="USA">
+<map name="USA" description="Created by PG MapDesigner">
 	<cities>
 		<city name="Atlanta" region="#00aa00" x="1129" y="490" width="60" height="60" />
 		<city name="Billings" region="#aa55ff" x="419" y="63" width="60" height="60" />

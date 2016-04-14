@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<map name="Germany">
+<map name="Germany" description="Created by PG MapDesigner">
 	<cities>
 		<city name="Aachen" region="#55aa00" x="125" y="520" width="60" height="60" />
 		<city name="Augsbug" region="#55aaff" x="482" y="740" width="60" height="60" />

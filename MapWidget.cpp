@@ -74,11 +74,15 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     loadMapButton = new QPushButton("Load Custom Map ...");
     useCustomMap = new QCheckBox();
     useCustomMapLabel = new QLabel("Use Custom Map");
+    selectedFileLabel = new QLabel("<b>Selected File:</b>");
 
     createMapButton->setObjectName("mapButton");
     loadMapButton->setObjectName("mapButton");
     useCustomMap->setObjectName("mapButton");
     useCustomMapLabel->setObjectName("mapButton");
+    selectedFileLabel->setObjectName("mapFileLabel");
+    selectedFileLabel->setWordWrap(true);
+    selectedFileLabel->setVisible(false);
     loadMapButton->setEnabled(false);
     loadMapButton->setVisible(false);
 
@@ -93,6 +97,8 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
 
     vLayout->addSpacerItem(new QSpacerItem(0, 20));
     vLayout->addWidget(loadMapButton);
+    vLayout->addSpacerItem(new QSpacerItem(0, 20));
+    vLayout->addWidget(selectedFileLabel);
 
     gridLayout->addLayout(vLayout, 2, 0, 1, 3);
 
@@ -108,6 +114,7 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     {
         loadMapButton->setEnabled(checked);
         loadMapButton->setVisible(checked);
+        selectedFileLabel->setVisible(checked);
         useCustomMapSelected = checked;
     });
 
@@ -115,6 +122,9 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     {
         customMapFileName = QFileDialog::getOpenFileName(
             this, "Map File Location", "Resources/config/map", "XML Files (*.xml)");
+        selectedFileLabel->setText("<b>Selected File:</b> " + (customMapFileName.isEmpty() ?
+                                   "<font color='red'><b>NONE</b></font>" :
+                                   "<font color='black'>" + customMapFileName + "</font>"));
     });
 }
 
