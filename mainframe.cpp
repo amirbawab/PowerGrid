@@ -98,18 +98,25 @@ void MainFrame::onMapBack() {
 void MainFrame::onMapNext() {
     qDebug("Next from map selection screen");
     
-    // --- Uncomment these lines to display a dialog box to allow choosing a custom map (an XML file) --> there's one
-    //      in 'Resources/config/map/TestMap.xml'
-//    auto mapFileName = QFileDialog::getOpenFileName(this, "Map Location", "", "XML Files (*.xml)");
-//    if (mapFileName.isEmpty())
-//        return;
+    if (mapWidget->GetSelectMapWidget()->useCustomMapSelected)
+    {
+        auto mapFileName = mapWidget->GetSelectMapWidget()->customMapFileName;
 
-    // TODO change USA to be read from gui
-    Game::getInstance().ConfigNewGame(mapWidget->GetSelectedMap(), mapWidget->GetNumberOfPlayers());
+        if (mapFileName.isEmpty())
+        {
+            QMessageBox::critical(
+                this, "Custom Map Error", QString("You have selected to use a custom")
+                .append(", but you didn't select a file"));
 
-    // --- Uncomment this line (and comment the line above) to load the custom map you selected above
-//    Game::getInstance().ConfigNewGame(mapFileName.toStdString(), mapWidget->GetNumberOfPlayers(), true);
-    
+            return;
+        }
+
+        Game::getInstance().ConfigNewGame(mapFileName.toStdString(),
+                                          mapWidget->GetNumberOfPlayers(), true);
+    }
+    else
+        Game::getInstance().ConfigNewGame(mapWidget->GetSelectedMap(), mapWidget->GetNumberOfPlayers());
+
     centerStackWidget->setCurrentIndex(playerConfigWidgetIndex);
     playerConfigWidget->SetNumberOfPlayers(mapWidget->GetNumberOfPlayers());
     boardWidget->DrawMap();

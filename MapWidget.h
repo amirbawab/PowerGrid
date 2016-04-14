@@ -9,7 +9,11 @@
 
 class MapWidget : public TemplateNextBackWidget {
     Q_OBJECT
-private:
+
+public:
+    MapWidget();
+    ~MapWidget();
+
     class SelectMapWidget : public QWidget {
     private:
         QGridLayout *gridLayout;
@@ -25,6 +29,9 @@ private:
         std::vector<std::string> mapLabels;
         int currentMap = 0;
         std::string GetSelectedMap() { return mapLabels[currentMap]; }
+
+        bool useCustomMapSelected = false;
+        QString customMapFileName;
     };
 
     class SelectNumberOfPlayerWidget : public QWidget {
@@ -37,6 +44,11 @@ private:
         QLabel *titleLabel, *numberOfPlayersLabel;
     };
 
+    std::string GetSelectedMap() const { return selectMapWidget->GetSelectedMap(); }
+    int GetNumberOfPlayers() const { return stoi(selectNumberOfPlayerWidget->numberOfPlayersLabel->text().toStdString()); }
+    SelectMapWidget* GetSelectMapWidget() const { return selectMapWidget; }
+
+private:
     SelectMapWidget *selectMapWidget;
     SelectNumberOfPlayerWidget *selectNumberOfPlayerWidget;
     void paintEvent(QPaintEvent *) override;
@@ -45,9 +57,5 @@ private slots:
     void increment();
     void decrement();
 public:
-    MapWidget();
-    ~MapWidget();
-    std::string GetSelectedMap() { return selectMapWidget->GetSelectedMap(); }
-    int GetNumberOfPlayers() const { return stoi(selectNumberOfPlayerWidget->numberOfPlayersLabel->text().toStdString()); }
 };
 

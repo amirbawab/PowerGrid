@@ -108,6 +108,13 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     {
         loadMapButton->setEnabled(checked);
         loadMapButton->setVisible(checked);
+        useCustomMapSelected = checked;
+    });
+
+    connect(loadMapButton, &QPushButton::clicked, [=]()
+    {
+        customMapFileName = QFileDialog::getOpenFileName(
+            this, "Map File Location", "Resources/config/map", "XML Files (*.xml)");
     });
 }
 
