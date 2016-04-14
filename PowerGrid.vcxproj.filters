@@ -202,6 +202,12 @@
     <Filter Include="Header Files\gui\pages\board\components\mode\components\map">
       <UniqueIdentifier>{e284edeb-1473-4bf0-91f0-23dffa60f56d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\mapDesigner">
+      <UniqueIdentifier>{45401845-a16a-4240-b991-4a643822c03e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\mapDesigner">
+      <UniqueIdentifier>{c9415650-479b-4df1-92ac-faff1af4d682}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -351,6 +357,27 @@
     <ClCompile Include="HouseItem.cpp">
       <Filter>Source Files\gui\pages\board\components\mode\components\map</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MapDesignerGraphicsView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MapDesignerWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="MapDesignerCity.cpp">
+      <Filter>Source Files\mapDesigner</Filter>
+    </ClCompile>
+    <ClCompile Include="MapDesignerConnection.cpp">
+      <Filter>Source Files\mapDesigner</Filter>
+    </ClCompile>
+    <ClCompile Include="MapDesignerGraphicsView.cpp">
+      <Filter>Source Files\mapDesigner</Filter>
+    </ClCompile>
+    <ClCompile Include="MapDesignerPlayerHouse.cpp">
+      <Filter>Source Files\mapDesigner</Filter>
+    </ClCompile>
+    <ClCompile Include="MapDesignerWindow.cpp">
+      <Filter>Source Files\mapDesigner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="powergrid.qrc">
@@ -385,6 +412,12 @@
     </CustomBuild>
     <CustomBuild Include="BoardWidget.h">
       <Filter>Header Files\gui\pages\board</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MapDesignerGraphicsView.h">
+      <Filter>Header Files\mapDesigner</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MapDesignerWindow.h">
+      <Filter>Header Files\mapDesigner</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -492,6 +525,18 @@
     </ClInclude>
     <ClInclude Include="HouseItem.h">
       <Filter>Header Files\gui\pages\board\components\mode\components\map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapDesignerCity.h">
+      <Filter>Header Files\mapDesigner</Filter>
+    </ClInclude>
+    <ClInclude Include="MapDesignerConnection.h">
+      <Filter>Header Files\mapDesigner</Filter>
+    </ClInclude>
+    <ClInclude Include="MapDesignerPlayer.h">
+      <Filter>Header Files\mapDesigner</Filter>
+    </ClInclude>
+    <ClInclude Include="MapDesignerPlayerHouse.h">
+      <Filter>Header Files\mapDesigner</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

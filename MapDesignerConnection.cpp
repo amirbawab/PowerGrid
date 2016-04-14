@@ -1,9 +1,9 @@
-#include "Connection.h"
+#include "MapDesignerConnection.h"
 #include <QFont>
 #include <QFontMetrics>
 #include <QPen>
 
-QPoint Connection::GetCostLocation(QFont font) const
+QPoint MapDesignerConnection::GetCostLocation(QFont font) const
 {
     int deltaY = first->GetCenter().y() - second->GetCenter().y();
     int deltaX = first->GetCenter().x() - second->GetCenter().x();
@@ -16,7 +16,7 @@ QPoint Connection::GetCostLocation(QFont font) const
                   std::min(first->GetCenter().y(), second->GetCenter().y()) + centerY);
 }
 
-int Connection::GetCostCircleDiameter(QFont font) const
+int MapDesignerConnection::GetCostCircleDiameter(QFont font) const
 {
     auto diameterOffset = 10;
 
@@ -24,7 +24,7 @@ int Connection::GetCostCircleDiameter(QFont font) const
     return std::max(costSize.width(), costSize.height()) + diameterOffset;
 }
 
-void Connection::SetSecondCity(std::shared_ptr<City> city)
+void MapDesignerConnection::SetSecondCity(std::shared_ptr<MapDesignerCity> city)
 {
     if (!first)
         return;
@@ -35,7 +35,7 @@ void Connection::SetSecondCity(std::shared_ptr<City> city)
     setPen(QPen(LINE_COLOR, LINE_WIDTH));
 }
 
-QSize Connection::GetCostPixelSize(QFont font) const
+QSize MapDesignerConnection::GetCostPixelSize(QFont font) const
 {
     auto costString = std::to_string(cost);
     QFontMetrics metrics(font);
@@ -45,7 +45,7 @@ QSize Connection::GetCostPixelSize(QFont font) const
     return QSize(costPixelWidth, costPixelHeight);
 }
 
-QGraphicsSimpleTextItem* Connection::GetCostTextItem(QFont font) const
+QGraphicsSimpleTextItem* MapDesignerConnection::GetCostTextItem(QFont font) const
 {
     auto costString = std::to_string(GetCost());
     auto costLocation = GetCostLocation(font);
@@ -57,7 +57,7 @@ QGraphicsSimpleTextItem* Connection::GetCostTextItem(QFont font) const
     return costTextItem;
 }
 
-QGraphicsEllipseItem* Connection::GetCostEllipseItem(QFont font) const
+QGraphicsEllipseItem* MapDesignerConnection::GetCostEllipseItem(QFont font) const
 {
     auto costLocation = GetCostLocation(font);
     auto costSize = GetCostPixelSize(font);

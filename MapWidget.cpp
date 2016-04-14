@@ -102,6 +102,10 @@ MapWidget::SelectMapWidget::~SelectMapWidget() {
     delete titleLabel;
     delete gridLayout;
     delete mapLabel;
+    delete useCustomMap;
+    delete useCustomMapLabel;
+    delete loadMapButton;
+    delete createMapButton;
 }
 
 MapWidget::SelectNumberOfPlayerWidget::SelectNumberOfPlayerWidget() {

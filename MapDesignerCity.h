@@ -1,24 +1,24 @@
 #pragma once
 
 #include <QGraphicsEllipseItem>
-#include <Player.h>
+#include "MapDesignerPlayer.h"
 #include <memory>
 
-class City : public QGraphicsEllipseItem
+class MapDesignerCity : public QGraphicsEllipseItem
 {
     std::string name;
     QColor regionColor;
-    std::vector<std::shared_ptr<Player>> players;
-    std::vector<std::shared_ptr<PlayerHouse>> houses;
+    std::vector<std::shared_ptr<MapDesignerPlayer>> players;
+    std::vector<std::shared_ptr<MapDesignerPlayerHouse>> houses;
 
 public:
-    City(QPoint center, int width, int height);
+    MapDesignerCity(QPoint center, int width, int height);
 
     std::string GetName() const { return name; }
     void SetName(std::string name) { this->name = name; }
 
-    std::vector<std::shared_ptr<Player>>& GetPlayers() { return players; }
-    std::vector<std::shared_ptr<PlayerHouse>>& GetHouses() { return houses; }
+    std::vector<std::shared_ptr<MapDesignerPlayer>>& GetPlayers() { return players; }
+    std::vector<std::shared_ptr<MapDesignerPlayerHouse>>& GetHouses() { return houses; }
 
     void SetRegionColor(QColor regionColor);
     QColor GetRegionColor() const { return regionColor; }

@@ -1,23 +1,24 @@
-#include "City.h"
+#include "MapDesignerCity.h"
 #include <QFont>
 #include <QFontMetrics>
+#include <QBrush>
 
 //#include <iostream>
 //using std::cout;
 //using std::endl;
 
-City::City(QPoint center, int width, int height)
+MapDesignerCity::MapDesignerCity(QPoint center, int width, int height)
 {
     setRect(center.x() - width / 2, center.y() - height / 2, width, height);
 }
 
-void City::SetRegionColor(QColor regionColor)
+void MapDesignerCity::SetRegionColor(QColor regionColor)
 {
     this->regionColor = regionColor;
     setBrush(QBrush(regionColor));
 }
 
-QPoint City::GetNameLocation(QFont font) const
+QPoint MapDesignerCity::GetNameLocation(QFont font) const
 {
     int nameOffset = 5;
 
@@ -29,12 +30,12 @@ QPoint City::GetNameLocation(QFont font) const
                   GetCenter().y() - rect().height() / 2 - nameHeight - nameOffset);
 }
 
-QPoint City::GetCenter() const
+QPoint MapDesignerCity::GetCenter() const
 {
     return QPoint(rect().x() + rect().width() / 2, rect().y() + rect().height() / 2);
 }
 
-QGraphicsSimpleTextItem* City::GetNameTextItem(QFont font) const
+QGraphicsSimpleTextItem* MapDesignerCity::GetNameTextItem(QFont font) const
 {
     auto cityNameTextItem = new QGraphicsSimpleTextItem(name.c_str());
     cityNameTextItem->setPos(GetNameLocation(font));
@@ -43,7 +44,7 @@ QGraphicsSimpleTextItem* City::GetNameTextItem(QFont font) const
     return cityNameTextItem;
 }
 
-QPoint City::GetHousePosition(int index) const
+QPoint MapDesignerCity::GetHousePosition(int index) const
 {
     auto center = GetCenter();
     int offset = 10;
