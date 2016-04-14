@@ -20,6 +20,8 @@ using std::cout;
 using std::endl;
 using std::cin;
 
+const string CONFIG_FILE_PATH = ":/PowerGrid/Resources/config/Config.xml";
+
 class Game : public Subject {
 private:
     Game();

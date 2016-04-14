@@ -29,6 +29,9 @@ void Game::NewGame() {
     fullTurn = 1;
     phase = 0;
     playStep = 1;
+
+    // Load the config to have the maps
+    GameStatus::GetInstance().Init(this, "", CONFIG_FILE_PATH);
 }
 
 void Game::ConfigNewGame(string map, int numberOfPlayers, bool customMap) {
@@ -39,7 +42,7 @@ void Game::ConfigNewGame(string map, int numberOfPlayers, bool customMap) {
     Reset();
 
     // Initialize game
-    GameStatus::GetInstance().Init(this, map, ":/PowerGrid/Resources/config/Config.xml", customMap);
+    GameStatus::GetInstance().Init(this, map, CONFIG_FILE_PATH, customMap);
 
     // Reset vector of players
     players.clear();

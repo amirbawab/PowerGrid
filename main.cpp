@@ -8,23 +8,26 @@
 
 int main(int argc, char *argv[]) {
 
-	// Application
-	Application application(argc, argv);
+    // Application
+    Application application(argc, argv);
 
-	// Load css
-	QFile File(":/PowerGrid/Resources/stylesheet.qss");
-	File.open(QFile::ReadOnly);
-	QString StyleSheet = QLatin1String(File.readAll());
+    // Just to have the maps!
+    Game::getInstance().NewGame();
 
-	// Main frame
-	MainFrame mainframe("Power Grid");
+    // Load css
+    QFile File(":/PowerGrid/Resources/stylesheet.qss");
+    File.open(QFile::ReadOnly);
+    QString StyleSheet = QLatin1String(File.readAll());
 
-	// Attach observer
-	Game::getInstance().Attach(&mainframe);
+    // Main frame
+    MainFrame mainframe("Power Grid");
 
-	// Apply css
-	application.setStyleSheet(StyleSheet);
+    // Attach observer
+    Game::getInstance().Attach(&mainframe);
 
-	// Return
-	return application.exec();
+    // Apply css
+    application.setStyleSheet(StyleSheet);
+
+    // Return
+    return application.exec();
 }

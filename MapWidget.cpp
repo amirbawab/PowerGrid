@@ -1,6 +1,8 @@
 #include "MapWidget.h"
 #include <QPainter>
 #include <QFileDialog>
+#include "Game.h"
+#include "Config.h"
 
 MapWidget::MapWidget() {
     
@@ -31,6 +33,8 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     titleLabel = new QLabel("Select map");
     mapLabel = new QLabel();
     
+    using std::cout;
+    using std::endl;
     // Add maps
     mapLabels.push_back("USA");
     mapLabels.push_back("Canada");
