@@ -1,5 +1,6 @@
 #include "MapWidget.h"
 #include <QPainter>
+#include "MapDesignerWindow.h"
 
 MapWidget::MapWidget() {
     
@@ -94,6 +95,20 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     vLayout->addWidget(loadMapButton);
 
     gridLayout->addLayout(vLayout, 2, 0, 1, 3);
+
+    // Connect signals/slots
+    connect(createMapButton, &QPushButton::clicked, []()
+    {
+        auto mapDesigner = new MapDesignerWindow();
+        mapDesigner->setWindowModality(Qt::ApplicationModal);
+        mapDesigner->show();
+    });
+
+    connect(useCustomMap, &QCheckBox::clicked, [=](bool checked)
+    {
+        loadMapButton->setEnabled(checked);
+        loadMapButton->setVisible(checked);
+    });
 }
 
 MapWidget::SelectMapWidget::~SelectMapWidget() {
