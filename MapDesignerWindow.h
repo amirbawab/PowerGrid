@@ -21,6 +21,7 @@ class MapDesignerWindow : public QMainWindow
     QLabel                  * regionColor;
     QLabel                  * regionColorLabel;
     QHBoxLayout             * hLayout;
+    QLabel                  * messageLabel;
 
     const int WIDTH  = 1700;
     const int HEIGHT = 900;

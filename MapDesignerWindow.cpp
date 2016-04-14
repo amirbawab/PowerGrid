@@ -55,7 +55,10 @@ MapDesignerWindow::MapDesignerWindow(QWidget* parent) : QMainWindow(parent)
 
     setCentralWidget(centralWidget);
 
+    messageLabel = new QLabel();
+    messageLabel->setObjectName("statusBarMessage");
     statusBar = new QStatusBar(centralWidget);
+    statusBar->addPermanentWidget(messageLabel, 10);
     setStatusBar(statusBar);
 
     connect(addCityButton          , SIGNAL(clicked()), graphicsView, SLOT(OnAddCity()));
@@ -95,16 +98,17 @@ MapDesignerWindow::~MapDesignerWindow()
     delete regionColorLabel;
     delete hLayout;
     delete centralWidget;
+    delete messageLabel;
 }
 
 void MapDesignerWindow::OnDisplayMessage(QString message) const
 {
-    statusBar->showMessage(message);
+    messageLabel->setText(message);
 }
 
 void MapDesignerWindow::OnClearMessage() const
 {
-    statusBar->clearMessage();
+    messageLabel->setText("");
 }
 
 void MapDesignerWindow::OnChangeRegionColor() const

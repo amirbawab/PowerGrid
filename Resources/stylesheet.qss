@@ -334,6 +334,10 @@ QPushButton#left_arrow {
     font-size: 25px;
  }
 
+ QLabel#statusBarMessage {
+    font-size: 15px;
+ }
+
  /*******************
  *
  *		BOARD

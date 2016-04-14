@@ -206,7 +206,7 @@ void MapDesignerGraphicsView::mousePressEvent(QMouseEvent* event)
         addConnectionFirstCity = false;
         addConnectionSecondCity = true;
 
-        emit DisplayMessage("Now, please select the second city ...");
+        emit DisplayMessage("Now, please select the second city ... (Press <b>ESC</b> to Cancel)");
     }
     else if (addConnectionSecondCity)
     {
@@ -340,10 +340,11 @@ void MapDesignerGraphicsView::OnAddCity()
         return;
     }
 
+    OnCancelOperation();
     emit ClearMessage();
     addCity = true;
     viewport()->setCursor(Qt::ArrowCursor);
-    emit DisplayMessage("Please select the center of the city ...");
+    emit DisplayMessage("Please select the center of the city ... (Press <b>ESC</b> to Cancel)");
 }
 
 void MapDesignerGraphicsView::OnDeleteCity()
@@ -354,10 +355,11 @@ void MapDesignerGraphicsView::OnDeleteCity()
         return;
     }
 
+    OnCancelOperation();
     emit ClearMessage();
     deleteCity = true;
     viewport()->setCursor(Qt::ArrowCursor);
-    emit DisplayMessage("Please select the city to delete ...");
+    emit DisplayMessage("Please select the city to delete ... (Press <b>ESC</b> to Cancel)");
 }
 
 void MapDesignerGraphicsView::OnAddConnection()
@@ -368,10 +370,11 @@ void MapDesignerGraphicsView::OnAddConnection()
         return;
     }
 
+    OnCancelOperation();
     emit ClearMessage();
     addConnectionFirstCity = true;
     viewport()->setCursor(Qt::ArrowCursor);
-    emit DisplayMessage("Please select the first city ...");
+    emit DisplayMessage("Please select the first city ... (Press <b>ESC</b> to Cancel)");
 }
 
 void MapDesignerGraphicsView::OnCancelOperation()
