@@ -5,6 +5,7 @@
 #include <limits>
 #include <queue>
 #include <stack>
+#include "MapDesignerGraphicsView.h"
 
 using std::string;
 using std::cout;
@@ -226,6 +227,33 @@ void Map::RemoveRegion(string regionName)
         return;
 
     RemoveRegion(regions[regionIndex]);
+}
+
+bool Map::IsMapFileValid(string mapFileName)
+{
+    pugi::xml_document mapXml;
+    QFile mapXmlFile(mapFileName.c_str());
+
+    if (!mapXmlFile.open(QFile::ReadOnly)) {
+        Error("Could not open file: " + mapFileName);
+        return false;
+    }
+
+    QString mapXmlContent = mapXmlFile.readAll();
+
+    // Read map content from file
+    auto result = mapXml.load_string(mapXmlContent.toStdString().c_str());
+    if (result.status != pugi::status_ok) {
+        Error("Could not read XML content for map");
+        Error("Reason: " + string(result.description()) + "\n");
+        return false;
+    }
+    
+    auto mapNdoe = mapXml.child("map");
+    if (!mapNdoe || mapNdoe.attribute("description").value() != MAP_DESCRIPTION)
+        return false;
+
+    return true;
 }
 
 int Map::GetRegionIndex(const string regionName) const

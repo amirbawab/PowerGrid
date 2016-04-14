@@ -111,6 +111,13 @@ void MainFrame::onMapNext() {
             return;
         }
 
+        if (!Map::IsMapFileValid(mapFileName.toStdString()))
+        {
+            QMessageBox::critical(this, "Map Content Error", QString("You can only use map files")
+                                  .append(" created by <b>PG MapDesigner</b>"));
+            return;
+        }
+
         Game::getInstance().ConfigNewGame(mapFileName.toStdString(),
                                           mapWidget->GetNumberOfPlayers(), true);
     }

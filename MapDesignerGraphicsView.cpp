@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QColorDialog>
 #include <QFileDialog>
+#include "Map.h"
 
 using std::string;
 using std::cout;
@@ -408,7 +409,7 @@ void MapDesignerGraphicsView::OnExportXml()
     pugi::xml_document document;
     auto map = document.append_child("map");
     map.append_attribute("name").set_value(mapName.toStdString().c_str());
-    map.append_attribute("description").set_value(DESCRIPTION.c_str());
+    map.append_attribute("description").set_value(MAP_DESCRIPTION.c_str());
     PopulateCities(map);
     PopulateConnections(map);
 
@@ -438,14 +439,12 @@ void MapDesignerGraphicsView::LoadXml(QString fileName)
         return;
     }
 
-    auto mapNode = mapXml.child("map");
-    if (!mapNode || mapNode.attribute("description").value() != DESCRIPTION)
+    if (!Map::IsMapFileValid(fileName.toStdString()))
     {
         QMessageBox::critical(this, "Content Error", QString("This file doesn't appear")
                               .append(" to be created using PG MapDesigner!"));
         return;
     }
-
 
     if (!LoadCities(mapXml))
     {

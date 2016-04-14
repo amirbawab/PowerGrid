@@ -42,6 +42,7 @@ public:
     void RemoveRegion(shared_ptr<Region> region);
     void RemoveRegion(string regionName);
 
+    static bool IsMapFileValid(string mapFileName);
     std::set<shared_ptr<Region>>& GetRemovedRegions() { return removedRegions; }
 
 private:

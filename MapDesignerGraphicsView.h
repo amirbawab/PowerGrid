@@ -5,12 +5,13 @@
 #include "pugixml.hpp"
 #include "set"
 
+const std::string MAP_DESCRIPTION = "Created by PG MapDesigner";
+
 class MapDesignerGraphicsView : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    const std::string DESCRIPTION = "Created by PG MapDesigner";
     const QColor DEFAULT_REGION_COLOR = Qt::white;
 
     MapDesignerGraphicsView();
@@ -75,4 +76,3 @@ public slots:
     void OnCancelOperation();
     void OnExportXml();
 };
-
