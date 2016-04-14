@@ -109,11 +109,22 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
 
     connect(loadMapButton, &QPushButton::clicked, [=]()
     {
+        auto oldMapFileName = customMapFileName;
         customMapFileName = QFileDialog::getOpenFileName(
             this, "Map File Location", "Resources/config/map", "XML Files (*.xml)");
+
+        if (customMapFileName.isEmpty() && !oldMapFileName.isEmpty())
+            customMapFileName = oldMapFileName;
+
+        QString mapFile;
+        if (!customMapFileName.isEmpty())
+        {
+            auto split = customMapFileName.split('/');
+            mapFile = split[split.size() - 1];
+        }
         selectedFileLabel->setText("<b>Selected File:</b> " + (customMapFileName.isEmpty() ?
                                    "<font color='red'><b>NONE</b></font>" :
-                                   "<font color='black'>" + customMapFileName + "</font>"));
+                                   "<font color='black'><b>" + mapFile + "</b></font>"));
     });
 }
 
