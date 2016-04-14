@@ -89,7 +89,7 @@ QWidget#welcomeMenuWidget {
 QPushButton#templateLogoGenericButton {
     color: #fff;
     font-family: 'Hemmet Personal Use Only';
-    font-size: 60px;
+    font-size: 50px;
     border-style: outset;
     border-width: 0px;
 }

@@ -1,6 +1,6 @@
 #include "MapWidget.h"
 #include <QPainter>
-#include "MapDesignerWindow.h"
+#include <QFileDialog>
 
 MapWidget::MapWidget() {
     
@@ -70,13 +70,11 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     // Add map components
     auto vLayout = new QVBoxLayout();
     auto hLayout = new QHBoxLayout();
-    createMapButton = new QPushButton("Create New Map ...");
     loadMapButton = new QPushButton("Load Custom Map ...");
     useCustomMap = new QCheckBox();
     useCustomMapLabel = new QLabel("Use Custom Map");
     selectedFileLabel = new QLabel("<b>Selected File:</b>");
 
-    createMapButton->setObjectName("mapButton");
     loadMapButton->setObjectName("mapButton");
     useCustomMap->setObjectName("mapButton");
     useCustomMapLabel->setObjectName("mapButton");
@@ -87,7 +85,6 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     loadMapButton->setVisible(false);
 
     vLayout->addSpacerItem(new QSpacerItem(0, 20));
-    vLayout->addWidget(createMapButton);
     vLayout->addSpacerItem(new QSpacerItem(0, 100));
 
     useCustomMap->setFixedSize(50, 50);
@@ -101,14 +98,6 @@ MapWidget::SelectMapWidget::SelectMapWidget() {
     vLayout->addWidget(selectedFileLabel);
 
     gridLayout->addLayout(vLayout, 2, 0, 1, 3);
-
-    // Connect signals/slots
-    connect(createMapButton, &QPushButton::clicked, []()
-    {
-        auto mapDesigner = new MapDesignerWindow();
-        mapDesigner->setWindowModality(Qt::ApplicationModal);
-        mapDesigner->show();
-    });
 
     connect(useCustomMap, &QCheckBox::clicked, [=](bool checked)
     {
@@ -137,7 +126,6 @@ MapWidget::SelectMapWidget::~SelectMapWidget() {
     delete useCustomMap;
     delete useCustomMapLabel;
     delete loadMapButton;
-    delete createMapButton;
 }
 
 MapWidget::SelectNumberOfPlayerWidget::SelectNumberOfPlayerWidget() {

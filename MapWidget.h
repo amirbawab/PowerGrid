@@ -22,7 +22,6 @@ public:
         ~SelectMapWidget();
         QPushButton* nextMapBtn;
         QPushButton* previousMapBtn;
-        QPushButton* createMapButton;
         QPushButton* loadMapButton;
         QCheckBox  * useCustomMap;
         QLabel     * useCustomMapLabel;

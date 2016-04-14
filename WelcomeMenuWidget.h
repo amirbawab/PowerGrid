@@ -14,7 +14,7 @@ public:
 	void setOnExitGame(const QObject *, const char*);
 private:
 	QVBoxLayout *vBoxLayout;
-	QPushButton *newGameBtn, *loadGameBtn, *exitBtn;
+	QPushButton *newGameBtn, *loadGameBtn, *exitBtn, *createMapButton;
 	void paintEvent(QPaintEvent *pe) override;
 };
 
