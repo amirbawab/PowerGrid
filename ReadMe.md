@@ -1,6 +1,32 @@
 # PowerGrid Game Implementation
 
-To use the project:
+##Screenshots:
+
+#### Welcome page
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/NewGame.JPG"/>
+
+#### Select map and number of players
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/SelectMapPlayer.JPG"/>
+
+#### Players configurations
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/ConfigPlayers.JPG"/>
+
+#### Map mode
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/GameMap.JPG"/>
+
+#### Power plants mode
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/GameCards.JPG"/>
+
+#### Resource market mode
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/GameResourceMarket.JPG"/>
+
+#### Map mode (Buy house)
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/GameCity.JPG"/>
+
+#### Overview mode
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/GamePower.JPG"/>
+
+##To use the project:
 
 1. Install Visual Studio 2015  
     1. [This is the link to the Community version](https://go.microsoft.com/fwlink/?LinkId=691978&clcid=0x409)
