@@ -26,6 +26,9 @@
 #### Overview mode
 <img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/GamePower.JPG"/>
 
+### Create custom map ("Create New Map" button on Welcome page)
+<img src="https://github.com/amirbawab/powergrid/blob/master/Screenshot/MapDesigner.JPG"/>
+
 ##To use the project:
 
 1. Install Visual Studio 2015  
